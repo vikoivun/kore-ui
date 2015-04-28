@@ -1,0 +1,7 @@
+.make-column(@large, @medium, @small: 12, @tiny: 12) {
+  // Note that the order must be from smallest to biggest for responsiveness.
+  .make-xs-column(@tiny);
+  .make-sm-column(@small);
+  .make-md-column(@medium);
+  .make-lg-column(@large);
+}
