@@ -1,6 +1,7 @@
 'use strict';
 
 import AppDispatcher from '../core/AppDispatcher';
+import { enumerate } from '../core/utils';
 import ActionTypes from '../constants/ActionTypes';
 import { EventEmitter } from 'events';
 
@@ -35,7 +36,7 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
-      _receiveSchool(action.response);
+      _receiveSchools(action.response);
       SchoolStore.emitChange();
       break;
 
@@ -44,8 +45,10 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
   }
 });
 
-function _receiveSchool(school) {
-  _schools[school.id] = school;
+function _receiveSchools(schools) {
+  for (let [schoolId, school] of enumerate(schools)){
+    _schools[schoolId] = school;
+  }
 }
 
 export default SchoolStore;
