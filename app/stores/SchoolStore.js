@@ -26,7 +26,7 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
   },
 
   hasSchool: function(schoolId) {
-    return schoolId === 999;
+    return _schools[schoolId] !== undefined;
   }
 });
 
