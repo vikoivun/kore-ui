@@ -14,7 +14,7 @@
     "react": "^0.13.1",
     "react-document-title": "^1.0.2",
     "react-router": "^0.13.2",
-    "superagent": "^1.1.0"
+    "superagent": "~1.2.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^1.2.0",
@@ -39,8 +39,15 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testFileExtensions": ["es6", "js"],
-    "moduleFileExtensions": ["js", "json", "es6"],
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ],
     "unmockedModulePathPatterns": [
       "react"
     ]
