@@ -1,18 +1,29 @@
 'use strict';
 
 import SchoolServerActionCreators from '../actions/SchoolServerActionCreators';
+import request from 'superagent';
 
-function getSchoolMockData(shcoolId) {
-  return {
-    id: shcoolId,
-    name: 'Massachusetts Institute of Technology'
-  };
+const APIROOT = 'http://kore.hel.ninja/v1/';
+const APIARGS = {'format': 'json'};
+
+function buildAPIURL(resource) {
+  return encodeURI(APIROOT + resource);
 }
 
 export default {
   requestSchool(schoolId) {
-    // Do the actual api call here.
-    const response = getSchoolMockData(schoolId);
-    SchoolServerActionCreators.handleSchoolSuccess(response);
+    request
+    .get(buildAPIURL('school/' + schoolId))
+    .query(APIARGS)
+    .end(function(error, response) {
+      if (response.ok) {
+        SchoolServerActionCreators.handleSchoolSuccess({
+          [schoolId]: response.body
+        });
+      }
+      else {
+        SchoolServerActionCreators.handleSchoolError(response.text);
+      }
+    });
   }
 };
