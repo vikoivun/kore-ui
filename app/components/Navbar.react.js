@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router';
+import NavTab from './NavTab';
 
 class Navbar extends React.Component {
 
@@ -27,12 +27,8 @@ class Navbar extends React.Component {
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
-              <li>
-                <Link to="search">Etsi koulua</Link>
-              </li>
-              <li>
-                <Link to="about">Tietoa palvelusta</Link>
-              </li>
+                <NavTab to="search">Etsi koulua</NavTab>
+                <NavTab to="about">Tietoa palvelusta</NavTab>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li><a href="#">Logout</a></li>
