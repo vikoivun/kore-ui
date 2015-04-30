@@ -4,7 +4,7 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { RouteHandler } from 'react-router';
 import './styles/app.less';
-import Navbar from './components/Navbar.react';
+import Navbar from './components/Navbar';
 
 class App extends React.Component {
   render() {
