@@ -54,8 +54,10 @@ class SchoolPage extends React.Component {
     return (
       <DocumentTitle title='Koulut - Koulurekisteri'>
         <div className='school-page'>
-          <h1>{this.state.school.name}</h1>
-          <p>The school id is {this.props.params.schoolId}</p>
+          <div className='school-title'/>
+          <div className='school-timeline'/>
+          <div className='school-image-map'/>
+          <div className='school-history-details'/>
         </div>
       </DocumentTitle>
     );
