@@ -12,9 +12,7 @@ class App extends React.Component {
       <DocumentTitle title='Koulurekisteri'>
         <div className='app'>
           <Navbar />
-          <div className="container">
-            <RouteHandler {...this.props} />
-          </div>
+          <RouteHandler {...this.props} />
         </div>
       </DocumentTitle>
     );
