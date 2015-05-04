@@ -1,4 +1,17 @@
 .navbar{
+  &.navbar-inverse .navbar-nav li > a,
+  &.navbar-inverse .navbar-nav li > a:hover,
+  &.navbar-inverse .navbar-nav li > a:focus ,
+  &.navbar-inverse .navbar-brand,
+  &.navbar-inverse .navbar-brand:hover {
+    color: @navbar-inverse-link-color;
+    cursor: pointer;
+  }
+
+  &.navbar-inverse .navbar-nav li:hover {
+    &:extend(.navbar-inverse .navbar-nav > .active > a);
+  }
+
   .coat-of-arms {
     display: inline-block;
     vertical-align: top;
