@@ -36,6 +36,14 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
       return {};
     }
     return school.names[0];
+  },
+
+  getMainBuilding: function(schoolId) {
+    const school = this.getSchool(schoolId);
+    if (_.isEmpty(school)) {
+      return {};
+    }
+    return school.buildings[0];
   }
 });
 
