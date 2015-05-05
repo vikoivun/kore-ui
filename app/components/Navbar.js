@@ -1,13 +1,13 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router';
+import NavTab from './NavTab';
 
 class Navbar extends React.Component {
 
   render() {
     return (
-      <nav className="navbar navbar-default navbar-static-top">
+      <nav className="navbar navbar-inverse navbar-static-top">
         <div className="container">
           <div className="navbar-header">
             <button
@@ -23,16 +23,12 @@ class Navbar extends React.Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand">Koulurekisteri</a>
+            <a className="navbar-brand"><span className="coat-of-arms"/>Koulurekisteri</a>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
-              <li>
-                <Link to="search">Etsi koulua</Link>
-              </li>
-              <li>
-                <Link to="about">Tietoa palvelusta</Link>
-              </li>
+                <NavTab to="search">Etsi koulua</NavTab>
+                <NavTab to="about">Tietoa palvelusta</NavTab>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li><a href="#">Logout</a></li>

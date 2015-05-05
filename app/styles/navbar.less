@@ -1,7 +1,24 @@
-// The react-router adds active class to a itself, not the wrapping li element.
-.navbar-default .navbar-nav > li > a.active,
-.navbar-default .navbar-nav > li > a.active:hover,
-.navbar-default .navbar-nav > li > a.active:focus {
-  color: @navbar-default-link-active-color;
-  background-color: @navbar-default-link-active-bg;
+.navbar{
+  &.navbar-inverse .navbar-nav li > a,
+  &.navbar-inverse .navbar-nav li > a:hover,
+  &.navbar-inverse .navbar-nav li > a:focus ,
+  &.navbar-inverse .navbar-brand,
+  &.navbar-inverse .navbar-brand:hover {
+    color: @navbar-inverse-link-color;
+    cursor: pointer;
+  }
+
+  &.navbar-inverse .navbar-nav li:hover {
+    &:extend(.navbar-inverse .navbar-nav > .active > a);
+  }
+
+  .coat-of-arms {
+    display: inline-block;
+    vertical-align: top;
+    height: 40px;
+    width: 24px;
+    margin-top: -6px;
+    margin-right: 10px;
+    background: url(../images/helsinki-coat-of-arms-white-big.png) 0 0/contain no-repeat;
+  }
 }
