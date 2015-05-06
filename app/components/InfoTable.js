@@ -11,15 +11,23 @@ class InfoTable extends React.Component {
   render() {
     const items = this.props.items;
     const infoRows = items.map(getInfoRow);
-
+    let halfLength = Math.ceil(infoRows.length / 2);
+    console.log(halfLength);
+    let infoRowsColumnOne = infoRows.slice(0, halfLength);
+    let infoRowsColumnTwo = infoRows.slice(halfLength);
     return (
       <section className='info-table'>
         <header>
           <h2>{this.props.title}</h2>
         </header>
-        <ul>
-          {infoRows}
-        </ul>
+        <div className="info-table-columns">
+          <ol className='column column-one'>
+            {infoRowsColumnOne}
+          </ol>
+          <ol className='column column-two'>
+            {infoRowsColumnTwo}
+          </ol>
+        </div>
       </section>
     );
   }
