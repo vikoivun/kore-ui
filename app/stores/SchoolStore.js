@@ -44,6 +44,53 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
       return {};
     }
     return school.buildings[0];
+  },
+
+  getSchoolDetails: function(schoolId) {
+    console.log(schoolId);
+    // Fake data
+    return [{
+      key: 'schoolNames',
+      title: 'School Names',
+      items: [
+        {
+          key: 1,
+          className: 'details-school-name',
+          name: 'Name',
+          boxContent: '1920 - 1989'
+        },
+        {
+          key: 2,
+          className: 'details-school-name',
+          name: 'Name',
+          boxContent: '1920 - 1989'
+        },
+        {
+          key: 3,
+          className: 'details-school-name',
+          name: 'Name',
+          boxContent: '1920 - 1989'
+        },
+        {
+          key: 4,
+          className: 'details-school-name',
+          name: 'Name',
+          boxContent: '1920 - 1989'
+        },
+        {
+          key: 5,
+          className: 'details-school-name',
+          name: 'Name',
+          boxContent: '1920 - 1989'
+        },
+        {
+          key: 6,
+          className: 'details-school-name',
+          name: 'Name',
+          boxContent: '1920 - 1989'
+        }
+      ]
+    }];
   }
 });
 
