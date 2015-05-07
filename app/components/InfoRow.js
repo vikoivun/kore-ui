@@ -16,8 +16,14 @@ class InfoRow extends React.Component {
 }
 
 InfoRow.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  boxContent: React.PropTypes.string.isRequired,
+  name: React.PropTypes.oneOfType([
+    React.PropTypes.string.isRequired,
+    React.PropTypes.array.isRequired
+  ]),
+  boxContent: React.PropTypes.oneOfType([
+    React.PropTypes.string.isRequired,
+    React.PropTypes.array.isRequired
+  ]),
   className: React.PropTypes.string.isRequired
 };
 

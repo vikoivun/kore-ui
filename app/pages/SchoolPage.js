@@ -62,7 +62,7 @@ class SchoolPage extends React.Component {
           <SchoolTitle name={this.state.mainName} />
           <div className='school-timeline'/>
           <SchoolImageMap building={this.state.mainBuilding}/>
-          <SchoolDetails tables={this.state.schoolDetails} />
+          <SchoolDetails details={this.state.schoolDetails} />
         </div>
       </DocumentTitle>
     );

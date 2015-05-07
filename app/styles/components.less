@@ -42,13 +42,22 @@
     color: @gray;
     border: solid 1px @gray;
     text-align: center;
+
+    i {
+      padding: 0 5px;
+    }
   }
 
   &.details-school-name {
     &:before {
       background-image: url('../images/pencil.svg');
+      background-size: 20px;
+    }
+  }
+  &.details-building {
+    &:before {
+      background-image: url('../images/building.svg');
       background-size: 25px;
     }
   }
-
 }

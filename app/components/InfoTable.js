@@ -10,11 +10,9 @@ function getInfoRow(item) {
 class InfoTable extends React.Component {
   render() {
     const items = this.props.items;
-    const infoRows = items.map(getInfoRow);
-    let halfLength = Math.ceil(infoRows.length / 2);
-    console.log(halfLength);
-    let infoRowsColumnOne = infoRows.slice(0, halfLength);
-    let infoRowsColumnTwo = infoRows.slice(halfLength);
+    let halfLength = Math.ceil(items.length / 2);
+    let itemsColumnOne = items.slice(0, halfLength);
+    let itemsColumnTwo = items.slice(halfLength);
     return (
       <section className='info-table'>
         <header>
@@ -22,10 +20,10 @@ class InfoTable extends React.Component {
         </header>
         <div className="info-table-columns">
           <ol className='column column-one'>
-            {infoRowsColumnOne}
+            {itemsColumnOne.map(getInfoRow)}
           </ol>
           <ol className='column column-two'>
-            {infoRowsColumnTwo}
+            {itemsColumnTwo.map(getInfoRow)}
           </ol>
         </div>
       </section>

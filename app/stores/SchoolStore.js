@@ -46,51 +46,27 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     return school.buildings[0];
   },
 
+  getSchoolNames: function(schoolId) {
+    const school = this.getSchool(schoolId);
+    if (_.isEmpty(school)) {
+      return [];
+    }
+    return school.names;
+  },
+
+  getBuildings: function(schoolId) {
+    const school = this.getSchool(schoolId);
+    if (_.isEmpty(school)) {
+      return [];
+    }
+    return school.buildings;
+  },
+
   getSchoolDetails: function(schoolId) {
-    console.log(schoolId);
-    // Fake data
-    return [{
-      key: 'schoolNames',
-      title: 'School Names',
-      items: [
-        {
-          key: 1,
-          className: 'details-school-name',
-          name: 'Name',
-          boxContent: '1920 - 1989'
-        },
-        {
-          key: 2,
-          className: 'details-school-name',
-          name: 'Name',
-          boxContent: '1920 - 1989'
-        },
-        {
-          key: 3,
-          className: 'details-school-name',
-          name: 'Name',
-          boxContent: '1920 - 1989'
-        },
-        {
-          key: 4,
-          className: 'details-school-name',
-          name: 'Name',
-          boxContent: '1920 - 1989'
-        },
-        {
-          key: 5,
-          className: 'details-school-name',
-          name: 'Name',
-          boxContent: '1920 - 1989'
-        },
-        {
-          key: 6,
-          className: 'details-school-name',
-          name: 'Name',
-          boxContent: '1920 - 1989'
-        }
-      ]
-    }];
+    return {
+      schoolNames: this.getSchoolNames(schoolId),
+      buildings: this.getBuildings(schoolId)
+    };
   }
 });
 
