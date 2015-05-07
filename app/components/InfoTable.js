@@ -30,7 +30,7 @@ class InfoTable extends React.Component {
   }
 
   getExpandButton() {
-    if (this.props.items.length > unexpandedListSize) {
+    if ((this.props.items.length > unexpandedListSize) && this.props.expandable) {
       let content;
       if (this.state.expanded) {
         content = ['View less ', <i className='fa fa-lg fa-chevron-up'/>];
@@ -48,6 +48,9 @@ class InfoTable extends React.Component {
   }
 
   getFilteredItems(items) {
+    if (!this.props.expandable) {
+      return items;
+    }
     if (unexpandedListSize > items.length) {
       return items;
     }
@@ -87,7 +90,8 @@ class InfoTable extends React.Component {
 
 InfoTable.propTypes = {
   title: React.PropTypes.string.isRequired,
-  items: React.PropTypes.array.isRequired
+  items: React.PropTypes.array.isRequired,
+  expandable: React.PropTypes.bool.isRequired
 };
 
 export default InfoTable;

@@ -10,6 +10,7 @@ const itemGenerator = {
     return {
       key: 'school-names',
       title: 'Koulun nimet',
+      expandable: false,
       items: names.map(function(name, index) {
         return {
           key: 'school-name-' + index,  // This could better be the ID if retreived from API.
@@ -28,6 +29,7 @@ const itemGenerator = {
     return {
       key: 'buildings',
       title: 'Rakennukset ja sijainnit',
+      expandable: true,
       items: buildings.map(function(building, index) {
         return {
           key: 'building-' + index,  // This could be the ID if retreived from API.
