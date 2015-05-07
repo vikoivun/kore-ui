@@ -41,6 +41,7 @@
       .container();
       margin-top: 30px;
       margin-bottom: 30px;
+      border-bottom: solid 1px @border-main-color;
 
       header {
         h2{
@@ -53,7 +54,6 @@
       & > .info-table-columns {
         .row();
         border-top: solid 1px @border-main-color;
-        border-bottom: solid 1px @border-main-color;
         padding-top: 20px;
         padding-bottom: 20px;
 
@@ -69,6 +69,16 @@
           &.column-two {
             padding-left: 15px;
           }
+        }
+      }
+      button.button-expand {
+        background-color: @background-main-color;
+        border: none;
+        color: @inversed-color;
+        padding: 10px 40px;
+        float: right;
+        i {
+          padding-left: 10px;
         }
       }
 

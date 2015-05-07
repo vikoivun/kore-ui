@@ -7,12 +7,65 @@ function getInfoRow(item) {
   return <InfoRow {...item}/>;
 }
 
+function getInitialState() {
+   return {
+     expanded: false
+   };
+}
+
+const unexpandedListSize = 6;
+
 class InfoTable extends React.Component {
-  render() {
-    const items = this.props.items;
+
+  constructor(props) {
+    super(props);
+    this.state = getInitialState();
+    this.handleExpandClick = this.handleExpandClick.bind(this);
+  }
+
+  handleExpandClick() {
+    this.setState({
+      expanded: !this.state.expanded
+    });
+  }
+
+  getExpandButton() {
+    if (this.props.items.length > unexpandedListSize) {
+      let content;
+      if (this.state.expanded) {
+        content = ['View less ', <i className='fa fa-lg fa-chevron-up'/>];
+      }
+      else {
+        content = ['View more ', <i className='fa fa-lg fa-chevron-down'/>];
+      }
+      return (
+        <button className="button-expand" onClick={this.handleExpandClick}>
+          {content}
+        </button>
+      );
+    }
+    return [];
+  }
+
+  getFilteredItems(items) {
+    if (unexpandedListSize > items.length) {
+      return items;
+    }
+    if (this.state.expanded) {
+      return items;
+    }
+    return items.slice(0, unexpandedListSize);
+  }
+
+  getItemsByColumn() {
+    const items = this.getFilteredItems(this.props.items);
     let halfLength = Math.ceil(items.length / 2);
-    let itemsColumnOne = items.slice(0, halfLength);
-    let itemsColumnTwo = items.slice(halfLength);
+    return [items.slice(0, halfLength), items.slice(halfLength)];
+  }
+
+  render() {
+    let itemsColumnOne, itemsColumnTwo;
+    [itemsColumnOne, itemsColumnTwo] = this.getItemsByColumn();
     return (
       <section className='info-table'>
         <header>
@@ -26,6 +79,7 @@ class InfoTable extends React.Component {
             {itemsColumnTwo.map(getInfoRow)}
           </ol>
         </div>
+        {this.getExpandButton()}
       </section>
     );
   }
