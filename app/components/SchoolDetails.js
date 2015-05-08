@@ -83,7 +83,31 @@ class SchoolDetails extends React.Component {
 }
 
 SchoolDetails.propTypes = {
-  details: React.PropTypes.object.isRequired
+  details: React.PropTypes.shape({
+    schoolNames: React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        'official_name': React.PropTypes.string,
+        'begin_year': React.PropTypes.number,
+        'end_year': React.PropTypes.number
+      })
+    ),
+    buildings: React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        'begin_year': React.PropTypes.number,
+        'end_year': React.PropTypes.number,
+        building: React.PropTypes.shape({
+          neighborhood: React.PropTypes.string,
+          architect: React.PropTypes.string,
+          addresses: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+              'street_name_fi': React.PropTypes.string,
+              'municipality_fi': React.PropTypes.string
+            })
+          )
+        })
+      })
+    )
+  })
 };
 
 export default SchoolDetails;
