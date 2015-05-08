@@ -1,6 +1,6 @@
 @info-row-logo-side-size: @info-row-height / 1.5;
 @info-box-width: 110px;
-
+@expand-button-width: 25px;
 .info-row {
   position: relative;
   list-style-type: none;
@@ -47,6 +47,23 @@
       padding: 0 5px;
     }
   }
+
+  &.expandable {
+    .button-expand {
+      position: absolute;
+      top: 45%;
+      right: @info-box-width;
+      .transform(translateY(-50%));
+      color: @base-color;
+      width: @expand-button-width;
+      z-index: 10;
+      cursor: pointer;
+    }
+    .info-name {
+      padding-right: @info-box-width + @expand-button-width + 10px;
+    }
+  }
+
 
   &.details-school-name {
     &:before {

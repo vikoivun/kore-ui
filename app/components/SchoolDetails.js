@@ -43,6 +43,18 @@ const itemGenerator = {
             building.begin_year,
             <i className='fa fa-lg fa-long-arrow-right'/>,
             building.end_year
+          ],
+          items: [
+            {
+              key: 'neighborhood-' + index,
+              name: building.building.neighborhood,
+              boxContent: 'alue'
+            },
+            {
+              key: 'architect-' + index,
+              name: building.building.architect,
+              boxContent: 'arkkitehti'
+            }
           ]
         };
       })
