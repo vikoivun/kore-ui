@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import AppDispatcher from '../core/AppDispatcher';
 import { enumerate } from '../core/utils';
 import ActionTypes from '../constants/ActionTypes';
@@ -27,6 +28,22 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
 
   hasSchool: function(schoolId) {
     return _schools[schoolId] !== undefined;
+  },
+
+  getMainName: function(schoolId) {
+    const school = this.getSchool(schoolId);
+    if (_.isEmpty(school)) {
+      return {};
+    }
+    return school.names[0];
+  },
+
+  getMainBuilding: function(schoolId) {
+    const school = this.getSchool(schoolId);
+    if (_.isEmpty(school)) {
+      return {};
+    }
+    return school.buildings[0];
   }
 });
 

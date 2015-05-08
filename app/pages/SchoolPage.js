@@ -3,6 +3,8 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import SchoolActionCreators from '../actions/SchoolActionCreators';
+import SchoolImageMap from '../components/SchoolImageMap';
+import SchoolTitle from '../components/SchoolTitle';
 import SchoolStore from '../stores/SchoolStore';
 
 function parseSchoolId(props) {
@@ -11,7 +13,8 @@ function parseSchoolId(props) {
 
 function getStateFromStores(schoolId) {
   return {
-    school: SchoolStore.getSchool(schoolId)
+    mainName: SchoolStore.getMainName(schoolId),
+    mainBuilding: SchoolStore.getMainBuilding(schoolId)
   };
 }
 
@@ -54,8 +57,10 @@ class SchoolPage extends React.Component {
     return (
       <DocumentTitle title='Koulut - Koulurekisteri'>
         <div className='school-page'>
-          <h1>{this.state.school.name}</h1>
-          <p>The school id is {this.props.params.schoolId}</p>
+          <SchoolTitle name={this.state.mainName} />
+          <div className='school-timeline'/>
+          <SchoolImageMap building={this.state.mainBuilding}/>
+          <div className='school-history-details'/>
         </div>
       </DocumentTitle>
     );
