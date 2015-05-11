@@ -10,10 +10,10 @@ const CHANGE_EVENT = 'change';
 let _schools = {};
 
 
-const schoolCheckDecorator = function(func, defaultValue) {
+const getSchoolByIdWrapper = function(func, defaultValue) {
   return function(schoolId) {
     if (!defaultValue) {
-      defaultValue = {};
+      defaultValue = [];
     }
     const school = this.getSchool(schoolId);
     if (_.isEmpty(school)) {
@@ -77,6 +77,19 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     return {
       schoolNames: this.getSchoolNames(schoolId),
       buildings: this.getBuildings(schoolId)
+    };
+  },
+
+  calculateBeginAndEndYear: function(schoolId) {
+    let sortedNames = this.getSchoolNames(schoolId);
+    let beginYear, endYear;
+    if (sortedNames.length) {
+      beginYear = sortedNames[sortedNames.length - 1].begin_year;
+      endYear = sortedNames[0].end_year;
+    }
+    return {
+      beginYear: beginYear,
+      endYear: endYear
     };
   }
 });
