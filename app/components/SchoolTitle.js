@@ -22,7 +22,7 @@ class SchoolTitle extends React.Component {
 
 SchoolTitle.propTypes = {
   name: React.PropTypes.shape({
-      'official_name': React.PropTypes.string.isRequired
+      'official_name': React.PropTypes.string
     })
 };
 
