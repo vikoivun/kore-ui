@@ -45,21 +45,33 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     return _schools[schoolId] !== undefined;
   },
 
-  getMainName: schoolCheckDecorator(function(school){
-      return school.names[0];
+  getMainName: function(schoolId){
+      let sortedSchoolNames = this.getSchoolNames(schoolId);
+      if (sortedSchoolNames.length) {
+        return sortedSchoolNames[0];
+      }
+      return {};
+  },
+
+  getMainBuilding: function(schoolId){
+      let sortedBuildings = this.getBuildings(schoolId);
+      if (sortedBuildings.length) {
+        return sortedBuildings[0];
+      }
+      return {};
+  },
+
+  getSchoolNames: getSchoolByIdWrapper(function(school){
+      return _.sortBy(school.names, function(name){
+        return -name.begin_year;
+      });
   }),
 
-  getMainBuilding: schoolCheckDecorator(function(school){
-      return school.buildings[0];
+  getBuildings: getSchoolByIdWrapper(function(school){
+      return _.sortBy(school.buildings, function(building){
+        return -building.begin_year;
+      });
   }),
-
-  getSchoolNames: schoolCheckDecorator(function(school){
-      return school.names;
-  }, []),
-
-  getBuildings: schoolCheckDecorator(function(school){
-    return school.buildings;
-  }, []),
 
   getSchoolDetails: function(schoolId) {
     return {
