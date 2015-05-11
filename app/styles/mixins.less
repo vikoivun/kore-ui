@@ -13,3 +13,9 @@
   -o-transform:      @string;
   transform:         @string;
 }
+
+.absolute-vertical-centering() {
+    position: absolute;
+    top: 50%;
+    .transform(translateY(-50%));
+}

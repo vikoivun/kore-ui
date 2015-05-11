@@ -8,9 +8,7 @@
 
   &:before {
     content: '';
-    position: absolute;
-    top: 50%;
-    .transform(translateY(-50%));
+    .absolute-vertical-centering();
     display: inline-block;
     background-size: cover;
     background-position: center;
@@ -20,9 +18,7 @@
   }
 
   .info-name {
-    position: absolute;
-    top: 50%;
-    .transform(translateY(-50%));
+    .absolute-vertical-centering();
     padding-left: @info-row-logo-side-size + 10px;
     padding-right: @info-box-width + 10px;
     box-sizing: border-box;
@@ -32,10 +28,8 @@
   }
 
   .info-box {
-    position: absolute;
-    top: 50%;
+    .absolute-vertical-centering();
     right: 0;
-    .transform(translateY(-50%));
     width: 110px;
     font-size: 0.9em;
     padding: 3px 0;
@@ -50,10 +44,9 @@
 
   &.expandable {
     .button-expand {
-      position: absolute;
+      .absolute-vertical-centering();
       top: 45%;
       right: @info-box-width;
-      .transform(translateY(-50%));
       color: @base-color;
       width: @expand-button-width;
       z-index: 10;
