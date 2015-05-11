@@ -9,6 +9,21 @@ import { EventEmitter } from 'events';
 const CHANGE_EVENT = 'change';
 let _schools = {};
 
+
+const schoolCheckDecorator = function(func, defaultValue) {
+  return function(schoolId) {
+    if (!defaultValue) {
+      defaultValue = {};
+    }
+    const school = this.getSchool(schoolId);
+    if (_.isEmpty(school)) {
+      return defaultValue;
+    }
+    return func(school);
+  };
+};
+
+
 const SchoolStore = Object.assign({}, EventEmitter.prototype, {
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -30,20 +45,27 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     return _schools[schoolId] !== undefined;
   },
 
-  getMainName: function(schoolId) {
-    const school = this.getSchool(schoolId);
-    if (_.isEmpty(school)) {
-      return {};
-    }
-    return school.names[0];
-  },
+  getMainName: schoolCheckDecorator(function(school){
+      return school.names[0];
+  }),
 
-  getMainBuilding: function(schoolId) {
-    const school = this.getSchool(schoolId);
-    if (_.isEmpty(school)) {
-      return {};
-    }
-    return school.buildings[0];
+  getMainBuilding: schoolCheckDecorator(function(school){
+      return school.buildings[0];
+  }),
+
+  getSchoolNames: schoolCheckDecorator(function(school){
+      return school.names;
+  }, []),
+
+  getBuildings: schoolCheckDecorator(function(school){
+    return school.buildings;
+  }, []),
+
+  getSchoolDetails: function(schoolId) {
+    return {
+      schoolNames: this.getSchoolNames(schoolId),
+      buildings: this.getBuildings(schoolId)
+    };
   }
 });
 

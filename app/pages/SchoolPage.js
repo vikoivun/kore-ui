@@ -3,6 +3,7 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import SchoolActionCreators from '../actions/SchoolActionCreators';
+import SchoolDetails from '../components/SchoolDetails';
 import SchoolImageMap from '../components/SchoolImageMap';
 import SchoolTitle from '../components/SchoolTitle';
 import SchoolStore from '../stores/SchoolStore';
@@ -14,7 +15,8 @@ function parseSchoolId(props) {
 function getStateFromStores(schoolId) {
   return {
     mainName: SchoolStore.getMainName(schoolId),
-    mainBuilding: SchoolStore.getMainBuilding(schoolId)
+    mainBuilding: SchoolStore.getMainBuilding(schoolId),
+    schoolDetails: SchoolStore.getSchoolDetails(schoolId)
   };
 }
 
@@ -60,7 +62,7 @@ class SchoolPage extends React.Component {
           <SchoolTitle name={this.state.mainName} />
           <div className='school-timeline'/>
           <SchoolImageMap building={this.state.mainBuilding}/>
-          <div className='school-history-details'/>
+          <SchoolDetails details={this.state.schoolDetails} />
         </div>
       </DocumentTitle>
     );

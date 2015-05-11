@@ -1,0 +1,73 @@
+@info-row-logo-side-size: @info-row-height / 1.5;
+@info-box-width: 110px;
+@expand-button-width: 25px;
+.info-row {
+  position: relative;
+  list-style-type: none;
+  height: @info-row-height;
+
+  &:before {
+    content: '';
+    .absolute-vertical-centering();
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: @info-row-logo-side-size;
+    height: @info-row-logo-side-size;
+  }
+
+  .info-name {
+    .absolute-vertical-centering();
+    padding-left: @info-row-logo-side-size + 10px;
+    padding-right: @info-box-width + 10px;
+    box-sizing: border-box;
+    width: 100%;
+    color: @base-color;
+    font-weight: 500;
+  }
+
+  .info-box {
+    .absolute-vertical-centering();
+    right: 0;
+    width: 110px;
+    font-size: 0.9em;
+    padding: 3px 0;
+    color: @gray;
+    border: solid 1px @gray;
+    text-align: center;
+
+    i {
+      padding: 0 5px;
+    }
+  }
+
+  &.expandable {
+    .button-expand {
+      .absolute-vertical-centering();
+      top: 45%;
+      right: @info-box-width;
+      color: @base-color;
+      width: @expand-button-width;
+      z-index: 10;
+      cursor: pointer;
+    }
+    .info-name {
+      padding-right: @info-box-width + @expand-button-width + 10px;
+    }
+  }
+
+
+  &.details-school-name {
+    &:before {
+      background-image: url('../images/pencil.svg');
+      background-size: 20px;
+    }
+  }
+  &.details-building {
+    &:before {
+      background-image: url('../images/building.svg');
+      background-size: 25px;
+    }
+  }
+}

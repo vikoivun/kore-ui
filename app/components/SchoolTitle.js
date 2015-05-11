@@ -12,7 +12,7 @@ class SchoolTitle extends React.Component {
         <header className='school-title'>
           <div className='school-title-box'>
             <h1>{this.props.name.official_name}</h1>
-            <span>{beginYear} - {endYear}</span>
+            <span>{beginYear} <i className="fa fa-lg fa-long-arrow-right"/> {endYear}</span>
           </div>
         </header>
       </div>
@@ -22,7 +22,7 @@ class SchoolTitle extends React.Component {
 
 SchoolTitle.propTypes = {
   name: React.PropTypes.shape({
-      'official_name': React.PropTypes.string.isRequired
+      'official_name': React.PropTypes.string
     })
 };
 
