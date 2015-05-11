@@ -15,6 +15,7 @@ function parseSchoolId(props) {
 function getStateFromStores(schoolId) {
   return {
     mainName: SchoolStore.getMainName(schoolId),
+    yearsActive: SchoolStore.calculateBeginAndEndYear(schoolId),
     mainBuilding: SchoolStore.getMainBuilding(schoolId),
     schoolDetails: SchoolStore.getSchoolDetails(schoolId)
   };
@@ -59,7 +60,7 @@ class SchoolPage extends React.Component {
     return (
       <DocumentTitle title='Koulut - Koulurekisteri'>
         <div className='school-page'>
-          <SchoolTitle name={this.state.mainName} />
+          <SchoolTitle name={this.state.mainName} yearsActive={this.state.yearsActive} />
           <div className='school-timeline'/>
           <SchoolImageMap building={this.state.mainBuilding}/>
           <SchoolDetails details={this.state.schoolDetails} />

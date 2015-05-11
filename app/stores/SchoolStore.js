@@ -10,10 +10,10 @@ const CHANGE_EVENT = 'change';
 let _schools = {};
 
 
-const schoolCheckDecorator = function(func, defaultValue) {
+const getSchoolByIdWrapper = function(func, defaultValue) {
   return function(schoolId) {
     if (!defaultValue) {
-      defaultValue = {};
+      defaultValue = [];
     }
     const school = this.getSchool(schoolId);
     if (_.isEmpty(school)) {
@@ -45,26 +45,51 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     return _schools[schoolId] !== undefined;
   },
 
-  getMainName: schoolCheckDecorator(function(school){
-      return school.names[0];
+  getMainName: function(schoolId){
+      let sortedSchoolNames = this.getSchoolNames(schoolId);
+      if (sortedSchoolNames.length) {
+        return sortedSchoolNames[0];
+      }
+      return {};
+  },
+
+  getMainBuilding: function(schoolId){
+      let sortedBuildings = this.getBuildings(schoolId);
+      if (sortedBuildings.length) {
+        return sortedBuildings[0];
+      }
+      return {};
+  },
+
+  getSchoolNames: getSchoolByIdWrapper(function(school){
+      return _.sortBy(school.names, function(name){
+        return -name.begin_year;
+      });
   }),
 
-  getMainBuilding: schoolCheckDecorator(function(school){
-      return school.buildings[0];
+  getBuildings: getSchoolByIdWrapper(function(school){
+      return _.sortBy(school.buildings, function(building){
+        return -building.begin_year;
+      });
   }),
-
-  getSchoolNames: schoolCheckDecorator(function(school){
-      return school.names;
-  }, []),
-
-  getBuildings: schoolCheckDecorator(function(school){
-    return school.buildings;
-  }, []),
 
   getSchoolDetails: function(schoolId) {
     return {
       schoolNames: this.getSchoolNames(schoolId),
       buildings: this.getBuildings(schoolId)
+    };
+  },
+
+  calculateBeginAndEndYear: function(schoolId) {
+    let sortedNames = this.getSchoolNames(schoolId);
+    let beginYear, endYear;
+    if (sortedNames.length) {
+      beginYear = sortedNames[sortedNames.length - 1].begin_year;
+      endYear = sortedNames[0].end_year;
+    }
+    return {
+      beginYear: beginYear,
+      endYear: endYear
     };
   }
 });
