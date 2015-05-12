@@ -26,12 +26,18 @@
         margin-top: 100px;
         margin-bottom: 100px;
       }
-      .school-timeinfo {
+      .school-year-info {
         .make-column(5, 5);
         background-color: white;
         height: @school-timeline-info-height - 4;
         margin-top: 2px;
         margin-bottom: 2px;
+        ol.school-year-details-list {
+          width: 100%;
+          .absolute-vertical-centering();
+          padding-left: 0;
+          padding-right: 40px;
+        }
       }
     }
   }

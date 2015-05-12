@@ -20,7 +20,11 @@ function getStateFromStores(schoolId) {
     yearsActive: SchoolStore.calculateBeginAndEndYear(schoolId),
     mainBuilding: SchoolStore.getMainBuilding(schoolId),
     schoolDetails: SchoolStore.getSchoolDetails(schoolId),
-    currentYear: UIStore.getYear()
+    schoolYearDetails: SchoolStore.getSchoolYearDetails(
+      schoolId,
+      UIStore.getSchoolTimelineYear()
+    ),
+    currentYear: UIStore.getSchoolTimelineYear()
   };
 }
 
@@ -68,7 +72,8 @@ class SchoolPage extends React.Component {
           <SchoolTitle name={this.state.mainName} yearsActive={this.state.yearsActive} />
           <SchoolTimelineInfo
             yearsActive={this.state.yearsActive}
-            currentYear={this.state.currentYear}/>
+            currentYear={this.state.currentYear}
+            schoolYearDetails={this.state.schoolYearDetails} />
           <SchoolImageMap building={this.state.mainBuilding}/>
           <SchoolDetails details={this.state.schoolDetails} />
         </div>
