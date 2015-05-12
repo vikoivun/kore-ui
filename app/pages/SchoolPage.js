@@ -5,8 +5,10 @@ import DocumentTitle from 'react-document-title';
 import SchoolActionCreators from '../actions/SchoolActionCreators';
 import SchoolDetails from '../components/SchoolDetails';
 import SchoolImageMap from '../components/SchoolImageMap';
+import SchoolTimelineInfo from '../components/SchoolTimelineInfo';
 import SchoolTitle from '../components/SchoolTitle';
 import SchoolStore from '../stores/SchoolStore';
+import UIStore from '../stores/UIStore';
 
 function parseSchoolId(props) {
   return parseInt(props.params.schoolId);
@@ -17,7 +19,8 @@ function getStateFromStores(schoolId) {
     mainName: SchoolStore.getMainName(schoolId),
     yearsActive: SchoolStore.calculateBeginAndEndYear(schoolId),
     mainBuilding: SchoolStore.getMainBuilding(schoolId),
-    schoolDetails: SchoolStore.getSchoolDetails(schoolId)
+    schoolDetails: SchoolStore.getSchoolDetails(schoolId),
+    currentYear: UIStore.getYear()
   };
 }
 
@@ -32,6 +35,7 @@ class SchoolPage extends React.Component {
 
   componentWillMount() {
     SchoolStore.addChangeListener(this._onChange);
+    UIStore.addChangeListener(this._onChange);
   }
 
   componentDidMount() {
@@ -40,6 +44,7 @@ class SchoolPage extends React.Component {
 
   componentWillUnmount() {
     SchoolStore.removeChangeListener(this._onChange);
+    UIStore.removeChangeListener(this._onChange);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,7 +66,9 @@ class SchoolPage extends React.Component {
       <DocumentTitle title='Koulut - Koulurekisteri'>
         <div className='school-page'>
           <SchoolTitle name={this.state.mainName} yearsActive={this.state.yearsActive} />
-          <div className='school-timeline'/>
+          <SchoolTimelineInfo
+            yearsActive={this.state.yearsActive}
+            currentYear={this.state.currentYear}/>
           <SchoolImageMap building={this.state.mainBuilding}/>
           <SchoolDetails details={this.state.schoolDetails} />
         </div>

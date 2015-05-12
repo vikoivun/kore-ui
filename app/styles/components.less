@@ -71,3 +71,61 @@
     }
   }
 }
+
+.timeline {
+  position: relative;
+  font-size: 1.2em;
+  font-weight: 200;
+  .anchor {
+    position: absolute;
+    width: @anchor-width-percentage;
+    color: @anchor-color;
+    text-align: center;
+    span {
+      padding: 2px 15px;
+      border: 1px solid @anchor-color;
+      border-radius: 5px;
+    }
+    &.anchor-right {
+      right: 0
+    }
+  }
+
+  .horizontal-slider {
+    display: inline-block;
+    width: 100 - @anchor-width-percentage;
+    margin-left: (@anchor-width-percentage / 2) + 1;
+    top: 20px;
+    overflow: visible;
+    height: 0px;
+    border-top: 1px solid @slider-bar-color;
+    .handle {
+      top: -10px;
+      margin-left: -4px;
+      width: 20px;
+      height: 20px;
+      border: 3px solid @handle-color;
+      border-radius: 50%;
+      line-height: 48px;
+    }
+  }
+  .handle {
+    font-size: 0.9em;
+    text-align: center;
+    background-color: @background-main-color;
+    color: @handle-color;
+    cursor: pointer;
+    &.active {
+      background-color: @handle-active-color;
+    }
+    .current-year {
+      position: absolute;
+      width: 65px;
+      top: 15px;
+      left: -25px;
+      padding-top: 2px;
+      background-image: url('../images/years-slide.svg');
+      background-size: 100% 100%;
+    }
+  }
+}
