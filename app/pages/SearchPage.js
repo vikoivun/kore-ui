@@ -9,7 +9,15 @@ class SearchPage extends React.Component {
     return (
       <DocumentTitle title='Etsi koulua - Koulurekisteri'>
         <div className='search-page'>
-          <p>Hae etsimääsi koulua täältä.</p>
+          <header className="container">
+            <h1 className='search-title' >
+              <img src={require('../images/Helsinki.vaakuna.svg')} alt='Helsinki vaakuna' />
+              School Finder
+            </h1>
+          </header>
+          <div className='search-box'></div>
+          <div className='search-timeline'></div>
+          <div className='search-results'></div>
         </div>
       </DocumentTitle>
     );
