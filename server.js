@@ -1,32 +1,40 @@
 /*eslint-disable no-var*/
 'use strict';
 
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require('./conf/webpack.config');
+var express = require('express');
+var path = require('path');
+var httpProxy = require('http-proxy');
+var proxy = httpProxy.createProxyServer({
+  changeOrigin: true
+});
+var app = express();
+var isProduction = process.env.NODE_ENV === 'production';
+var port = isProduction ? 8080 : 3000;
+var publicPath = (
+  isProduction ?
+  path.resolve(__dirname, './dist') :
+  path.resolve(__dirname, './build')
+);
 
-var server = new WebpackDevServer(webpack(config), {
-  historyApiFallback: true,
-  hot: true,
-  publicPath: config.output.publicPath,
-  quiet: false,
-  noInfo: false,
-  stats: {
-    assets: false,
-    chunkModules: false,
-    chunks: true,
-    colors: true,
-    hash: false,
-    progress: false,
-    timings: true,
-    version: false
-  }
+app.use(express.static(publicPath));
+
+// Use dev server if we are not in production.
+if (!isProduction) {
+
+  var bundle = require('./dev-bundler.js');
+  bundle();
+  app.all('/*', function(req, res) {
+    proxy.web(req, res, {
+      target: 'http://localhost:8080'
+    });
+  });
+}
+
+proxy.on('error', function() {
+  console.log('Could not connect to proxy, please try again...');
 });
 
-server.listen(3000, 'localhost', function(err) {
-  if (err) {
-    console.log(err);
-  }
-
-  console.log('Listening at localhost:3000');
+// Run the server
+app.listen(port, function() {
+  console.log('Server running on port ' + port);
 });

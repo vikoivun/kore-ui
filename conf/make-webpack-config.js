@@ -43,7 +43,7 @@ module.exports = function(options) {
         path.resolve(__dirname, '../dist') :
         path.resolve(__dirname, '../build')
       ),
-      publicPath: options.production ? '' : 'http://localhost:3000/',
+      publicPath: options.production ? '' : 'http://localhost:8080/',
       filename: options.production ? 'app.[hash].js' : 'app.js'
     },
     module: {

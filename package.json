@@ -6,13 +6,15 @@
     "url": "https://github.com/fastmonkeys/kore"
   },
   "dependencies": {
+    "express": "^4.12.3",
     "flux": "^2.0.1",
     "lodash": "2.4.1",
     "react": "^0.13.3",
     "react-document-title": "^1.0.2",
     "react-router": "^0.13.3",
     "react-slider": "~0.4.2",
-    "superagent": "~1.2.0"
+    "superagent": "~1.2.0",
+    "webpack": "^1.8.5"
   },
   "devDependencies": {
     "autoprefixer-loader": "^1.2.0",
@@ -28,6 +30,7 @@
     "extract-text-webpack-plugin": "^0.3.8",
     "file-loader": "^0.8.1",
     "html-webpack-plugin": "^1.1.0",
+    "http-proxy": "^1.10.1",
     "isparta": "^3.0.2",
     "isparta-instrumenter-loader": "^0.2.1",
     "karma": "^0.12.31",
@@ -45,11 +48,11 @@
     "react-tools": "^0.13.3",
     "style-loader": "^0.10.1",
     "url-loader": "^0.5.5",
-    "webpack": "^1.8.5",
     "webpack-dev-server": "^1.8.0"
   },
   "scripts": {
     "start": "node server.js",
+    "postinstall": "node deploy.js",
     "build": "./node_modules/.bin/webpack --config conf/webpack.production.js",
     "test": "./node_modules/karma/bin/karma start conf/karma.conf.js --single-run",
     "test:watch": "./node_modules/karma/bin/karma start conf/karma.conf.js",
