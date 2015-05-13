@@ -3,10 +3,7 @@
 
 var express = require('express');
 var path = require('path');
-var httpProxy = require('http-proxy');
-var proxy = httpProxy.createProxyServer({
-  changeOrigin: true
-});
+
 var app = express();
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? 8080 : 3000;
@@ -20,7 +17,10 @@ app.use(express.static(publicPath));
 
 // Use dev server if we are not in production.
 if (!isProduction) {
-
+  var httpProxy = require('http-proxy');
+  var proxy = httpProxy.createProxyServer({
+    changeOrigin: true
+  });
   var bundle = require('./dev-bundler.js');
   bundle();
   app.all('/*', function(req, res) {
@@ -28,11 +28,10 @@ if (!isProduction) {
       target: 'http://localhost:8080'
     });
   });
+  proxy.on('error', function() {
+    console.log('Could not connect to proxy, please try again...');
+  });
 }
-
-proxy.on('error', function() {
-  console.log('Could not connect to proxy, please try again...');
-});
 
 // Run the server
 app.listen(port, function() {
