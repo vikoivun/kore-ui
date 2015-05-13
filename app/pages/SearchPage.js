@@ -2,8 +2,30 @@
 
 import React from 'react';
 import DocumentTitle from 'react-document-title';
+import SearchBox from '../components/SearchBox';
+import SearchStore from '../stores/SearchStore';
+
+
+function getStateFromStores() {
+  return {
+    searchResults: SearchStore.getSearchResults()
+  };
+}
 
 class SearchPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = getStateFromStores();
+    this._onChange = this._onChange.bind(this);
+  }
+
+  componentWillMount() {
+    SearchStore.addChangeListener(this._onChange);
+  }
+
+  componentWillUnmount() {
+    SearchStore.removeChangeListener(this._onChange);
+  }
 
   render() {
     return (
@@ -15,12 +37,16 @@ class SearchPage extends React.Component {
               School Finder
             </h1>
           </header>
-          <div className='search-box'></div>
+          <SearchBox/>
           <div className='search-timeline'></div>
           <div className='search-results'></div>
         </div>
       </DocumentTitle>
     );
+  }
+
+  _onChange() {
+    this.setState(getStateFromStores());
   }
 }
 
