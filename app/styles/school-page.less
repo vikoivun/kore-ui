@@ -13,11 +13,33 @@
     }
   }
 
-  .school-timeline {
+  .school-timeline-info-wrapper {
     .container-fluid();
     margin-top: 20px;
-    min-height: 250px;
+    min-height: @school-timeline-info-height;
     background-color: @background-main-color;
+    .school-timeline-info {
+      .row();
+
+      .timeline {
+        .make-column(7, 7);
+        margin-top: 100px;
+        margin-bottom: 100px;
+      }
+      .school-year-info {
+        .make-column(5, 5);
+        background-color: white;
+        height: @school-timeline-info-height - 4;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        ol.school-year-details-list {
+          width: 100%;
+          .absolute-vertical-centering();
+          padding-left: 0;
+          padding-right: 40px;
+        }
+      }
+    }
   }
 
   .school-image-map {
@@ -93,8 +115,6 @@
           font-size: 1.15em;
         }
       }
-
-
     }
   }
 }

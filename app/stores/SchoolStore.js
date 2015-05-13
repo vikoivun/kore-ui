@@ -80,6 +80,24 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     };
   },
 
+  getSchoolYearDetails: function(schoolId, year) {
+    const schoolNames = this.getSchoolNames(schoolId);
+    const buildings = this.getBuildings(schoolId);
+    if (!year) {
+      year = new Date().getFullYear();
+    }
+    const schoolName = _.find(schoolNames, function(school){
+      return school.begin_year <= year;
+    });
+    const building = _.find(buildings, function(build){
+      return build.begin_year <= year;
+    });
+    return {
+      schoolName: schoolName || {},
+      building: building || {}
+    };
+  },
+
   calculateBeginAndEndYear: function(schoolId) {
     let sortedNames = this.getSchoolNames(schoolId);
     let beginYear, endYear;
