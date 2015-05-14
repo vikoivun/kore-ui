@@ -3,14 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Kore</title>
+    <title>Koulurekisteri</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if (o.htmlWebpackPlugin.options.production) { %}
+    <link rel="stylesheet" href="app.{%=o.webpack.hash%}.css" media="all">
+    {% } %}
   </head>
   <body>
     <!--[if lt IE 8]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div id="content"></div>
-    <script src="/build/bundle.js"></script>
+    <div id="app"></div>
+    <script src="{%=o.htmlWebpackPlugin.assets.main%}"></script>
   </body>
 </html>

@@ -6,57 +6,58 @@
     "url": "https://github.com/fastmonkeys/kore"
   },
   "dependencies": {
-    "babel-runtime": "^5.1.10",
-    "flux": "^2.0.1",
-    "humps": "0.0.1",
-    "lodash": "2.4.1",
-    "normalizr": "^0.1.2",
-    "react": "^0.13.1",
-    "react-document-title": "^1.0.2",
-    "react-router": "^0.13.2",
-    "superagent": "~1.2.0",
-    "react-slider": "~0.4.2"
-  },
-  "devDependencies": {
     "autoprefixer-loader": "^1.2.0",
     "babel-core": "^5.1.10",
-    "babel-eslint": "^3.0.1",
-    "babel-jest": "^5.0.1",
     "babel-loader": "^5.0.0",
+    "babel-runtime": "^5.1.10",
     "css-loader": "^0.10.1",
+    "express": "^4.12.3",
+    "extract-text-webpack-plugin": "^0.3.8",
+    "file-loader": "^0.8.1",
+    "flux": "^2.0.1",
+    "html-webpack-plugin": "^1.1.0",
+    "less": "^2.5.0",
+    "less-loader": "^2.2.0",
+    "lodash": "2.4.1",
+    "react": "^0.13.3",
+    "react-document-title": "^1.0.2",
+    "react-router": "^0.13.3",
+    "react-slider": "~0.4.2",
+    "style-loader": "^0.10.1",
+    "superagent": "~1.2.0",
+    "url-loader": "^0.5.5",
+    "webpack": "^1.8.5"
+  },
+  "devDependencies": {
+    "babel-eslint": "^3.0.1",
+    "chai": "^2.3.0",
     "eslint": "^0.19.0",
     "eslint-loader": "^0.10.0",
     "eslint-plugin-react": "2.1.1",
-    "jest-cli": "^0.4.0",
-    "less": "^2.5.0",
-    "less-loader": "^2.2.0",
+    "http-proxy": "^1.10.1",
+    "isparta": "^3.0.2",
+    "isparta-instrumenter-loader": "^0.2.1",
+    "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "0.1.8",
+    "karma-coverage": "^0.3.1",
+    "karma-mocha": "^0.1.10",
+    "karma-mocha-reporter": "^1.0.2",
+    "karma-webpack": "^1.5.1",
+    "mocha": "^2.2.4",
     "protractor": "^2.0.0",
     "react-hot-loader": "^1.2.5",
-    "react-tools": "^0.13.1",
-    "style-loader": "^0.10.1",
-    "url-loader": "^0.5.5",
-    "webpack": "^1.8.5",
+    "react-tools": "^0.13.3",
     "webpack-dev-server": "^1.8.0"
-  },
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testFileExtensions": [
-      "es6",
-      "js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "es6"
-    ],
-    "unmockedModulePathPatterns": [
-      "react"
-    ]
   },
   "scripts": {
     "start": "node server.js",
-    "build": "NODE_ENV=production webpack -p --config webpack.production.config.js",
-    "test": "jest",
+    "postinstall": "node deploy.js",
+    "build": "./node_modules/.bin/webpack --config conf/webpack.production.js",
+    "test": "./node_modules/karma/bin/karma start conf/karma.conf.js --single-run",
+    "test:watch": "./node_modules/karma/bin/karma start conf/karma.conf.js",
+    "test:coverage": "./node_modules/karma/bin/karma start conf/karma.coverage.conf.js --single-run",
+    "test:ci": "./node_modules/karma/bin/karma start conf/karma.ci.conf.js --single-run",
     "lint": "./node_modules/.bin/eslint ."
   }
 }
