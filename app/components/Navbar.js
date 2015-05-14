@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import { Link } from 'react-router';
 import NavTab from './NavTab';
 
 class Navbar extends React.Component {
@@ -23,15 +24,15 @@ class Navbar extends React.Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand"><span className="coat-of-arms"/>Koulurekisteri</a>
+            <Link to="search" className="navbar-brand">
+              <span className="coat-of-arms"/>
+              Koulurekisteri
+            </Link>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
                 <NavTab to="search">Etsi koulua</NavTab>
                 <NavTab to="about">Tietoa palvelusta</NavTab>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">Logout</a></li>
             </ul>
           </div>
         </div>
