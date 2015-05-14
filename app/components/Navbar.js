@@ -30,9 +30,6 @@ class Navbar extends React.Component {
                 <NavTab to="search">Etsi koulua</NavTab>
                 <NavTab to="about">Tietoa palvelusta</NavTab>
             </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">Logout</a></li>
-            </ul>
           </div>
         </div>
       </nav>
