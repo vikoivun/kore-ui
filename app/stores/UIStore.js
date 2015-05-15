@@ -29,7 +29,7 @@ const UIStore = Object.assign({}, EventEmitter.prototype, {
 UIStore.dispatchToken = AppDispatcher.register(function(payload) {
   const action = payload.action;
 
-  switch(action.type) {
+  switch (action.type) {
 
     case ActionTypes.UPDATE_SCHOOL_TIMELINE_YEAR:
       _updateYear(action.year);

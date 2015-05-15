@@ -28,7 +28,7 @@ class Timeline extends React.Component {
 
   render() {
     let endYear = this.props.yearsActive.endYear;
-    if (!endYear){
+    if (!endYear) {
       endYear = new Date().getFullYear();
     }
     let currentYear = this.props.currentYear;

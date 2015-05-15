@@ -57,35 +57,35 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
   },
 
   hasSchool: function(schoolId) {
-    return _schools[schoolId] !== undefined;
+    return typeof _schools[schoolId] !== 'undefined';
   },
 
-  getMainName: function(schoolId){
-      let sortedSchoolNames = this.getSchoolNames(schoolId);
-      if (sortedSchoolNames.length) {
-        return sortedSchoolNames[0];
-      }
-      return {};
+  getMainName: function(schoolId) {
+    let sortedSchoolNames = this.getSchoolNames(schoolId);
+    if (sortedSchoolNames.length) {
+      return sortedSchoolNames[0];
+    }
+    return {};
   },
 
-  getMainBuilding: function(schoolId){
-      let sortedBuildings = this.getBuildings(schoolId);
-      if (sortedBuildings.length) {
-        return sortedBuildings[0];
-      }
-      return {};
+  getMainBuilding: function(schoolId) {
+    let sortedBuildings = this.getBuildings(schoolId);
+    if (sortedBuildings.length) {
+      return sortedBuildings[0];
+    }
+    return {};
   },
 
-  getSchoolNames: getSchoolByIdWrapper(function(school){
-      return _.sortBy(school.names, function(name){
-        return -name.begin_year;
-      });
+  getSchoolNames: getSchoolByIdWrapper(function(school) {
+    return _.sortBy(school.names, function(name) {
+      return -name.begin_year;
+    });
   }),
 
-  getBuildings: getSchoolByIdWrapper(function(school){
-      return _.sortBy(school.buildings, function(building){
-        return -building.begin_year;
-      });
+  getBuildings: getSchoolByIdWrapper(function(school) {
+    return _.sortBy(school.buildings, function(building) {
+      return -building.begin_year;
+    });
   }),
 
   getSchoolDetails: function(schoolId) {
@@ -101,10 +101,10 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     if (!year) {
       year = new Date().getFullYear();
     }
-    const schoolName = _.find(schoolNames, function(school){
+    const schoolName = _.find(schoolNames, function(school) {
       return school.begin_year <= year;
     });
-    const building = _.find(buildings, function(build){
+    const building = _.find(buildings, function(build) {
       return build.begin_year <= year;
     });
     return {
@@ -115,7 +115,8 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
 
   calculateBeginAndEndYear: function(schoolId) {
     let sortedNames = this.getSchoolNames(schoolId);
-    let beginYear, endYear;
+    let beginYear;
+    let endYear;
     if (sortedNames.length) {
       beginYear = sortedNames[sortedNames.length - 1].begin_year;
       endYear = sortedNames[0].end_year;
@@ -130,7 +131,7 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
 SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
   const action = payload.action;
 
-  switch(action.type) {
+  switch (action.type) {
 
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
       _receiveSchool(action.response);
@@ -148,7 +149,7 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
 });
 
 function _receiveSchool(school) {
-    _schools[school.id] = school;
+  _schools[school.id] = school;
 }
 
 function _receiveSchools(schools) {
