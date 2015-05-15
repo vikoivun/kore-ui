@@ -42,10 +42,16 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
 
   getSchools: function(schoolIds) {
     return _.map(schoolIds, function(id) {
+      const addresses = this.getMainBuilding(id).building.addresses;
+      const address = (
+        addresses.length ?
+        `${addresses[0].street_name_fi}\, ${addresses[0].municipality_fi}` :
+        ''
+      );
       return {
         id: id,
         name: this.getMainName(id).official_name,
-        address: 'example street 1'
+        address: address
       };
     }, this);
   },
