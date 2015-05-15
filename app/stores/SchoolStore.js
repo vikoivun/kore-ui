@@ -2,7 +2,6 @@
 
 import _ from 'lodash';
 import AppDispatcher from '../core/AppDispatcher';
-import { enumerate } from '../core/utils';
 import ActionTypes from '../constants/ActionTypes';
 import { EventEmitter } from 'events';
 
@@ -39,6 +38,22 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
 
   getSchool: function(schoolId) {
     return _schools[schoolId] || {};
+  },
+
+  getSchools: function(schoolIds) {
+    return _.map(schoolIds, function(id) {
+      const addresses = this.getMainBuilding(id).building.addresses;
+      const address = (
+        addresses.length ?
+        `${addresses[0].street_name_fi}\, ${addresses[0].municipality_fi}` :
+        ''
+      );
+      return {
+        id: id,
+        name: this.getMainName(id).official_name,
+        address: address
+      };
+    }, this);
   },
 
   hasSchool: function(schoolId) {
@@ -118,7 +133,12 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(action.type) {
 
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
-      _receiveSchools(action.response);
+      _receiveSchool(action.response);
+      SchoolStore.emitChange();
+      break;
+
+    case ActionTypes.REQUEST_SEARCH_SUCCESS:
+      _receiveSchools(action.response.results);
       SchoolStore.emitChange();
       break;
 
@@ -127,10 +147,12 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
   }
 });
 
+function _receiveSchool(school) {
+    _schools[school.id] = school;
+}
+
 function _receiveSchools(schools) {
-  for (let [schoolId, school] of enumerate(schools)){
-    _schools[schoolId] = school;
-  }
+  _.each(schools, _receiveSchool);
 }
 
 export default SchoolStore;
