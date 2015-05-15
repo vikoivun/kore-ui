@@ -117,11 +117,13 @@ module.exports = function(options) {
       new ExtractTextPlugin('app.[hash].css'),
       new HtmlWebpackPlugin({
         template: './conf/template.html',
+        favicon: '../app/images/favicon.ico',
         production: true
       })
     ] : [
       new HtmlWebpackPlugin({
-        template: './conf/template.html'
+        template: './conf/template.html',
+        favicon: './app/images/favicon.ico'
       }),
       new webpack.HotModuleReplacementPlugin()
     ]
