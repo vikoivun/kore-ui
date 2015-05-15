@@ -44,7 +44,10 @@ class SearchPage extends React.Component {
           </header>
           <SearchBox searchQuery={this.state.searchQuery}/>
           <div className='search-timeline'></div>
-          <SearchResultsTable schoolList={this.state.schoolList}/>
+          <SearchResultsTable
+            somethingWasSearched={Boolean(this.state.searchQuery)}
+            schoolList={this.state.schoolList}
+          />
         </div>
       </DocumentTitle>
     );

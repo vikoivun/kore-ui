@@ -34,7 +34,12 @@ class SearchResultsTable extends React.Component {
         </table>
       );
     }
-    return <p>Yhtään hakutulosta ei löytynyt.</p>;
+
+    if (this.props.somethingWasSearched) {
+      return <p>Yhtään hakutulosta ei löytynyt.</p>;
+    }
+
+    return <p>Etsi kouluja syöttämällä koulun nimi tai osoite yllä olevaan hakukenttään.</p>;
   }
 
   render() {
@@ -47,6 +52,7 @@ class SearchResultsTable extends React.Component {
 }
 
 SearchResultsTable.propTypes = {
+  somethingWasSearched: React.PropTypes.bool.isRequired,
   schoolList: React.PropTypes.array.isRequired
 };
 
