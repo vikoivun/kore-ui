@@ -5,6 +5,7 @@ import ActionTypes from '../constants/ActionTypes';
 import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
+let _searchQuery = '';
 let _searchResults = [];
 
 
@@ -21,6 +22,10 @@ const SearchStore = Object.assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
+  getSearchQuery: function() {
+    return _searchQuery;
+  },
+
   getSearchResults: function() {
     return _searchResults;
   }
@@ -30,6 +35,11 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
   const action = payload.action;
 
   switch(action.type) {
+
+    case ActionTypes.REQUEST_SEARCH:
+      _searchQuery = action.query;
+      SearchStore.emitChange();
+      break;
 
     case ActionTypes.REQUEST_SEARCH_SUCCESS:
       _receiveSearchResults(action.response.results);

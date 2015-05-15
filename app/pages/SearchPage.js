@@ -10,6 +10,7 @@ import SearchResultsTable from '../components/SearchResultsTable';
 function getStateFromStores() {
   const searchResults = SearchStore.getSearchResults();
   return {
+    searchQuery: SearchStore.getSearchQuery(),
     schoolList: SchoolStore.getSchools(searchResults)
   };
 }
@@ -41,7 +42,7 @@ class SearchPage extends React.Component {
               Kouluhaku
             </h1>
           </header>
-          <SearchBox/>
+          <SearchBox searchQuery={this.state.searchQuery}/>
           <div className='search-timeline'></div>
           <SearchResultsTable schoolList={this.state.schoolList}/>
         </div>

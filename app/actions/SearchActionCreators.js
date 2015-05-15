@@ -13,7 +13,8 @@ export default {
     }
 
     AppDispatcher.handleViewAction({
-      type: ActionTypes.REQUEST_SEARCH
+      type: ActionTypes.REQUEST_SEARCH,
+      query
     });
 
     SchoolAPI.searchSchool(query);

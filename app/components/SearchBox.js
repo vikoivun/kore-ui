@@ -3,27 +3,20 @@
 import React from 'react';
 import SearchActionCreators from '../actions/SearchActionCreators';
 
-function getInitialState() {
-  return {
-    query: undefined
-  };
-}
-
-
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = getInitialState();
+    this.state = {searchQuery: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
-
   }
+
   handleSubmit() {
-    SearchActionCreators.requestSearch(this.state.query);
+    SearchActionCreators.requestSearch(this.state.searchQuery);
   }
 
   handleKeyUp(e) {
-    this.setState({query: e.target.value});
+    this.setState({searchQuery: e.target.value});
     if (e.keyCode === 13) {
       this.handleSubmit(e);
     }
@@ -43,6 +36,7 @@ class SearchBox extends React.Component {
             className='search-bar'
             onKeyUp={this.handleKeyUp}
             placeholder='Syötä koulun nimi'
+            defaultValue={this.props.searchQuery}
           />
         </div>
       </div>
@@ -51,7 +45,7 @@ class SearchBox extends React.Component {
 }
 
 SearchBox.propTypes = {
-
+  searchQuery: React.PropTypes.string.isRequired
 };
 
 export default SearchBox;
