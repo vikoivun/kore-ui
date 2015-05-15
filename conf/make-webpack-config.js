@@ -2,7 +2,6 @@
 'use strict';
 
 var path = require('path');
-var fs = require('fs');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -15,8 +14,6 @@ function extractForProduction(loaders) {
 }
 
 module.exports = function(options) {
-  options.lint = fs.existsSync(path.resolve(__dirname, '/../.eslintrc')) && options.lint !== false;
-
   var cssLoaders = 'style!css!autoprefixer?browsers=last 2 versions';
   var lessLoaders = cssLoaders + '!less';
 
