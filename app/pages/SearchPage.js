@@ -36,7 +36,7 @@ class SearchPage extends React.Component {
     return (
       <DocumentTitle title='Etsi koulua - Koulurekisteri'>
         <div className='search-page'>
-          <header className="container">
+          <header className='container'>
             <h1 className='search-title' >
               <img src={require('../images/Helsinki.vaakuna.svg')} alt='Helsinki vaakuna' />
               Kouluhaku

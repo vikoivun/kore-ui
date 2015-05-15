@@ -30,7 +30,7 @@ class SearchBox extends React.Component {
             className='search-button'
             onClick={this.handleSubmit}
           >
-            <i className="fa fa-lg fa-search"></i>
+            <i className='fa fa-lg fa-search'></i>
           </a>
           <input
             className='search-bar'

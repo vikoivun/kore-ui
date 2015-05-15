@@ -38,7 +38,7 @@ class InfoTable extends React.Component {
         content = ['View more ', <i className='fa fa-lg fa-chevron-down'/>];
       }
       return (
-        <button className="button-expand" onClick={this.handleExpandClick}>
+        <button className='button-expand' onClick={this.handleExpandClick}>
           {content}
         </button>
       );
@@ -74,7 +74,7 @@ class InfoTable extends React.Component {
         <header>
           <h2>{this.props.title}</h2>
         </header>
-        <div className="info-table-columns">
+        <div className='info-table-columns'>
           <ol className='column column-one'>
             {itemsColumnOne.map(getInfoRow)}
           </ol>
