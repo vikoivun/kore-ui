@@ -5,14 +5,10 @@
   "env": {
     "browser": true,
     "es6": true,
+    "mocha": true,
     "node": true
   },
   "parser": "babel-eslint",
-  "globals": {
-    "describe": false,
-    "expect": false,
-    "it": false
-  },
   "rules": {
     "eol-last": 2,
     "max-len": [2, 100, 2],
