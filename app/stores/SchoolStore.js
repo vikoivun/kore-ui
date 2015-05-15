@@ -40,6 +40,16 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     return _schools[schoolId] || {};
   },
 
+  getSchools: function(schoolIds) {
+    return _.map(schoolIds, function(id) {
+      return {
+        id: id,
+        name: this.getMainName(id).official_name,
+        address: 'example street 1'
+      };
+    }, this);
+  },
+
   hasSchool: function(schoolId) {
     return _schools[schoolId] !== undefined;
   },
