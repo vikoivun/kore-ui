@@ -15,7 +15,7 @@ module.exports = function(options) {
     autoWatch: true,
 
     files: [
-      '../app/**/__tests__/*.js'
+      {pattern: '../app/**/__tests__/*.js', watched: false}
     ],
 
     preprocessors: {
