@@ -31,8 +31,8 @@ class Navbar extends React.Component {
           </div>
           <div id='navbar' className='navbar-collapse collapse'>
             <ul className='nav navbar-nav'>
-                <NavTab to='search'>Etsi koulua</NavTab>
-                <NavTab to='about'>Tietoa palvelusta</NavTab>
+              <NavTab to='search'>Etsi koulua</NavTab>
+              <NavTab to='about'>Tietoa palvelusta</NavTab>
             </ul>
           </div>
         </div>
