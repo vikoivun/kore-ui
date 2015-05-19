@@ -25,8 +25,7 @@ export default {
       if (response.ok) {
         response.body.id = getIdFromSchool(response.body);
         SchoolServerActionCreators.handleSchoolSuccess(response.body);
-      }
-      else {
+      } else {
         SchoolServerActionCreators.handleSchoolError(response.text);
       }
     });
@@ -40,12 +39,11 @@ export default {
     .end(function(error, response) {
       if (response.ok) {
         let results = response.body.results;
-        results.map(function(school){
+        results.map(function(school) {
           school.id = getIdFromSchool(school);
         });
         SearchServerActionCreators.handleSearchSuccess(response.body);
-      }
-      else {
+      } else {
         SearchServerActionCreators.handleSearchError(response.text);
       }
     });

@@ -6,7 +6,7 @@ const defaultBuildingPictureUrl = require('../images/default-building.jpg');
 
 class SchoolImageMap extends React.Component {
 
-  getBuildingPictureUrl(){
+  getBuildingPictureUrl() {
     if (this.props.building.photo) {
       return this.props.building.photo;
     }

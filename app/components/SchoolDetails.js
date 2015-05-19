@@ -6,7 +6,7 @@ import InfoTable from './InfoTable';
 
 
 const itemGenerator = {
-  schoolNames: function(names){
+  schoolNames: function(names) {
     return {
       key: 'school-names',
       title: 'Koulun nimet',
@@ -25,7 +25,7 @@ const itemGenerator = {
       })
     };
   },
-  buildings: function(buildings){
+  buildings: function(buildings) {
     return {
       key: 'buildings',
       title: 'Rakennukset ja sijainnit',

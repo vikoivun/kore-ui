@@ -34,7 +34,7 @@ const SearchStore = Object.assign({}, EventEmitter.prototype, {
 SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
   const action = payload.action;
 
-  switch(action.type) {
+  switch (action.type) {
 
     case ActionTypes.REQUEST_SEARCH:
       _searchQuery = action.query;
@@ -53,7 +53,7 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 function _receiveSearchResults(schools) {
 
-  _searchResults = schools.map(function(school){
+  _searchResults = schools.map(function(school) {
     return school.id;
   });
 }

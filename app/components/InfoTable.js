@@ -8,9 +8,9 @@ function getInfoRow(item) {
 }
 
 function getInitialState() {
-   return {
-     expanded: false
-   };
+  return {
+    expanded: false
+  };
 }
 
 const unexpandedListSize = 6;
@@ -34,12 +34,11 @@ class InfoTable extends React.Component {
       let content;
       if (this.state.expanded) {
         content = ['View less ', <i className='fa fa-lg fa-chevron-up'/>];
-      }
-      else {
+      } else {
         content = ['View more ', <i className='fa fa-lg fa-chevron-down'/>];
       }
       return (
-        <button className="button-expand" onClick={this.handleExpandClick}>
+        <button className='button-expand' onClick={this.handleExpandClick}>
           {content}
         </button>
       );
@@ -67,14 +66,15 @@ class InfoTable extends React.Component {
   }
 
   render() {
-    let itemsColumnOne, itemsColumnTwo;
+    let itemsColumnOne;
+    let itemsColumnTwo;
     [itemsColumnOne, itemsColumnTwo] = this.getItemsByColumn();
     return (
       <section className='info-table'>
         <header>
           <h2>{this.props.title}</h2>
         </header>
-        <div className="info-table-columns">
+        <div className='info-table-columns'>
           <ol className='column column-one'>
             {itemsColumnOne.map(getInfoRow)}
           </ol>

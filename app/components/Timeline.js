@@ -28,7 +28,7 @@ class Timeline extends React.Component {
 
   render() {
     let endYear = this.props.yearsActive.endYear;
-    if (!endYear){
+    if (!endYear) {
       endYear = new Date().getFullYear();
     }
     let currentYear = this.props.currentYear;
@@ -36,12 +36,12 @@ class Timeline extends React.Component {
       currentYear = endYear;
     }
     return (
-      <div className="timeline">
-        <div className="anchor anchor-left">
+      <div className='timeline'>
+        <div className='anchor anchor-left'>
           <span>{this.props.yearsActive.beginYear}</span>
           <div className='separator'>|</div>
         </div>
-        <div className="anchor anchor-right">
+        <div className='anchor anchor-right'>
           <span>{endYear}</span>
           <div className='separator'>|</div>
         </div>

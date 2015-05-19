@@ -43,8 +43,7 @@ class InfoRow extends React.Component {
       let content;
       if (this.state.expanded) {
         content = <i className='fa fa-lg fa-chevron-up'/>;
-      }
-      else {
+      } else {
         content = <i className='fa fa-lg fa-chevron-down'/>;
       }
       return (
@@ -58,7 +57,7 @@ class InfoRow extends React.Component {
 
   render() {
     let liClassName = 'info-row ';
-    if (this.props.className){
+    if (this.props.className) {
       liClassName += this.props.className;
     }
     if (this.state.expandable) {
