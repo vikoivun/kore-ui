@@ -10,6 +10,7 @@ import SearchResultsTable from '../components/SearchResultsTable';
 function getStateFromStores() {
   const searchResults = SearchStore.getSearchResults();
   return {
+    fetchingData: SearchStore.getFetchingData(),
     searchQuery: SearchStore.getSearchQuery(),
     schoolList: SchoolStore.getSchools(searchResults)
   };
@@ -45,6 +46,7 @@ class SearchPage extends React.Component {
           <SearchBox searchQuery={this.state.searchQuery}/>
           <div className='search-timeline'></div>
           <SearchResultsTable
+            fetchingData={this.state.fetchingData}
             somethingWasSearched={Boolean(this.state.searchQuery)}
             schoolList={this.state.schoolList}
           />
