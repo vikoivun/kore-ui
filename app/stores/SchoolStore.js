@@ -7,6 +7,7 @@ import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
 let _schools = {};
+let _fetchingData = false;
 
 
 const getSchoolByIdWrapper = function(func, defaultValue) {
@@ -34,6 +35,10 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
 
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getFetchingData: function() {
+    return _fetchingData;
   },
 
   getSchool: function(schoolId) {
@@ -144,7 +149,13 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
 
   switch (action.type) {
 
+    case ActionTypes.REQUEST_SCHOOL:
+      _fetchingData = true;
+      SchoolStore.emitChange();
+      break;
+
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
+    _fetchingData = false;
       _receiveSchool(action.response);
       SchoolStore.emitChange();
       break;

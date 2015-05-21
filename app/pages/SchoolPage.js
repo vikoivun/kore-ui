@@ -18,6 +18,7 @@ function parseSchoolId(props) {
 function getStateFromStores(schoolId) {
   const selectedYear = UIStore.getSchoolTimelineYear();
   return {
+    fetchingData: SchoolStore.getFetchingData(),
     mainName: SchoolStore.getMainName(schoolId),
     yearsActive: SchoolStore.calculateBeginAndEndYear(schoolId),
     mainBuildingInSelectedYear: SchoolStore.getMainBuildingInYear(schoolId, selectedYear),
@@ -79,7 +80,10 @@ class SchoolPage extends React.Component {
           />
           <div className='container'>
             <div className='school-image-map'>
-              <SchoolImage building={this.state.mainBuildingInSelectedYear} />
+              <SchoolImage
+                fetchingData={this.state.fetchingData}
+                building={this.state.mainBuildingInSelectedYear}
+              />
               <SchoolMap />
             </div>
           </div>

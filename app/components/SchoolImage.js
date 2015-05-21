@@ -2,6 +2,7 @@
 
 import React from 'react';
 import _ from 'lodash';
+import Loader from 'react-loader';
 
 const defaultImageUrl = require('../images/default-building.jpg');
 
@@ -20,11 +21,18 @@ class SchoolImage extends React.Component {
     const schoolImageStyles = {
       backgroundImage: 'url(' + this.getImageUrl() + ')'
     };
-    return <div className='school-image' style={schoolImageStyles} />;
+    return (
+      <div className='school-image-container'>
+        <Loader loaded={!this.props.fetchingData}>
+          <div className='school-image' style={schoolImageStyles} />
+        </Loader>
+      </div>
+    );
   }
 }
 
 SchoolImage.propTypes = {
+  fetchingData: React.PropTypes.bool,
   building: React.PropTypes.shape({
     photos: React.PropTypes.array
   }).isRequired
