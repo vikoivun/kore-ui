@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Route, Redirect, NotFoundRoute } from 'react-router';
+import {Route, Redirect, NotFoundRoute} from 'react-router';
 import App from './App';
 import SearchPage from './pages/SearchPage';
 import AboutPage from './pages/AboutPage';

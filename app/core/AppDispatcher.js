@@ -1,6 +1,6 @@
 'use strict';
 
-import { Dispatcher } from 'flux';
+import {Dispatcher} from 'flux';
 import PayloadSources from '../constants/PayloadSources';
 
 const isProduction = process.env.NODE_ENV === 'production';

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import SchoolTitle from '../SchoolTitle';
 
 describe('SchoolTitle', function() {

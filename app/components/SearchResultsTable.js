@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import Loader from 'react-loader';
 
 class SearchResultsTable extends React.Component {
