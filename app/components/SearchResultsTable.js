@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import Loader from 'react-loader';
 
 class SearchResultsTable extends React.Component {
 
@@ -45,13 +46,16 @@ class SearchResultsTable extends React.Component {
   render() {
     return (
       <div className='container'>
-        {this.renderSearchResults()}
+        <Loader loaded={!this.props.fetchingData}>
+          {this.renderSearchResults()}
+        </Loader>
       </div>
     );
   }
 }
 
 SearchResultsTable.propTypes = {
+  fetchingData: React.PropTypes.bool,
   somethingWasSearched: React.PropTypes.bool.isRequired,
   schoolList: React.PropTypes.array.isRequired
 };
