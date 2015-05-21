@@ -2,7 +2,7 @@
 
 import React from 'react';
 import DocumentTitle from 'react-document-title';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 class NotFoundPage extends React.Component {
 

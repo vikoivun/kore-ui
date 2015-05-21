@@ -2,7 +2,7 @@
 
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 
 const CHANGE_EVENT = 'change';
 let _fetchingData = false;
