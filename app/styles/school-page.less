@@ -46,15 +46,23 @@
     .row();
     margin-top: 40px;
 
-    .school-image {
-      .make-column(8,8);
-      background-image: url('../images/default-building.jpg');
-      height: @school-image-map-height;
-      background-color: rgba(0,0,0,0.03);
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: 100% auto;
+    .school-image-container {
+      .make-column(8, 8);
+      padding-right: 0;
+      .loader {
+        background-color: rgba(0, 0, 0, 0.03);
+        height: @school-image-map-height;
+      }
+      .school-image {
+        width: 100%;
+        height: @school-image-map-height;
+        background-color: rgba(0, 0, 0, 0.03);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+      }
     }
+
   }
   .school-map {
     .make-column(4,4);
