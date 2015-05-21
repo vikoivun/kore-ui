@@ -4,7 +4,8 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import SchoolActionCreators from '../actions/SchoolActionCreators';
 import SchoolDetails from '../components/SchoolDetails';
-import SchoolImageMap from '../components/SchoolImageMap';
+import SchoolImage from '../components/SchoolImage';
+import SchoolMap from '../components/SchoolMap';
 import SchoolTimelineInfo from '../components/SchoolTimelineInfo';
 import SchoolTitle from '../components/SchoolTitle';
 import SchoolStore from '../stores/SchoolStore';
@@ -73,8 +74,14 @@ class SchoolPage extends React.Component {
           <SchoolTimelineInfo
             yearsActive={this.state.yearsActive}
             currentYear={this.state.currentYear}
-            schoolYearDetails={this.state.schoolYearDetails} />
-          <SchoolImageMap building={this.state.mainBuilding}/>
+            schoolYearDetails={this.state.schoolYearDetails}
+          />
+          <div className='container'>
+            <div className='school-image-map'>
+              <SchoolImage building={this.state.mainBuilding} />
+              <SchoolMap />
+            </div>
+          </div>
           <SchoolDetails details={this.state.schoolDetails} />
         </div>
       </DocumentTitle>
