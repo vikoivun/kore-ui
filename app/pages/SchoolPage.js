@@ -16,16 +16,17 @@ function parseSchoolId(props) {
 }
 
 function getStateFromStores(schoolId) {
+  const selectedYear = UIStore.getSchoolTimelineYear();
   return {
     mainName: SchoolStore.getMainName(schoolId),
     yearsActive: SchoolStore.calculateBeginAndEndYear(schoolId),
-    mainBuilding: SchoolStore.getMainBuilding(schoolId),
+    mainBuildingInSelectedYear: SchoolStore.getMainBuildingInYear(schoolId, selectedYear),
     schoolDetails: SchoolStore.getSchoolDetails(schoolId),
     schoolYearDetails: SchoolStore.getSchoolYearDetails(
       schoolId,
-      UIStore.getSchoolTimelineYear()
+      selectedYear
     ),
-    currentYear: UIStore.getSchoolTimelineYear()
+    currentYear: selectedYear
   };
 }
 
@@ -78,7 +79,7 @@ class SchoolPage extends React.Component {
           />
           <div className='container'>
             <div className='school-image-map'>
-              <SchoolImage building={this.state.mainBuilding} />
+              <SchoolImage building={this.state.mainBuildingInSelectedYear} />
               <SchoolMap />
             </div>
           </div>

@@ -88,6 +88,17 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
     });
   }),
 
+  getMainBuildingInYear: function(schoolId, year) {
+    if (!year) {
+      return this.getMainBuilding(schoolId);
+    }
+    const buildings = this.getBuildings(schoolId);
+    const building = _.find(buildings, function(build) {
+      return build.begin_year <= year;
+    });
+    return building || {};
+  },
+
   getSchoolDetails: function(schoolId) {
     return {
       schoolNames: this.getSchoolNames(schoolId),
