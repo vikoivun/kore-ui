@@ -2,28 +2,15 @@
 
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
+import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
-import {EventEmitter} from 'events';
 
-const CHANGE_EVENT = 'change';
 let _fetchingData = false;
 let _searchQuery = '';
 let _searchResults = [];
 let _nextPageUrl;
 
-const SearchStore = Object.assign({}, EventEmitter.prototype, {
-  emitChange: function() {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-
+const SearchStore = Object.assign({}, BaseStore, {
   getFetchingData: function() {
     return _fetchingData;
   },
