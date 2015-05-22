@@ -14,40 +14,40 @@ function buildAPIURL(resource) {
 export default {
   requestSchool(schoolId) {
     request
-    .get(buildAPIURL('school/' + schoolId))
-    .query(APIARGS)
-    .end(function(error, response) {
-      if (response.ok) {
-        SchoolServerActionCreators.handleSchoolSuccess(response.body);
-      } else {
-        SchoolServerActionCreators.handleSchoolError(response.text);
-      }
-    });
+      .get(buildAPIURL('school/' + schoolId))
+      .query(APIARGS)
+      .end(function(error, response) {
+        if (response.ok) {
+          SchoolServerActionCreators.handleSchoolSuccess(response.body);
+        } else {
+          SchoolServerActionCreators.handleSchoolError(response.text);
+        }
+      });
   },
 
   searchSchool(query) {
     request
-    .get(buildAPIURL('school/'))
-    .query('search=' + query)
-    .query(APIARGS)
-    .end(function(error, response) {
-      if (response.ok) {
-        SearchServerActionCreators.handleSearchSuccess(response.body);
-      } else {
-        SearchServerActionCreators.handleSearchError(response.text);
-      }
-    });
+      .get(buildAPIURL('school/'))
+      .query('search=' + query)
+      .query(APIARGS)
+      .end(function(error, response) {
+        if (response.ok) {
+          SearchServerActionCreators.handleSearchSuccess(response.body);
+        } else {
+          SearchServerActionCreators.handleSearchError(response.text);
+        }
+      });
   },
 
   searchLoadMore(url) {
     request
-    .get(url)
-    .end(function(error, response) {
-      if (response.ok) {
-        SearchServerActionCreators.handleSearchSuccess(response.body);
-      } else {
-        SearchServerActionCreators.handleSearchError(response.text);
-      }
-    });
+      .get(url)
+      .end(function(error, response) {
+        if (response.ok) {
+          SearchServerActionCreators.handleSearchSuccess(response.body);
+        } else {
+          SearchServerActionCreators.handleSearchError(response.text);
+        }
+      });
   }
 };
