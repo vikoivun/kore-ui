@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import React from 'react';
 import InfoTable from './InfoTable';
-
+import {getAddressArrayFromBuilding} from '../core/utils';
 
 const itemGenerator = {
   schoolNames: function(names) {
@@ -34,11 +34,7 @@ const itemGenerator = {
         return {
           key: 'building-' + index,  // This could be the ID if retreived from API.
           className: 'details-building',
-          name: [
-            building.building.addresses[0].street_name_fi,
-            ', ',
-            building.building.addresses[0].municipality_fi
-          ],
+          name: getAddressArrayFromBuilding(building.building),
           boxContent: [
             building.begin_year,
             <i className='fa fa-lg fa-long-arrow-right'/>,

@@ -1,11 +1,16 @@
 'use strict';
 
-function* enumerate(obj) {
-  for (let key of Object.keys(obj)) {
-    yield [key, obj[key]];
+function getAddressArrayFromBuilding(building) {
+  if (building && building.addresses && building.addresses.lenght) {
+    return [
+      building.addresses[0].street_name_fi,
+      ', ',
+      building.addresses[0].municipality_fi
+    ];
   }
+  return '';
 }
 
 export default {
-  enumerate: enumerate
+  getAddressArrayFromBuilding: getAddressArrayFromBuilding
 };
