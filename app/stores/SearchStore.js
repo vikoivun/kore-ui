@@ -11,21 +11,10 @@ let _searchResults = [];
 let _nextPageUrl;
 
 const SearchStore = Object.assign({}, BaseStore, {
-  getFetchingData: function() {
-    return _fetchingData;
-  },
-
-  getSearchQuery: function() {
-    return _searchQuery;
-  },
-
-  getSearchResults: function() {
-    return _searchResults;
-  },
-
-  getNextPageUrl: function() {
-    return _nextPageUrl;
-  }
+  getFetchingData,
+  getNextPageUrl,
+  getSearchQuery,
+  getSearchResults
 });
 
 SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -59,6 +48,22 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       // noop
   }
 });
+
+function getFetchingData() {
+  return _fetchingData;
+}
+
+function getNextPageUrl() {
+  return _nextPageUrl;
+}
+
+function getSearchQuery() {
+  return _searchQuery;
+}
+
+function getSearchResults() {
+  return _searchResults;
+}
 
 function _receiveSearchResults(schools) {
   let incomingResults = schools.map(function(school) {
