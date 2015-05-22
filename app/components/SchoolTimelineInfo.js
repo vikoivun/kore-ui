@@ -4,6 +4,7 @@ import _ from 'lodash';
 import React from 'react';
 import Timeline from './Timeline';
 import InfoRow from './InfoRow';
+import {getAddressArrayFromBuilding} from '../core/utils';
 
 function getInfoRow(row) {
   return <InfoRow {...row}/>;
@@ -34,22 +35,14 @@ function processRow(details) {
       key: 'school-building',
       className: 'details-building',
       // The address should be sorted by time as well.
-      name: [
-        details.building.building.addresses[0].street_name_fi,
-        ', ',
-        details.building.building.addresses[0].municipality_fi
-      ],
+      name: getAddressArrayFromBuilding(details.building.building),
       boxContent: 'sijainti'
     },
     {
       // We are not getting the archive address from the API yet.
       key: 'school-archive',
       className: 'details-archive',
-      name: [
-        details.building.building.addresses[0].street_name_fi,
-        ', ',
-        details.building.building.addresses[0].municipality_fi
-      ],
+      name: getAddressArrayFromBuilding(details.building.building),
       boxContent: 'arkisto'
     }
   ];
