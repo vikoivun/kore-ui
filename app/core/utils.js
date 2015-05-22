@@ -1,7 +1,7 @@
 'use strict';
 
 function getAddressArrayFromBuilding(building) {
-  if (building && building.addresses && building.addresses.lenght) {
+  if (building && building.addresses && building.addresses.length) {
     return [
       building.addresses[0].street_name_fi,
       ', ',
