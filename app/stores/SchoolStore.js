@@ -47,6 +47,13 @@ const SchoolStore = Object.assign({}, EventEmitter.prototype, {
 
   getSchools: function(schoolIds) {
     return _.map(schoolIds, function(id) {
+      if (!_schools[id].buildings.length) {
+        return {
+          id: id,
+          name: this.getMainName(id).official_name,
+          address: ''
+        };
+      }
       const addresses = this.getMainBuilding(id).building.addresses;
       const address = (
         addresses.length ?
@@ -155,8 +162,12 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
-    _fetchingData = false;
+      _fetchingData = false;
       _receiveSchool(action.response);
+      SchoolStore.emitChange();
+      break;
+
+    case ActionTypes.REQUEST_SEARCH_LOAD_MORE:
       SchoolStore.emitChange();
       break;
 

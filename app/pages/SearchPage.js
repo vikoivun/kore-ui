@@ -3,6 +3,7 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import SearchBox from '../components/SearchBox';
+import SearchLoadMore from '../components/SearchLoadMore';
 import SearchStore from '../stores/SearchStore';
 import SchoolStore from '../stores/SchoolStore';
 import SearchResultsTable from '../components/SearchResultsTable';
@@ -12,6 +13,7 @@ function getStateFromStores() {
   return {
     fetchingData: SearchStore.getFetchingData(),
     searchQuery: SearchStore.getSearchQuery(),
+    nextPageUrl: SearchStore.getNextPageUrl(),
     schoolList: SchoolStore.getSchools(searchResults)
   };
 }
@@ -34,6 +36,15 @@ class SearchPage extends React.Component {
   }
 
   render() {
+    let loadMore;
+    if (this.state.nextPageUrl) {
+      loadMore = (
+        <SearchLoadMore
+          url={this.state.nextPageUrl}
+          fetchingData={this.state.fetchingData}
+        />
+      );
+    }
     return (
       <DocumentTitle title='Etsi koulua - Koulurekisteri'>
         <div className='search-page'>
@@ -50,6 +61,7 @@ class SearchPage extends React.Component {
             somethingWasSearched={Boolean(this.state.searchQuery)}
             schoolList={this.state.schoolList}
           />
+          {loadMore}
         </div>
       </DocumentTitle>
     );

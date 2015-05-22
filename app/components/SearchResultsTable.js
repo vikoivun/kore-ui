@@ -44,9 +44,10 @@ class SearchResultsTable extends React.Component {
   }
 
   render() {
+    const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
     return (
       <div className='container'>
-        <Loader loaded={!this.props.fetchingData}>
+        <Loader loaded={!loading}>
           {this.renderSearchResults()}
         </Loader>
       </div>

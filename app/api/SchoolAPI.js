@@ -37,5 +37,17 @@ export default {
         SearchServerActionCreators.handleSearchError(response.text);
       }
     });
+  },
+
+  searchLoadMore(url) {
+    request
+    .get(url)
+    .end(function(error, response) {
+      if (response.ok) {
+        SearchServerActionCreators.handleSearchSuccess(response.body);
+      } else {
+        SearchServerActionCreators.handleSearchError(response.text);
+      }
+    });
   }
 };

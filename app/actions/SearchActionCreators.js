@@ -3,20 +3,23 @@
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import SchoolAPI from '../api/SchoolAPI';
-import SchoolStore from '../stores/SchoolStore';
 
 export default {
 
   requestSearch(query) {
-    if (SchoolStore.hasSchool()) {
-      return;
-    }
-
     AppDispatcher.handleViewAction({
       type: ActionTypes.REQUEST_SEARCH,
       query
     });
 
     SchoolAPI.searchSchool(query);
+  },
+
+  requestLoadMore(url) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.REQUEST_SEARCH_LOAD_MORE
+    });
+
+    SchoolAPI.searchLoadMore(url);
   }
 };
