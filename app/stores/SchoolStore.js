@@ -115,7 +115,8 @@ function getSchoolYearDetails(school, year) {
 
   return {
     schoolName: _getItemForYear(school, 'names', year) || {},
-    building: _getItemForYear(school, 'buildings', year) || {}
+    building: _getItemForYear(school, 'buildings', year) || {},
+    archive: _getItemForYear(school, 'archives', year) || {}
   };
 }
 
@@ -143,7 +144,8 @@ function _receiveSchool(school) {
   _schools[school.id] = {
     id: school.id,
     names: _.sortByOrder(school.names, ['end_year', 'begin_year'], [false, false]),
-    buildings: _.sortByOrder(school.buildings, ['end_year', 'begin_year'], [false, false])
+    buildings: _.sortByOrder(school.buildings, ['end_year', 'begin_year'], [false, false]),
+    archives: _.sortByOrder(school.archives, ['end_year', 'begin_year'], [false, false])
   };
 }
 
