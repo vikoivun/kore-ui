@@ -12,10 +12,10 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getBeginAndEndYear: _getSchoolByIdWrapper(getBeginAndEndYear, {}),
   getFetchingData,
   getMainBuilding: _getSchoolByIdWrapper(getMainBuilding, {}),
-  getMainBuildingInYear,
+  getMainBuildingInYear: _getSchoolByIdWrapper(getMainBuildingInYear, {}),
   getMainName: _getSchoolByIdWrapper(getMainName, {}),
   getSchoolDetails: _getSchoolByIdWrapper(getSchoolDetails, {}),
-  getSchoolYearDetails,
+  getSchoolYearDetails: _getSchoolByIdWrapper(getSchoolYearDetails, {}),
   getSchools,
   hasSchool
 });
@@ -67,12 +67,7 @@ function getMainBuilding(school) {
   return _.first(school.buildings) || {};
 }
 
-function getMainBuildingInYear(schoolId, year) {
-  const school = _schools[schoolId];
-  if (_.isEmpty(school)) {
-    return {};
-  }
-
+function getMainBuildingInYear(school, year) {
   if (!year) {
     return getMainBuilding(school);
   }
@@ -118,11 +113,7 @@ function getSchools(schoolIds) {
   }, this);
 }
 
-function getSchoolYearDetails(schoolId, year) {
-  const school = _schools[schoolId];
-  if (_.isEmpty(school)) {
-    return {};
-  }
+function getSchoolYearDetails(school, year) {
   year = year || new Date().getFullYear();
   const schoolName = _.find(school.names, function(name) {
     return name.begin_year <= year;
@@ -144,7 +135,9 @@ function _getSchoolByIdWrapper(func, defaultValue) {
   return function(schoolId) {
     defaultValue = defaultValue ? defaultValue : [];
     const school = _schools[schoolId];
-    return _.isEmpty(school) ? defaultValue : func(school);
+    let newArgs = Array.prototype.slice.call(arguments, 1);
+    newArgs.unshift(school);
+    return _.isEmpty(school) ? defaultValue : func.apply(this, newArgs);
   };
 }
 
