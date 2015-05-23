@@ -36,14 +36,21 @@ function processRow(details) {
       className: 'details-building',
       // The address should be sorted by time as well.
       name: getAddressArrayFromBuilding(details.building.building),
-      boxContent: 'sijainti'
+      boxContent: [
+        details.building.begin_year,
+        <i className='fa fa-lg fa-long-arrow-right'/>,
+        details.building.end_year
+      ]
     },
     {
-      // We are not getting the archive address from the API yet.
       key: 'school-archive',
       className: 'details-archive',
-      name: getAddressArrayFromBuilding(details.building.building),
-      boxContent: 'arkisto'
+      name: details.archive.location,
+      boxContent: [
+        details.archive.begin_year,
+        <i className='fa fa-lg fa-long-arrow-right'/>,
+        details.archive.end_year
+      ]
     }
   ];
 }

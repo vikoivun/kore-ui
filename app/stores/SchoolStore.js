@@ -67,15 +67,12 @@ function getMainBuilding(school) {
   return _.first(school.buildings) || {};
 }
 
+
 function getMainBuildingInYear(school, year) {
   if (!year) {
     return getMainBuilding(school);
   }
-
-  const mainBuilding = _.find(school.buildings, function(building) {
-    return building.begin_year <= year;
-  });
-  return mainBuilding || {};
+  return _getItemForYear(school, 'buildings', year) || {};
 }
 
 function getMainName(school) {
@@ -84,8 +81,13 @@ function getMainName(school) {
 
 function getSchoolDetails(school) {
   return {
-    schoolNames: school.names,
-    buildings: school.buildings
+    archives: school.archives,
+    buildings: school.buildings,
+    fields: school.fields,
+    genders: school.genders,
+    languages: school.languages,
+    names: school.names,
+    types: school.types
   };
 }
 
@@ -115,20 +117,22 @@ function getSchools(schoolIds) {
 
 function getSchoolYearDetails(school, year) {
   year = year || new Date().getFullYear();
-  const schoolName = _.find(school.names, function(name) {
-    return name.begin_year <= year;
-  });
-  const schoolBuilding = _.find(school.buildings, function(building) {
-    return building.begin_year <= year;
-  });
+
   return {
-    schoolName: schoolName || {},
-    building: schoolBuilding || {}
+    schoolName: _getItemForYear(school, 'names', year) || {},
+    building: _getItemForYear(school, 'buildings', year) || {},
+    archive: _getItemForYear(school, 'archives', year) || {}
   };
 }
 
 function hasSchool(schoolId) {
   return typeof _schools[schoolId] !== 'undefined';
+}
+
+function _getItemForYear(school, itemListName, year) {
+  return _.find(school[itemListName], function(item) {
+    return item.begin_year <= year;
+  });
 }
 
 function _getSchoolByIdWrapper(func, defaultValue) {
@@ -143,14 +147,23 @@ function _getSchoolByIdWrapper(func, defaultValue) {
 
 function _receiveSchool(school) {
   _schools[school.id] = {
+    archives: _sortByYears(school.archives),
+    buildings: _sortByYears(school.buildings),
+    fields: _sortByYears(school.fields),
+    genders: _sortByYears(school.genders),
     id: school.id,
-    names: _.sortByOrder(school.names, ['end_year', 'begin_year'], [false, false]),
-    buildings: _.sortByOrder(school.buildings, ['end_year', 'begin_year'], [false, false])
+    languages: _sortByYears(school.languages),
+    names: _sortByYears(school.names),
+    types: _sortByYears(school.types)
   };
 }
 
 function _receiveSchools(schools) {
   _.each(schools, _receiveSchool);
+}
+
+function _sortByYears(list) {
+  return _.sortByOrder(list, ['end_year', 'begin_year'], [false, false]);
 }
 
 export default SchoolStore;
