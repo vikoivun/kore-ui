@@ -81,8 +81,9 @@ function getMainName(school) {
 
 function getSchoolDetails(school) {
   return {
-    names: school.names,
-    buildings: school.buildings
+    archives: school.archives,
+    buildings: school.buildings,
+    names: school.names
   };
 }
 
