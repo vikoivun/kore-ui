@@ -78,6 +78,16 @@ const itemGenerator = {
       };
     });
   },
+  principals: function(principals) {
+    return _.map(principals, function(principal) {
+      return {
+        key: 'principal-' + principal.id,
+        className: 'details-principal',
+        name: principal.name,
+        boxContent: getBoxContent(principal)
+      };
+    });
+  },
   types: function(types) {
     return _.map(types, function(type, index) {
       return {
@@ -118,6 +128,11 @@ class SchoolDetails extends React.Component {
             title={'Arkistot'}
             expandable={true}
             items={itemGenerator.archives(details.archives)}
+          />
+          <InfoTable
+            title={'Rehtorit'}
+            expandable={true}
+            items={itemGenerator.principals(details.principals)}
           />
           <InfoTable
             title={'Koulun tyypit'}
@@ -196,6 +211,13 @@ SchoolDetails.propTypes = {
     names: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         'official_name': React.PropTypes.string,
+        'begin_year': React.PropTypes.number,
+        'end_year': React.PropTypes.number
+      })
+    ),
+    principals: React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        'name': React.PropTypes.string,
         'begin_year': React.PropTypes.number,
         'end_year': React.PropTypes.number
       })

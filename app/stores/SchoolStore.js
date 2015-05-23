@@ -4,6 +4,7 @@ import _ from 'lodash';
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
+import PrincipalStore from './PrincipalStore';
 
 let _schools = {};
 let _fetchingData = false;
@@ -21,6 +22,10 @@ const SchoolStore = Object.assign({}, BaseStore, {
 });
 
 SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
+  AppDispatcher.waitFor([
+    PrincipalStore.dispatchToken
+  ]);
+
   const action = payload.action;
 
   switch (action.type) {
@@ -87,6 +92,7 @@ function getSchoolDetails(school) {
     genders: school.genders,
     languages: school.languages,
     names: school.names,
+    principals: _getPrincipals(school),
     types: school.types
   };
 }
@@ -118,10 +124,14 @@ function getSchools(schoolIds) {
 function getSchoolYearDetails(school, year) {
   year = year || new Date().getFullYear();
 
+  const principalRelation = _getItemForYear(school, 'principals', year);
+  const principal = principalRelation ? PrincipalStore.getPrincipal(principalRelation.id) : {};
+
   return {
-    schoolName: _getItemForYear(school, 'names', year) || {},
+    archive: _getItemForYear(school, 'archives', year) || {},
     building: _getItemForYear(school, 'buildings', year) || {},
-    archive: _getItemForYear(school, 'archives', year) || {}
+    principal: principal,
+    schoolName: _getItemForYear(school, 'names', year) || {}
   };
 }
 
@@ -135,6 +145,16 @@ function _getItemForYear(school, itemListName, year) {
   });
 }
 
+function _getPrincipals(school) {
+  return _.map(school.principals, function(principalRelation) {
+    const principal = PrincipalStore.getPrincipal(principalRelation.id);
+    return _.assign(principal, {
+      'begin_year': principalRelation.begin_year,
+      'end_year': principalRelation.end_year
+    });
+  });
+}
+
 function _getSchoolByIdWrapper(func, defaultValue) {
   return function(schoolId) {
     defaultValue = defaultValue ? defaultValue : [];
@@ -143,6 +163,16 @@ function _getSchoolByIdWrapper(func, defaultValue) {
     newArgs.unshift(school);
     return _.isEmpty(school) ? defaultValue : func.apply(this, newArgs);
   };
+}
+
+function _parsePrincipals(principals) {
+  return _.map(principals, function(principal) {
+    return {
+      'begin_year': principal.begin_year,
+      'end_year': principal.endYear,
+      id: principal.principal.id
+    };
+  });
 }
 
 function _receiveSchool(school) {
@@ -154,6 +184,7 @@ function _receiveSchool(school) {
     id: school.id,
     languages: _sortByYears(school.languages),
     names: _sortByYears(school.names),
+    principals: _sortByYears(_parsePrincipals(school.principals)),
     types: _sortByYears(school.types)
   };
 }

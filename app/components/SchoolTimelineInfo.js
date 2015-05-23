@@ -26,9 +26,9 @@ function processRow(details) {
       ]
     },
     {
-      key: 'headmaster',
-      className: 'details-headmaster',
-      name: 'headmaster',  // details.headmaster.name
+      key: 'principal',
+      className: 'details-principal',
+      name: details.principal.name,
       boxContent: 'rehtori'
     },
     {
