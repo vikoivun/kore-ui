@@ -30,6 +30,7 @@ module.exports = function(options) {
 
     plugins: [
       'karma-chai',
+      'karma-chai-sinon',
       'karma-chrome-launcher',
       'karma-mocha',
       'karma-mocha-reporter',

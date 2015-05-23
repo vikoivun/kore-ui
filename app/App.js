@@ -13,6 +13,7 @@ class App extends React.Component {
         <div className='app'>
           <Navbar />
           <RouteHandler {...this.props} />
+          <div className='footer' />
         </div>
       </DocumentTitle>
     );

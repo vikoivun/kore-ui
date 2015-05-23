@@ -2,13 +2,14 @@
 
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
+import SchoolStore from './SchoolStore';
 import {EventEmitter} from 'events';
 
 const CHANGE_EVENT = 'change';
 let _fetchingData = false;
 let _searchQuery = '';
 let _searchResults = [];
-
+let _nextPageUrl;
 
 const SearchStore = Object.assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -33,6 +34,10 @@ const SearchStore = Object.assign({}, EventEmitter.prototype, {
 
   getSearchResults: function() {
     return _searchResults;
+  },
+
+  getNextPageUrl: function() {
+    return _nextPageUrl;
   }
 });
 
@@ -43,14 +48,24 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.REQUEST_SEARCH:
       _fetchingData = true;
+      _searchResults = [];
+      _nextPageUrl = null;
       _searchQuery = action.query;
       SearchStore.emitChange();
       break;
 
     case ActionTypes.REQUEST_SEARCH_SUCCESS:
+      AppDispatcher.waitFor([SchoolStore.dispatchToken]);
       _fetchingData = false;
-      _receiveSearchResults(action.response.results);
+      _receiveSearchResponse(action.response);
       SearchStore.emitChange();
+      break;
+
+
+    case ActionTypes.REQUEST_SEARCH_LOAD_MORE:
+      AppDispatcher.waitFor([SchoolStore.dispatchToken]);
+      _fetchingData = true;
+      SchoolStore.emitChange();
       break;
 
     default:
@@ -59,10 +74,15 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
 });
 
 function _receiveSearchResults(schools) {
-
-  _searchResults = schools.map(function(school) {
+  let incomingResults = schools.map(function(school) {
     return school.id;
   });
+  _searchResults = _searchResults.concat(incomingResults);
+}
+
+function _receiveSearchResponse(response) {
+  _nextPageUrl = response.next;
+  _receiveSearchResults(response.results);
 }
 
 export default SearchStore;
