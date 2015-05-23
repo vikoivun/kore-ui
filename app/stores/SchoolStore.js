@@ -124,10 +124,14 @@ function getSchools(schoolIds) {
 function getSchoolYearDetails(school, year) {
   year = year || new Date().getFullYear();
 
+  const principalRelation = _getItemForYear(school, 'principals', year);
+  const principal = principalRelation ? PrincipalStore.getPrincipal(principalRelation.id) : {};
+
   return {
-    schoolName: _getItemForYear(school, 'names', year) || {},
+    archive: _getItemForYear(school, 'archives', year) || {},
     building: _getItemForYear(school, 'buildings', year) || {},
-    archive: _getItemForYear(school, 'archives', year) || {}
+    principal: principal,
+    schoolName: _getItemForYear(school, 'names', year) || {}
   };
 }
 
