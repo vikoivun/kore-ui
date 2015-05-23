@@ -82,7 +82,7 @@ const itemGenerator = {
     return _.map(principals, function(principal) {
       return {
         key: 'principal-' + principal.id,
-        className: 'details-headmaster',
+        className: 'details-principal',
         name: principal.name,
         boxContent: getBoxContent(principal)
       };
