@@ -84,6 +84,7 @@ function getSchoolDetails(school) {
     archives: school.archives,
     buildings: school.buildings,
     fields: school.fields,
+    genders: school.genders,
     languages: school.languages,
     names: school.names,
     types: school.types
@@ -149,6 +150,7 @@ function _receiveSchool(school) {
     archives: _sortByYears(school.archives),
     buildings: _sortByYears(school.buildings),
     fields: _sortByYears(school.fields),
+    genders: _sortByYears(school.genders),
     id: school.id,
     languages: _sortByYears(school.languages),
     names: _sortByYears(school.names),
