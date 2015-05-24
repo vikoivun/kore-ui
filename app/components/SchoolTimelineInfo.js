@@ -29,7 +29,11 @@ function processRow(details) {
       key: 'principal',
       className: 'details-principal',
       name: details.principal.name,
-      boxContent: 'rehtori'
+      boxContent: [
+        details.principal.begin_year,
+        <i className='fa fa-lg fa-long-arrow-right'/>,
+        details.principal.end_year
+      ]
     },
     {
       key: 'school-building',
