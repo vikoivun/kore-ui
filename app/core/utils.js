@@ -30,7 +30,7 @@ function processBasicInfoRow(details) {
   }
   return [
     {
-      key: 'school-name' + details.name.id,
+      key: 'school-name-' + details.name.id,
       className: 'details-school-name',
       name: details.name.official_name,
       boxContent: getBoxContent(details.name),
@@ -38,20 +38,20 @@ function processBasicInfoRow(details) {
       linkParams: {schoolId: details.id}
     },
     {
-      key: 'principal' + details.principal.id,
+      key: 'principal-' + details.principal.id,
       className: 'details-principal',
       name: details.principal.name,
       boxContent: getBoxContent(details.principal)
     },
     {
-      key: 'school-building' + details.building.id,
+      key: 'school-building-' + details.building.id,
       className: 'details-building',
       // The address should be sorted by time as well.
-      name: getAddressArrayFromBuilding(details.building.building),
+      name: getAddressArrayFromBuilding(details.building),
       boxContent: getBoxContent(details.building)
     },
     {
-      key: 'school-archive' + details.archive.id,
+      key: 'school-archive-' + details.archive.id,
       className: 'details-archive',
       name: details.archive.location,
       boxContent: getBoxContent(details.archive)
