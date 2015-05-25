@@ -3,6 +3,7 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import SearchBox from '../components/SearchBox';
+import SearchControls from '../components/SearchControls';
 import SearchLoadMore from '../components/SearchLoadMore';
 import SearchStore from '../stores/SearchStore';
 import SchoolStore from '../stores/SchoolStore';
@@ -11,6 +12,7 @@ import SearchResultsTable from '../components/SearchResultsTable';
 function getStateFromStores() {
   const searchResults = SearchStore.getSearchResults();
   return {
+    view: SearchStore.getView(),
     fetchingData: SearchStore.getFetchingData(),
     searchQuery: SearchStore.getSearchQuery(),
     nextPageUrl: SearchStore.getNextPageUrl(),
@@ -55,6 +57,7 @@ class SearchPage extends React.Component {
             </h1>
           </header>
           <SearchBox searchQuery={this.state.searchQuery}/>
+          <SearchControls view={this.state.view}/>
           <div className='search-timeline'></div>
           <SearchResultsTable
             fetchingData={this.state.fetchingData}

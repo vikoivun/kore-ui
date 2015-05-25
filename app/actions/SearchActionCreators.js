@@ -21,5 +21,12 @@ export default {
     });
 
     SchoolAPI.searchLoadMore(url);
+  },
+
+  selectView(view) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.SELECT_SEARCH_VIEW,
+      view
+    });
   }
 };
