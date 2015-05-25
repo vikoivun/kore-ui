@@ -24,13 +24,13 @@ PrincipalStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
-    _fetchingData = false;
-      _receivePrincipalsFromSchool(action.response);
+      _fetchingData = false;
+      _receivePrincipals(action.response.entities.principals);
       PrincipalStore.emitChange();
       break;
 
     case ActionTypes.REQUEST_SEARCH_SUCCESS:
-      _receivePrincipalsFromSchools(action.response.results);
+      _receivePrincipals(action.response.entities.principals);
       PrincipalStore.emitChange();
       break;
 
@@ -55,8 +55,7 @@ function _getPrincipalByIdWrapper(func, defaultValue) {
   };
 }
 
-function _receivePrincipalsFromSchool(school) {
-  const principals = _.pluck(school.principals, 'principal');
+function _receivePrincipals(principals) {
   _.each(principals, function(principal) {
     _principals[principal.id] = {
       employers: principal.employers,
@@ -66,10 +65,6 @@ function _receivePrincipalsFromSchool(school) {
       surname: principal.surname
     };
   });
-}
-
-function _receivePrincipalsFromSchools(schools) {
-  _.each(schools, _receivePrincipalsFromSchool);
 }
 
 export default PrincipalStore;

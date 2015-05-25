@@ -3,6 +3,7 @@
 import SchoolServerActionCreators from '../actions/SchoolServerActionCreators';
 import SearchServerActionCreators from '../actions/SearchServerActionCreators';
 import request from 'superagent';
+import {normalizeSchoolResponse, normalizeSearchResponse} from '../core/APIUtils';
 
 const APIROOT = 'http://kore.hel.ninja/v1/';
 const APIARGS = {'format': 'json'};
@@ -18,7 +19,9 @@ export default {
       .query(APIARGS)
       .end(function(error, response) {
         if (response.ok) {
-          SchoolServerActionCreators.handleSchoolSuccess(response.body);
+          SchoolServerActionCreators.handleSchoolSuccess(
+            normalizeSchoolResponse(response.body)
+          );
         } else {
           SchoolServerActionCreators.handleSchoolError(response.text);
         }
@@ -32,7 +35,9 @@ export default {
       .query(APIARGS)
       .end(function(error, response) {
         if (response.ok) {
-          SearchServerActionCreators.handleSearchSuccess(response.body);
+          SearchServerActionCreators.handleSearchSuccess(
+            normalizeSearchResponse(response.body)
+          );
         } else {
           SearchServerActionCreators.handleSearchError(response.text);
         }
@@ -44,7 +49,9 @@ export default {
       .get(url)
       .end(function(error, response) {
         if (response.ok) {
-          SearchServerActionCreators.handleSearchSuccess(response.body);
+          SearchServerActionCreators.handleSearchSuccess(
+            normalizeSearchResponse(response.body)
+          );
         } else {
           SearchServerActionCreators.handleSearchError(response.text);
         }

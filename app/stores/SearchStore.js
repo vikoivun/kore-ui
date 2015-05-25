@@ -33,7 +33,7 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
     case ActionTypes.REQUEST_SEARCH_SUCCESS:
       AppDispatcher.waitFor([SchoolStore.dispatchToken]);
       _fetchingData = false;
-      _receiveSearchResponse(action.response);
+      _receiveSearchResponse(action.response.entities.searchResponse);
       SearchStore.emitChange();
       break;
 
@@ -65,16 +65,9 @@ function getSearchResults() {
   return _searchResults;
 }
 
-function _receiveSearchResults(schools) {
-  let incomingResults = schools.map(function(school) {
-    return school.id;
-  });
-  _searchResults = _searchResults.concat(incomingResults);
-}
-
-function _receiveSearchResponse(response) {
-  _nextPageUrl = response.next;
-  _receiveSearchResults(response.results);
+function _receiveSearchResponse(searchResponse) {
+  _nextPageUrl = searchResponse.next;
+  _searchResults = _searchResults.concat(searchResponse.results);
 }
 
 export default SearchStore;

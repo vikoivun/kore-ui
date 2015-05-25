@@ -37,7 +37,7 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
       _fetchingData = false;
-      _receiveSchool(action.response);
+      _receiveSchools(action.response.entities);
       SchoolStore.emitChange();
       break;
 
@@ -46,7 +46,7 @@ SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.REQUEST_SEARCH_SUCCESS:
-      _receiveSchools(action.response.results);
+      _receiveSchools(action.response.entities);
       SchoolStore.emitChange();
       break;
 
@@ -124,8 +124,8 @@ function getSchools(schoolIds) {
 function getSchoolYearDetails(school, year) {
   year = year || new Date().getFullYear();
 
-  const principalRelation = _getItemForYear(school, 'principals', year);
-  const principal = principalRelation ? PrincipalStore.getPrincipal(principalRelation.id) : {};
+  const schoolPrincipal = _getItemForYear(school, 'principals', year);
+  const principal = schoolPrincipal ? PrincipalStore.getPrincipal(schoolPrincipal.id) : {};
 
   return {
     archive: _getItemForYear(school, 'archives', year) || {},
@@ -146,11 +146,11 @@ function _getItemForYear(school, itemListName, year) {
 }
 
 function _getPrincipals(school) {
-  return _.map(school.principals, function(principalRelation) {
-    const principal = PrincipalStore.getPrincipal(principalRelation.id);
+  return _.map(school.principals, function(schoolPrincipal) {
+    const principal = PrincipalStore.getPrincipal(schoolPrincipal.id);
     return _.assign(principal, {
-      'begin_year': principalRelation.begin_year,
-      'end_year': principalRelation.end_year
+      'begin_year': schoolPrincipal.begin_year,
+      'end_year': schoolPrincipal.end_year
     });
   });
 }
@@ -165,32 +165,34 @@ function _getSchoolByIdWrapper(func, defaultValue) {
   };
 }
 
-function _parsePrincipals(principals) {
-  return _.map(principals, function(principal) {
+function _parsePrincipals(principalIds, schoolPrincipals) {
+  let schoolPrincipal;
+  return _.map(principalIds, function(principalId) {
+    schoolPrincipal = schoolPrincipals[principalId];
     return {
-      'begin_year': principal.begin_year,
-      'end_year': principal.endYear,
-      id: principal.principal.id
+      'begin_year': schoolPrincipal.begin_year,
+      'end_year': schoolPrincipal.endYear,
+      id: schoolPrincipal.principal
     };
   });
 }
 
-function _receiveSchool(school) {
-  _schools[school.id] = {
-    archives: _sortByYears(school.archives),
-    buildings: _sortByYears(school.buildings),
-    fields: _sortByYears(school.fields),
-    genders: _sortByYears(school.genders),
-    id: school.id,
-    languages: _sortByYears(school.languages),
-    names: _sortByYears(school.names),
-    principals: _sortByYears(_parsePrincipals(school.principals)),
-    types: _sortByYears(school.types)
-  };
-}
-
-function _receiveSchools(schools) {
-  _.each(schools, _receiveSchool);
+function _receiveSchools(entities) {
+  _.each(entities.schools, function(school) {
+    _schools[school.id] = {
+      archives: _sortByYears(school.archives),
+      buildings: _sortByYears(school.buildings),
+      fields: _sortByYears(school.fields),
+      genders: _sortByYears(school.genders),
+      id: school.id,
+      languages: _sortByYears(school.languages),
+      names: _sortByYears(school.names),
+      principals: _sortByYears(
+        _parsePrincipals(school.principals, entities.schoolPrincipals)
+      ),
+      types: _sortByYears(school.types)
+    };
+  });
 }
 
 function _sortByYears(list) {
