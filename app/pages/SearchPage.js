@@ -7,7 +7,7 @@ import SearchControls from '../components/SearchControls';
 import SearchLoadMore from '../components/SearchLoadMore';
 import SearchStore from '../stores/SearchStore';
 import SchoolStore from '../stores/SchoolStore';
-import SearchResultsTable from '../components/SearchResultsTable';
+import SearchResults from '../components/SearchResults';
 
 function getStateFromStores() {
   const searchResults = SearchStore.getSearchResults();
@@ -56,13 +56,14 @@ class SearchPage extends React.Component {
               Kouluhaku
             </h1>
           </header>
-          <SearchBox searchQuery={this.state.searchQuery}/>
-          <SearchControls view={this.state.view}/>
+          <SearchBox searchQuery={this.state.searchQuery} />
+          <SearchControls view={this.state.view} />
           <div className='search-timeline'></div>
-          <SearchResultsTable
+          <SearchResults
             fetchingData={this.state.fetchingData}
             somethingWasSearched={Boolean(this.state.searchQuery)}
             schoolList={this.state.schoolList}
+            view={this.state.view}
           />
           {loadMore}
         </div>
