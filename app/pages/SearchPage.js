@@ -16,7 +16,7 @@ function getStateFromStores() {
     fetchingData: SearchStore.getFetchingData(),
     searchQuery: SearchStore.getSearchQuery(),
     nextPageUrl: SearchStore.getNextPageUrl(),
-    schoolList: SchoolStore.getSchools(searchResults)
+    schoolList: SchoolStore.getSchoolsYearDetails(searchResults)
   };
 }
 

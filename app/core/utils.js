@@ -24,15 +24,15 @@ function getBoxContent(item) {
 }
 
 function processBasicInfoRow(details) {
-  if (_.isEmpty(details.schoolName)) {
+  if (_.isEmpty(details.name)) {
     return [];
   }
   return [
     {
       key: 'school-name' + details.name.id,
       className: 'details-school-name',
-      name: details.schoolName.official_name,
-      boxContent: getBoxContent(details.schoolName)
+      name: details.name.official_name,
+      boxContent: getBoxContent(details.name)
     },
     {
       key: 'principal' + details.principal.id,

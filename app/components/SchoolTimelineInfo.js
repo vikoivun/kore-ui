@@ -36,7 +36,7 @@ SchoolTimelineInfo.propTypes = {
   }),
   currentYear: React.PropTypes.number,
   schoolYearDetails: React.PropTypes.shape({
-    'schoolName': React.PropTypes.shape({
+    'name': React.PropTypes.shape({
       'official_name': React.PropTypes.string,
       'begin_year': React.PropTypes.number,
       'end_year': React.PropTypes.number

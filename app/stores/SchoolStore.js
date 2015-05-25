@@ -10,14 +10,14 @@ let _schools = {};
 let _fetchingData = false;
 
 const SchoolStore = Object.assign({}, BaseStore, {
-  getBeginAndEndYear: _getSchoolByIdWrapper(getBeginAndEndYear, {}),
+  getBeginAndEndYear: _getSchoolByIdWrapper(getBeginAndEndYear),
   getFetchingData,
-  getMainBuilding: _getSchoolByIdWrapper(getMainBuilding, {}),
-  getMainBuildingInYear: _getSchoolByIdWrapper(getMainBuildingInYear, {}),
-  getMainName: _getSchoolByIdWrapper(getMainName, {}),
-  getSchoolDetails: _getSchoolByIdWrapper(getSchoolDetails, {}),
-  getSchoolYearDetails: _getSchoolByIdWrapper(getSchoolYearDetails, {}),
-  getSchools,
+  getMainBuilding: _getSchoolByIdWrapper(getMainBuilding),
+  getMainBuildingInYear: _getSchoolByIdWrapper(getMainBuildingInYear),
+  getMainName: _getSchoolByIdWrapper(getMainName),
+  getSchoolDetails: _getSchoolByIdWrapper(getSchoolDetails),
+  getSchoolYearDetails: _getSchoolByIdWrapper(getSchoolYearDetails),
+  getSchoolsYearDetails,
   hasSchool
 });
 
@@ -97,42 +97,27 @@ function getSchoolDetails(school) {
   };
 }
 
-function getSchools(schoolIds) {
-  return _.map(schoolIds, function(id) {
-    const school = _schools[id];
-    if (_.isEmpty(school)) {
-      return {};
-    }
-    let addresses = [];
-    const mainBuilding = getMainBuilding(school);
-    if (mainBuilding.building && mainBuilding.building.addresses) {
-      addresses = mainBuilding.building.addresses;
-    }
-    const address = (
-      addresses.length ?
-      `${addresses[0].street_name_fi}\, ${addresses[0].municipality_fi}` :
-      ''
-    );
-    return {
-      id: id,
-      name: getMainName(school).official_name,
-      address: address
-    };
-  }, this);
-}
 
 function getSchoolYearDetails(school, year) {
   year = year || new Date().getFullYear();
 
   const schoolPrincipal = _getItemForYear(school, 'principals', year);
   const principal = schoolPrincipal ? PrincipalStore.getPrincipal(schoolPrincipal.id) : {};
-
+  const building = _getItemForYear(school, 'buildings', year) || {};
   return {
+    id: school.id,
     archive: _getItemForYear(school, 'archives', year) || {},
-    building: _getItemForYear(school, 'buildings', year) || {},
+    building: building,
     principal: principal,
-    schoolName: _getItemForYear(school, 'names', year) || {}
+    name: _getItemForYear(school, 'names', year) || {},
+    address: _getMainAddress(building)
   };
+}
+
+function getSchoolsYearDetails(schoolIds, year) {
+  return _.map(schoolIds, function(id) {
+    return SchoolStore.getSchoolYearDetails(id, year);
+  }, this);
 }
 
 function hasSchool(schoolId) {
@@ -143,6 +128,19 @@ function _getItemForYear(school, itemListName, year) {
   return _.find(school[itemListName], function(item) {
     return item.begin_year <= year;
   });
+}
+
+function _getMainAddress(building) {
+  let addresses = [];
+  if (building.building && building.building.addresses) {
+    addresses = building.building.addresses;
+  }
+  const address = (
+    addresses.length ?
+    `${addresses[0].street_name_fi}\, ${addresses[0].municipality_fi}` :
+    ''
+  );
+  return address;
 }
 
 function _getPrincipals(school) {
@@ -157,7 +155,7 @@ function _getPrincipals(school) {
 
 function _getSchoolByIdWrapper(func, defaultValue) {
   return function(schoolId) {
-    defaultValue = defaultValue ? defaultValue : [];
+    defaultValue = defaultValue ? defaultValue : {};
     const school = _schools[schoolId];
     let newArgs = Array.prototype.slice.call(arguments, 1);
     newArgs.unshift(school);
