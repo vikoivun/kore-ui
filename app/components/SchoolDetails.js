@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import React from 'react';
 import InfoTable from './InfoTable';
-import {getAddressArrayFromBuilding} from '../core/utils';
+import {getAddressArrayFromBuilding, getBoxContent} from '../core/utils';
 
 const itemGenerator = {
   archives: function(archives) {
@@ -99,14 +99,6 @@ const itemGenerator = {
     });
   }
 };
-
-function getBoxContent(item) {
-  return [
-    item.begin_year,
-    <i className='fa fa-lg fa-long-arrow-right'/>,
-    item.end_year
-  ];
-}
 
 class SchoolDetails extends React.Component {
   render() {
