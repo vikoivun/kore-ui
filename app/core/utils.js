@@ -24,6 +24,14 @@ function getBoxContent(item) {
   ];
 }
 
+function getImageUrl(building) {
+  if (!building || !building.photos || !building.photos.length) {
+    return defaultImageUrl;
+  }
+  const photo = _.find(building.photos, 'is_front');
+  return photo ? photo.url : building.photos[0].url;
+}
+
 function processBasicInfoRow(details) {
   if (_.isEmpty(details.name)) {
     return [];
@@ -59,17 +67,14 @@ function processBasicInfoRow(details) {
   ];
 }
 
-function getImageUrl(building) {
-  if (!building || !building.photos || !building.photos.length) {
-    return defaultImageUrl;
-  }
-  const photo = _.find(building.photos, 'is_front');
-  return photo ? photo.url : building.photos[0].url;
+function sortByYears(list) {
+  return _.sortByOrder(list, ['end_year', 'begin_year'], [false, false]);
 }
 
 export default {
   getAddressArrayFromBuilding,
   getBoxContent,
   getImageUrl,
-  processBasicInfoRow
+  processBasicInfoRow,
+  sortByYears: sortByYears
 };
