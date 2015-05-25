@@ -32,6 +32,12 @@ function getImageUrl(building) {
   return photo ? photo.url : building.photos[0].url;
 }
 
+function getItemForYear(itemList, year) {
+  return _.find(itemList, function(item) {
+    return item.begin_year <= year;
+  });
+}
+
 function processBasicInfoRow(details) {
   if (_.isEmpty(details.name)) {
     return [];
@@ -75,6 +81,7 @@ export default {
   getAddressArrayFromBuilding,
   getBoxContent,
   getImageUrl,
+  getItemForYear,
   processBasicInfoRow,
-  sortByYears: sortByYears
+  sortByYears
 };

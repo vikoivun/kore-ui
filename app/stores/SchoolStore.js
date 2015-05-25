@@ -6,7 +6,7 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import BuildingStore from './BuildingStore';
 import PrincipalStore from './PrincipalStore';
-import {sortByYears} from '../core/utils';
+import {getItemForYear, sortByYears} from '../core/utils';
 
 let _schools = {};
 let _fetchingData = false;
@@ -79,7 +79,7 @@ function getMainBuildingInYear(school, year) {
   if (!year) {
     return getMainBuilding(school);
   }
-  return _getItemForYear(school, 'buildings', year) || {};
+  return getItemForYear(school.buildings, year) || {};
 }
 
 function getMainName(school) {
@@ -102,18 +102,18 @@ function getSchoolDetails(school) {
 function getSchoolYearDetails(school, year) {
   year = year || new Date().getFullYear();
 
-  const schoolBuilding = _getItemForYear(school, 'buildings', year);
+  const schoolBuilding = getItemForYear(school.buildings, year);
   const building = schoolBuilding ? BuildingStore.getBuilding(schoolBuilding.id) : {};
-  const schoolPrincipal = _getItemForYear(school, 'principals', year);
+  const schoolPrincipal = getItemForYear(school.principals, year);
   const principal = schoolPrincipal ? PrincipalStore.getPrincipal(schoolPrincipal.id) : {};
   const building = _getItemForYear(school, 'buildings', year) || {};
   return {
+    address: _getMainAddress(building),
     id: school.id,
-    archive: _getItemForYear(school, 'archives', year) || {},
+    archive: getItemForYear(school.archives, year) || {},
     building: building,
     principal: principal,
-    name: _getItemForYear(school, 'names', year) || {},
-    address: _getMainAddress(building)
+    name: getItemForYear(school.names, year) || {}
   };
 }
 
@@ -127,12 +127,6 @@ function hasSchool(schoolId) {
   return typeof _schools[schoolId] !== 'undefined';
 }
 
-function _getItemForYear(school, itemListName, year) {
-  return _.find(school[itemListName], function(item) {
-    return item.begin_year <= year;
-  });
-}
-
 function _getMainAddress(building) {
   let addresses = [];
   if (building && building.addresses) {
@@ -144,16 +138,6 @@ function _getMainAddress(building) {
     ''
   );
   return address;
-}
-
-function _getPrincipals(school) {
-  return _.map(school.principals, function(schoolPrincipal) {
-    const principal = PrincipalStore.getPrincipal(schoolPrincipal.id);
-    return _.assign(principal, {
-      'begin_year': schoolPrincipal.begin_year,
-      'end_year': schoolPrincipal.end_year
-    });
-  });
 }
 
 function _getRelationalData(relationObjects, getter) {
