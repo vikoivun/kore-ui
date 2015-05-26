@@ -64,8 +64,8 @@ class Timeline extends React.Component {
 
 Timeline.propTypes = {
   yearsActive: React.PropTypes.shape({
-    'beginYear': React.PropTypes.number,
-    'endYear': React.PropTypes.number
+    beginYear: React.PropTypes.number,
+    endYear: React.PropTypes.number
   }),
   currentYear: React.PropTypes.number
 };

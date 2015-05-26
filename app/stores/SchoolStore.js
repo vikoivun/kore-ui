@@ -62,8 +62,8 @@ function getBeginAndEndYear(school) {
   const currentName = _.first(school.names);
   const oldestName = _.last(school.names);
   return {
-    beginYear: oldestName ? oldestName.begin_year : null,
-    endYear: currentName ? currentName.end_year : null
+    beginYear: oldestName ? oldestName.beginYear : null,
+    endYear: currentName ? currentName.endYear : null
   };
 }
 

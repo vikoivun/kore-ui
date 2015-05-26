@@ -16,6 +16,7 @@
     "file-loader": "^0.8.1",
     "flux": "^2.0.1",
     "html-webpack-plugin": "^1.4.0",
+    "humps": "^0.5.2",
     "leaflet": "^0.7.3",
     "less": "^2.5.0",
     "less-loader": "^2.2.0",

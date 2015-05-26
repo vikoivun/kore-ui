@@ -8,25 +8,25 @@ const defaultImageUrl = require('../images/default-building.jpg');
 function getAddressArrayFromBuilding(building) {
   if (building && building.addresses && building.addresses.length) {
     return [
-      building.addresses[0].street_name_fi,
+      building.addresses[0].streetNameFi,
       ', ',
-      building.addresses[0].municipality_fi
+      building.addresses[0].municipalityFi
     ];
   }
   return '';
 }
 
 function getAddressString(address) {
-  const street = address.street_name_fi || '';
-  const municipality = address.municipality_fi || '';
+  const street = address.streetNameFi || '';
+  const municipality = address.municipalityFi || '';
   return `${street}\, ${municipality}`;
 }
 
 function getBoxContent(item) {
   return [
-    item.begin_year,
+    item.beginYear,
     <i className='fa fa-lg fa-long-arrow-right'/>,
-    item.end_year
+    item.endYear
   ];
 }
 
@@ -50,7 +50,7 @@ function getItemByIdWrapper(func, items, defaultValue) {
 
 function getItemForYear(itemList, year) {
   return _.find(itemList, function(item) {
-    return inBetween(year, item.begin_year, item.end_year);
+    return inBetween(year, item.beginYear, item.endYear);
   });
 }
 
@@ -68,7 +68,7 @@ function processBasicInfoRow(details) {
     {
       key: 'school-name-' + details.name.id,
       className: 'details-school-name',
-      name: details.name.official_name,
+      name: details.name.officialName,
       boxContent: getBoxContent(details.name)
     },
     {
@@ -94,7 +94,7 @@ function processBasicInfoRow(details) {
 }
 
 function sortByYears(list) {
-  return _.sortByOrder(list, ['end_year', 'begin_year'], [false, false]);
+  return _.sortByOrder(list, ['endYear', 'beginYear'], [false, false]);
 }
 
 export default {
