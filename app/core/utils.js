@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import React from 'react';
 
+const defaultImageUrl = require('../images/default-building.jpg');
 
 function getAddressArrayFromBuilding(building) {
   if (building && building.addresses && building.addresses.length) {
@@ -56,8 +57,17 @@ function processBasicInfoRow(details) {
   ];
 }
 
+function getImageUrl(building) {
+  if (!building || !building.photos || !building.photos.length) {
+    return defaultImageUrl;
+  }
+  const photo = _.find(building.photos, 'is_front');
+  return photo ? photo.url : building.photos[0].url;
+}
+
 export default {
   getAddressArrayFromBuilding,
   getBoxContent,
+  getImageUrl,
   processBasicInfoRow
 };
