@@ -102,9 +102,13 @@ function getSchoolDetails(school) {
 function getSchoolYearDetails(school, year) {
   year = year || _getLatestYear(school);
   const schoolBuilding = getItemForYear(school.buildings, year);
-  const building = _getRelationalObject(schoolBuilding, BuildingStore.getBuilding);
+  const building = (
+    schoolBuilding ? _getRelationalObject(schoolBuilding, BuildingStore.getBuilding) : {}
+  );
   const schoolPrincipal = getItemForYear(school.principals, year);
-  const principal = schoolPrincipal ? PrincipalStore.getPrincipal(schoolPrincipal.id) : {};
+  const principal = (
+    schoolPrincipal ? _getRelationalObject(schoolPrincipal, PrincipalStore.getPrincipal) : {}
+  );
   return {
     address: _getMainAddress(building),
     id: school.id,
@@ -144,17 +148,16 @@ function _getRelationalData(relationObjects, getter) {
 
 function _getRelationalObject(relationObject, getter) {
   let object = getter(relationObject.id);
-  return _.assign(object, {
-    'begin_year': relationObject.begin_year,
-    'end_year': relationObject.end_year
-  });
+  return _.assign(object, relationObject);
 }
 
 function _parseRelationalData(relationObjects, relationIds, objectName) {
   let relationObject;
   return _.map(relationIds, function(id) {
     relationObject = relationObjects[id];
-    return _.assign({}, relationObject, {id: relationObject[objectName]});
+    relationObject.id = relationObject[objectName];
+    delete relationObject[objectName];
+    return relationObject;
   });
 }
 
