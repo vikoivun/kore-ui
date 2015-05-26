@@ -1,25 +1,14 @@
 'use strict';
 
 import React from 'react';
-import _ from 'lodash';
 import Loader from 'react-loader';
-
-const defaultImageUrl = require('../images/default-building.jpg');
+import {getImageUrl} from '../core/utils';
 
 class SchoolImage extends React.Component {
 
-  getImageUrl() {
-    const photos = this.props.building.photos;
-    if (photos && photos.length) {
-      const photo = _.find(photos, 'is_front');
-      return photo ? photo.url : photos[0].url;
-    }
-    return defaultImageUrl;
-  }
-
   render() {
     const schoolImageStyles = {
-      backgroundImage: 'url(' + this.getImageUrl() + ')'
+      backgroundImage: 'url(' + getImageUrl(this.props.building) + ')'
     };
     return (
       <div className='school-image-container'>

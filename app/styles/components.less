@@ -20,11 +20,14 @@
   .info-name {
     .absolute-vertical-centering();
     padding-left: @info-row-logo-side-size + 10px;
-    padding-right: @info-box-width + 10px;
     box-sizing: border-box;
     width: 100%;
     color: @base-color;
+    transition: color 0.3s;
     font-weight: 500;
+    &.with-infobox {
+      padding-right: @info-box-width + 10px;
+    }
   }
 
   .info-box {
@@ -36,7 +39,8 @@
     color: @gray;
     border: solid 1px @gray;
     text-align: center;
-
+    transition: color 0.3s;
+    transition: border-color 0.3s;
     i {
       padding: 0 5px;
     }
@@ -60,45 +64,75 @@
   &.details-school-name {
     &:before {
       background-image: url('../images/pencil.svg');
-      background-size: 20px;
+      background-size: 15px;
     }
   }
   &.details-building {
     &:before {
       background-image: url('../images/building.svg');
-      background-size: 25px;
+      background-size: 20px;
     }
   }
   &.details-principal {
     &:before {
       background-image: url('../images/principal.svg');
-      background-size: 30px;
+      background-size: 25px;
     }
   }
   &.details-archive {
     &:before {
       background-image: url('../images/archive.svg');
-      background-size: 25px;
+      background-size: 20px;
     }
   }
   &.details-field {
     &:before {
       background-image: url('../images/book.svg');
-      background-size: 24px;
+      background-size: 19px;
     }
   }
   &.details-language {
     &:before {
       background-image: url('../images/language.svg');
-      background-size: 26px;
+      background-size: 21px;
     }
   }
   &.details-gender {
     &:before {
       background-image: url('../images/gender.svg');
-      background-size: 30px;
+      background-size: 25px;
     }
   }
+
+  &.inversed {
+    .info-name, .info-box {
+      color: @inversed-color;
+    }
+    .info-box {
+      border-color: @inversed-color;
+    }
+    &.details-school-name {
+      &:before {
+        background-image: url('../images/pencil-white.svg');
+      }
+    }
+    &.details-building {
+      &:before {
+        background-image: url('../images/building-white.svg');
+      }
+    }
+    &.details-principal {
+      &:before {
+        background-image: url('../images/principal-white.svg');
+      }
+    }
+    &.details-archive {
+      &:before {
+        background-image: url('../images/archive-white.svg');
+      }
+    }
+  }
+
 }
 
 .timeline {
@@ -170,3 +204,4 @@
     border-color: @border-main-color;
   }
 }
+

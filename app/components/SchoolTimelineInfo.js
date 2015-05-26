@@ -1,62 +1,12 @@
 'use strict';
 
-import _ from 'lodash';
 import React from 'react';
 import Timeline from './Timeline';
 import InfoRow from './InfoRow';
-import {getAddressArrayFromBuilding} from '../core/utils';
+import {processBasicInfoRow} from '../core/utils';
 
 function getInfoRow(row) {
   return <InfoRow {...row}/>;
-}
-
-function processRow(details) {
-  if (_.isEmpty(details.schoolName)) {
-    return [];
-  }
-  return [
-    {
-      key: 'school-name',
-      className: 'details-school-name',
-      name: details.schoolName.official_name,
-      boxContent: [
-        details.schoolName.begin_year,
-        <i className='fa fa-lg fa-long-arrow-right'/>,
-        details.schoolName.end_year
-      ]
-    },
-    {
-      key: 'principal',
-      className: 'details-principal',
-      name: details.principal.name,
-      boxContent: [
-        details.principal.begin_year,
-        <i className='fa fa-lg fa-long-arrow-right'/>,
-        details.principal.end_year
-      ]
-    },
-    {
-      key: 'school-building',
-      className: 'details-building',
-      // The address should be sorted by time as well.
-      name: getAddressArrayFromBuilding(details.building.building),
-      boxContent: [
-        details.building.begin_year,
-        <i className='fa fa-lg fa-long-arrow-right'/>,
-        details.building.end_year
-      ]
-    },
-    {
-      key: 'school-archive',
-      className: 'details-archive',
-      name: details.archive.location,
-      boxContent: [
-        details.archive.begin_year,
-        <i className='fa fa-lg fa-long-arrow-right'/>,
-        details.archive.end_year
-      ]
-    }
-  ];
 }
 
 class SchoolTimelineInfo extends React.Component {
@@ -69,7 +19,7 @@ class SchoolTimelineInfo extends React.Component {
             <Timeline yearsActive={this.props.yearsActive} currentYear={this.props.currentYear}/>
             <div className='school-year-info'>
               <ol className='school-year-details-list'>
-                {processRow(this.props.schoolYearDetails).map(getInfoRow)}
+                {processBasicInfoRow(this.props.schoolYearDetails).map(getInfoRow)}
               </ol>
             </div>
           </div>
@@ -86,7 +36,7 @@ SchoolTimelineInfo.propTypes = {
   }),
   currentYear: React.PropTypes.number,
   schoolYearDetails: React.PropTypes.shape({
-    'schoolName': React.PropTypes.shape({
+    'name': React.PropTypes.shape({
       'official_name': React.PropTypes.string,
       'begin_year': React.PropTypes.number,
       'end_year': React.PropTypes.number

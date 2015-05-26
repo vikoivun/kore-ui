@@ -2,7 +2,6 @@
 
 import React from 'react';
 import {Link} from 'react-router';
-import Loader from 'react-loader';
 
 class SearchResultsTable extends React.Component {
 
@@ -11,7 +10,7 @@ class SearchResultsTable extends React.Component {
       return (
         <tr key={school.id}>
           <td>
-            <Link to='school' params={{schoolId: school.id}}>{school.name}</Link>
+            <Link to='school' params={{schoolId: school.id}}>{school.name.official_name}</Link>
           </td>
           <td>{school.address}</td>
         </tr>
@@ -19,45 +18,24 @@ class SearchResultsTable extends React.Component {
     });
   }
 
-  renderSearchResults() {
-    if (this.props.schoolList.length) {
-      return (
-        <table className='table table-striped'>
-          <thead>
-            <tr>
-              <th>Koulu</th>
-              <th>Osoite</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.getTableRows()}
-          </tbody>
-        </table>
-      );
-    }
-
-    if (this.props.somethingWasSearched) {
-      return <p>Yhtään hakutulosta ei löytynyt.</p>;
-    }
-
-    return <p>Etsi kouluja syöttämällä koulun nimi tai osoite yllä olevaan hakukenttään.</p>;
-  }
-
   render() {
-    const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
     return (
-      <div className='container'>
-        <Loader loaded={!loading}>
-          {this.renderSearchResults()}
-        </Loader>
-      </div>
+      <table className='table table-striped'>
+        <thead>
+          <tr>
+            <th>Koulu</th>
+            <th>Osoite</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.getTableRows()}
+        </tbody>
+      </table>
     );
   }
 }
 
 SearchResultsTable.propTypes = {
-  fetchingData: React.PropTypes.bool,
-  somethingWasSearched: React.PropTypes.bool.isRequired,
   schoolList: React.PropTypes.array.isRequired
 };
 
