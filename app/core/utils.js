@@ -50,8 +50,14 @@ function getItemByIdWrapper(func, items, defaultValue) {
 
 function getItemForYear(itemList, year) {
   return _.find(itemList, function(item) {
-    return item.begin_year <= year;
+    return inBetween(year, item.begin_year, item.end_year);
   });
+}
+
+function inBetween(year, beginYear, endYear) {
+  beginYear = beginYear || 0;
+  endYear = endYear || 10000;
+  return _.inRange(year, beginYear, endYear + 1);
 }
 
 function processBasicInfoRow(details) {
@@ -100,6 +106,7 @@ export default {
   getImageUrl,
   getItemByIdWrapper,
   getItemForYear,
+  inBetween: inBetween,
   processBasicInfoRow,
   sortByYears
 };

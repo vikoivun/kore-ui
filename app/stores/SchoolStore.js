@@ -12,14 +12,14 @@ let _schools = {};
 let _fetchingData = false;
 
 const SchoolStore = Object.assign({}, BaseStore, {
-  getBeginAndEndYear: getItemByIdWrapper(getBeginAndEndYear),
+  getBeginAndEndYear: getItemByIdWrapper(getBeginAndEndYear, _schools),
   getFetchingData,
-  getLocation: getItemByIdWrapper(getLocation),
-  getMainBuilding: getItemByIdWrapper(getMainBuilding),
-  getMainBuildingInYear: getItemByIdWrapper(getMainBuildingInYear),
-  getMainName: getItemByIdWrapper(getMainName),
-  getSchoolDetails: getItemByIdWrapper(getSchoolDetails),
-  getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails),
+  getLocation: getItemByIdWrapper(getLocation, _schools),
+  getMainBuilding: getItemByIdWrapper(getMainBuilding, _schools),
+  getMainBuildingInYear: getItemByIdWrapper(getMainBuildingInYear, _schools),
+  getMainName: getItemByIdWrapper(getMainName, _schools),
+  getSchoolDetails: getItemByIdWrapper(getSchoolDetails, _schools),
+  getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
   getSchoolsYearDetails,
   hasSchool
 });
@@ -68,25 +68,19 @@ function getBeginAndEndYear(school) {
   };
 }
 
+function getBuildingForYear(school, year) {
+  year = year || _getLatestYear(school);
+  return getItemForYear(school.buildings, year) || {};
+}
+
 function getLocation(school) {
-  const building = getMainBuilding(school);
+  const building = getBuildingForYear(school, null);
   return BuildingStore.getLocation(building.id);
 }
 
 
 function getFetchingData() {
   return _fetchingData;
-}
-
-function getMainBuilding(school) {
-  return _.first(school.buildings) || {};
-}
-
-function getMainBuildingInYear(school, year) {
-  if (!year) {
-    return getMainBuilding(school);
-  }
-  return getItemForYear(school.buildings, year) || {};
 }
 
 function getMainName(school) {
@@ -107,13 +101,11 @@ function getSchoolDetails(school) {
 }
 
 function getSchoolYearDetails(school, year) {
-  year = year || new Date().getFullYear();
-
+  year = year || _getLatestYear(school);
   const schoolBuilding = getItemForYear(school.buildings, year);
-  const building = schoolBuilding ? BuildingStore.getBuilding(schoolBuilding.id) : {};
+  const building = _getRelationalObject(schoolBuilding, BuildingStore.getBuilding);
   const schoolPrincipal = getItemForYear(school.principals, year);
   const principal = schoolPrincipal ? PrincipalStore.getPrincipal(schoolPrincipal.id) : {};
-  const building = _getItemForYear(school, 'buildings', year) || {};
   return {
     address: _getMainAddress(building),
     id: school.id,
@@ -132,6 +124,10 @@ function getSchoolsYearDetails(schoolIds, year) {
 
 function hasSchool(schoolId) {
   return typeof _schools[schoolId] !== 'undefined';
+}
+
+function _getLatestYear(school) {
+  return getBeginAndEndYear(school).endYear || new Date().getFullYear();
 }
 
 function _getMainAddress(building) {
