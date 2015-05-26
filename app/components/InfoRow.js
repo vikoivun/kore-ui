@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import {Link} from 'react-router';
 
 function getInfoRow(item) {
   if (item.name) {
@@ -66,9 +65,6 @@ class InfoRow extends React.Component {
   getInfoName() {
     const infoNameClassName = this.props.boxContent ? 'info-name with-infobox' : 'info-name';
     const element = <div className={infoNameClassName}>{this.props.name}</div>;
-    if (this.props.linkTo) {
-      return <Link to={this.props.linkTo} params={this.props.linkParams}>{element}</Link>;
-    }
     return element;
   }
 
