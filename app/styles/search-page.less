@@ -12,7 +12,7 @@
 
   .search-box {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     a.search-button {
       position: absolute;
       right: 0;
@@ -25,6 +25,24 @@
       padding: 10px;
       border: 2px solid @base-color;
       color: @base-color;
+    }
+  }
+
+  .controls {
+    .row();
+    .filters {
+      .make-column(8, 8);
+    }
+    .views {
+      .make-column(4, 4);
+      text-align: right;
+      .view-selector {
+        .base-button();
+        height: @selector-height;
+        width: @selector-height;
+        padding: 0px;
+        margin-left: 10px;
+      }
     }
   }
 

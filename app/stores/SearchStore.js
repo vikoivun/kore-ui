@@ -5,6 +5,7 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 
+let _view = 'grid';
 let _fetchingData = false;
 let _searchQuery = '';
 let _searchResults = [];
@@ -14,7 +15,8 @@ const SearchStore = Object.assign({}, BaseStore, {
   getFetchingData,
   getNextPageUrl,
   getSearchQuery,
-  getSearchResults
+  getSearchResults,
+  getView
 });
 
 SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -37,13 +39,16 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       SearchStore.emitChange();
       break;
 
-
     case ActionTypes.REQUEST_SEARCH_LOAD_MORE:
       AppDispatcher.waitFor([SchoolStore.dispatchToken]);
       _fetchingData = true;
       SchoolStore.emitChange();
       break;
 
+    case ActionTypes.SELECT_SEARCH_VIEW:
+      _view = action.view;
+      SearchStore.emitChange();
+      break;
     default:
       // noop
   }
@@ -65,9 +70,14 @@ function getSearchResults() {
   return _searchResults;
 }
 
+function getView() {
+  return _view;
+}
+
 function _receiveSearchResponse(searchResponse) {
   _nextPageUrl = searchResponse.next;
   _searchResults = _searchResults.concat(searchResponse.results);
+
 }
 
 export default SearchStore;
