@@ -6,7 +6,7 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import BuildingStore from './BuildingStore';
 import PrincipalStore from './PrincipalStore';
-import {getItemByIdWrapper, getItemForYear, sortByYears} from '../core/utils';
+import {getAddressString, getItemByIdWrapper, getItemForYear, sortByYears} from '../core/utils';
 
 let _schools = {};
 let _fetchingData = false;
@@ -130,16 +130,10 @@ function _getLatestYear(school) {
 }
 
 function _getMainAddress(building) {
-  let addresses = [];
-  if (building && building.addresses) {
-    addresses = building.addresses;
+  if (building && building.addresses && building.addresses.length) {
+    return getAddressString(building.addresses[0]);
   }
-  const address = (
-    addresses.length ?
-    `${addresses[0].street_name_fi}\, ${addresses[0].municipality_fi}` :
-    ''
-  );
-  return address;
+  return '';
 }
 
 function _getRelationalData(relationObjects, getter) {
