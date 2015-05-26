@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Loader from 'react-loader';
-import SearchResultsGrid from './SearchResultsTable';
+import SearchResultsGrid from './SearchResultsGrid';
 import SearchResultsTable from './SearchResultsTable';
 import SearchResultsMap from './SearchResultsTable';  // Change to Map when available
 
