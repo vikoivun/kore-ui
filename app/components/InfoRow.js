@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import {Link} from 'react-router';
 
 function getInfoRow(item) {
   if (item.name) {
@@ -55,6 +56,22 @@ class InfoRow extends React.Component {
     return [];
   }
 
+  getInfoBox() {
+    if (this.props.boxContent) {
+      return <div className='info-box'>{this.props.boxContent}</div>;
+    }
+    return [];
+  }
+
+  getInfoName() {
+    const infoNameClassName = this.props.boxContent ? 'info-name with-infobox' : 'info-name';
+    const element = <div className={infoNameClassName}>{this.props.name}</div>;
+    if (this.props.linkTo) {
+      return <Link to={this.props.linkTo} params={this.props.linkParams}>{element}</Link>;
+    }
+    return element;
+  }
+
   render() {
     let liClassName = 'info-row ';
     if (this.props.className) {
@@ -63,16 +80,15 @@ class InfoRow extends React.Component {
     if (this.state.expandable) {
       liClassName += ' expandable';
     }
-    let childInfoRows = this.getChildInfoRows();
     return (
       <div>
         <li className={liClassName}>
           {this.getExpandButton()}
-          <div className='info-box'>{this.props.boxContent}</div>
-          <div className='info-name'>{this.props.name}</div>
+          {this.getInfoBox()}
+          {this.getInfoName()}
         </li>
         <div>
-          {childInfoRows}
+          {this.getChildInfoRows()}
         </div>
       </div>
     );
@@ -81,15 +97,17 @@ class InfoRow extends React.Component {
 
 InfoRow.propTypes = {
   boxContent: React.PropTypes.oneOfType([
-    React.PropTypes.string.isRequired,
-    React.PropTypes.array.isRequired
+    React.PropTypes.string,
+    React.PropTypes.array
   ]),
   className: React.PropTypes.string,
   items: React.PropTypes.array,
   name: React.PropTypes.oneOfType([
     React.PropTypes.string.isRequired,
     React.PropTypes.array.isRequired
-  ])
+  ]),
+  linkTo: React.PropTypes.string,
+  linkParams: React.PropTypes.object
 };
 
 InfoRow.defaultProps = {

@@ -33,7 +33,9 @@ function processBasicInfoRow(details) {
       key: 'school-name' + details.name.id,
       className: 'details-school-name',
       name: details.name.official_name,
-      boxContent: getBoxContent(details.name)
+      boxContent: getBoxContent(details.name),
+      linkTo: 'school',
+      linkParams: {schoolId: details.id}
     },
     {
       key: 'principal' + details.principal.id,
