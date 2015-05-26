@@ -89,12 +89,12 @@ function getMainName(school) {
 function getSchoolDetails(school) {
   return {
     archives: school.archives,
-    buildings: _getRelationalData(school.buildings, BuildingStore.getBuilding),
+    buildings: _getAssociationData(school.buildings, BuildingStore.getBuilding),
     fields: school.fields,
     genders: school.genders,
     languages: school.languages,
     names: school.names,
-    principals: _getRelationalData(school.principals, PrincipalStore.getPrincipal),
+    principals: _getAssociationData(school.principals, PrincipalStore.getPrincipal),
     types: school.types
   };
 }
@@ -103,11 +103,11 @@ function getSchoolYearDetails(school, year) {
   year = year || _getLatestYear(school);
   const schoolBuilding = getItemForYear(school.buildings, year);
   const building = (
-    schoolBuilding ? _getRelationalObject(schoolBuilding, BuildingStore.getBuilding) : {}
+    schoolBuilding ? _getAssociationObject(schoolBuilding, BuildingStore.getBuilding) : {}
   );
   const schoolPrincipal = getItemForYear(school.principals, year);
   const principal = (
-    schoolPrincipal ? _getRelationalObject(schoolPrincipal, PrincipalStore.getPrincipal) : {}
+    schoolPrincipal ? _getAssociationObject(schoolPrincipal, PrincipalStore.getPrincipal) : {}
   );
   return {
     address: _getMainAddress(building),
@@ -140,24 +140,24 @@ function _getMainAddress(building) {
   return '';
 }
 
-function _getRelationalData(relationObjects, getter) {
-  return _.map(relationObjects, function(relationObject) {
-    return _getRelationalObject(relationObject, getter);
+function _getAssociationData(associationObjects, getter) {
+  return _.map(associationObjects, function(associationObject) {
+    return _getAssociationObject(associationObject, getter);
   });
 }
 
-function _getRelationalObject(relationObject, getter) {
-  let object = getter(relationObject.id);
-  return _.assign(object, relationObject);
+function _getAssociationObject(associationObject, getter) {
+  let object = getter(associationObject.id);
+  return _.assign(object, associationObject);
 }
 
-function _parseRelationalData(relationObjects, relationIds, objectName) {
-  let relationObject;
-  return _.map(relationIds, function(id) {
-    relationObject = relationObjects[id];
-    relationObject.id = relationObject[objectName];
-    delete relationObject[objectName];
-    return relationObject;
+function _parseAssociationData(associationObjects, associationIds, objectName) {
+  let associationObject;
+  return _.map(associationIds, function(id) {
+    associationObject = associationObjects[id];
+    associationObject.id = associationObject[objectName];
+    delete associationObject[objectName];
+    return associationObject;
   });
 }
 
@@ -165,7 +165,7 @@ function _receiveSchools(entities) {
   _.each(entities.schools, function(school) {
     _schools[school.id] = {
       archives: sortByYears(school.archives),
-      buildings: sortByYears(_parseRelationalData(
+      buildings: sortByYears(_parseAssociationData(
         entities.schoolBuildings,
         school.buildings,
         'building'
@@ -175,7 +175,7 @@ function _receiveSchools(entities) {
       id: school.id,
       languages: sortByYears(school.languages),
       names: sortByYears(school.names),
-      principals: sortByYears(_parseRelationalData(
+      principals: sortByYears(_parseAssociationData(
         entities.schoolPrincipals,
         school.principals,
         'principal'
