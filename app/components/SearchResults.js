@@ -1,41 +1,26 @@
 'use strict';
 
 import React from 'react';
-import Loader from 'react-loader';
-import SearchResultsGrid from './SearchResultsGrid';
-import SearchResultsTable from './SearchResultsTable';
-import SearchResultsMap from './SearchResultsTable';  // Change to Map when available
+import SearchGridView from './SearchGridView';
+import SearchTableView from './SearchTableView';
+import SearchMapView from './SearchMapView';
 
 const views = {
-  map: SearchResultsMap,
-  table: SearchResultsTable,
-  grid: SearchResultsGrid
+  map: SearchMapView,
+  table: SearchTableView,
+  grid: SearchGridView
 };
 
 class SearchResults extends React.Component {
-
-  renderSearchView() {
-    if (this.props.schoolList.length) {
-      const View = views[this.props.view];
-      return (
-        <View schoolList={this.props.schoolList} />
-      );
-    }
-
-    if (this.props.somethingWasSearched) {
-      return <p>Yhtään hakutulosta ei löytynyt.</p>;
-    }
-
-    return <p>Etsi kouluja syöttämällä koulun nimi tai osoite yllä olevaan hakukenttään.</p>;
-  }
-
   render() {
-    const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
+    const View = views[this.props.view];
     return (
       <div className='container'>
-        <Loader loaded={!loading}>
-          {this.renderSearchView()}
-        </Loader>
+        <View
+          fetchingData={this.props.fetchingData}
+          schoolList={this.props.schoolList}
+          somethingWasSearched={this.props.somethingWasSearched}
+        />
       </div>
     );
   }
