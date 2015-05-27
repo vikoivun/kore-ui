@@ -16,6 +16,7 @@ function getStateFromStores() {
     fetchingData: SearchStore.getFetchingData(),
     searchQuery: SearchStore.getSearchQuery(),
     nextPageUrl: SearchStore.getNextPageUrl(),
+    selectedSchool: SearchStore.getSelectedSchool(),
     schoolList: SchoolStore.getSchoolsYearDetails(searchResults),
     somethingWasSearched: SearchStore.getSomethingWasSearched()
   };
@@ -63,6 +64,7 @@ class SearchPage extends React.Component {
           <SearchResults
             fetchingData={this.state.fetchingData}
             schoolList={this.state.schoolList}
+            selectedSchool={this.state.selectedSchool}
             somethingWasSearched={this.state.somethingWasSearched}
             view={this.state.view}
           />

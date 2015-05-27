@@ -23,12 +23,12 @@ function getMarker(school) {
 class SearchMap extends React.Component {
   componentDidMount() {
     this.map = this.refs.map.getLeafletElement();
-    const coordinates = _.pluck(this.props.schoolList, ['location', 'coordinates']);
+    const coordinates = this.getCoordinates(this.props);
     this.centerMap(coordinates);
   }
 
   componentWillUpdate(nextProps) {
-    const coordinates = _.pluck(nextProps.schoolList, ['location', 'coordinates']);
+    const coordinates = this.getCoordinates(nextProps);
     this.centerMap(coordinates);
   }
 
@@ -37,6 +37,21 @@ class SearchMap extends React.Component {
       const bounds = getBounds(coordinates);
       this.map.fitBounds(bounds, {padding: [50, 50]});
     }
+  }
+
+  getCoordinates(props) {
+    let coordinates = [];
+    if (props.selectedSchool) {
+      const school = _.find(
+        props.schoolList, current => current.id === props.selectedSchool
+      );
+      if (school) {
+        coordinates.push(school.location.coordinates);
+      }
+    } else {
+      coordinates = _.pluck(props.schoolList, ['location', 'coordinates']);
+    }
+    return coordinates;
   }
 
   render() {
@@ -62,6 +77,7 @@ class SearchMap extends React.Component {
 SearchMap.propTypes = {
   fetchingData: React.PropTypes.bool,
   schoolList: React.PropTypes.array.isRequired,
+  selectedSchool: React.PropTypes.number,
   zoom: React.PropTypes.number
 };
 

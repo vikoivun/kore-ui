@@ -105,6 +105,18 @@
 
     .search-map-list-container {
       .make-column(3, 3);
+      ul {
+        padding: 0;
+
+        li {
+          cursor: pointer;
+          &:hover, &.selected {
+            background-color: @background-main-color;
+            .info-row.inversed();
+          }
+        }
+      }
+
       .loader {
         margin-top: 60px;
       }

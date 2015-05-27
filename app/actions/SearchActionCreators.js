@@ -23,6 +23,13 @@ export default {
     SchoolAPI.searchLoadMore(url);
   },
 
+  selectSchool(school) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.SELECT_SEARCH_SCHOOL,
+      school
+    });
+  },
+
   selectView(view) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_SEARCH_VIEW,

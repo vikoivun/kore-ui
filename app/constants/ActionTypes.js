@@ -12,5 +12,6 @@ export default keyMirror({
   REQUEST_SEARCH_LOAD_MORE: null,
   UPDATE_SCHOOL_TIMELINE_YEAR: null,
   RESET_SCHOOL_TIMELINE_YEAR: null,
+  SELECT_SEARCH_SCHOOL: null,
   SELECT_SEARCH_VIEW: null
 });

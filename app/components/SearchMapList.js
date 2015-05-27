@@ -2,21 +2,30 @@
 
 import React from 'react';
 import Loader from 'react-loader';
+import SearchMapListItem from './SearchMapListItem';
 
-function getListRow(school) {
-  return (
-    <li key={school.id}>
-      {school.name.officialName}
-    </li>
-  );
-}
 
 class SearchMapList extends React.Component {
+  constructor() {
+    super();
+    this.getListItem = this.getListItem.bind(this);
+  }
+
+  getListItem(school) {
+    return (
+      <SearchMapListItem
+        key={school.id}
+        school={school}
+        selectedSchool={this.props.selectedSchool}
+      />
+    );
+  }
+
   renderSearchResults() {
     if (this.props.schoolList.length) {
       return (
         <ul>
-          {this.props.schoolList.map(getListRow)}
+          {this.props.schoolList.map(this.getListItem)}
         </ul>
       );
     } else {
@@ -40,6 +49,7 @@ class SearchMapList extends React.Component {
 SearchMapList.propTypes = {
   fetchingData: React.PropTypes.bool,
   schoolList: React.PropTypes.array.isRequired,
+  selectedSchool: React.PropTypes.number,
   somethingWasSearched: React.PropTypes.bool.isRequired
 };
 
