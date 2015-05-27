@@ -16,7 +16,10 @@ class SchoolTimelineInfo extends React.Component {
       <div className='school-timeline-info-wrapper'>
         <div className='container'>
           <div className='school-timeline-info'>
-            <Timeline yearsActive={this.props.yearsActive} currentYear={this.props.currentYear}/>
+            <Timeline
+              currentYear={this.props.currentYear}
+              yearsActive={this.props.yearsActive}
+            />
             <div className='school-year-info'>
               <ol className='school-year-details-list'>
                 {processBasicInfoRow(this.props.schoolYearDetails).map(getInfoRow)}
@@ -30,25 +33,25 @@ class SchoolTimelineInfo extends React.Component {
 }
 
 SchoolTimelineInfo.propTypes = {
-  yearsActive: React.PropTypes.shape({
-    'beginYear': React.PropTypes.number,
-    'endYear': React.PropTypes.number
-  }),
   currentYear: React.PropTypes.number,
   schoolYearDetails: React.PropTypes.shape({
-    'name': React.PropTypes.shape({
-      'official_name': React.PropTypes.string,
-      'begin_year': React.PropTypes.number,
-      'end_year': React.PropTypes.number
-    }),
-    'building': React.PropTypes.shape({
+    building: React.PropTypes.shape({
       addresses: React.PropTypes.arrayOf(
         React.PropTypes.shape({
-          'street_name_fi': React.PropTypes.string,
-          'municipality_fi': React.PropTypes.string
+          municipalityFi: React.PropTypes.string,
+          streetNameFi: React.PropTypes.string
         })
       )
+    }),
+    name: React.PropTypes.shape({
+      beginYear: React.PropTypes.number,
+      endYear: React.PropTypes.number,
+      officialName: React.PropTypes.string
     })
+  }),
+  yearsActive: React.PropTypes.shape({
+    beginYear: React.PropTypes.number,
+    endYear: React.PropTypes.number
   })
 };
 

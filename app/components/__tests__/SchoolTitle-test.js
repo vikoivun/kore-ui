@@ -6,10 +6,10 @@ import {expect} from 'chai';
 import SchoolTitle from '../SchoolTitle';
 
 describe('SchoolTitle', function() {
-  const name = {'official_name': 'River Valley High'};
+  const name = {officialName: 'River Valley High'};
   const yearsActive = {
-    'beginYear': 1995,
-    'endYear': 2010
+    beginYear: 1995,
+    endYear: 2010
   };
   let element;
 
@@ -34,7 +34,7 @@ describe('SchoolTitle', function() {
   it('should display school name in h1 tag', function() {
     const header = TestUtils.findRenderedDOMComponentWithTag(element, 'h1');
     const dom = React.findDOMNode(header);
-    expect(dom.textContent).to.equal(name.official_name);
+    expect(dom.textContent).to.equal(name.officialName);
   });
 
   it('should display the year school began operation', function() {

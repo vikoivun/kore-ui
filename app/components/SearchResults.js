@@ -43,8 +43,8 @@ class SearchResults extends React.Component {
 
 SearchResults.propTypes = {
   fetchingData: React.PropTypes.bool,
-  somethingWasSearched: React.PropTypes.bool.isRequired,
   schoolList: React.PropTypes.array.isRequired,
+  somethingWasSearched: React.PropTypes.bool.isRequired,
   view: React.PropTypes.string.isRequired
 };
 

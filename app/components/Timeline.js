@@ -46,10 +46,10 @@ class Timeline extends React.Component {
           <div className='separator'>|</div>
         </div>
         <ReactSlider
-          defaultValue={currentYear}
-          min={this.props.yearsActive.beginYear}
-          max={endYear}
           className='horizontal-slider'
+          defaultValue={currentYear}
+          max={endYear}
+          min={this.props.yearsActive.beginYear}
           onChange={this.handleChange}
           ref='reactSlider'
         >
@@ -63,11 +63,11 @@ class Timeline extends React.Component {
 }
 
 Timeline.propTypes = {
+  currentYear: React.PropTypes.number,
   yearsActive: React.PropTypes.shape({
-    'beginYear': React.PropTypes.number,
-    'endYear': React.PropTypes.number
-  }),
-  currentYear: React.PropTypes.number
+    beginYear: React.PropTypes.number,
+    endYear: React.PropTypes.number
+  })
 };
 
 export default Timeline;

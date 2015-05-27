@@ -10,7 +10,7 @@ class SearchResultsTable extends React.Component {
       return (
         <tr key={school.id}>
           <td>
-            <Link to='school' params={{schoolId: school.id}}>{school.name.official_name}</Link>
+            <Link params={{schoolId: school.id}} to='school'>{school.name.officialName}</Link>
           </td>
           <td>{school.address}</td>
         </tr>

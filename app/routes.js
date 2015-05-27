@@ -9,10 +9,10 @@ import SchoolPage from './pages/SchoolPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default (
-  <Route name='app' path='/' handler={App}>
-    <Route name='search' path='/etsi-koulua' handler={SearchPage} />
-    <Route name='about' path='/tietoa-palvelusta' handler={AboutPage} />
-    <Route name='school' path='/koulut/:schoolId' handler={SchoolPage} />
+  <Route handler={App} name='app' path='/'>
+    <Route handler={SearchPage} name='search' path='/etsi-koulua' />
+    <Route handler={AboutPage} name='about' path='/tietoa-palvelusta' />
+    <Route handler={SchoolPage} name='school' path='/koulut/:schoolId' />
     <Redirect from='/' to='search' />
     <NotFoundRoute handler={NotFoundPage} />
   </Route>

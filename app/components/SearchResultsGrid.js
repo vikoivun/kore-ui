@@ -18,7 +18,7 @@ function processSchool(school) {
   };
   return (
     <div className='school-grid-wrapper'>
-      <Link to='school' params={{schoolId: school.id}}>
+      <Link params={{schoolId: school.id}} to='school'>
         <div className='school-grid'>
           <div className='school-image' style={schoolImageStyles}></div>
           <ol className='school-grid-details-list'>

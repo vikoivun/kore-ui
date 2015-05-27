@@ -1,6 +1,7 @@
 'use strict';
 
 import {Schema, arrayOf, normalize} from 'normalizr';
+import {camelizeKeys} from 'humps';
 
 const building = new Schema('buildings');
 const principal = new Schema('principals');
@@ -29,11 +30,13 @@ searchResponse.define({
 });
 
 export function normalizeSchoolResponse(response) {
-  return normalize(response, school);
+  const camelized = camelizeKeys(response);
+  return normalize(camelized, school);
 }
 
 export function normalizeSearchResponse(response) {
-  let normalized = normalize(response, searchResponse);
+  const camelized = camelizeKeys(response);
+  let normalized = normalize(camelized, searchResponse);
   // The searchResponse does not have an id so after normalizr the data is behind
   // an undefined property. Let's change that here.
   normalized.entities.searchResponse = normalized.entities.searchResponse.undefined;

@@ -21,10 +21,10 @@ class SchoolImage extends React.Component {
 }
 
 SchoolImage.propTypes = {
-  fetchingData: React.PropTypes.bool,
   building: React.PropTypes.shape({
     photos: React.PropTypes.array
-  }).isRequired
+  }).isRequired,
+  fetchingData: React.PropTypes.bool
 };
 
 export default SchoolImage;

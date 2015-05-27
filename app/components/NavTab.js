@@ -24,10 +24,10 @@ NavTab.contextTypes = {
 
 NavTab.propTypes = {
   params: React.PropTypes.object,
+  query: React.PropTypes.object,
   to: React.PropTypes.oneOfType(
     [React.PropTypes.string, React.PropTypes.route]
-  ).isRequired,
-  query: React.PropTypes.object
+  ).isRequired
 };
 
 export default NavTab;

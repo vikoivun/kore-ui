@@ -9,7 +9,7 @@ class SchoolTitle extends React.Component {
       <div className='container'>
         <header className='school-title'>
           <div className='school-title-box'>
-            <h1>{this.props.name.official_name}</h1>
+            <h1>{this.props.name.officialName}</h1>
             <span>
               {this.props.yearsActive.beginYear}
               <i className='fa fa-lg fa-long-arrow-right'/>
@@ -24,11 +24,11 @@ class SchoolTitle extends React.Component {
 
 SchoolTitle.propTypes = {
   name: React.PropTypes.shape({
-    'official_name': React.PropTypes.string
+    officialName: React.PropTypes.string
   }),
   yearsActive: React.PropTypes.shape({
-    'beginYear': React.PropTypes.number,
-    'endYear': React.PropTypes.number
+    beginYear: React.PropTypes.number,
+    endYear: React.PropTypes.number
   })
 };
 

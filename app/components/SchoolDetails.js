@@ -73,7 +73,7 @@ const itemGenerator = {
       return {
         key: 'school-name-' + name.id,
         className: 'details-school-name',
-        name: name.official_name,
+        name: name.officialName,
         boxContent: getBoxContent(name)
       };
     });
@@ -107,44 +107,44 @@ class SchoolDetails extends React.Component {
       <div className='container'>
         <section className='school-details'>
           <InfoTable
-            title={'Koulun nimet'}
             expandable={false}
             items={itemGenerator.names(details.names)}
+            title={'Koulun nimet'}
           />
           <InfoTable
-            title={'Rakennukset ja sijainnit'}
             expandable={true}
             items={itemGenerator.buildings(details.buildings)}
+            title={'Rakennukset ja sijainnit'}
           />
           <InfoTable
-            title={'Arkistot'}
             expandable={true}
             items={itemGenerator.archives(details.archives)}
+            title={'Arkistot'}
           />
           <InfoTable
-            title={'Rehtorit'}
             expandable={true}
             items={itemGenerator.principals(details.principals)}
+            title={'Rehtorit'}
           />
           <InfoTable
-            title={'Koulun tyypit'}
             expandable={true}
             items={itemGenerator.types(details.types)}
+            title={'Koulun tyypit'}
           />
           <InfoTable
-            title={'Koulun alat'}
             expandable={true}
             items={itemGenerator.fields(details.fields)}
+            title={'Koulun alat'}
           />
           <InfoTable
-            title={'Kielet'}
             expandable={true}
             items={itemGenerator.languages(details.languages)}
+            title={'Kielet'}
           />
           <InfoTable
-            title={'Sukupuolet'}
             expandable={true}
             items={itemGenerator.genders(details.genders)}
+            title={'Sukupuolet'}
           />
         </section>
       </div>
@@ -156,71 +156,71 @@ SchoolDetails.propTypes = {
   details: React.PropTypes.shape({
     archives: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        'location': React.PropTypes.string,
-        'begin_year': React.PropTypes.number,
-        'end_year': React.PropTypes.number
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
+        location: React.PropTypes.string
       })
     ),
     buildings: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        'begin_year': React.PropTypes.number,
-        'end_year': React.PropTypes.number,
+        beginYear: React.PropTypes.number,
         building: React.PropTypes.shape({
-          neighborhood: React.PropTypes.string,
-          architect: React.PropTypes.string,
           addresses: React.PropTypes.arrayOf(
             React.PropTypes.shape({
-              'street_name_fi': React.PropTypes.string,
-              'municipality_fi': React.PropTypes.string
+              municipalityFi: React.PropTypes.string,
+              streetNameFi: React.PropTypes.string
             })
-          )
-        })
+          ),
+          architect: React.PropTypes.string,
+          neighborhood: React.PropTypes.string
+        }),
+        endYear: React.PropTypes.number
       })
     ),
     fields: React.PropTypes.arrayOf(
       React.PropTypes.shape({
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
         field: React.PropTypes.shape({
           description: React.PropTypes.string
-        }),
-        'begin_year': React.PropTypes.number,
-        'end_year': React.PropTypes.number
+        })
       })
     ),
     genders: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        gender: React.PropTypes.string,
-        'begin_year': React.PropTypes.number,
-        'end_year': React.PropTypes.number
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
+        gender: React.PropTypes.string
       })
     ),
     languages: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        language: React.PropTypes.string,
-        'begin_year': React.PropTypes.number,
-        'end_year': React.PropTypes.number
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
+        language: React.PropTypes.string
       })
     ),
     names: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        'official_name': React.PropTypes.string,
-        'begin_year': React.PropTypes.number,
-        'end_year': React.PropTypes.number
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
+        officialName: React.PropTypes.string
       })
     ),
     principals: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        'name': React.PropTypes.string,
-        'begin_year': React.PropTypes.number,
-        'end_year': React.PropTypes.number
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
+        name: React.PropTypes.string
       })
     ),
     types: React.PropTypes.arrayOf(
       React.PropTypes.shape({
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
         type: React.PropTypes.shape({
           name: React.PropTypes.string
-        }),
-        'begin_year': React.PropTypes.number,
-        'end_year': React.PropTypes.number
+        })
       })
     )
   })

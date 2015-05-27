@@ -52,9 +52,9 @@ function _receivePrincipals(principals) {
   _.each(principals, function(principal) {
     _principals[principal.id] = {
       employers: principal.employers,
-      firstName: principal.first_name,
+      firstName: principal.firstName,
       id: principal.id,
-      name: principal.first_name + ' ' + principal.surname,
+      name: principal.firstName + ' ' + principal.surname,
       surname: principal.surname
     };
   });
