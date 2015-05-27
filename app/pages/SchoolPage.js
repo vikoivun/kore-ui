@@ -75,15 +75,15 @@ class SchoolPage extends React.Component {
         <div className='school-page'>
           <SchoolTitle name={this.state.mainName} yearsActive={this.state.yearsActive} />
           <SchoolTimelineInfo
-            yearsActive={this.state.yearsActive}
             currentYear={this.state.currentYear}
             schoolYearDetails={this.state.schoolYearDetails}
+            yearsActive={this.state.yearsActive}
           />
           <div className='container'>
             <div className='school-image-map'>
               <SchoolImage
-                fetchingData={this.state.fetchingData}
                 building={this.state.buildingInSelectedYear}
+                fetchingData={this.state.fetchingData}
               />
               <div className='school-map'>
                 <SchoolMap

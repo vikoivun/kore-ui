@@ -12,24 +12,24 @@ class Navbar extends React.Component {
         <div className='container'>
           <div className='navbar-header'>
             <button
-              type='button'
-              className='navbar-toggle collapsed'
-              data-toggle='collapse'
-              data-target='#navbar'
-              aria-expanded='false'
               aria-controls='navbar'
+              aria-expanded='false'
+              className='navbar-toggle collapsed'
+              data-target='#navbar'
+              data-toggle='collapse'
+              type='button'
             >
               <span className='sr-only'>Toggle navigation</span>
               <span className='icon-bar'></span>
               <span className='icon-bar'></span>
               <span className='icon-bar'></span>
             </button>
-            <Link to='search' className='navbar-brand'>
+            <Link className='navbar-brand' to='search'>
               <span className='coat-of-arms'/>
               Koulurekisteri
             </Link>
           </div>
-          <div id='navbar' className='navbar-collapse collapse'>
+          <div className='navbar-collapse collapse' id='navbar'>
             <ul className='nav navbar-nav'>
               <NavTab to='search'>Etsi koulua</NavTab>
               <NavTab to='about'>Tietoa palvelusta</NavTab>

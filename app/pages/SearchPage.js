@@ -42,8 +42,8 @@ class SearchPage extends React.Component {
     if (this.state.nextPageUrl) {
       loadMore = (
         <SearchLoadMore
-          url={this.state.nextPageUrl}
           fetchingData={this.state.fetchingData}
+          url={this.state.nextPageUrl}
         />
       );
     }
@@ -52,7 +52,7 @@ class SearchPage extends React.Component {
         <div className='search-page'>
           <header className='container'>
             <h1 className='search-title' >
-              <img src={require('../images/Helsinki.vaakuna.svg')} alt='Helsinki vaakuna' />
+              <img alt='Helsingin vaakuna' src={require('../images/Helsinki.vaakuna.svg')} />
               Kouluhaku
             </h1>
           </header>
@@ -61,8 +61,8 @@ class SearchPage extends React.Component {
           <div className='search-timeline'></div>
           <SearchResults
             fetchingData={this.state.fetchingData}
-            somethingWasSearched={Boolean(this.state.searchQuery)}
             schoolList={this.state.schoolList}
+            somethingWasSearched={Boolean(this.state.searchQuery)}
             view={this.state.view}
           />
           {loadMore}

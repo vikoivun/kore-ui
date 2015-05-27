@@ -19,7 +19,7 @@ class SearchLoadMore extends React.Component {
       <div className='container'>
         <div className='search-load-more'>
           <button onClick={this.handleClick}>
-            <Loader loaded={!this.props.fetchingData} color='#FFF'>
+            <Loader color='#FFF' loaded={!this.props.fetchingData}>
               Näytä lisää kouluja
             </Loader>
           </button>

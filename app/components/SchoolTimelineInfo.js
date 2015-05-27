@@ -16,7 +16,10 @@ class SchoolTimelineInfo extends React.Component {
       <div className='school-timeline-info-wrapper'>
         <div className='container'>
           <div className='school-timeline-info'>
-            <Timeline yearsActive={this.props.yearsActive} currentYear={this.props.currentYear}/>
+            <Timeline
+              currentYear={this.props.currentYear}
+              yearsActive={this.props.yearsActive}
+            />
             <div className='school-year-info'>
               <ol className='school-year-details-list'>
                 {processBasicInfoRow(this.props.schoolYearDetails).map(getInfoRow)}

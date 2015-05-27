@@ -22,8 +22,8 @@ class SchoolMap extends React.Component {
       return (
         <Map center={position} zoom={zoom}>
           <TileLayer
-            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
           />
           <Marker position={position}>
             <Popup>
@@ -44,7 +44,7 @@ class SchoolMap extends React.Component {
 
   render() {
     return (
-      <Loader loaded={!this.props.fetchingData} color='#FFF'>
+      <Loader color='#FFF' loaded={!this.props.fetchingData}>
         {this.renderMap()}
       </Loader>
     );

@@ -34,9 +34,9 @@ class SearchBox extends React.Component {
           </a>
           <input
             className='search-bar'
+            defaultValue={this.props.searchQuery}
             onKeyUp={this.handleKeyUp}
             placeholder='Syötä koulun nimi'
-            defaultValue={this.props.searchQuery}
           />
         </div>
       </div>

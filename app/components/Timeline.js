@@ -46,10 +46,10 @@ class Timeline extends React.Component {
           <div className='separator'>|</div>
         </div>
         <ReactSlider
-          defaultValue={currentYear}
-          min={this.props.yearsActive.beginYear}
-          max={endYear}
           className='horizontal-slider'
+          defaultValue={currentYear}
+          max={endYear}
+          min={this.props.yearsActive.beginYear}
           onChange={this.handleChange}
           ref='reactSlider'
         >

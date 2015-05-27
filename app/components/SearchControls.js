@@ -19,7 +19,11 @@ class SearchControls extends React.Component {
   getSearchViewControls(element, name) {
     let selected = this.props.view === name;
     return (
-      <SearchViewControl key={name} view={name} selected={selected}>
+      <SearchViewControl
+        key={name}
+        selected={selected}
+        view={name}
+      >
         {element}
       </SearchViewControl>
     );

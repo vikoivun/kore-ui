@@ -107,44 +107,44 @@ class SchoolDetails extends React.Component {
       <div className='container'>
         <section className='school-details'>
           <InfoTable
-            title={'Koulun nimet'}
             expandable={false}
             items={itemGenerator.names(details.names)}
+            title={'Koulun nimet'}
           />
           <InfoTable
-            title={'Rakennukset ja sijainnit'}
             expandable={true}
             items={itemGenerator.buildings(details.buildings)}
+            title={'Rakennukset ja sijainnit'}
           />
           <InfoTable
-            title={'Arkistot'}
             expandable={true}
             items={itemGenerator.archives(details.archives)}
+            title={'Arkistot'}
           />
           <InfoTable
-            title={'Rehtorit'}
             expandable={true}
             items={itemGenerator.principals(details.principals)}
+            title={'Rehtorit'}
           />
           <InfoTable
-            title={'Koulun tyypit'}
             expandable={true}
             items={itemGenerator.types(details.types)}
+            title={'Koulun tyypit'}
           />
           <InfoTable
-            title={'Koulun alat'}
             expandable={true}
             items={itemGenerator.fields(details.fields)}
+            title={'Koulun alat'}
           />
           <InfoTable
-            title={'Kielet'}
             expandable={true}
             items={itemGenerator.languages(details.languages)}
+            title={'Kielet'}
           />
           <InfoTable
-            title={'Sukupuolet'}
             expandable={true}
             items={itemGenerator.genders(details.genders)}
+            title={'Sukupuolet'}
           />
         </section>
       </div>
