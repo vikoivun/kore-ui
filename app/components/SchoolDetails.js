@@ -156,71 +156,71 @@ SchoolDetails.propTypes = {
   details: React.PropTypes.shape({
     archives: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        location: React.PropTypes.string,
         beginYear: React.PropTypes.number,
-        endYear: React.PropTypes.number
+        endYear: React.PropTypes.number,
+        location: React.PropTypes.string
       })
     ),
     buildings: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
-        endYear: React.PropTypes.number,
         building: React.PropTypes.shape({
-          neighborhood: React.PropTypes.string,
-          architect: React.PropTypes.string,
           addresses: React.PropTypes.arrayOf(
             React.PropTypes.shape({
-              streetNameFi: React.PropTypes.string,
-              municipalityFi: React.PropTypes.string
+              municipalityFi: React.PropTypes.string,
+              streetNameFi: React.PropTypes.string
             })
-          )
-        })
+          ),
+          architect: React.PropTypes.string,
+          neighborhood: React.PropTypes.string
+        }),
+        endYear: React.PropTypes.number
       })
     ),
     fields: React.PropTypes.arrayOf(
       React.PropTypes.shape({
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
         field: React.PropTypes.shape({
           description: React.PropTypes.string
-        }),
-        beginYear: React.PropTypes.number,
-        endYear: React.PropTypes.number
+        })
       })
     ),
     genders: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        gender: React.PropTypes.string,
         beginYear: React.PropTypes.number,
-        endYear: React.PropTypes.number
+        endYear: React.PropTypes.number,
+        gender: React.PropTypes.string
       })
     ),
     languages: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        language: React.PropTypes.string,
         beginYear: React.PropTypes.number,
-        endYear: React.PropTypes.number
+        endYear: React.PropTypes.number,
+        language: React.PropTypes.string
       })
     ),
     names: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        officialName: React.PropTypes.string,
         beginYear: React.PropTypes.number,
-        endYear: React.PropTypes.number
+        endYear: React.PropTypes.number,
+        officialName: React.PropTypes.string
       })
     ),
     principals: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        name: React.PropTypes.string,
         beginYear: React.PropTypes.number,
-        endYear: React.PropTypes.number
+        endYear: React.PropTypes.number,
+        name: React.PropTypes.string
       })
     ),
     types: React.PropTypes.arrayOf(
       React.PropTypes.shape({
+        beginYear: React.PropTypes.number,
+        endYear: React.PropTypes.number,
         type: React.PropTypes.shape({
           name: React.PropTypes.string
-        }),
-        beginYear: React.PropTypes.number,
-        endYear: React.PropTypes.number
+        })
       })
     )
   })

@@ -98,12 +98,12 @@ InfoRow.propTypes = {
   ]),
   className: React.PropTypes.string,
   items: React.PropTypes.array,
+  linkParams: React.PropTypes.object,
+  linkTo: React.PropTypes.string,
   name: React.PropTypes.oneOfType([
     React.PropTypes.string.isRequired,
     React.PropTypes.array.isRequired
-  ]),
-  linkTo: React.PropTypes.string,
-  linkParams: React.PropTypes.object
+  ])
 };
 
 InfoRow.defaultProps = {

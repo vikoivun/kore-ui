@@ -92,9 +92,9 @@ class InfoTable extends React.Component {
 }
 
 InfoTable.propTypes = {
-  title: React.PropTypes.string.isRequired,
+  expandable: React.PropTypes.bool.isRequired,
   items: React.PropTypes.array.isRequired,
-  expandable: React.PropTypes.bool.isRequired
+  title: React.PropTypes.string.isRequired
 };
 
 export default InfoTable;

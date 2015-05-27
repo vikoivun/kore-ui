@@ -30,25 +30,25 @@ class SchoolTimelineInfo extends React.Component {
 }
 
 SchoolTimelineInfo.propTypes = {
+  currentYear: React.PropTypes.number,
+  schoolYearDetails: React.PropTypes.shape({
+    building: React.PropTypes.shape({
+      addresses: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+          municipalityFi: React.PropTypes.string,
+          streetNameFi: React.PropTypes.string
+        })
+      )
+    }),
+    name: React.PropTypes.shape({
+      beginYear: React.PropTypes.number,
+      endYear: React.PropTypes.number,
+      officialName: React.PropTypes.string
+    })
+  }),
   yearsActive: React.PropTypes.shape({
     beginYear: React.PropTypes.number,
     endYear: React.PropTypes.number
-  }),
-  currentYear: React.PropTypes.number,
-  schoolYearDetails: React.PropTypes.shape({
-    'name': React.PropTypes.shape({
-      officialName: React.PropTypes.string,
-      beginYear: React.PropTypes.number,
-      endYear: React.PropTypes.number
-    }),
-    'building': React.PropTypes.shape({
-      addresses: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-          streetNameFi: React.PropTypes.string,
-          municipalityFi: React.PropTypes.string
-        })
-      )
-    })
   })
 };
 
