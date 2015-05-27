@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import React from 'react';
 import {Link} from 'react-router';
+import Loader from 'react-loader';
 import {processBasicInfoRow, getImageUrl} from '../core/utils';
 import InfoRow from './InfoRow';
 
@@ -38,19 +39,37 @@ function getSchoolRow(schools) {
   );
 }
 
-class SearchResultsGrid extends React.Component {
+class SearchGridView extends React.Component {
+  renderSearchResults() {
+    if (this.props.schoolList.length) {
+      const chunkedSchools = _.chunk(this.props.schoolList, 3);
+      return (
+        <div className='search-grid'>
+          {chunkedSchools.map(getSchoolRow)}
+        </div>
+      );
+    } else {
+      return <p>Yhtään hakutulosta ei löytynyt.</p>;
+    }
+  }
+
   render() {
-    const chunkedSchools = _.chunk(this.props.schoolList, 3);
-    return (
-      <div className='search-grid'>
-        {chunkedSchools.map(getSchoolRow)}
-      </div>
-    );
+    const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
+    if (this.props.somethingWasSearched) {
+      return (
+        <Loader loaded={!loading}>
+          {this.renderSearchResults()}
+        </Loader>
+      );
+    }
+    return <p>Etsi kouluja syöttämällä koulun nimi tai osoite yllä olevaan hakukenttään.</p>;
   }
 }
 
-SearchResultsGrid.propTypes = {
-  schoolList: React.PropTypes.array.isRequired
+SearchGridView.propTypes = {
+  fetchingData: React.PropTypes.bool,
+  schoolList: React.PropTypes.array.isRequired,
+  somethingWasSearched: React.PropTypes.bool.isRequired
 };
 
-export default SearchResultsGrid;
+export default SearchGridView;

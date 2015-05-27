@@ -16,6 +16,7 @@ const SearchStore = Object.assign({}, BaseStore, {
   getNextPageUrl,
   getSearchQuery,
   getSearchResults,
+  getSomethingWasSearched,
   getView
 });
 
@@ -68,6 +69,10 @@ function getSearchQuery() {
 
 function getSearchResults() {
   return _searchResults;
+}
+
+function getSomethingWasSearched() {
+  return Boolean(_searchQuery || _searchResults.length || _fetchingData);
 }
 
 function getView() {
