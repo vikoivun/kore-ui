@@ -1,20 +1,28 @@
 'use strict';
 
 import React from 'react';
+import _ from 'lodash';
 import SearchMapList from './SearchMapList';
 import SearchMap from './SearchMap';
 
+function getSchoolsWithLocation(schools) {
+  return _.filter(schools, function(school) {
+    return !_.isEmpty(school.location.coordinates);
+  });
+}
+
 class SearchMapView extends React.Component {
   render() {
+    const schoolsWithLocation = getSchoolsWithLocation(this.props.schoolList);
     return (
       <div className='search-map-view'>
         <div className='search-map-container'>
-          <SearchMap schoolList={this.props.schoolList} />
+          <SearchMap schoolList={schoolsWithLocation} />
         </div>
         <div className='search-map-list-container'>
           <SearchMapList
             fetchingData={this.props.fetchingData}
-            schoolList={this.props.schoolList}
+            schoolList={schoolsWithLocation}
             somethingWasSearched={this.props.somethingWasSearched}
           />
         </div>

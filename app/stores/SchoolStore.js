@@ -111,11 +111,12 @@ function getSchoolYearDetails(school, year) {
   );
   return {
     address: _getMainAddress(building),
-    id: school.id,
     archive: getItemForYear(school.archives, year) || {},
     building: building,
-    principal: principal,
-    name: getItemForYear(school.names, year) || {}
+    id: school.id,
+    location: getLocationForYear(school, year),
+    name: getItemForYear(school.names, year) || {},
+    principal: principal
   };
 }
 
