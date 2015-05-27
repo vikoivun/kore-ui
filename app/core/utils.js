@@ -104,7 +104,7 @@ export default {
   getImageUrl,
   getItemByIdWrapper,
   getItemForYear,
-  inBetween: inBetween,
+  inBetween,
   processBasicInfoRow,
   sortByYears
 };
