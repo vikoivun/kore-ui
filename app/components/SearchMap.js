@@ -1,9 +1,10 @@
 'use strict';
 
 import React from 'react';
+import _ from 'lodash';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import {HELSINKI_COORDINATES} from '../constants/AppConstants';
-import {getPosition} from '../core/mapUtils';
+import {getBounds, getPosition} from '../core/mapUtils';
 
 function getMarker(school) {
   const position = getPosition(school.location);
@@ -17,8 +18,27 @@ function getMarker(school) {
 }
 
 class SearchMap extends React.Component {
+  componentDidMount() {
+    this.map = this.refs.map.getLeafletElement();
+    const coordinates = _.pluck(this.props.schoolList, ['location', 'coordinates']);
+    this.centerMap(coordinates);
+  }
+
+  componentWillUpdate(nextProps) {
+    const coordinates = _.pluck(nextProps.schoolList, ['location', 'coordinates']);
+    this.centerMap(coordinates);
+  }
+
+  centerMap(coordinates) {
+    if (coordinates.length) {
+      const bounds = getBounds(coordinates);
+      this.map.fitBounds(bounds, {padding: [50, 50]});
+    }
+  }
+
   render() {
-    const position = HELSINKI_COORDINATES;
+    const showDefaultLocation = !this.props.schoolList.length && !this.props.fetchingData;
+    const position = showDefaultLocation ? HELSINKI_COORDINATES : null;
     const zoom = this.props.zoom || 12;
     return (
       <Map
@@ -37,6 +57,7 @@ class SearchMap extends React.Component {
 }
 
 SearchMap.propTypes = {
+  fetchingData: React.PropTypes.bool,
   schoolList: React.PropTypes.array.isRequired,
   zoom: React.PropTypes.number
 };

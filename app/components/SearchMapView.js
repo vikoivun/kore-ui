@@ -17,7 +17,10 @@ class SearchMapView extends React.Component {
     return (
       <div className='search-map-view'>
         <div className='search-map-container'>
-          <SearchMap schoolList={schoolsWithLocation} />
+          <SearchMap
+            fetchingData={this.props.fetchingData}
+            schoolList={schoolsWithLocation}
+          />
         </div>
         <div className='search-map-list-container'>
           <SearchMapList
