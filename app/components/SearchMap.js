@@ -3,6 +3,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import {Link} from 'react-router';
 import {HELSINKI_COORDINATES} from '../constants/AppConstants';
 import {getBounds, getPosition} from '../core/mapUtils';
 
@@ -11,7 +12,9 @@ function getMarker(school) {
   return (
     <Marker key={school.id} position={position}>
       <Popup>
-        <span>{school.name.officialName}</span>
+        <span>
+          <Link params={{schoolId: school.id}} to='school'>{school.name.officialName}</Link>
+        </span>
       </Popup>
     </Marker>
   );
