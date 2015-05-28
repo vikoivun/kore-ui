@@ -4,7 +4,6 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import SearchBox from '../components/SearchBox';
 import SearchControls from '../components/SearchControls';
-import SearchLoadMore from '../components/SearchLoadMore';
 import SearchStore from '../stores/SearchStore';
 import SchoolStore from '../stores/SchoolStore';
 import SearchResults from '../components/SearchResults';
@@ -40,15 +39,6 @@ class SearchPage extends React.Component {
   }
 
   render() {
-    let loadMore;
-    if (this.state.nextPageUrl) {
-      loadMore = (
-        <SearchLoadMore
-          fetchingData={this.state.fetchingData}
-          url={this.state.nextPageUrl}
-        />
-      );
-    }
     return (
       <DocumentTitle title='Etsi koulua - Koulurekisteri'>
         <div className='search-page'>
@@ -63,12 +53,12 @@ class SearchPage extends React.Component {
           <div className='search-timeline'></div>
           <SearchResults
             fetchingData={this.state.fetchingData}
+            nextPageUrl={this.state.nextPageUrl}
             schoolList={this.state.schoolList}
             selectedSchool={this.state.selectedSchool}
             somethingWasSearched={this.state.somethingWasSearched}
             view={this.state.view}
           />
-          {loadMore}
         </div>
       </DocumentTitle>
     );

@@ -4,6 +4,8 @@ import React from 'react';
 import Loader from 'react-loader';
 import {Link} from 'react-router';
 
+import SearchLoadMore from './SearchLoadMore';
+
 class SearchTableView extends React.Component {
 
   getTableRows() {
@@ -41,10 +43,20 @@ class SearchTableView extends React.Component {
 
   render() {
     const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
+    let loadMore;
+    if (this.props.nextPageUrl) {
+      loadMore = (
+        <SearchLoadMore
+          fetchingData={this.props.fetchingData}
+          url={this.props.nextPageUrl}
+        />
+      );
+    }
     if (this.props.somethingWasSearched) {
       return (
         <Loader loaded={!loading}>
           {this.renderSearchResults()}
+          {loadMore}
         </Loader>
       );
     }
@@ -54,6 +66,7 @@ class SearchTableView extends React.Component {
 
 SearchTableView.propTypes = {
   fetchingData: React.PropTypes.bool,
+  nextPageUrl: React.PropTypes.string,
   schoolList: React.PropTypes.array.isRequired,
   somethingWasSearched: React.PropTypes.bool.isRequired
 };
