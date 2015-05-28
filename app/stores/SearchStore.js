@@ -6,6 +6,31 @@ import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 
 let _fetchingData = false;
+let _filters = {
+  type: null,
+  field: null,
+  language: null,
+  gender: null
+};
+let _filtersOptions = {
+  schoolType: [],
+  schoolField: [],
+  language: [],
+  gender: [
+    {
+      id: 'tyttökoulu',
+      name: 'tyttökoulu'
+    },
+    {
+      id: 'poikakoulu',
+      name: 'poikakoulu'
+    },
+    {
+      id: 'tyttö- ja poikakoulu',
+      name: 'tyttö- ja poikakoulu'
+    }
+  ]
+};
 let _nextPageUrl;
 let _searchQuery = '';
 let _searchResults = [];
@@ -14,6 +39,8 @@ let _view = 'grid';
 
 const SearchStore = Object.assign({}, BaseStore, {
   getFetchingData,
+  getFilters,
+  getFiltersOptions,
   getNextPageUrl,
   getSearchQuery,
   getSearchResults,
@@ -60,6 +87,10 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       SearchStore.emitChange();
       break;
 
+    case ActionTypes.SELECT_SEARCH_FILTER:
+      _applyFilter(action.filterKey, action.optionId);
+      break;
+
     default:
       // noop
   }
@@ -67,6 +98,14 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 function getFetchingData() {
   return _fetchingData;
+}
+
+function getFilters() {
+  return _filters;
+}
+
+function getFiltersOptions() {
+  return _filtersOptions;
 }
 
 function getNextPageUrl() {
@@ -92,7 +131,10 @@ function getSomethingWasSearched() {
 function getView() {
   return _view;
 }
+function _applyFilter(filterKey, optionId) {
+  _filters[filterKey] = optionId;
 
+}
 function _receiveSearchResponse(searchResponse) {
   _nextPageUrl = searchResponse.next;
   _searchResults = _searchResults.concat(searchResponse.results);

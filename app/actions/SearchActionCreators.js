@@ -35,5 +35,13 @@ export default {
       type: ActionTypes.SELECT_SEARCH_VIEW,
       view
     });
+  },
+
+  selectFilter(filterKey, optionId) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.SELECT_SEARCH_FILTER,
+      filterKey,
+      optionId
+    });
   }
 };

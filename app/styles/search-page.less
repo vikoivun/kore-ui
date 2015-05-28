@@ -31,17 +31,64 @@
   .controls {
     .row();
     .filters {
-      .make-column(8, 8);
+      .make-column(10, 10);
+      .filters-wrapper {
+        .row();
+      }
+      .filter {
+        .make-column(3, 3);
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-top: 10px;
+        @media (min-width: @screen-md-min) {
+          padding-right: @grid-gutter-width / 2 ;
+          margin-top: 0px;
+        }
+
+        .Select-placeholder,
+        .Select-option,
+        .Select-clear {
+          color: @inversed-color;
+        }
+        .Select-arrow {
+          border-color: @inversed-color transparent transparent;
+        }
+        .Select-option {
+          border-radius: 0;
+          &.is-focused {
+            color: @base-color;
+          }
+        }
+        .Select-control {
+          .base-button();
+          height: @selector-height;
+          padding: 8px 52px 8px 10px;
+          border-radius: 0;
+        }
+        .Select-menu-outer {
+          .base-button();
+          padding: 0;
+          border-radius: 0;
+          border-width: 1px;
+          border-top-color: #e6e6e6;
+        }
+      }
     }
     .views {
-      .make-column(4, 4);
+      .make-column(2, 2);
       text-align: right;
       .view-selector {
         .base-button();
         height: @selector-height;
         width: @selector-height;
+        &:not(:first-child) {
+          margin-left: 5px;
+        }
         padding: 0px;
-        margin-left: 10px;
+        margin-top: 10px;
+        @media (min-width: @screen-md-min) {
+          margin-top: 0px;
+        }
       }
     }
   }
