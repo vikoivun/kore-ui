@@ -10,7 +10,7 @@ import {getBounds, getPosition} from '../core/mapUtils';
 function getMarker(school) {
   const position = getPosition(school.location);
   return (
-    <Marker key={school.id} position={position}>
+    <Marker key={school.id} position={position} ref={'marker-' + school.id}>
       <Popup>
         <span>
           <Link params={{schoolId: school.id}} to='school'>{school.name.officialName}</Link>
@@ -29,6 +29,7 @@ class SearchMap extends React.Component {
 
   componentWillUpdate(nextProps) {
     const coordinates = this.getCoordinates(nextProps);
+    this.marker = this.getMarker(nextProps.selectedSchool);
     this.centerMap(coordinates);
   }
 
@@ -37,6 +38,16 @@ class SearchMap extends React.Component {
       const bounds = getBounds(coordinates);
       this.map.fitBounds(bounds, {padding: [50, 50]});
     }
+    if (this.marker) {
+      this.marker.openPopup();
+    }
+  }
+
+  getMarker(schoolId) {
+    if (schoolId) {
+      return this.refs['marker-' + schoolId].getLeafletElement();
+    }
+    return null;
   }
 
   getCoordinates(props) {
