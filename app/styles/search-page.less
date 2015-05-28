@@ -95,7 +95,7 @@
 
     .search-map-container {
       .make-column(9, 9);
-      height: 600px;
+      height: @search-map-height;
 
       .leaflet-container {
         width: 100%;
@@ -105,6 +105,9 @@
 
     .search-map-list-container {
       .make-column(3, 3);
+      height: @search-map-height;
+      overflow-y: scroll;
+      padding-bottom: 20px;
       ul {
         padding: 0;
 
@@ -115,10 +118,6 @@
             .info-row.inversed();
           }
         }
-      }
-
-      > .loader {
-        margin-top: 60px;
       }
     }
   }
