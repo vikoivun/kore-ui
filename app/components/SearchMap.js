@@ -1,12 +1,13 @@
 'use strict';
 
 import _ from 'lodash';
+import L from 'leaflet';
 import React from 'react';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import {Link} from 'react-router';
 
-import {HELSINKI_COORDINATES} from '../constants/AppConstants';
-import {getBounds, getPosition} from '../core/mapUtils';
+import {HELSINKI_COORDINATES} from '../constants/MapConstants';
+import {getBounds, getHistoricalLayers, getMapOptions, getPosition} from '../core/mapUtils';
 
 function getMarker(school) {
   const position = getPosition(school.location);
@@ -22,8 +23,18 @@ function getMarker(school) {
 }
 
 class SearchMap extends React.Component {
+  constructor() {
+    super();
+    this.mapCounter = 1;
+    this.mapOptions = getMapOptions();
+    this.layers = getHistoricalLayers();
+    this.handleLayerChange = this.handleLayerChange.bind(this);
+  }
+
   componentDidMount() {
-    this.map = this.refs.map.getLeafletElement();
+    console.log('------------> component did mount');
+    this.map = this.refs['map-' + this.mapCounter].getLeafletElement();
+    L.control.layers(this.layers).addTo(this.map);
     const coordinates = this.getCoordinates(this.props);
     this.centerMap(coordinates);
   }
@@ -66,20 +77,34 @@ class SearchMap extends React.Component {
     return coordinates;
   }
 
+  handleLayerChange() {
+    console.log('layer was changed', this.map);
+    // this.map.invalidateSize();
+    // L.Util.requestAnimFrame(this.map.invalidateSize, this.map, false, this.map._container);
+    // this.map.remove();
+    this.mapCounter += 1;
+    this.forceUpdate();
+    // L.map('map-map', this.mapOptions).setView([60.171944, 24.941389], 5);
+    // L.control.layers(this.layers).addTo(this.map);
+    console.log(this.map);
+  }
+
   render() {
+    console.log('---------------> render map');
     const showDefaultLocation = !this.props.schoolList.length && !this.props.fetchingData;
     const position = showDefaultLocation ? HELSINKI_COORDINATES : null;
     const zoom = this.props.zoom || 12;
+    console.log(this.mapOptions);
+    console.log(this.layers);
+    console.log(this.mapOptions.layers);
     return (
       <Map
         center={position}
-        ref='map'
+        onLeafletbaselayerchange={this.handleLayerChange}
+        options={this.mapOptions}
+        ref={'map-' + this.mapCounter}
         zoom={zoom}
       >
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-        />
         {this.props.schoolList.map(getMarker)}
       </Map>
     );
