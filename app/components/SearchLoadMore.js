@@ -1,8 +1,9 @@
 'use strict';
 
 import React from 'react';
-import SearchActionCreators from '../actions/SearchActionCreators';
 import Loader from 'react-loader';
+
+import SearchActionCreators from '../actions/SearchActionCreators';
 
 class SearchLoadMore extends React.Component {
   constructor(props) {

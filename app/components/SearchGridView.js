@@ -2,10 +2,11 @@
 
 import _ from 'lodash';
 import React from 'react';
-import {Link} from 'react-router';
 import Loader from 'react-loader';
-import {processBasicInfoRow, getImageUrl} from '../core/utils';
+import {Link} from 'react-router';
+
 import InfoRow from './InfoRow';
+import {processBasicInfoRow, getImageUrl} from '../core/utils';
 
 
 function getInfoRow(row) {

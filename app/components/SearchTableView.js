@@ -1,8 +1,8 @@
 'use strict';
 
 import React from 'react';
-import {Link} from 'react-router';
 import Loader from 'react-loader';
+import {Link} from 'react-router';
 
 class SearchTableView extends React.Component {
 

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+
 import SearchActionCreators from '../actions/SearchActionCreators';
 
 class SearchViewControl extends React.Component {

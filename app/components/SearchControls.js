@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React from 'react';
+
 import SearchViewControl from './SearchViewControl';
 
 const buttons = {

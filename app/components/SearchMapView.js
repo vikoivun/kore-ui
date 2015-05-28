@@ -1,9 +1,10 @@
 'use strict';
 
-import React from 'react';
 import _ from 'lodash';
-import SearchMapList from './SearchMapList';
+import React from 'react';
+
 import SearchMap from './SearchMap';
+import SearchMapList from './SearchMapList';
 
 function getSchoolsWithLocation(schools) {
   return _.filter(schools, function(school) {

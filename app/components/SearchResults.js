@@ -1,9 +1,10 @@
 'use strict';
 
 import React from 'react';
+
 import SearchGridView from './SearchGridView';
-import SearchTableView from './SearchTableView';
 import SearchMapView from './SearchMapView';
+import SearchTableView from './SearchTableView';
 
 const views = {
   map: SearchMapView,

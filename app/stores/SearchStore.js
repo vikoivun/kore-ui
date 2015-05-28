@@ -1,7 +1,7 @@
 'use strict';
 
-import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
+import AppDispatcher from '../core/AppDispatcher';
 import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 

@@ -1,9 +1,10 @@
 'use strict';
 
-import React from 'react';
 import _ from 'lodash';
+import React from 'react';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import {Link} from 'react-router';
+
 import {HELSINKI_COORDINATES} from '../constants/AppConstants';
 import {getBounds, getPosition} from '../core/mapUtils';
 

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Loader from 'react-loader';
+
 import SearchMapListItem from './SearchMapListItem';
 
 
