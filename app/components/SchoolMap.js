@@ -4,18 +4,11 @@ import React from 'react';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import Loader from 'react-loader';
 import _ from 'lodash';
+import {getPosition} from '../core/mapUtils';
 
 class SchoolMap extends React.Component {
-  getPosition() {
-    const coordinates = this.props.location.coordinates;
-    if (_.isEmpty(coordinates)) {
-      return null;
-    }
-    return [coordinates[1], coordinates[0]];
-  }
-
   renderMap() {
-    const position = this.getPosition();
+    const position = getPosition(this.props.location);
     const zoom = this.props.zoom || 14;
     const address = this.props.location.address || '';
     if (!_.isEmpty(position)) {

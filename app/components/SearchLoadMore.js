@@ -1,8 +1,9 @@
 'use strict';
 
 import React from 'react';
-import SearchActionCreators from '../actions/SearchActionCreators';
 import Loader from 'react-loader';
+
+import SearchActionCreators from '../actions/SearchActionCreators';
 
 class SearchLoadMore extends React.Component {
   constructor(props) {
@@ -16,14 +17,12 @@ class SearchLoadMore extends React.Component {
 
   render() {
     return (
-      <div className='container'>
-        <div className='search-load-more'>
-          <button onClick={this.handleClick}>
-            <Loader color='#FFF' loaded={!this.props.fetchingData}>
-              Näytä lisää kouluja
-            </Loader>
-          </button>
-        </div>
+      <div className='search-load-more'>
+        <button onClick={this.handleClick}>
+          <Loader color='#FFF' loaded={!this.props.fetchingData}>
+            Näytä lisää kouluja
+          </Loader>
+        </button>
       </div>
     );
   }

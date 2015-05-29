@@ -1,9 +1,10 @@
 'use strict';
 
 import React from 'react';
+
 import SearchGridView from './SearchGridView';
-import SearchTableView from './SearchTableView';
 import SearchMapView from './SearchMapView';
+import SearchTableView from './SearchTableView';
 
 const views = {
   map: SearchMapView,
@@ -18,7 +19,9 @@ class SearchResults extends React.Component {
       <div className='container'>
         <View
           fetchingData={this.props.fetchingData}
+          nextPageUrl={this.props.nextPageUrl}
           schoolList={this.props.schoolList}
+          selectedSchool={this.props.selectedSchool}
           somethingWasSearched={this.props.somethingWasSearched}
         />
       </div>
@@ -28,7 +31,9 @@ class SearchResults extends React.Component {
 
 SearchResults.propTypes = {
   fetchingData: React.PropTypes.bool,
+  nextPageUrl: React.PropTypes.string,
   schoolList: React.PropTypes.array.isRequired,
+  selectedSchool: React.PropTypes.number,
   somethingWasSearched: React.PropTypes.bool.isRequired,
   view: React.PropTypes.string.isRequired
 };

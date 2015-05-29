@@ -3,20 +3,30 @@
 import React from 'react';
 import Loader from 'react-loader';
 
-function getListRow(school) {
-  return (
-    <li key={school.id}>
-      {school.name.officialName}
-    </li>
-  );
-}
+import SearchLoadMore from './SearchLoadMore';
+import SearchMapListItem from './SearchMapListItem';
 
 class SearchMapList extends React.Component {
+  constructor() {
+    super();
+    this.getListItem = this.getListItem.bind(this);
+  }
+
+  getListItem(school) {
+    return (
+      <SearchMapListItem
+        key={school.id}
+        school={school}
+        selectedSchool={this.props.selectedSchool}
+      />
+    );
+  }
+
   renderSearchResults() {
     if (this.props.schoolList.length) {
       return (
         <ul>
-          {this.props.schoolList.map(getListRow)}
+          {this.props.schoolList.map(this.getListItem)}
         </ul>
       );
     } else {
@@ -26,10 +36,20 @@ class SearchMapList extends React.Component {
 
   render() {
     const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
+    let loadMore;
+    if (this.props.nextPageUrl) {
+      loadMore = (
+        <SearchLoadMore
+          fetchingData={this.props.fetchingData}
+          url={this.props.nextPageUrl}
+        />
+      );
+    }
     if (this.props.somethingWasSearched) {
       return (
         <Loader loaded={!loading}>
           {this.renderSearchResults()}
+          {loadMore}
         </Loader>
       );
     }
@@ -39,7 +59,9 @@ class SearchMapList extends React.Component {
 
 SearchMapList.propTypes = {
   fetchingData: React.PropTypes.bool,
+  nextPageUrl: React.PropTypes.string,
   schoolList: React.PropTypes.array.isRequired,
+  selectedSchool: React.PropTypes.number,
   somethingWasSearched: React.PropTypes.bool.isRequired
 };
 
