@@ -106,67 +106,70 @@
       min-height: 50px;
     }
   }
+  .search-results {
+    margin-top: 30px;
 
-  .search-grid {
-    .school-grid-row {
-      .row();
-      margin-top: 30px;
-      padding-bottom: 40px;
-      .school-grid-wrapper {
-        .make-column(4, 4);
+    .search-grid {
+      .school-grid-row {
+        .row();
+        margin-top: 30px;
+        padding-bottom: 40px;
+        .school-grid-wrapper {
+          .make-column(4, 4);
 
-        .school-grid {
-          padding: 10px 2px 0px 2px;
-          border-bottom: 1px solid @border-main-color;
-          cursor: pointer;
-          transition: background-color 0.3s;
-          .school-image {
-            .school-image-mixin();
-            height: 200px;
-            margin-top: 10px;
-          }
-          .school-grid-details-list {
-            padding: 5px 15px;
-          }
+          .school-grid {
+            padding: 10px 2px 0px 2px;
+            border-bottom: 1px solid @border-main-color;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            .school-image {
+              .school-image-mixin();
+              height: 200px;
+              margin-top: 10px;
+            }
+            .school-grid-details-list {
+              padding: 5px 15px;
+            }
 
-          &:hover {
-            background-color: @background-main-color;
-            .info-row {
-              .info-row.inversed();
+            &:hover {
+              background-color: @background-main-color;
+              .info-row {
+                .info-row.inversed();
+              }
             }
           }
         }
       }
     }
-  }
 
-  .search-map-view {
-    .row();
-    margin-top: 20px;
+    .search-map-view {
+      .row();
+      margin-top: 20px;
 
-    .search-map-container {
-      .make-column(9, 9);
-      height: @search-map-height;
+      .search-map-container {
+        .make-column(9, 9);
+        height: @search-map-height;
 
-      .leaflet-container {
-        width: 100%;
-        height: 100%;
+        .leaflet-container {
+          width: 100%;
+          height: 100%;
+        }
       }
-    }
 
-    .search-map-list-container {
-      .make-column(3, 3);
-      height: @search-map-height;
-      overflow-y: scroll;
-      padding-bottom: 20px;
-      ul {
-        padding: 0;
+      .search-map-list-container {
+        .make-column(3, 3);
+        height: @search-map-height;
+        overflow-y: scroll;
+        padding-bottom: 20px;
+        ul {
+          padding: 0;
 
-        li {
-          cursor: pointer;
-          &:hover, &.selected {
-            background-color: @background-main-color;
-            .info-row.inversed();
+          li {
+            cursor: pointer;
+            &:hover, &.selected {
+              background-color: @background-main-color;
+              .info-row.inversed();
+            }
           }
         }
       }
