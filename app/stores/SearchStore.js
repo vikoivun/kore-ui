@@ -31,6 +31,11 @@ let _filtersOptions = {
     }
   ]
 };
+let _filtersOptionsRequested = {
+  schoolType: false,
+  schoolField: false,
+  language: false
+};
 let _nextPageUrl;
 let _searchQuery = '';
 let _searchResults = [];
@@ -41,6 +46,7 @@ const SearchStore = Object.assign({}, BaseStore, {
   getFetchingData,
   getFilters,
   getFiltersOptions,
+  getFilterOptionsRequested,
   getNextPageUrl,
   getSearchQuery,
   getSearchResults,
@@ -91,6 +97,16 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       _applyFilter(action.filterKey, action.optionId);
       break;
 
+    case ActionTypes.REQUEST_FILTER_OPTIONS:
+      _filtersOptionsRequested[action.resource] = true;
+      break;
+
+    case ActionTypes.REQUEST_SEARCH_FILTER_SUCCESS:
+      _fetchingData = false;
+      _receiveFilterResponse(action.response.results, action.resource);
+      SearchStore.emitChange();
+      break;
+
     default:
       // noop
   }
@@ -131,14 +147,28 @@ function getSomethingWasSearched() {
 function getView() {
   return _view;
 }
+
+function getFilterOptionsRequested(filter) {
+  return _filtersOptionsRequested[filter];
+}
+
 function _applyFilter(filterKey, optionId) {
-  _filters[filterKey] = optionId;
+  const optionsToFilter = {
+    'schoolField': 'field',
+    'schoolType': 'type',
+    'language': 'language',
+    'gender': 'gender'
+  };
+  _filters[optionsToFilter[filterKey]] = optionId;
 
 }
 function _receiveSearchResponse(searchResponse) {
   _nextPageUrl = searchResponse.next;
   _searchResults = _searchResults.concat(searchResponse.results);
+}
 
+function _receiveFilterResponse(responseResults, resource) {
+  _filtersOptions[resource] = responseResults;
 }
 
 export default SearchStore;

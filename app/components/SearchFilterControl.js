@@ -12,6 +12,12 @@ class SearchFilterControl extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  checkAndRequestOptions() {
+    if (!this.props.options.length) {
+      SearchActionCreators.requestFilterOptions(this.props.resource);
+    }
+  }
+
   processOptions() {
     return _.map(
       _.filter(this.props.options, 'name'),
@@ -32,6 +38,7 @@ class SearchFilterControl extends React.Component {
   }
 
   render() {
+    this.checkAndRequestOptions();
     return (
       <div className='filter'>
         <ReactSelect

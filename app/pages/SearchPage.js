@@ -50,7 +50,7 @@ class SearchPage extends React.Component {
               Kouluhaku
             </h1>
           </header>
-          <SearchBox searchQuery={this.state.searchQuery} />
+          <SearchBox filters={this.state.filters} searchQuery={this.state.searchQuery} />
           <SearchControls
             filters={this.state.filters}
             filtersOptions={this.state.filtersOptions}
