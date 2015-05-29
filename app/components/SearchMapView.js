@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-import SearchMap from './LeafletMap';
+import SearchMap from './SearchMap';
 import SearchMapList from './SearchMapList';
 
 function getSchoolsWithLocation(schools) {

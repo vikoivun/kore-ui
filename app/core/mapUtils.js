@@ -7,9 +7,12 @@ import _ from 'lodash';
 import L from 'leaflet';
 import 'proj4leaflet';
 import 'proj4';
-// import proj4 from 'proj4';
 
 import {DEFAULT_LAYER, HISTORICAL_LAYERS} from '../constants/MapConstants';
+
+L.Map.prototype.setCrs = function(newCrs) {
+  this.options.crs = newCrs;
+};
 
 const crs = _makeCRS();
 const layers = _makeLayers();
@@ -72,7 +75,7 @@ function getHistoricalLayers() {
 
 function getMapOptions() {
   return {
-    // crs: crs, // Remove comment if you want to use some historical layer as a default.
+    crs: L.CRS.EPSG3857,
     continuusWorld: true,
     worldCopyJump: false,
     zoomControl: true,

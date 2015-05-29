@@ -3,110 +3,88 @@
 import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
-import {Link} from 'react-router';
 
-import {HELSINKI_COORDINATES} from '../constants/MapConstants';
-import {getBounds, getHistoricalLayers, getMapOptions, getPosition} from '../core/mapUtils';
+import {DEFAULT_LAYER, HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
+import {getCrs, getHistoricalLayers, getMapOptions, getPosition} from '../core/mapUtils';
+
+function getPopupContent(school) {
+  return `<span>${school.name.officialName}</span>`;
+}
 
 function getMarker(school) {
   const position = getPosition(school.location);
-  return (
-    <Marker key={school.id} position={position} ref={'marker-' + school.id}>
-      <Popup>
-        <span>
-          <Link params={{schoolId: school.id}} to='school'>{school.name.officialName}</Link>
-        </span>
-      </Popup>
-    </Marker>
-  );
+  return L.marker(position).bindPopup(getPopupContent(school));
 }
 
 class SearchMap extends React.Component {
   constructor() {
     super();
-    this.mapCounter = 1;
     this.mapOptions = getMapOptions();
     this.layers = getHistoricalLayers();
-    this.handleLayerChange = this.handleLayerChange.bind(this);
+    this.markerGroup = L.featureGroup();
+    this.markers = {};
+    this.addMarkers = this.addMarkers.bind(this);
   }
 
   componentDidMount() {
-    console.log('------------> component did mount');
-    this.map = this.refs['map-' + this.mapCounter].getLeafletElement();
+    this.map = L
+      .map(React.findDOMNode(this.refs.map), this.mapOptions)
+      .setView(HELSINKI_COORDINATES, MAP_ZOOM.default);
     L.control.layers(this.layers).addTo(this.map);
-    const coordinates = this.getCoordinates(this.props);
-    this.centerMap(coordinates);
+    this.markerGroup.addTo(this.map);
+
+    const self = this;
+    this.map.on('baselayerchange', function(layer) {
+      const centerPoint = self.map.getCenter();
+      let zoom = MAP_ZOOM.default;
+      if (layer.name === DEFAULT_LAYER.title) {
+        self.map.setCrs(L.CRS.EPSG3857);
+      } else {
+        self.map.setCrs(getCrs());
+        zoom = MAP_ZOOM.historical;
+      }
+      self.map.setView(centerPoint, zoom);
+    });
+    if (this.props.schoolList.length) {
+      this.addMarkers(this.props.schoolList);
+    }
   }
 
   componentWillUpdate(nextProps) {
-    const coordinates = this.getCoordinates(nextProps);
-    this.marker = this.getMarker(nextProps.selectedSchool);
-    this.centerMap(coordinates);
+    const schools = nextProps.schoolList;
+    const selectedMarker = this.markers[nextProps.selectedSchool];
+    const isLoadingData = nextProps.fetchingData && !schools.length;
+    const hasNewSchools = schools.length && schools.length !== _.keys(this.markers).length;
+
+    if (isLoadingData) {
+      this.markerGroup.clearLayers();
+      this.markers = {};
+    } else if (hasNewSchools) {
+      this.addMarkers(nextProps.schoolList);
+    } else if (!nextProps.fetchingData && selectedMarker) {
+      this.map.panTo(selectedMarker.getLatLng());
+      selectedMarker.openPopup();
+    }
   }
 
-  centerMap(coordinates) {
-    if (coordinates.length) {
-      const bounds = getBounds(coordinates);
-      this.map.fitBounds(bounds, {padding: [50, 50]});
-    }
-    if (this.marker) {
-      this.marker.openPopup();
-    }
+  componentWillUnmount() {
+    this.map.remove();
   }
 
-  getMarker(schoolId) {
-    if (schoolId) {
-      return this.refs['marker-' + schoolId].getLeafletElement();
-    }
-    return null;
-  }
-
-  getCoordinates(props) {
-    let coordinates = [];
-    if (props.selectedSchool) {
-      const school = _.find(
-        props.schoolList, current => current.id === props.selectedSchool
-      );
-      if (school) {
-        coordinates.push(school.location.coordinates);
+  addMarkers(schools) {
+    _.each(schools, function(school) {
+      if (!_.has(this.markers, school.id)) {
+        this.markers[school.id] = getMarker(school);
+        this.markerGroup.addLayer(this.markers[school.id]);
       }
-    } else {
-      coordinates = _.pluck(props.schoolList, ['location', 'coordinates']);
-    }
-    return coordinates;
-  }
-
-  handleLayerChange() {
-    console.log('layer was changed', this.map);
-    // this.map.invalidateSize();
-    // L.Util.requestAnimFrame(this.map.invalidateSize, this.map, false, this.map._container);
-    // this.map.remove();
-    this.mapCounter += 1;
-    this.forceUpdate();
-    // L.map('map-map', this.mapOptions).setView([60.171944, 24.941389], 5);
-    // L.control.layers(this.layers).addTo(this.map);
-    console.log(this.map);
+    }, this);
+    const bounds = this.markerGroup.getBounds();
+    this.map.fitBounds(bounds, {maxZoom: 15, padding: [50, 50]});
   }
 
   render() {
-    console.log('---------------> render map');
-    const showDefaultLocation = !this.props.schoolList.length && !this.props.fetchingData;
-    const position = showDefaultLocation ? HELSINKI_COORDINATES : null;
-    const zoom = this.props.zoom || 12;
-    console.log(this.mapOptions);
-    console.log(this.layers);
-    console.log(this.mapOptions.layers);
     return (
-      <Map
-        center={position}
-        onLeafletbaselayerchange={this.handleLayerChange}
-        options={this.mapOptions}
-        ref={'map-' + this.mapCounter}
-        zoom={zoom}
-      >
-        {this.props.schoolList.map(getMarker)}
-      </Map>
+      <div ref='map' />
     );
   }
 }
