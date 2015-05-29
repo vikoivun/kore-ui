@@ -45,10 +45,10 @@ class SearchBox extends React.Component {
   }
 }
 
-const filterPropType = React.PropTypes.oneOfType(
+const filterPropType = React.PropTypes.oneOfType([
   React.PropTypes.number,
   React.PropTypes.string
-);
+]);
 
 SearchBox.propTypes = {
   filters: React.PropTypes.shape({

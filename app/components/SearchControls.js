@@ -82,10 +82,10 @@ class SearchControls extends React.Component {
   }
 }
 
-const filterPropType = React.PropTypes.oneOfType(
+const filterPropType = React.PropTypes.oneOfType([
   React.PropTypes.number,
   React.PropTypes.string
-);
+]);
 
 SearchControls.propTypes = {
   filters: React.PropTypes.shape({

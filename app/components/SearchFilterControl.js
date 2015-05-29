@@ -59,10 +59,10 @@ SearchFilterControl.propTypes = {
   name: React.PropTypes.string,
   options: React.PropTypes.arrayOf(
     React.PropTypes.shape({
-      id: React.PropTypes.oneOfType(
+      id: React.PropTypes.oneOfType([
         React.PropTypes.number,
         React.PropTypes.string
-      ),
+      ]),
       description: React.PropTypes.string,
       name: React.PropTypes.string
     })
