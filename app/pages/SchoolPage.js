@@ -73,7 +73,7 @@ class SchoolPage extends React.Component {
     return (
       <DocumentTitle title='Koulut - Koulurekisteri'>
         <div className='school-page'>
-          <SchoolTitle name={this.state.mainName} yearsActive={this.state.yearsActive} />
+          <SchoolTitle name={this.state.mainName} />
           <SchoolTimelineInfo
             currentYear={this.state.currentYear}
             schoolYearDetails={this.state.schoolYearDetails}
