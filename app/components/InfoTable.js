@@ -13,7 +13,7 @@ function getInitialState() {
   };
 }
 
-const unexpandedListSize = 6;
+const unexpandedListSize = 20;
 
 class InfoTable extends React.Component {
 
