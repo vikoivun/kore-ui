@@ -8,7 +8,7 @@ import L from 'leaflet';
 import 'proj4leaflet';
 import 'proj4';
 
-import {DEFAULT_LAYER, HISTORICAL_LAYERS} from '../constants/MapConstants';
+import {TILE_LAYERS} from '../constants/MapConstants';
 
 L.Map.prototype.setCrs = function(newCrs) {
   this.options.crs = newCrs;
@@ -33,7 +33,7 @@ function _makeCRS() {
   return new L.Proj.CRS.TMS(crsName, projDef, bounds, {resolutions: resolutions});
 }
 
-function _makeHistoricalMapLayer(layerName) {
+function _makeTileLayer(layerName) {
   const geoserverUrl = _getGeoerverUrl(layerName, 'png');
   const options = {
     continuousWorld: true,
@@ -46,12 +46,8 @@ function _makeHistoricalMapLayer(layerName) {
 
 function _makeLayers() {
   let _layers = {};
-  _layers[DEFAULT_LAYER.title] = L.tileLayer(
-    DEFAULT_LAYER.url,
-    {attribution: DEFAULT_LAYER.attribution}
-  );
-  _.each(HISTORICAL_LAYERS, function(layer) {
-    _layers[layer.title] = _makeHistoricalMapLayer(`historical:${layer.name}`);
+  _.each(TILE_LAYERS, function(layer) {
+    _layers[layer.title] = _makeTileLayer(layer.name);
   });
   return _layers;
 }
@@ -69,18 +65,18 @@ function getCrs() {
   return crs;
 }
 
-function getHistoricalLayers() {
+function getTileLayers() {
   return layers;
 }
 
 function getMapOptions() {
   return {
-    crs: L.CRS.EPSG3857,
+    crs: crs,
     continuusWorld: true,
     worldCopyJump: false,
     zoomControl: true,
     closePopupOnClick: true,
-    layers: [layers[DEFAULT_LAYER.title]]
+    layers: [layers[TILE_LAYERS[0].title]]
   };
 }
 
@@ -95,7 +91,7 @@ function getPosition(location) {
 export default {
   getBounds,
   getCrs,
-  getHistoricalLayers,
+  getTileLayers,
   getMapOptions,
   getPosition
 };
