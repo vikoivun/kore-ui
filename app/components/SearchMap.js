@@ -4,28 +4,11 @@ import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
 
+import BaseMap from './BaseMap';
 import {HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
-import {getTileLayers, getMapOptions, getPosition} from '../core/mapUtils';
+import {getPosition} from '../core/mapUtils';
 
-function getPopupContent(school) {
-  return `<span>${school.name.officialName}</span>`;
-}
-
-function getMarker(school) {
-  const position = getPosition(school.location);
-  return L.marker(position).bindPopup(getPopupContent(school));
-}
-
-class SearchMap extends React.Component {
-  constructor() {
-    super();
-    this.mapOptions = getMapOptions();
-    this.layers = getTileLayers();
-    this.markerGroup = L.featureGroup();
-    this.markers = {};
-    this.addMarkers = this.addMarkers.bind(this);
-  }
-
+class SearchMap extends BaseMap {
   componentDidMount() {
     this.map = L
       .map(React.findDOMNode(this.refs.map), this.mapOptions)
@@ -33,11 +16,8 @@ class SearchMap extends React.Component {
     L.control.layers(this.layers).addTo(this.map);
     this.markerGroup.addTo(this.map);
 
-    const self = this;
-    this.map.on('baselayerchange', function() {
-      const centerPoint = self.map.getCenter();
-      const zoom = MAP_ZOOM;
-      self.map.setView(centerPoint, zoom);
+    this.map.on('baselayerchange', () => {
+      this.map.setView(this.map.getCenter(), MAP_ZOOM);
     });
     if (this.props.schoolList.length) {
       this.addMarkers(this.props.schoolList);
@@ -73,7 +53,7 @@ class SearchMap extends React.Component {
   addMarkers(schools) {
     _.each(schools, function(school) {
       if (!_.has(this.markers, school.id)) {
-        this.markers[school.id] = getMarker(school);
+        this.markers[school.id] = this.getMarker(school);
         this.markerGroup.addLayer(this.markers[school.id]);
       }
     }, this);
@@ -81,18 +61,17 @@ class SearchMap extends React.Component {
     this.map.fitBounds(bounds, {maxZoom: 15, padding: [50, 50]});
   }
 
-  render() {
-    return (
-      <div ref='map' />
-    );
+  getMarker(school) {
+    const position = getPosition(school.location);
+    const popupText = school.name.officialName;
+    return L.marker(position).bindPopup(this.getPopupContent(popupText));
   }
 }
 
 SearchMap.propTypes = {
   fetchingData: React.PropTypes.bool,
   schoolList: React.PropTypes.array.isRequired,
-  selectedSchool: React.PropTypes.number,
-  zoom: React.PropTypes.number
+  selectedSchool: React.PropTypes.number
 };
 
 export default SearchMap;
