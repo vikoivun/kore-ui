@@ -17,13 +17,15 @@ class SearchResults extends React.Component {
     const View = views[this.props.view];
     return (
       <div className='container'>
-        <View
-          fetchingData={this.props.fetchingData}
-          nextPageUrl={this.props.nextPageUrl}
-          schoolList={this.props.schoolList}
-          selectedSchool={this.props.selectedSchool}
-          somethingWasSearched={this.props.somethingWasSearched}
-        />
+        <div className='search-results'>
+          <View
+            fetchingData={this.props.fetchingData}
+            nextPageUrl={this.props.nextPageUrl}
+            schoolList={this.props.schoolList}
+            selectedSchool={this.props.selectedSchool}
+            somethingWasSearched={this.props.somethingWasSearched}
+          />
+        </div>
       </div>
     );
   }

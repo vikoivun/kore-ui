@@ -6,6 +6,36 @@ import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 
 let _fetchingData = false;
+let _filters = {
+  type: null,
+  field: null,
+  language: null,
+  gender: null
+};
+let _filtersOptions = {
+  schoolType: [],
+  schoolField: [],
+  language: [],
+  gender: [
+    {
+      id: 'tyttökoulu',
+      name: 'tyttökoulu'
+    },
+    {
+      id: 'poikakoulu',
+      name: 'poikakoulu'
+    },
+    {
+      id: 'tyttö- ja poikakoulu',
+      name: 'tyttö- ja poikakoulu'
+    }
+  ]
+};
+let _filtersOptionsRequested = {
+  schoolType: false,
+  schoolField: false,
+  language: false
+};
 let _nextPageUrl;
 let _searchQuery = '';
 let _searchResults = [];
@@ -14,6 +44,9 @@ let _view = 'grid';
 
 const SearchStore = Object.assign({}, BaseStore, {
   getFetchingData,
+  getFilters,
+  getFiltersOptions,
+  getFilterOptionsRequested,
   getNextPageUrl,
   getSearchQuery,
   getSearchResults,
@@ -60,6 +93,20 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       SearchStore.emitChange();
       break;
 
+    case ActionTypes.SELECT_SEARCH_FILTER:
+      _applyFilter(action.filterKey, action.optionId);
+      break;
+
+    case ActionTypes.REQUEST_FILTER_OPTIONS:
+      _filtersOptionsRequested[action.resource] = true;
+      break;
+
+    case ActionTypes.REQUEST_SEARCH_FILTER_SUCCESS:
+      _fetchingData = false;
+      _receiveFilterResponse(action.response.results, action.resource);
+      SearchStore.emitChange();
+      break;
+
     default:
       // noop
   }
@@ -67,6 +114,14 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 function getFetchingData() {
   return _fetchingData;
+}
+
+function getFilters() {
+  return _filters;
+}
+
+function getFiltersOptions() {
+  return _filtersOptions;
 }
 
 function getNextPageUrl() {
@@ -93,10 +148,27 @@ function getView() {
   return _view;
 }
 
+function getFilterOptionsRequested(filter) {
+  return _filtersOptionsRequested[filter];
+}
+
+function _applyFilter(filterKey, optionId) {
+  const optionsToFilter = {
+    'schoolField': 'field',
+    'schoolType': 'type',
+    'language': 'language',
+    'gender': 'gender'
+  };
+  _filters[optionsToFilter[filterKey]] = optionId;
+
+}
 function _receiveSearchResponse(searchResponse) {
   _nextPageUrl = searchResponse.next;
   _searchResults = _searchResults.concat(searchResponse.results);
+}
 
+function _receiveFilterResponse(responseResults, resource) {
+  _filtersOptions[resource] = responseResults;
 }
 
 export default SearchStore;

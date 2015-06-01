@@ -1,22 +1,21 @@
 'use strict';
 
+import request from 'superagent';
+
 import SchoolServerActionCreators from '../actions/SchoolServerActionCreators';
 import SearchServerActionCreators from '../actions/SearchServerActionCreators';
-import request from 'superagent';
+import {API_ROOT, API_ARGS} from '../constants/AppConstants';
 import {normalizeSchoolResponse, normalizeSearchResponse} from '../core/APIUtils';
 
-const APIROOT = 'http://kore.hel.ninja/v1/';
-const APIARGS = {'format': 'json'};
-
 function buildAPIURL(resource) {
-  return encodeURI(APIROOT + resource);
+  return encodeURI(API_ROOT + resource);
 }
 
 export default {
   requestSchool(schoolId) {
     request
       .get(buildAPIURL('school/' + schoolId))
-      .query(APIARGS)
+      .query(API_ARGS)
       .end(function(error, response) {
         if (response.ok) {
           SchoolServerActionCreators.handleSchoolSuccess(
@@ -28,11 +27,12 @@ export default {
       });
   },
 
-  searchSchool(query) {
+  searchSchool(query, filters) {
     request
       .get(buildAPIURL('school/'))
       .query('search=' + query)
-      .query(APIARGS)
+      .query(filters)
+      .query(API_ARGS)
       .end(function(error, response) {
         if (response.ok) {
           SearchServerActionCreators.handleSearchSuccess(

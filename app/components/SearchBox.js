@@ -13,7 +13,7 @@ class SearchBox extends React.Component {
   }
 
   handleSubmit() {
-    SearchActionCreators.requestSearch(this.state.searchQuery);
+    SearchActionCreators.requestSearch(this.state.searchQuery, this.props.filters);
   }
 
   handleKeyUp(e) {
@@ -45,7 +45,18 @@ class SearchBox extends React.Component {
   }
 }
 
+const filterPropType = React.PropTypes.oneOfType([
+  React.PropTypes.number,
+  React.PropTypes.string
+]);
+
 SearchBox.propTypes = {
+  filters: React.PropTypes.shape({
+    type: filterPropType,
+    field: filterPropType,
+    language: filterPropType,
+    gender: filterPropType
+  }),
   searchQuery: React.PropTypes.string.isRequired
 };
 

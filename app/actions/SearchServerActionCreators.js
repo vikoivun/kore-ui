@@ -17,5 +17,21 @@ export default {
     AppDispatcher.handleServerAction({
       type: ActionTypes.REQUEST_SEARCH_ERROR
     });
+  },
+
+  handleFilterSuccess(response, resource) {
+    AppDispatcher.handleServerAction({
+      type: ActionTypes.REQUEST_SEARCH_FILTER_SUCCESS,
+      response,
+      resource
+    });
+  },
+
+  handleFilterError(error) {
+    console.log(error);
+
+    AppDispatcher.handleServerAction({
+      type: ActionTypes.REQUEST_SEARCH_FILTER_ERROR
+    });
   }
 };

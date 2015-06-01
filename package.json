@@ -31,7 +31,8 @@
     "style-loader": "^0.10.1",
     "superagent": "~1.2.0",
     "url-loader": "^0.5.5",
-    "webpack": "^1.8.5"
+    "webpack": "^1.8.5",
+    "react-select": "~0.4.9"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.2",

@@ -1,0 +1,33 @@
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+@-webkit-keyframes spinner {
+  to {-webkit-transform: rotate(360deg);}
+}
+
+.animation {
+  .spinner {
+    min-width: 24px;
+    min-height: 24px;
+
+    &:before {
+      content: 'Ladataan…';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+    &:not(:required):before {
+      content: '';
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, .5);
+      border-top-color: rgba(255, 255, 255, .8);
+      animation: spinner .6s linear infinite;
+      -webkit-animation: spinner .6s linear infinite;
+    }
+  }
+}

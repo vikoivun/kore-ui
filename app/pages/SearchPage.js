@@ -13,6 +13,8 @@ function getStateFromStores() {
   return {
     view: SearchStore.getView(),
     fetchingData: SearchStore.getFetchingData(),
+    filters: SearchStore.getFilters(),
+    filtersOptions: SearchStore.getFiltersOptions(),
     searchQuery: SearchStore.getSearchQuery(),
     nextPageUrl: SearchStore.getNextPageUrl(),
     selectedSchool: SearchStore.getSelectedSchool(),
@@ -48,8 +50,12 @@ class SearchPage extends React.Component {
               Kouluhaku
             </h1>
           </header>
-          <SearchBox searchQuery={this.state.searchQuery} />
-          <SearchControls view={this.state.view} />
+          <SearchBox filters={this.state.filters} searchQuery={this.state.searchQuery} />
+          <SearchControls
+            filters={this.state.filters}
+            filtersOptions={this.state.filtersOptions}
+            view={this.state.view}
+          />
           <div className='search-timeline'></div>
           <SearchResults
             fetchingData={this.state.fetchingData}
