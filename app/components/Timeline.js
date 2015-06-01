@@ -36,7 +36,7 @@ class Timeline extends React.Component {
       currentYear = endYear;
     }
     return (
-      <div className='timeline'>
+      <div className='timeline inversed'>
         <div className='anchor anchor-left'>
           <span>{this.props.yearsActive.beginYear}</span>
           <div className='separator'>|</div>
