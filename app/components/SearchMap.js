@@ -62,6 +62,11 @@ class SearchMap extends React.Component {
   }
 
   componentWillUnmount() {
+    this.markerGroup.clearLayers();
+    this.map.removeLayer(this.markerGroup);
+    _.each(this.layers, function(layer) {
+      this.map.removeLayer(layer);
+    }, this);
     this.map.remove();
   }
 

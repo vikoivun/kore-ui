@@ -44,6 +44,9 @@ class SchoolMap extends React.Component {
   }
 
   componentWillUnmount() {
+    this.markerGroup.clearLayers();
+    this.map.removeLayer(this.markerGroup);
+    this.map.removeLayer(this.layers[this.currentLayerName]);
     this.map.remove();
   }
 
