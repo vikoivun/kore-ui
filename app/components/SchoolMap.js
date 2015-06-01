@@ -4,42 +4,38 @@ import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
 
-import {HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
-import {getTileLayers, getMapOptions, getPosition} from '../core/mapUtils';
+import {DEFAULT_LAYER_NAME, HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
+import {getLayerNameForYear, getMapOptions, getPosition, getTileLayers} from '../core/mapUtils';
 
 class SchoolMap extends React.Component {
   constructor(props) {
     super(props);
+    this.currentLayerName = DEFAULT_LAYER_NAME;
     this.mapOptions = getMapOptions();
     this.layers = getTileLayers();
     this.markerGroup = L.featureGroup();
     this.markers = {};
     this.addMarkers = this.addMarkers.bind(this);
     this.getMarker = this.getMarker.bind(this);
+    this.updateTileLayer = this.updateTileLayer.bind(this);
   }
 
   componentDidMount() {
     this.map = L
       .map(React.findDOMNode(this.refs.map), this.mapOptions)
       .setView(HELSINKI_COORDINATES, MAP_ZOOM);
-    L.control.layers(this.layers).addTo(this.map);
+    this.updateTileLayer(this.props.selectedYear);
     this.markerGroup.addTo(this.map);
 
-    const self = this;
-    this.map.on('baselayerchange', function() {
-      const centerPoint = self.map.getCenter();
-      const zoom = MAP_ZOOM;
-      self.map.setView(centerPoint, zoom);
-    });
     if (!_.isEmpty(this.props.locations)) {
       this.addMarkers(this.props.locations);
     }
   }
 
   componentWillUpdate(nextProps) {
+    this.updateTileLayer(nextProps.selectedYear);
     const oldLocations = this.props.locations;
     const newLocations = nextProps.locations;
-    // Handle year changing here as well.
     if (!_.isEqual(oldLocations, newLocations)) {
       this.markerGroup.clearLayers();
       this.markers = {};
@@ -74,6 +70,15 @@ class SchoolMap extends React.Component {
     }, this);
   }
 
+  updateTileLayer(selectedYear) {
+    const newLayerName = getLayerNameForYear(selectedYear);
+    if (newLayerName !== this.currentLayerName) {
+      this.map.removeLayer(this.layers[this.currentLayerName]);
+      this.layers[newLayerName].addTo(this.map);
+      this.currentLayerName = newLayerName;
+    }
+  }
+
   render() {
     const locationDefined = _.some(this.props.locations, 'coordinates');
     let overlayClassname = 'location-undefined-overlay';
@@ -102,6 +107,7 @@ SchoolMap.propTypes = {
       type: React.PropTypes.string
     })
   ).isRequired,
+  selectedYear: React.PropTypes.number,
   zoom: React.PropTypes.number
 };
 

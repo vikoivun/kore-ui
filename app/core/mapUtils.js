@@ -67,8 +67,9 @@ function getCrs() {
   return crs;
 }
 
-function getTileLayers() {
-  return layers;
+function getLayerNameForYear(year) {
+  const sortedLayers = _.sortByOrder(TILE_LAYERS, ['year'], [false]);
+  return _.find(sortedLayers, (layer) => year >= layer.year).title;
 }
 
 function getMapOptions() {
@@ -90,10 +91,15 @@ function getPosition(location) {
   return [coordinates[1], coordinates[0]];
 }
 
+function getTileLayers() {
+  return layers;
+}
+
 export default {
   getBounds,
   getCrs,
-  getTileLayers,
+  getLayerNameForYear,
   getMapOptions,
-  getPosition
+  getPosition,
+  getTileLayers
 };

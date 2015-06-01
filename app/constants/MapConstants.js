@@ -1,7 +1,7 @@
 'use strict';
 
 const TILE_LAYERS = [
-  {year: 2010, name: 'hel:Karttasarja', title: 'Helsinki'},
+  {year: 2010, name: 'hel:Karttasarja', title: 'Nykyaika'},
   {year: 1999, name: 'historical:1999_opaskartta', title: 'Opaskartta, 1999'},
   {year: 1962, name: 'historical:1962_opaskartta', title: 'Opaskartta, 1962'},
   {year: 1952, name: 'historical:1952_opaskartta', title: 'Opaskartta, 1952'},
@@ -17,6 +17,7 @@ const TILE_LAYERS = [
 ];
 
 export default {
+  DEFAULT_LAYER_NAME: 'Nykyaika',
   HELSINKI_COORDINATES: [60.192059, 24.945831],
   TILE_LAYERS,
   MAP_ZOOM: 5

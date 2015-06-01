@@ -87,6 +87,11 @@ class SchoolPage extends React.Component {
                   <SchoolMap
                     fetchingData={this.state.fetchingData}
                     locations={this.state.locationsForSelectedYear}
+                    selectedYear={
+                      this.state.selectedYear ||
+                      this.state.yearsActive.endYear ||
+                      new Date().getFullYear()
+                    }
                   />
                 </Loader>
               </div>
