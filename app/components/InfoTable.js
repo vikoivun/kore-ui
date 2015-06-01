@@ -13,7 +13,7 @@ function getInitialState() {
   };
 }
 
-const unexpandedListSize = 6;
+const unexpandedListSize = 20;
 
 class InfoTable extends React.Component {
 
@@ -33,9 +33,9 @@ class InfoTable extends React.Component {
     if ((this.props.items.length > unexpandedListSize) && this.props.expandable) {
       let content;
       if (this.state.expanded) {
-        content = ['View less ', <i className='fa fa-lg fa-chevron-up'/>];
+        content = ['Näytä vähemmän ', <i className='fa fa-lg fa-chevron-up'/>];
       } else {
-        content = ['View more ', <i className='fa fa-lg fa-chevron-down'/>];
+        content = ['Näytä enemmän ', <i className='fa fa-lg fa-chevron-down'/>];
       }
       return (
         <button className='button-expand' onClick={this.handleExpandClick}>

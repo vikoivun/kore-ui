@@ -7,18 +7,11 @@ import SchoolTitle from '../SchoolTitle';
 
 describe('SchoolTitle', function() {
   const name = {officialName: 'River Valley High'};
-  const yearsActive = {
-    beginYear: 1995,
-    endYear: 2010
-  };
   let element;
 
   before(function() {
     element = TestUtils.renderIntoDocument(
-      <SchoolTitle
-        name={name}
-        yearsActive={yearsActive}
-      />
+      <SchoolTitle name={name} />
     );
   });
 
@@ -35,22 +28,5 @@ describe('SchoolTitle', function() {
     const header = TestUtils.findRenderedDOMComponentWithTag(element, 'h1');
     const dom = React.findDOMNode(header);
     expect(dom.textContent).to.equal(name.officialName);
-  });
-
-  it('should display the year school began operation', function() {
-    const yearSpan = TestUtils.findRenderedDOMComponentWithTag(element, 'span');
-    const dom = React.findDOMNode(yearSpan);
-    expect(dom.textContent).to.contain(yearsActive.beginYear);
-  });
-
-  it('should display the year school ended operation', function() {
-    const yearSpan = TestUtils.findRenderedDOMComponentWithTag(element, 'span');
-    const dom = React.findDOMNode(yearSpan);
-    expect(dom.textContent).to.contain(yearsActive.endYear);
-  });
-
-  it('should display an arrow between the school years', function() {
-    const arrow = TestUtils.scryRenderedDOMComponentsWithClass(element, 'fa-long-arrow-right');
-    expect(arrow.length).to.equal(1);
   });
 });

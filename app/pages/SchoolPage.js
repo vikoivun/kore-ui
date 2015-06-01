@@ -19,7 +19,7 @@ function getStateFromStores(schoolId) {
   const selectedYear = UIStore.getSchoolTimelineYear();
   return {
     fetchingData: SchoolStore.getFetchingData(),
-    mainName: SchoolStore.getMainName(schoolId),
+    nameInSelectedYear: SchoolStore.getNameInSelectedYear(schoolId, selectedYear),
     yearsActive: SchoolStore.getBeginAndEndYear(schoolId),
     buildingInSelectedYear: SchoolStore.getBuildingForYear(schoolId, selectedYear),
     schoolDetails: SchoolStore.getSchoolDetails(schoolId),
@@ -73,7 +73,7 @@ class SchoolPage extends React.Component {
     return (
       <DocumentTitle title='Koulut - Koulurekisteri'>
         <div className='school-page'>
-          <SchoolTitle name={this.state.mainName} yearsActive={this.state.yearsActive} />
+          <SchoolTitle name={this.state.nameInSelectedYear} />
           <SchoolTimelineInfo
             currentYear={this.state.currentYear}
             schoolYearDetails={this.state.schoolYearDetails}
