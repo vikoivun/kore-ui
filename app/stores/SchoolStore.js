@@ -6,7 +6,13 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import BuildingStore from './BuildingStore';
 import PrincipalStore from './PrincipalStore';
-import {getAddressString, getItemByIdWrapper, getItemForYear, sortByYears} from '../core/utils';
+import {
+  getAddressString,
+  getItemByIdWrapper,
+  getItemForYear,
+  getItemsForYear,
+  sortByYears
+} from '../core/utils';
 
 let _schools = {};
 let _fetchingData = false;
@@ -74,8 +80,8 @@ function getBuildingForYear(school, year) {
 
 function getLocationsForYear(school, year) {
   year = year || _getLatestYear(school);
-  const building = getBuildingForYear(school, year);
-  return [BuildingStore.getLocationForYear(building.id, year)];
+  const buildings = getItemsForYear(school.buildings, year);
+  return BuildingStore.getLocationsForYear(_.pluck(buildings, 'id'), year);
 }
 
 function getFetchingData() {
