@@ -121,7 +121,7 @@ function getSchoolYearDetails(school, year) {
     archive: getItemForYear(school.archives, year) || {},
     building: building,
     id: school.id,
-    location: getLocationsForYear(school, year),
+    location: _.first(getLocationsForYear(school, year)) || {},
     name: getItemForYear(school.names, year) || {},
     principal: principal
   };
