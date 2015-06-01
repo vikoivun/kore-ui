@@ -30,7 +30,7 @@ function getStateFromStores(schoolId) {
       selectedYear
     ),
     locationsForSelectedYear: SchoolStore.getLocationsForYear(schoolId, selectedYear),
-    currentYear: selectedYear
+    selectedYear: selectedYear
   };
 }
 
@@ -93,8 +93,8 @@ class SchoolPage extends React.Component {
             </div>
           </div>
           <SchoolTimelineInfo
-            currentYear={this.state.currentYear}
             schoolYearDetails={this.state.schoolYearDetails}
+            selectedYear={this.state.selectedYear}
             yearsActive={this.state.yearsActive}
           />
           <SchoolDetails details={this.state.schoolDetails} />
