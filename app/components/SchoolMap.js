@@ -75,8 +75,20 @@ class SchoolMap extends React.Component {
   }
 
   render() {
+    const locationDefined = _.some(this.props.locations, 'coordinates');
+    let overlayClassname = 'location-undefined-overlay';
+    overlayClassname += locationDefined ? ' hidden' : '';
+
     return (
-      <div ref='map' />
+      <div>
+        <div ref='map' />
+        <div className={overlayClassname}>
+          <div className='location-undefined-message'>
+            <i className='fa fa-map-marker'></i>
+            Sijaintia tälle vuodelle ei ole määritelty.
+          </div>
+        </div>
+      </div>
     );
   }
 }
