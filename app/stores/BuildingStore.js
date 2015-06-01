@@ -53,7 +53,8 @@ function getLocationForYear(building, year) {
   const address = _.find(building.addresses, function(current) {
     return inBetween(year, current.beginYear, current.endYear) && !_.isEmpty(current.location);
   }) || {};
-  return _.assign({}, address.location, {address: getAddressString(address)});
+  const locationId = building.id + '-' + address.id;
+  return _.assign({}, address.location, {address: getAddressString(address), id: locationId});
 }
 
 function _receiveBuildings(buildings) {

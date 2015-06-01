@@ -1,6 +1,7 @@
 'use strict';
 
 import _ from 'lodash';
+import path from 'path';
 
 // Add proj4 extension to leaflet for historical maps.
 // Don't change the import order!
@@ -12,6 +13,8 @@ import {TILE_LAYERS} from '../constants/MapConstants';
 L.Map.prototype.setCrs = function(newCrs) {
   this.options.crs = newCrs;
 };
+const leafletImageFolder = path.resolve(__dirname, '../../node_modules/leaflet/dist/images/');
+L.Icon.Default.imagePath = leafletImageFolder;
 
 const crs = _makeCRS();
 const layers = _makeLayers();

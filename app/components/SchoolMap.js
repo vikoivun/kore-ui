@@ -1,56 +1,95 @@
 'use strict';
 
-import React from 'react';
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
-import Loader from 'react-loader';
 import _ from 'lodash';
-import {getPosition} from '../core/mapUtils';
+import L from 'leaflet';
+import React from 'react';
+
+import {HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
+import {getTileLayers, getMapOptions, getPosition} from '../core/mapUtils';
 
 class SchoolMap extends React.Component {
-  renderMap() {
-    const position = getPosition(this.props.location);
-    const zoom = this.props.zoom || 14;
-    const address = this.props.location.address || '';
-    if (!_.isEmpty(position)) {
-      return (
-        <Map center={position} zoom={zoom}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-          />
-          <Marker position={position}>
-            <Popup>
-              <span>{address}</span>
-            </Popup>
-          </Marker>
-        </Map>
-      );
-    } else {
-      return (
-        <div className='location-undefined-message'>
-          <i className='fa fa-map-marker'></i>
-          Sijaintia tälle vuodelle ei ole määritelty.
-        </div>
-      );
+  constructor(props) {
+    super(props);
+    this.mapOptions = getMapOptions();
+    this.layers = getTileLayers();
+    this.markerGroup = L.featureGroup();
+    this.markers = {};
+    this.addMarkers = this.addMarkers.bind(this);
+    this.getMarker = this.getMarker.bind(this);
+  }
+
+  componentDidMount() {
+    this.map = L
+      .map(React.findDOMNode(this.refs.map), this.mapOptions)
+      .setView(HELSINKI_COORDINATES, MAP_ZOOM);
+    L.control.layers(this.layers).addTo(this.map);
+    this.markerGroup.addTo(this.map);
+
+    const self = this;
+    this.map.on('baselayerchange', function() {
+      const centerPoint = self.map.getCenter();
+      const zoom = MAP_ZOOM;
+      self.map.setView(centerPoint, zoom);
+    });
+    if (!_.isEmpty(this.props.locations)) {
+      this.addMarkers(this.props.locations);
     }
+  }
+
+  componentWillUpdate(nextProps) {
+    const oldLocations = this.props.locations;
+    const newLocations = nextProps.locations;
+    // Handle year changing here as well.
+    if (!_.isEqual(oldLocations, newLocations)) {
+      this.markerGroup.clearLayers();
+      this.markers = {};
+      this.addMarkers(newLocations);
+    }
+  }
+
+  componentWillUnmount() {
+    this.map.remove();
+  }
+
+  getPopupContent(text) {
+    return `<span>${text}</span>`;
+  }
+
+  getMarker(location) {
+    const position = getPosition(location);
+    return L.marker(position).bindPopup(this.getPopupContent(location.address));
+  }
+
+  addMarkers(locations) {
+    _.each(locations, function(location) {
+      if (_.isEmpty(location.coordinates)) {
+        return;
+      }
+      if (!_.has(this.markers, location.id)) {
+        this.markers[location.id] = this.getMarker(location);
+        this.markerGroup.addLayer(this.markers[location.id]);
+      }
+      const bounds = this.markerGroup.getBounds();
+      this.map.fitBounds(bounds, {maxZoom: 7, padding: [50, 50]});
+    }, this);
   }
 
   render() {
     return (
-      <Loader color='#FFF' loaded={!this.props.fetchingData}>
-        {this.renderMap()}
-      </Loader>
+      <div ref='map' />
     );
   }
 }
 
 SchoolMap.propTypes = {
   fetchingData: React.PropTypes.bool,
-  location: React.PropTypes.shape({
-    address: React.PropTypes.string,
-    coordinates: React.PropTypes.array,
-    type: React.PropTypes.string
-  }).isRequired,
+  locations: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      address: React.PropTypes.string,
+      coordinates: React.PropTypes.array,
+      type: React.PropTypes.string
+    })
+  ).isRequired,
   zoom: React.PropTypes.number
 };
 

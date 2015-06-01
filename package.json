@@ -25,7 +25,6 @@
     "proj4leaflet": "^0.7.1",
     "react": "^0.13.3",
     "react-document-title": "^1.0.2",
-    "react-leaflet": "^0.6.1",
     "react-loader": "^1.2.0",
     "react-router": "^0.13.3",
     "react-slider": "~0.4.2",
