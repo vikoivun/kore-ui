@@ -6,7 +6,6 @@ import _ from 'lodash';
 // Don't change the import order!
 import L from 'leaflet';
 import 'proj4leaflet';
-import 'proj4';
 
 import {TILE_LAYERS} from '../constants/MapConstants';
 
