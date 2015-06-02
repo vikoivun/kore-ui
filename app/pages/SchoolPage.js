@@ -74,11 +74,6 @@ class SchoolPage extends React.Component {
       <DocumentTitle title='Koulut - Koulurekisteri'>
         <div className='school-page'>
           <SchoolTitle name={this.state.nameInSelectedYear} />
-          <SchoolTimelineInfo
-            currentYear={this.state.currentYear}
-            schoolYearDetails={this.state.schoolYearDetails}
-            yearsActive={this.state.yearsActive}
-          />
           <div className='container'>
             <div className='school-image-map'>
               <SchoolImage
@@ -93,6 +88,11 @@ class SchoolPage extends React.Component {
               </div>
             </div>
           </div>
+          <SchoolTimelineInfo
+            currentYear={this.state.currentYear}
+            schoolYearDetails={this.state.schoolYearDetails}
+            yearsActive={this.state.yearsActive}
+          />
           <SchoolDetails details={this.state.schoolDetails} />
         </div>
       </DocumentTitle>
