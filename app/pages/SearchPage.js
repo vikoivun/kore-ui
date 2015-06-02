@@ -53,7 +53,11 @@ class SearchPage extends React.Component {
               Haku
             </h1>
           </header>
-          <SearchBox filters={this.state.filters} searchQuery={this.state.searchQuery} />
+          <SearchBox
+            filters={this.state.filters}
+            searchQuery={this.state.searchQuery}
+            years={this.state.years}
+          />
           <SearchControls
             filters={this.state.filters}
             filtersOptions={this.state.filtersOptions}
