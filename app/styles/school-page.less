@@ -23,8 +23,21 @@
 
       .timeline {
         .make-column(7, 7);
-        margin-top: 100px;
+        margin-top: 50px;
         margin-bottom: 100px;
+        padding-bottom: 50px;
+        .help-text {
+          position: absolute;
+          top: 120px;
+          color: white;
+          margin-bottom: 50px;
+          width: 100%;
+          text-align: center;
+          @media (min-width: @screen-md-min) {
+            text-align: left;
+            margin-left: 20px;
+          }
+        }
       }
       .school-year-info {
         .make-column(5, 5);

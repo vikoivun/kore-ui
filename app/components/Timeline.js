@@ -57,6 +57,9 @@ class Timeline extends React.Component {
             {currentYear}
           </div>
         </ReactSlider>
+        <div className='help-text'>
+          Tarkastele koulun vaiheita liikuttamalla aikajanan palloa.
+        </div>
       </div>
     );
   }
