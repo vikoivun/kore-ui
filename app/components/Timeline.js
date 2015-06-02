@@ -53,7 +53,7 @@ class Timeline extends React.Component {
           onChange={this.handleChange}
           ref='reactSlider'
         >
-          <div className='current-year'>
+          <div className='selected-year'>
             {currentYear}
           </div>
         </ReactSlider>
