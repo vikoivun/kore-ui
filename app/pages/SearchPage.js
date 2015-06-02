@@ -47,7 +47,7 @@ class SearchPage extends React.Component {
           <header className='container'>
             <h1 className='search-title' >
               <img alt='Helsingin vaakuna' src={require('../images/Helsinki.vaakuna.svg')} />
-              Kouluhaku
+              Haku
             </h1>
           </header>
           <SearchBox filters={this.state.filters} searchQuery={this.state.searchQuery} />
