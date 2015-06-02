@@ -55,10 +55,10 @@ class SearchTimeline extends React.Component {
               ref='reactSlider'
               withBars={true}
             >
-              <div className='current-year'>
+              <div className='current-year begin-year'>
                 {filteredYears[0]}
               </div>
-              <div className='current-year'>
+              <div className='current-year end-year'>
                 {filteredYears[1]}
               </div>
             </ReactSlider>
