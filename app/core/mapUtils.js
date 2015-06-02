@@ -29,7 +29,7 @@ const MarkerIcon = L.Icon.Default.extend({
   options: {
     iconUrl: markerIconUrl,
     iconRetinaUrl: markerIconUrl,
-    shadowAnchor: [28, 50],
+    shadowAnchor: [28, 35],
     shadowSize: [58, 58],
     shadowUrl: markerShadowUrl
   }
