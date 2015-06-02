@@ -2,11 +2,13 @@
 
 import React from 'react';
 import DocumentTitle from 'react-document-title';
+
 import SearchBox from '../components/SearchBox';
 import SearchControls from '../components/SearchControls';
-import SearchStore from '../stores/SearchStore';
-import SchoolStore from '../stores/SchoolStore';
 import SearchResults from '../components/SearchResults';
+import SearchTimeline from '../components/SearchTimeline';
+import SchoolStore from '../stores/SchoolStore';
+import SearchStore from '../stores/SearchStore';
 
 function getStateFromStores() {
   const searchResults = SearchStore.getSearchResults();
@@ -19,7 +21,8 @@ function getStateFromStores() {
     nextPageUrl: SearchStore.getNextPageUrl(),
     selectedSchool: SearchStore.getSelectedSchool(),
     schoolList: SchoolStore.getSchoolsYearDetails(searchResults),
-    somethingWasSearched: SearchStore.getSomethingWasSearched()
+    somethingWasSearched: SearchStore.getSomethingWasSearched(),
+    years: SearchStore.getYears()
   };
 }
 
@@ -50,13 +53,19 @@ class SearchPage extends React.Component {
               Haku
             </h1>
           </header>
-          <SearchBox filters={this.state.filters} searchQuery={this.state.searchQuery} />
+          <SearchBox
+            filters={this.state.filters}
+            searchQuery={this.state.searchQuery}
+            years={this.state.years}
+          />
           <SearchControls
             filters={this.state.filters}
             filtersOptions={this.state.filtersOptions}
             view={this.state.view}
           />
-          <div className='search-timeline'></div>
+          <div className='container'>
+            <SearchTimeline years={this.state.years} />
+          </div>
           <SearchResults
             fetchingData={this.state.fetchingData}
             nextPageUrl={this.state.nextPageUrl}

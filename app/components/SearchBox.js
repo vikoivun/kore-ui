@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import React from 'react';
 
 import SearchActionCreators from '../actions/SearchActionCreators';
@@ -13,7 +14,10 @@ class SearchBox extends React.Component {
   }
 
   handleSubmit() {
-    SearchActionCreators.requestSearch(this.state.searchQuery, this.props.filters);
+    let filters = _.clone(this.props.filters);
+    filters.fromYear = this.props.years[0];
+    filters.untilYear = this.props.years[1];
+    SearchActionCreators.requestSearch(this.state.searchQuery, filters);
   }
 
   handleKeyUp(e) {
@@ -57,7 +61,8 @@ SearchBox.propTypes = {
     language: filterPropType,
     gender: filterPropType
   }),
-  searchQuery: React.PropTypes.string.isRequired
+  searchQuery: React.PropTypes.string.isRequired,
+  years: React.PropTypes.arrayOf(React.PropTypes.number)
 };
 
 export default SearchBox;

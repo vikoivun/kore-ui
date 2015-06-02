@@ -36,7 +36,7 @@ class Timeline extends React.Component {
       currentYear = endYear;
     }
     return (
-      <div className='timeline'>
+      <div className='timeline inversed'>
         <div className='anchor anchor-left'>
           <span>{this.props.yearsActive.beginYear}</span>
           <div className='separator'>|</div>
@@ -53,7 +53,7 @@ class Timeline extends React.Component {
           onChange={this.handleChange}
           ref='reactSlider'
         >
-          <div className='current-year'>
+          <div className='selected-year'>
             {currentYear}
           </div>
         </ReactSlider>

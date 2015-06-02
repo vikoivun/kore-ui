@@ -57,5 +57,12 @@ export default {
       resource
     });
     SearchAPI.requestFilter(resource);
+  },
+
+  selectYears(years) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.SELECT_SEARCH_TIMELINE_YEAR,
+      years
+    });
   }
 };

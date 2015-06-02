@@ -1,5 +1,6 @@
 'use strict';
 
+import {decamelizeKeys} from 'humps';
 import request from 'superagent';
 
 import SchoolServerActionCreators from '../actions/SchoolServerActionCreators';
@@ -31,7 +32,7 @@ export default {
     request
       .get(buildAPIURL('school/'))
       .query('search=' + query)
-      .query(filters)
+      .query(decamelizeKeys(filters))
       .query(API_ARGS)
       .end(function(error, response) {
         if (response.ok) {

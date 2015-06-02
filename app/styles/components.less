@@ -172,16 +172,17 @@
       line-height: 48px;
     }
   }
+
   .handle {
     font-size: 0.9em;
     text-align: center;
-    background-color: @background-main-color;
+    background-color: @handle-background-color;
     color: @handle-color;
     cursor: pointer;
     &.active {
       background-color: @handle-active-color;
     }
-    .current-year {
+    .selected-year {
       position: absolute;
       width: 65px;
       top: 15px;
@@ -189,6 +190,50 @@
       padding-top: 2px;
       background-image: url('../images/years-slide.svg');
       background-size: 100% 100%;
+
+      &.begin-year {
+        left: -56px;
+        background-image: url('../images/years-slide-begin-year.svg');
+      }
+      &.end-year {
+        left: 6px;
+        background-image: url('../images/years-slide-end-year.svg');
+      }
+    }
+  }
+
+  .bar {
+    top: -(@bar-thickness / 2);
+    height: @bar-thickness;
+    &.bar-1{
+      background-color: @slider-bar-1-color;
+    }
+  }
+  &.inversed {
+    .anchor {
+      color: @anchor-color-inversed;
+      span {
+        border-color: @anchor-color-inversed;
+      }
+    }
+    .horizontal-slider {
+      border-color: @slider-bar-color-inversed;
+    }
+    .handle {
+      color: @handle-color-inversed;
+      border-color: @handle-color-inversed;
+      background-color: @handle-background-color-inversed;
+      &.active {
+        background-color: @handle-active-color-inversed;
+      }
+      .selected-year {
+        background-image: url('../images/years-slide-inversed.svg');
+      }
+    }
+    .bar {
+      &.bar-1{
+        background-color: @slider-bar-1-color-inversed;
+      }
     }
   }
 }

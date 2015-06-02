@@ -41,6 +41,7 @@ let _searchQuery = '';
 let _searchResults = [];
 let _selectedSchool;
 let _view = 'grid';
+let _years = [null, null];
 
 const SearchStore = Object.assign({}, BaseStore, {
   getFetchingData,
@@ -52,7 +53,8 @@ const SearchStore = Object.assign({}, BaseStore, {
   getSearchResults,
   getSelectedSchool,
   getSomethingWasSearched,
-  getView
+  getView,
+  getYears
 });
 
 SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -104,6 +106,11 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
     case ActionTypes.REQUEST_SEARCH_FILTER_SUCCESS:
       _fetchingData = false;
       _receiveFilterResponse(action.response.results, action.resource);
+      SearchStore.emitChange();
+      break;
+
+    case ActionTypes.SELECT_SEARCH_TIMELINE_YEAR:
+      _selectYears(action.years);
       SearchStore.emitChange();
       break;
 
@@ -162,6 +169,11 @@ function _applyFilter(filterKey, optionId) {
   _filters[optionsToFilter[filterKey]] = optionId;
 
 }
+
+function getYears() {
+  return _years;
+}
+
 function _receiveSearchResponse(searchResponse) {
   _nextPageUrl = searchResponse.next;
   _searchResults = _searchResults.concat(searchResponse.results);
@@ -169,6 +181,10 @@ function _receiveSearchResponse(searchResponse) {
 
 function _receiveFilterResponse(responseResults, resource) {
   _filtersOptions[resource] = responseResults;
+}
+
+function _selectYears(years) {
+  _years = years;
 }
 
 export default SearchStore;
