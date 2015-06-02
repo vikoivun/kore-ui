@@ -14,7 +14,7 @@ const itemGenerator = {
         name: archive.location,
         boxContent: getBoxContent(archive)
       };
-    });
+    }).reverse();
   },
   buildings: function(buildings) {
     return _.map(buildings, function(building) {
@@ -36,7 +36,7 @@ const itemGenerator = {
           }
         ]
       };
-    });
+    }).reverse();
   },
   fields: function(fields) {
     return _.map(fields, function(field, index) {
@@ -46,7 +46,7 @@ const itemGenerator = {
         name: field.field.description,
         boxContent: getBoxContent(field)
       };
-    });
+    }).reverse();
   },
   genders: function(genders) {
     return _.map(genders, function(gender, index) {
@@ -56,7 +56,7 @@ const itemGenerator = {
         name: gender.gender,
         boxContent: getBoxContent(gender)
       };
-    });
+    }).reverse();
   },
   languages: function(languages) {
     return _.map(languages, function(language) {
@@ -66,7 +66,7 @@ const itemGenerator = {
         name: language.language,
         boxContent: getBoxContent(language)
       };
-    });
+    }).reverse();
   },
   names: function(names) {
     return _.map(names, function(name) {
@@ -76,7 +76,7 @@ const itemGenerator = {
         name: name.officialName,
         boxContent: getBoxContent(name)
       };
-    });
+    }).reverse();
   },
   principals: function(principals) {
     return _.map(principals, function(principal) {
@@ -86,7 +86,7 @@ const itemGenerator = {
         name: principal.name,
         boxContent: getBoxContent(principal)
       };
-    });
+    }).reverse();
   },
   types: function(types) {
     return _.map(types, function(type, index) {
@@ -96,7 +96,7 @@ const itemGenerator = {
         name: type.type.name,
         boxContent: getBoxContent(type)
       };
-    });
+    }).reverse();
   }
 };
 
