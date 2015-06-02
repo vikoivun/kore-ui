@@ -10,11 +10,25 @@ import 'proj4leaflet';
 
 import {TILE_LAYERS} from '../constants/MapConstants';
 
+const markerIconUrl = require('../images/leaflet/marker-icon.svg');
+const markerShadowUrl = require('../images/leaflet/marker-shadow.svg');
+
 L.Map.prototype.setCrs = function(newCrs) {
   this.options.crs = newCrs;
 };
-const leafletImageFolder = path.resolve(__dirname, '../../node_modules/leaflet/dist/images/');
+const leafletImageFolder = path.resolve(__dirname, '../images/leaflet');
 L.Icon.Default.imagePath = leafletImageFolder;
+
+const MarkerIcon = L.Icon.Default.extend({
+  options: {
+    iconUrl: markerIconUrl,
+    iconRetinaUrl: markerIconUrl,
+    shadowAnchor: [28, 50],
+    shadowSize: [58, 58],
+    shadowUrl: markerShadowUrl
+  }
+});
+const markerIcon = new MarkerIcon();
 
 const crs = _makeCRS();
 const layers = _makeLayers();
@@ -83,6 +97,10 @@ function getMapOptions() {
   };
 }
 
+function getMarkerIcon() {
+  return markerIcon;
+}
+
 function getPosition(location) {
   const coordinates = location.coordinates;
   if (_.isEmpty(coordinates)) {
@@ -100,6 +118,7 @@ export default {
   getCrs,
   getLayerNameForYear,
   getMapOptions,
+  getMarkerIcon,
   getPosition,
   getTileLayers
 };

@@ -5,7 +5,13 @@ import L from 'leaflet';
 import React from 'react';
 
 import {DEFAULT_LAYER_NAME, HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
-import {getLayerNameForYear, getMapOptions, getPosition, getTileLayers} from '../core/mapUtils';
+import {
+  getLayerNameForYear,
+  getMapOptions,
+  getMarkerIcon,
+  getPosition,
+  getTileLayers
+} from '../core/mapUtils';
 
 class BaseMap extends React.Component {
   constructor(props) {
@@ -71,7 +77,9 @@ class BaseMap extends React.Component {
 
   getMarker(location) {
     const position = getPosition(location);
-    return L.marker(position).bindPopup(this.getPopupContent(location.address));
+    return L
+      .marker(position, {icon: getMarkerIcon()})
+      .bindPopup(this.getPopupContent(location.address));
   }
 
   updateTileLayer(selectedYear) {

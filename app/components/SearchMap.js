@@ -6,7 +6,7 @@ import React from 'react';
 
 import BaseMap from './BaseMap';
 import {HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
-import {getPosition} from '../core/mapUtils';
+import {getMarkerIcon, getPosition} from '../core/mapUtils';
 
 class SearchMap extends BaseMap {
   componentDidMount() {
@@ -64,7 +64,9 @@ class SearchMap extends BaseMap {
   getMarker(school) {
     const position = getPosition(school.location);
     const popupText = school.name.officialName;
-    return L.marker(position).bindPopup(this.getPopupContent(popupText));
+    return L
+      .marker(position, {icon: getMarkerIcon()})
+      .bindPopup(this.getPopupContent(popupText));
   }
 }
 
