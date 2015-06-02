@@ -103,6 +103,10 @@ const itemGenerator = {
 class SchoolDetails extends React.Component {
   render() {
     const details = this.props.details;
+    const schoolTypeGroup = itemGenerator.fields(details.fields).concat(
+      itemGenerator.languages(details.languages),
+      itemGenerator.genders(details.genders)
+    );
     return (
       <div className='container'>
         <section className='school-details'>
@@ -133,18 +137,8 @@ class SchoolDetails extends React.Component {
           />
           <InfoTable
             expandable={true}
-            items={itemGenerator.fields(details.fields)}
-            title={'Koulun alat'}
-          />
-          <InfoTable
-            expandable={true}
-            items={itemGenerator.languages(details.languages)}
-            title={'Kielet'}
-          />
-          <InfoTable
-            expandable={true}
-            items={itemGenerator.genders(details.genders)}
-            title={'Sukupuolet'}
+            items={schoolTypeGroup}
+            title={'Koulutyyppi'}
           />
         </section>
       </div>
