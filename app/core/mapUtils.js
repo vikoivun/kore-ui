@@ -8,7 +8,13 @@ import path from 'path';
 import L from 'leaflet';
 import 'proj4leaflet';
 
-import {TILE_LAYERS} from '../constants/MapConstants';
+import {
+  CRS_BOUNDS,
+  CRS_NAME,
+  CRS_PROJ_DEF,
+  CRS_RESOLUTIONS,
+  TILE_LAYERS
+} from '../constants/MapConstants';
 
 const markerIconUrl = require('../images/leaflet/marker-icon.svg');
 const markerShadowUrl = require('../images/leaflet/marker-shadow.svg');
@@ -33,24 +39,18 @@ const markerIcon = new MarkerIcon();
 const crs = _makeCRS();
 const layers = _makeLayers();
 
-function _getGeoerverUrl(layerName, layerFmt) {
+function _getGeoserverUrl(layerName, layerFmt) {
   /*eslint-disable */
   return `http://geoserver.hel.fi/geoserver/gwc/service/tms/1.0.0/${layerName}@ETRS-GK25@${layerFmt}/{z}/{x}/{y}.${layerFmt}`;
   /*eslint-enable */
 }
 
 function _makeCRS() {
-  const crsName = 'EPSG:3879';
-  /*eslint-disable */
-  const projDef = '+proj=tmerc +lat_0=0 +lon_0=25 +k=1 +x_0=25500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
-  /*eslint-enable */
-  const bounds = [25440000, 6630000, 25571072, 6761072];
-  const resolutions = [256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25, 0.125, 0.0625];
-  return new L.Proj.CRS.TMS(crsName, projDef, bounds, {resolutions: resolutions});
+  return new L.Proj.CRS.TMS(CRS_NAME, CRS_PROJ_DEF, CRS_BOUNDS, {resolutions: CRS_RESOLUTIONS});
 }
 
 function _makeTileLayer(layerName) {
-  const geoserverUrl = _getGeoerverUrl(layerName, 'png');
+  const geoserverUrl = _getGeoserverUrl(layerName, 'png');
   const options = {
     continuousWorld: true,
     maxZoom: 12,
