@@ -31,9 +31,9 @@ class Timeline extends React.Component {
     if (!endYear) {
       endYear = new Date().getFullYear();
     }
-    let currentYear = this.props.currentYear;
-    if (!currentYear) {
-      currentYear = endYear;
+    let selectedYear = this.props.selectedYear;
+    if (!selectedYear) {
+      selectedYear = endYear;
     }
     return (
       <div className='timeline inversed'>
@@ -47,14 +47,14 @@ class Timeline extends React.Component {
         </div>
         <ReactSlider
           className='horizontal-slider'
-          defaultValue={currentYear}
+          defaultValue={selectedYear}
           max={endYear}
           min={this.props.yearsActive.beginYear}
           onChange={this.handleChange}
           ref='reactSlider'
         >
           <div className='selected-year'>
-            {currentYear}
+            {selectedYear}
           </div>
         </ReactSlider>
         <div className='help-text'>
@@ -66,7 +66,7 @@ class Timeline extends React.Component {
 }
 
 Timeline.propTypes = {
-  currentYear: React.PropTypes.number,
+  selectedYear: React.PropTypes.number,
   yearsActive: React.PropTypes.shape({
     beginYear: React.PropTypes.number,
     endYear: React.PropTypes.number

@@ -54,6 +54,12 @@ function getItemForYear(itemList, year) {
   });
 }
 
+function getItemsForYear(itemList, year) {
+  return _.filter(itemList, function(item) {
+    return inBetween(year, item.beginYear, item.endYear);
+  });
+}
+
 function inBetween(year, beginYear, endYear) {
   beginYear = beginYear || 0;
   endYear = endYear || 10000;
@@ -104,6 +110,7 @@ export default {
   getImageUrl,
   getItemByIdWrapper,
   getItemForYear,
+  getItemsForYear,
   inBetween,
   processBasicInfoRow,
   sortByYears

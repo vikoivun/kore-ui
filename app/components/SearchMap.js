@@ -1,96 +1,79 @@
 'use strict';
 
 import _ from 'lodash';
+import L from 'leaflet';
 import React from 'react';
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
-import {Link} from 'react-router';
 
-import {HELSINKI_COORDINATES} from '../constants/AppConstants';
-import {getBounds, getPosition} from '../core/mapUtils';
+import BaseMap from './BaseMap';
+import {HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
+import {getMarkerIcon, getPosition} from '../core/mapUtils';
 
-function getMarker(school) {
-  const position = getPosition(school.location);
-  return (
-    <Marker key={school.id} position={position} ref={'marker-' + school.id}>
-      <Popup>
-        <span>
-          <Link params={{schoolId: school.id}} to='school'>{school.name.officialName}</Link>
-        </span>
-      </Popup>
-    </Marker>
-  );
-}
-
-class SearchMap extends React.Component {
+class SearchMap extends BaseMap {
   componentDidMount() {
-    this.map = this.refs.map.getLeafletElement();
-    const coordinates = this.getCoordinates(this.props);
-    this.centerMap(coordinates);
+    this.map = L
+      .map(React.findDOMNode(this.refs.map), this.mapOptions)
+      .setView(HELSINKI_COORDINATES, MAP_ZOOM);
+    L.control.layers(this.layers).addTo(this.map);
+    this.markerGroup.addTo(this.map);
+
+    this.map.on('baselayerchange', () => {
+      this.map.setView(this.map.getCenter(), MAP_ZOOM);
+    });
+    if (this.props.schoolList.length) {
+      this.addMarkers(this.props.schoolList);
+    }
   }
 
   componentWillUpdate(nextProps) {
-    const coordinates = this.getCoordinates(nextProps);
-    this.marker = this.getMarker(nextProps.selectedSchool);
-    this.centerMap(coordinates);
+    const schools = nextProps.schoolList;
+    const selectedMarker = this.markers[nextProps.selectedSchool];
+    const isLoadingData = nextProps.fetchingData && !schools.length;
+    const hasNewSchools = schools.length && schools.length !== _.keys(this.markers).length;
+
+    if (isLoadingData) {
+      this.markerGroup.clearLayers();
+      this.markers = {};
+    } else if (hasNewSchools) {
+      this.addMarkers(nextProps.schoolList);
+    } else if (!nextProps.fetchingData && selectedMarker) {
+      this.map.panTo(selectedMarker.getLatLng());
+      selectedMarker.openPopup();
+    }
   }
 
-  centerMap(coordinates) {
-    if (coordinates.length) {
-      const bounds = getBounds(coordinates);
-      this.map.fitBounds(bounds, {padding: [50, 50]});
-    }
-    if (this.marker) {
-      this.marker.openPopup();
-    }
+  componentWillUnmount() {
+    this.markerGroup.clearLayers();
+    this.map.removeLayer(this.markerGroup);
+    _.each(this.layers, function(layer) {
+      this.map.removeLayer(layer);
+    }, this);
+    this.map.remove();
   }
 
-  getMarker(schoolId) {
-    if (schoolId) {
-      return this.refs['marker-' + schoolId].getLeafletElement();
-    }
-    return null;
-  }
-
-  getCoordinates(props) {
-    let coordinates = [];
-    if (props.selectedSchool) {
-      const school = _.find(
-        props.schoolList, current => current.id === props.selectedSchool
-      );
-      if (school) {
-        coordinates.push(school.location.coordinates);
+  addMarkers(schools) {
+    _.each(schools, function(school) {
+      if (!_.has(this.markers, school.id)) {
+        this.markers[school.id] = this.getMarker(school);
+        this.markerGroup.addLayer(this.markers[school.id]);
       }
-    } else {
-      coordinates = _.pluck(props.schoolList, ['location', 'coordinates']);
-    }
-    return coordinates;
+    }, this);
+    const bounds = this.markerGroup.getBounds();
+    this.map.fitBounds(bounds, {maxZoom: 15, padding: [50, 50]});
   }
 
-  render() {
-    const showDefaultLocation = !this.props.schoolList.length && !this.props.fetchingData;
-    const position = showDefaultLocation ? HELSINKI_COORDINATES : null;
-    const zoom = this.props.zoom || 12;
-    return (
-      <Map
-        center={position}
-        ref='map'
-        zoom={zoom}
-      >
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-        />
-        {this.props.schoolList.map(getMarker)}
-      </Map>
-    );
+  getMarker(school) {
+    const position = getPosition(school.location);
+    const popupText = school.name.officialName;
+    return L
+      .marker(position, {icon: getMarkerIcon()})
+      .bindPopup(this.getPopupContent(popupText));
   }
 }
 
 SearchMap.propTypes = {
   fetchingData: React.PropTypes.bool,
   schoolList: React.PropTypes.array.isRequired,
-  selectedSchool: React.PropTypes.number,
-  zoom: React.PropTypes.number
+  selectedSchool: React.PropTypes.number
 };
 
 export default SearchMap;

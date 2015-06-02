@@ -17,7 +17,7 @@ class SchoolTimelineInfo extends React.Component {
         <div className='container'>
           <div className='school-timeline-info'>
             <Timeline
-              currentYear={this.props.currentYear}
+              selectedYear={this.props.selectedYear}
               yearsActive={this.props.yearsActive}
             />
             <div className='school-year-info'>
@@ -33,7 +33,6 @@ class SchoolTimelineInfo extends React.Component {
 }
 
 SchoolTimelineInfo.propTypes = {
-  currentYear: React.PropTypes.number,
   schoolYearDetails: React.PropTypes.shape({
     building: React.PropTypes.shape({
       addresses: React.PropTypes.arrayOf(
@@ -49,6 +48,7 @@ SchoolTimelineInfo.propTypes = {
       officialName: React.PropTypes.string
     })
   }),
+  selectedYear: React.PropTypes.number,
   yearsActive: React.PropTypes.shape({
     beginYear: React.PropTypes.number,
     endYear: React.PropTypes.number

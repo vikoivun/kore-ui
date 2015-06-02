@@ -2,6 +2,8 @@
 
 import React from 'react';
 import DocumentTitle from 'react-document-title';
+import Loader from 'react-loader';
+
 import SchoolActionCreators from '../actions/SchoolActionCreators';
 import SchoolDetails from '../components/SchoolDetails';
 import SchoolImage from '../components/SchoolImage';
@@ -27,8 +29,8 @@ function getStateFromStores(schoolId) {
       schoolId,
       selectedYear
     ),
-    locationForSelectedYear: SchoolStore.getLocationForYear(schoolId, selectedYear),
-    currentYear: selectedYear
+    locationsForSelectedYear: SchoolStore.getLocationsForYear(schoolId, selectedYear),
+    selectedYear: selectedYear
   };
 }
 
@@ -81,16 +83,23 @@ class SchoolPage extends React.Component {
                 fetchingData={this.state.fetchingData}
               />
               <div className='school-map'>
-                <SchoolMap
-                  fetchingData={this.state.fetchingData}
-                  location={this.state.locationForSelectedYear}
-                />
+                <Loader color='#FFF' loaded={!this.state.fetchingData}>
+                  <SchoolMap
+                    fetchingData={this.state.fetchingData}
+                    locations={this.state.locationsForSelectedYear}
+                    selectedYear={
+                      this.state.selectedYear ||
+                      this.state.yearsActive.endYear ||
+                      new Date().getFullYear()
+                    }
+                  />
+                </Loader>
               </div>
             </div>
           </div>
           <SchoolTimelineInfo
-            currentYear={this.state.currentYear}
             schoolYearDetails={this.state.schoolYearDetails}
+            selectedYear={this.state.selectedYear}
             yearsActive={this.state.yearsActive}
           />
           <SchoolDetails details={this.state.schoolDetails} />

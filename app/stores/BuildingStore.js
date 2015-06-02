@@ -12,7 +12,7 @@ let _buildings = {};
 const BuildingStore = Object.assign({}, BaseStore, {
   getFetchingData,
   getBuilding: getItemByIdWrapper(getBuilding, _buildings),
-  getLocationForYear: getItemByIdWrapper(getLocationForYear, _buildings)
+  getLocationsForYear
 });
 
 BuildingStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -49,11 +49,18 @@ function getBuilding(building) {
   return building;
 }
 
-function getLocationForYear(building, year) {
-  const address = _.find(building.addresses, function(current) {
-    return inBetween(year, current.beginYear, current.endYear) && !_.isEmpty(current.location);
-  }) || {};
-  return _.assign({}, address.location, {address: getAddressString(address)});
+function getLocationsForYear(buildingIds, year) {
+  let locations = [];
+  _.each(buildingIds, function(buildingId) {
+    const address = _.find(_buildings[buildingId].addresses, function(current) {
+      return inBetween(year, current.beginYear, current.endYear) && !_.isEmpty(current.location);
+    }) || {};
+    const locationId = buildingId + '-' + address.id;
+    locations.push(
+      _.assign({}, address.location, {address: getAddressString(address), id: locationId})
+    );
+  });
+  return locations;
 }
 
 function _receiveBuildings(buildings) {

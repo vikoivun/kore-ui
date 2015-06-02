@@ -17,7 +17,7 @@ class SearchMapView extends React.Component {
     const schoolsWithLocation = getSchoolsWithLocation(this.props.schoolList);
     return (
       <div className='search-map-view'>
-        <div className='search-map-container'>
+        <div className='search-map-container' id='map-map'>
           <SearchMap
             fetchingData={this.props.fetchingData}
             schoolList={schoolsWithLocation}

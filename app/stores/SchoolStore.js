@@ -6,7 +6,13 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import BuildingStore from './BuildingStore';
 import PrincipalStore from './PrincipalStore';
-import {getAddressString, getItemByIdWrapper, getItemForYear, sortByYears} from '../core/utils';
+import {
+  getAddressString,
+  getItemByIdWrapper,
+  getItemForYear,
+  getItemsForYear,
+  sortByYears
+} from '../core/utils';
 
 let _schools = {};
 let _fetchingData = false;
@@ -15,7 +21,7 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getBeginAndEndYear: getItemByIdWrapper(getBeginAndEndYear, _schools),
   getBuildingForYear: getItemByIdWrapper(getBuildingForYear, _schools),
   getFetchingData,
-  getLocationForYear: getItemByIdWrapper(getLocationForYear, _schools),
+  getLocationsForYear: getItemByIdWrapper(getLocationsForYear, _schools),
   getNameInSelectedYear: getItemByIdWrapper(getNameInSelectedYear, _schools),
   getSchoolDetails: getItemByIdWrapper(getSchoolDetails, _schools),
   getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
@@ -72,10 +78,10 @@ function getBuildingForYear(school, year) {
   return getItemForYear(school.buildings, year) || {};
 }
 
-function getLocationForYear(school, year) {
+function getLocationsForYear(school, year) {
   year = year || _getLatestYear(school);
-  const building = getBuildingForYear(school, year);
-  return BuildingStore.getLocationForYear(building.id, year);
+  const buildings = getItemsForYear(school.buildings, year);
+  return BuildingStore.getLocationsForYear(_.pluck(buildings, 'id'), year);
 }
 
 function getFetchingData() {
@@ -115,7 +121,7 @@ function getSchoolYearDetails(school, year) {
     archive: getItemForYear(school.archives, year) || {},
     building: building,
     id: school.id,
-    location: getLocationForYear(school, year),
+    location: _.first(getLocationsForYear(school, year)) || {},
     name: getItemForYear(school.names, year) || {},
     principal: principal
   };
