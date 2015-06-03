@@ -68,15 +68,6 @@ function _makeLayers() {
   return _layers;
 }
 
-function getBounds(coordinates) {
-  const [longitudes, latitudes] = _.zip(...coordinates);
-  const bounds = [
-    [_.min(latitudes), _.min(longitudes)],
-    [_.max(latitudes), _.max(longitudes)]
-  ];
-  return bounds;
-}
-
 function getCrs() {
   return crs;
 }
@@ -114,7 +105,6 @@ function getTileLayers() {
 }
 
 export default {
-  getBounds,
   getCrs,
   getLayerNameForYear,
   getMapOptions,
