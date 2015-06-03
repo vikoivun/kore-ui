@@ -17,9 +17,10 @@ function getAddressArrayFromBuilding(building) {
 }
 
 function getAddressString(address) {
-  const street = address.streetNameFi || '';
-  const municipality = address.municipalityFi || '';
-  return `${street}\, ${municipality}`;
+  if (!address || !address.streetNameFi) {
+    return 'Osoite tuntematon';
+  }
+  return address.streetNameFi;
 }
 
 function getBoxContent(item) {
@@ -93,8 +94,7 @@ function processBasicInfoRow(details, extended) {
     {
       key: 'school-building-' + details.building.id,
       className: 'details-building',
-      // The address should be sorted by time as well.
-      name: getAddressArrayFromBuilding(details.building),
+      name: details.address,
       boxContent: getBoxContent(details.building)
     },
     {
