@@ -5,15 +5,15 @@ import React from 'react';
 
 const defaultImageUrl = require('../images/default-building.jpg');
 
-function getAddressArrayFromBuilding(building) {
+function getAddressStringFromBuilding(building) {
   if (building && building.addresses && building.addresses.length) {
-    return [
-      building.addresses[0].streetNameFi,
-      ', ',
-      building.addresses[0].municipalityFi
-    ];
+    let streets = [];
+    _.each(building.addresses, function(address) {
+      streets.push(getAddressString(address));
+    });
+    return streets.join(', ');
   }
-  return '';
+  return 'Osoite tuntematon';
 }
 
 function getAddressString(address) {
@@ -136,7 +136,7 @@ function sortByYears(list) {
 }
 
 export default {
-  getAddressArrayFromBuilding,
+  getAddressStringFromBuilding,
   getAddressString,
   getBoxContent,
   getFilterPropType,

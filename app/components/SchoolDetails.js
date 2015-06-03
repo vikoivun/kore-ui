@@ -2,8 +2,14 @@
 
 import _ from 'lodash';
 import React from 'react';
+
 import InfoTable from './InfoTable';
-import {getAddressArrayFromBuilding, getBoxContent, inBetween} from '../core/utils';
+import {
+  getAddressString,
+  getAddressStringFromBuilding,
+  getBoxContent,
+  inBetween
+} from '../core/utils';
 
 const itemGenerator = {
   archives: function(archives, selectedYear) {
@@ -19,23 +25,33 @@ const itemGenerator = {
   },
   buildings: function(buildings, selectedYear) {
     return _.map(buildings, function(building) {
+      let items = [
+        {
+          key: 'architect-of-building-' + building.id,
+          name: building.architect,
+          boxContent: 'arkkitehti'
+        },
+        {
+          key: 'neighborhood-of-building-' + building.id,
+          name: building.neighborhood,
+          boxContent: 'alue'
+        }
+      ];
+      if (building.addresses && building.addresses.length > 1) {
+        _.each(building.addresses.reverse(), function(address) {
+          items.push({
+            key: 'building-details-address-' + address.id,
+            name: getAddressString(address),
+            boxContent: getBoxContent(address)
+          });
+        });
+      }
       return {
         boxContent: getBoxContent(building),
         className: 'details-building',
-        items: [
-          {
-            key: 'neighborhood-of-building-' + building.id,
-            name: building.neighborhood,
-            boxContent: 'alue'
-          },
-          {
-            key: 'architect-of-building-' + building.id,
-            name: building.architect,
-            boxContent: 'arkkitehti'
-          }
-        ],
+        items: items,
         key: 'building-' + building.id,
-        name: getAddressArrayFromBuilding(building),
+        name: getAddressStringFromBuilding(building),
         selected: inBetween(selectedYear, building.beginYear, building.endYear)
       };
     }).reverse();
