@@ -43,6 +43,17 @@ class SearchPage extends React.Component {
     SchoolStore.removeChangeListener(this._onChange);
   }
 
+  renderSearchTimeLine() {
+    if (this.state.view === 'map') {
+      return null;
+    }
+    return (
+      <div className='container'>
+        <SearchTimeline years={this.state.years} />
+      </div>
+    );
+  }
+
   render() {
     return (
       <DocumentTitle title='Etsi koulua - Koulurekisteri'>
@@ -63,9 +74,7 @@ class SearchPage extends React.Component {
             filtersOptions={this.state.filtersOptions}
             view={this.state.view}
           />
-          <div className='container'>
-            <SearchTimeline years={this.state.years} />
-          </div>
+          {this.renderSearchTimeLine()}
           <SearchResults
             fetchingData={this.state.fetchingData}
             nextPageUrl={this.state.nextPageUrl}
