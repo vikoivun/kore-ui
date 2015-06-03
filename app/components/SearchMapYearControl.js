@@ -6,15 +6,26 @@ import ReactSelect from 'react-select';
 
 import SearchActionCreators from '../actions/SearchActionCreators';
 import {TILE_LAYERS} from '../constants/MapConstants';
+import {getMapYears} from '../core/mapUtils';
+import {getFilterPropType} from '../core/utils';
 
 class SearchMapYearControl extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.requestSearch = this.requestSearch.bind(this);
   }
 
-  handleChange(newValue) {
-    SearchActionCreators.selectMapYear(newValue);
+  componentDidMount() {
+    SearchActionCreators.selectMapYear(this.props.selectedMapYear);
+    if (!_.isEqual(getMapYears(this.props.selectedMapYear), this.props.years)) {
+      this.requestSearch(this.props.selectedMapYear);
+    }
+  }
+
+  handleChange(year) {
+    SearchActionCreators.selectMapYear(year);
+    this.requestSearch(year);
   }
 
   getOptions() {
@@ -30,6 +41,16 @@ class SearchMapYearControl extends React.Component {
       });
     });
     return options;
+  }
+
+  requestSearch(year) {
+    if (this.props.searchQuery) {
+      let filters = _.clone(this.props.filters);
+      const years = getMapYears(year);
+      filters.fromYear = years[0];
+      filters.untilYear = years[1];
+      SearchActionCreators.requestSearch(this.props.searchQuery, filters);
+    }
   }
 
   render() {
@@ -49,8 +70,18 @@ class SearchMapYearControl extends React.Component {
   }
 }
 
+const filterPropType = getFilterPropType();
+
 SearchMapYearControl.propTypes = {
-  selectedMapYear: React.PropTypes.string
+  filters: React.PropTypes.shape({
+    type: filterPropType,
+    field: filterPropType,
+    language: filterPropType,
+    gender: filterPropType
+  }),
+  searchQuery: React.PropTypes.string.isRequired,
+  selectedMapYear: React.PropTypes.string,
+  years: React.PropTypes.arrayOf(React.PropTypes.number)
 };
 
 export default SearchMapYearControl;

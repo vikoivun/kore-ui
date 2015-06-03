@@ -4,6 +4,7 @@ import _ from 'lodash';
 import React from 'react';
 
 import SearchActionCreators from '../actions/SearchActionCreators';
+import {getFilterPropType} from '../core/utils';
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -49,10 +50,7 @@ class SearchBox extends React.Component {
   }
 }
 
-const filterPropType = React.PropTypes.oneOfType([
-  React.PropTypes.number,
-  React.PropTypes.string
-]);
+const filterPropType = getFilterPropType();
 
 SearchBox.propTypes = {
   filters: React.PropTypes.shape({

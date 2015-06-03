@@ -56,8 +56,11 @@ class SearchPage extends React.Component {
     };
 
     const mapViewProps = _.assign(commonViewProps, {
+      filters: this.state.filters,
+      searchQuery: this.state.searchQuery,
       selectedMapYear: this.state.selectedMapYear,
-      selectedSchool: this.state.selectedSchool
+      selectedSchool: this.state.selectedSchool,
+      years: this.state.years
     });
 
     if (this.state.view === 'grid') {
