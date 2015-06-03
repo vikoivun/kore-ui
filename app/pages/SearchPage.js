@@ -19,6 +19,7 @@ function getStateFromStores() {
     filtersOptions: SearchStore.getFiltersOptions(),
     searchQuery: SearchStore.getSearchQuery(),
     nextPageUrl: SearchStore.getNextPageUrl(),
+    selectedMapYear: SearchStore.getSelectedMapYear(),
     selectedSchool: SearchStore.getSelectedSchool(),
     schoolList: SchoolStore.getSchoolsYearDetails(searchResults),
     somethingWasSearched: SearchStore.getSomethingWasSearched(),
@@ -79,6 +80,7 @@ class SearchPage extends React.Component {
             fetchingData={this.state.fetchingData}
             nextPageUrl={this.state.nextPageUrl}
             schoolList={this.state.schoolList}
+            selectedMapYear={this.state.selectedMapYear}
             selectedSchool={this.state.selectedSchool}
             somethingWasSearched={this.state.somethingWasSearched}
             view={this.state.view}

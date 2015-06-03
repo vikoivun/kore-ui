@@ -22,6 +22,7 @@ class SearchResults extends React.Component {
             fetchingData={this.props.fetchingData}
             nextPageUrl={this.props.nextPageUrl}
             schoolList={this.props.schoolList}
+            selectedMapYear={this.props.selectedMapYear}
             selectedSchool={this.props.selectedSchool}
             somethingWasSearched={this.props.somethingWasSearched}
           />
@@ -35,6 +36,7 @@ SearchResults.propTypes = {
   fetchingData: React.PropTypes.bool,
   nextPageUrl: React.PropTypes.string,
   schoolList: React.PropTypes.array.isRequired,
+  selectedMapYear: React.PropTypes.number,
   selectedSchool: React.PropTypes.number,
   somethingWasSearched: React.PropTypes.bool.isRequired,
   view: React.PropTypes.string.isRequired

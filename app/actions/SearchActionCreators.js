@@ -59,6 +59,13 @@ export default {
     SearchAPI.requestFilter(resource);
   },
 
+  selectMapYear(year) {
+    AppDispatcher.handleViewAction({
+      type: ActionTypes.SELECT_SEARCH_MAP_YEAR,
+      year
+    });
+  },
+
   selectYears(years) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_SEARCH_TIMELINE_YEAR,
