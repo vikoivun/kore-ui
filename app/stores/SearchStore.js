@@ -3,6 +3,7 @@
 import ActionTypes from '../constants/ActionTypes';
 import {DEFAULT_LAYER} from '../constants/MapConstants';
 import AppDispatcher from '../core/AppDispatcher';
+import {getMapYears} from '../core/mapUtils';
 import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 
@@ -197,6 +198,7 @@ function _receiveFilterResponse(responseResults, resource) {
 
 function _selectMapYear(year) {
   _selectedMapYear = year;
+  _years = getMapYears(year);
 }
 
 function _selectYears(years) {

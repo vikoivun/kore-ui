@@ -45,6 +45,11 @@ function _getGeoserverUrl(layerName, layerFmt) {
   /*eslint-enable */
 }
 
+function _getLayerForYear(year) {
+  const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
+  return _.find(sortedLayers, (layer) => year >= layer.beginYear);
+}
+
 function _makeCRS() {
   return new L.Proj.CRS.TMS(CRS_NAME, CRS_PROJ_DEF, CRS_BOUNDS, {resolutions: CRS_RESOLUTIONS});
 }
@@ -73,8 +78,7 @@ function getCrs() {
 }
 
 function getLayerNameForYear(year) {
-  const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
-  return _.find(sortedLayers, (layer) => year >= layer.beginYear).title;
+  return _getLayerForYear(year).title;
 }
 
 function getMapOptions() {
@@ -86,6 +90,11 @@ function getMapOptions() {
     closePopupOnClick: true,
     layers: [layers[TILE_LAYERS[0].title]]
   };
+}
+
+function getMapYears(year) {
+  const layer = _getLayerForYear(year);
+  return [layer.beginYear, layer.endYear];
 }
 
 function getMarkerIcon() {
@@ -108,6 +117,7 @@ export default {
   getCrs,
   getLayerNameForYear,
   getMapOptions,
+  getMapYears,
   getMarkerIcon,
   getPosition,
   getTileLayers
