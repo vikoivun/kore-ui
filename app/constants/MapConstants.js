@@ -1,19 +1,84 @@
 'use strict';
 
 const TILE_LAYERS = [
-  {year: 2010, name: 'hel:Karttasarja', title: 'Nykyaika'},
-  {year: 1999, name: 'historical:1999_opaskartta', title: 'Opaskartta, 1999'},
-  {year: 1962, name: 'historical:1962_opaskartta', title: 'Opaskartta, 1962'},
-  {year: 1952, name: 'historical:1952_opaskartta', title: 'Opaskartta, 1952'},
-  {year: 1940, name: 'historical:1940_opaskartta', title: 'Opaskartta, 1940'},
-  {year: 1937, name: 'historical:1937_opaskartta', title: 'Opaskartta, 1937'},
-  {year: 1917, name: 'historical:1917-1918_opaskartta', title: 'Opaskartta, 1917-1918'},
-  {year: 1909, name: 'historical:1909_opaskartta', title: 'Opaskartta, 1909'},
-  {year: 1900, name: 'historical:1900_opaskartta', title: 'Opaskartta, 1900'},
-  {year: 1878, name: 'historical:1878_asemakaavakartta', title: 'Asemakaavakartta, 1878'},
-  {year: 1838, name: 'historical:1838_asemakaavakartta', title: 'Asemakaavakartta, 1838'},
-  {year: 1820, name: 'historical:1820_asemakaavakartta', title: 'Asemakaavakartta, 1820'},
-  {year: 1790, name: 'historical:merikartta_1790', title: 'Merikartta, 1790'}
+  {
+    beginYear: 2010,
+    endYear: null,
+    name: 'hel:Karttasarja',
+    title: 'Nykyaika'
+  },
+  {
+    beginYear: 1999,
+    endYear: 2009,
+    name: 'historical:1999_opaskartta',
+    title: 'Opaskartta, 1999'
+  },
+  {
+    beginYear: 1962,
+    endYear: 1998,
+    name: 'historical:1962_opaskartta',
+    title: 'Opaskartta, 1962'
+  },
+  {
+    beginYear: 1952,
+    endYear: 1961,
+    name: 'historical:1952_opaskartta',
+    title: 'Opaskartta, 1952'
+  },
+  {
+    beginYear: 1940,
+    endYear: 1951,
+    name: 'historical:1940_opaskartta',
+    title: 'Opaskartta, 1940'
+  },
+  {
+    beginYear: 1937,
+    endYear: 1939,
+    name: 'historical:1937_opaskartta',
+    title: 'Opaskartta, 1937'
+  },
+  {
+    beginYear: 1917,
+    endYear: 1936,
+    name: 'historical:1917-1918_opaskartta',
+    title: 'Opaskartta, 1917-1918'
+  },
+  {
+    beginYear: 1909,
+    endYear: 1916,
+    name: 'historical:1909_opaskartta',
+    title: 'Opaskartta, 1909'
+  },
+  {
+    beginYear: 1900,
+    endYear: 1908,
+    name: 'historical:1900_opaskartta',
+    title: 'Opaskartta, 1900'
+  },
+  {
+    beginYear: 1878,
+    endYear: 1899,
+    name: 'historical:1878_asemakaavakartta',
+    title: 'Asemakaavakartta, 1878'
+  },
+  {
+    beginYear: 1838,
+    endYear: 1877,
+    name: 'historical:1838_asemakaavakartta',
+    title: 'Asemakaavakartta, 1838'
+  },
+  {
+    beginYear: 1820,
+    endYear: 1837,
+    name: 'historical:1820_asemakaavakartta',
+    title: 'Asemakaavakartta, 1820'
+  },
+  {
+    beginYear: 1790,
+    endYear: 1819,
+    name: 'historical:merikartta_1790',
+    title: 'Merikartta, 1790'
+  }
 ];
 
 /*eslint-disable */

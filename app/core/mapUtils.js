@@ -82,8 +82,8 @@ function getCrs() {
 }
 
 function getLayerNameForYear(year) {
-  const sortedLayers = _.sortByOrder(TILE_LAYERS, ['year'], [false]);
-  return _.find(sortedLayers, (layer) => year >= layer.year).title;
+  const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
+  return _.find(sortedLayers, (layer) => year >= layer.beginYear).title;
 }
 
 function getMapOptions() {
