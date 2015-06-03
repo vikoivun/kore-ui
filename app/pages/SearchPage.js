@@ -1,11 +1,14 @@
 'use strict';
 
+import _ from 'lodash';
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 
 import SearchBox from '../components/SearchBox';
 import SearchControls from '../components/SearchControls';
-import SearchResults from '../components/SearchResults';
+import SearchGridView from '../components/SearchGridView';
+import SearchMapView from '../components/SearchMapView';
+import SearchTableView from '../components/SearchTableView';
 import SearchTimeline from '../components/SearchTimeline';
 import SchoolStore from '../stores/SchoolStore';
 import SearchStore from '../stores/SearchStore';
@@ -44,6 +47,34 @@ class SearchPage extends React.Component {
     SchoolStore.removeChangeListener(this._onChange);
   }
 
+  renderSearchResultsView() {
+    const commonViewProps = {
+      fetchingData: this.state.fetchingData,
+      nextPageUrl: this.state.nextPageUrl,
+      schoolList: this.state.schoolList,
+      somethingWasSearched: this.state.somethingWasSearched
+    };
+
+    const mapViewProps = _.assign(commonViewProps, {
+      selectedMapYear: this.state.selectedMapYear,
+      selectedSchool: this.state.selectedSchool
+    });
+
+    if (this.state.view === 'grid') {
+      return <SearchGridView {...commonViewProps} />;
+    }
+
+    if (this.state.view === 'table') {
+      return <SearchTableView {...commonViewProps} />;
+    }
+
+    if (this.state.view === 'map') {
+      return <SearchMapView {...mapViewProps} />;
+    }
+
+    return null;
+  }
+
   renderSearchTimeLine() {
     if (this.state.view === 'map') {
       return null;
@@ -76,15 +107,11 @@ class SearchPage extends React.Component {
             view={this.state.view}
           />
           {this.renderSearchTimeLine()}
-          <SearchResults
-            fetchingData={this.state.fetchingData}
-            nextPageUrl={this.state.nextPageUrl}
-            schoolList={this.state.schoolList}
-            selectedMapYear={this.state.selectedMapYear}
-            selectedSchool={this.state.selectedSchool}
-            somethingWasSearched={this.state.somethingWasSearched}
-            view={this.state.view}
-          />
+          <div className='container'>
+            <div className='search-results'>
+              {this.renderSearchResultsView()}
+            </div>
+          </div>
         </div>
       </DocumentTitle>
     );
