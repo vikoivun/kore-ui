@@ -203,6 +203,9 @@ function _selectMapYear(year) {
 
 function _selectYears(years) {
   _years = years;
+  if (years[1]) {
+    _selectedMapYear = getMapYears(years[1])[0];
+  }
 }
 
 export default SearchStore;
