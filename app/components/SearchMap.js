@@ -13,12 +13,9 @@ class SearchMap extends BaseMap {
     this.map = L
       .map(React.findDOMNode(this.refs.map), this.mapOptions)
       .setView(HELSINKI_COORDINATES, MAP_ZOOM);
-    L.control.layers(this.layers).addTo(this.map);
+    this.updateTileLayer(this.props.selectedMapYear);
     this.markerGroup.addTo(this.map);
 
-    this.map.on('baselayerchange', () => {
-      this.map.setView(this.map.getCenter(), MAP_ZOOM);
-    });
     if (this.props.schoolList.length) {
       this.addMarkers(this.props.schoolList);
     }
@@ -30,6 +27,10 @@ class SearchMap extends BaseMap {
     const isLoadingData = nextProps.fetchingData && !schools.length;
     const hasNewSchools = schools.length && schools.length !== _.keys(this.markers).length;
 
+    if (nextProps.selectedMapYear) {
+      this.updateTileLayer(nextProps.selectedMapYear);
+    }
+
     if (isLoadingData) {
       this.markerGroup.clearLayers();
       this.markers = {};
@@ -39,15 +40,6 @@ class SearchMap extends BaseMap {
       this.map.panTo(selectedMarker.getLatLng());
       selectedMarker.openPopup();
     }
-  }
-
-  componentWillUnmount() {
-    this.markerGroup.clearLayers();
-    this.map.removeLayer(this.markerGroup);
-    _.each(this.layers, function(layer) {
-      this.map.removeLayer(layer);
-    }, this);
-    this.map.remove();
   }
 
   addMarkers(schools) {
@@ -73,6 +65,7 @@ class SearchMap extends BaseMap {
 SearchMap.propTypes = {
   fetchingData: React.PropTypes.bool,
   schoolList: React.PropTypes.array.isRequired,
+  selectedMapYear: React.PropTypes.number,
   selectedSchool: React.PropTypes.number
 };
 

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
 
-import {DEFAULT_LAYER_NAME, HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
+import {DEFAULT_LAYER, HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
 import {
   getLayerNameForYear,
   getMapOptions,
@@ -17,7 +17,7 @@ class BaseMap extends React.Component {
   constructor(props) {
     super(props);
 
-    this.currentLayerName = DEFAULT_LAYER_NAME;
+    this.currentLayerName = DEFAULT_LAYER.title;
     this.layers = getTileLayers();
     this.mapOptions = getMapOptions();
     this.markerGroup = L.featureGroup();

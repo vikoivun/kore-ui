@@ -1,11 +1,14 @@
 'use strict';
 
+import _ from 'lodash';
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 
 import SearchBox from '../components/SearchBox';
 import SearchControls from '../components/SearchControls';
-import SearchResults from '../components/SearchResults';
+import SearchGridView from '../components/SearchGridView';
+import SearchMapView from '../components/SearchMapView';
+import SearchTableView from '../components/SearchTableView';
 import SearchTimeline from '../components/SearchTimeline';
 import SchoolStore from '../stores/SchoolStore';
 import SearchStore from '../stores/SearchStore';
@@ -19,6 +22,7 @@ function getStateFromStores() {
     filtersOptions: SearchStore.getFiltersOptions(),
     searchQuery: SearchStore.getSearchQuery(),
     nextPageUrl: SearchStore.getNextPageUrl(),
+    selectedMapYear: SearchStore.getSelectedMapYear(),
     selectedSchool: SearchStore.getSelectedSchool(),
     schoolList: SchoolStore.getSchoolsYearDetails(searchResults),
     somethingWasSearched: SearchStore.getSomethingWasSearched(),
@@ -43,6 +47,48 @@ class SearchPage extends React.Component {
     SchoolStore.removeChangeListener(this._onChange);
   }
 
+  renderSearchResultsView() {
+    const commonViewProps = {
+      fetchingData: this.state.fetchingData,
+      nextPageUrl: this.state.nextPageUrl,
+      schoolList: this.state.schoolList,
+      somethingWasSearched: this.state.somethingWasSearched
+    };
+
+    const mapViewProps = _.assign(commonViewProps, {
+      filters: this.state.filters,
+      searchQuery: this.state.searchQuery,
+      selectedMapYear: this.state.selectedMapYear,
+      selectedSchool: this.state.selectedSchool,
+      years: this.state.years
+    });
+
+    if (this.state.view === 'grid') {
+      return <SearchGridView {...commonViewProps} />;
+    }
+
+    if (this.state.view === 'table') {
+      return <SearchTableView {...commonViewProps} />;
+    }
+
+    if (this.state.view === 'map') {
+      return <SearchMapView {...mapViewProps} />;
+    }
+
+    return null;
+  }
+
+  renderSearchTimeLine() {
+    if (this.state.view === 'map') {
+      return null;
+    }
+    return (
+      <div className='container'>
+        <SearchTimeline years={this.state.years} />
+      </div>
+    );
+  }
+
   render() {
     return (
       <DocumentTitle title='Etsi koulua - Koulurekisteri'>
@@ -63,17 +109,12 @@ class SearchPage extends React.Component {
             filtersOptions={this.state.filtersOptions}
             view={this.state.view}
           />
+          {this.renderSearchTimeLine()}
           <div className='container'>
-            <SearchTimeline years={this.state.years} />
+            <div className='search-results'>
+              {this.renderSearchResultsView()}
+            </div>
           </div>
-          <SearchResults
-            fetchingData={this.state.fetchingData}
-            nextPageUrl={this.state.nextPageUrl}
-            schoolList={this.state.schoolList}
-            selectedSchool={this.state.selectedSchool}
-            somethingWasSearched={this.state.somethingWasSearched}
-            view={this.state.view}
-          />
         </div>
       </DocumentTitle>
     );

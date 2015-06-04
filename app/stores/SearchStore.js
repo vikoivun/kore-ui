@@ -1,7 +1,9 @@
 'use strict';
 
 import ActionTypes from '../constants/ActionTypes';
+import {DEFAULT_LAYER} from '../constants/MapConstants';
 import AppDispatcher from '../core/AppDispatcher';
+import {getMapYears} from '../core/mapUtils';
 import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 
@@ -39,6 +41,7 @@ let _filtersOptionsRequested = {
 let _nextPageUrl;
 let _searchQuery = '';
 let _searchResults = [];
+let _selectedMapYear = DEFAULT_LAYER.beginYear;
 let _selectedSchool;
 let _view = 'grid';
 let _years = [null, null];
@@ -51,6 +54,7 @@ const SearchStore = Object.assign({}, BaseStore, {
   getNextPageUrl,
   getSearchQuery,
   getSearchResults,
+  getSelectedMapYear,
   getSelectedSchool,
   getSomethingWasSearched,
   getView,
@@ -109,6 +113,11 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       SearchStore.emitChange();
       break;
 
+    case ActionTypes.SELECT_SEARCH_MAP_YEAR:
+      _selectMapYear(action.year);
+      SearchStore.emitChange();
+      break;
+
     case ActionTypes.SELECT_SEARCH_TIMELINE_YEAR:
       _selectYears(action.years);
       SearchStore.emitChange();
@@ -141,6 +150,10 @@ function getSearchQuery() {
 
 function getSearchResults() {
   return _searchResults;
+}
+
+function getSelectedMapYear() {
+  return _selectedMapYear;
 }
 
 function getSelectedSchool() {
@@ -183,8 +196,16 @@ function _receiveFilterResponse(responseResults, resource) {
   _filtersOptions[resource] = responseResults;
 }
 
+function _selectMapYear(year) {
+  _selectedMapYear = year;
+  _years = getMapYears(year);
+}
+
 function _selectYears(years) {
   _years = years;
+  if (years[1]) {
+    _selectedMapYear = getMapYears(years[1])[0];
+  }
 }
 
 export default SearchStore;

@@ -44,38 +44,6 @@
           padding-right: @grid-gutter-width / 2 ;
           margin-top: 0px;
         }
-
-        .Select-placeholder,
-        .Select-option,
-        .Select-clear {
-          color: @inversed-color;
-        }
-        .Select-arrow {
-          border-color: @inversed-color transparent transparent;
-        }
-        .Select-option {
-          border-radius: 0;
-          &.is-focused {
-            color: @base-color;
-          }
-        }
-        .Select-control {
-          .base-button();
-          height: @selector-height;
-          padding: 8px 52px 8px 10px;
-          border-radius: 0;
-        }
-        .Select-menu-outer {
-          .base-button();
-          padding: 0;
-          border-radius: 0;
-          border-width: 1px;
-          border-top-color: #e6e6e6;
-        }
-        .Select-noresults{
-          .animation.spinner();
-          height: 2em;
-        }
       }
     }
     .views {
@@ -156,6 +124,11 @@
     .search-map-view {
       .row();
       margin-top: 20px;
+
+      .search-map-year-controls {
+        .make-column(12, 12);
+        margin-bottom: 20px;
+      }
 
       .search-map-container {
         .make-column(9, 9);

@@ -30,6 +30,13 @@ function getBoxContent(item) {
   ];
 }
 
+function getFilterPropType() {
+  return React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string
+  ]);
+}
+
 function getImageUrl(building) {
   if (!building || !building.photos || !building.photos.length) {
     return defaultImageUrl;
@@ -107,6 +114,7 @@ export default {
   getAddressArrayFromBuilding,
   getAddressString,
   getBoxContent,
+  getFilterPropType,
   getImageUrl,
   getItemByIdWrapper,
   getItemForYear,
