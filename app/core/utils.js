@@ -73,11 +73,11 @@ function inBetween(year, beginYear, endYear) {
   return _.inRange(year, beginYear, endYear + 1);
 }
 
-function processBasicInfoRow(details) {
+function processBasicInfoRow(details, extended) {
   if (_.isEmpty(details.name)) {
     return [];
   }
-  return [
+  let items = [
     {
       key: 'school-name-' + details.name.id,
       className: 'details-school-name',
@@ -104,6 +104,31 @@ function processBasicInfoRow(details) {
       boxContent: getBoxContent(details.archive)
     }
   ];
+
+  if (extended) {
+    items.push(
+      {
+        key: 'school-info-row-type',
+        className: 'details-building',
+        name: details.type.type.name,
+        boxContent: getBoxContent(details.type)
+      },
+      {
+        key: 'school-info-row-language',
+        className: 'details-language',
+        name: details.language.language,
+        boxContent: getBoxContent(details.language)
+      },
+      {
+        key: 'school-info-row-gender',
+        className: 'details-gender',
+        name: details.gender.gender,
+        boxContent: getBoxContent(details.gender)
+      }
+    );
+  }
+
+  return items;
 }
 
 function sortByYears(list) {

@@ -120,10 +120,13 @@ function getSchoolYearDetails(school, year) {
     address: _getMainAddress(building),
     archive: getItemForYear(school.archives, year) || {},
     building: building,
+    gender: getItemForYear(school.genders, year) || {},
     id: school.id,
+    language: getItemForYear(school.languages, year) || {},
     location: _.first(getLocationsForYear(school, year)) || {},
     name: getItemForYear(school.names, year) || {},
-    principal: principal
+    principal: principal,
+    type: getItemForYear(school.types, year) || {}
   };
 }
 

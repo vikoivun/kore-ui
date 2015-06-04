@@ -22,7 +22,7 @@ class SchoolTimelineInfo extends React.Component {
             />
             <div className='school-year-info'>
               <ol className='school-year-details-list'>
-                {processBasicInfoRow(this.props.schoolYearDetails).map(getInfoRow)}
+                {processBasicInfoRow(this.props.schoolYearDetails, true).map(getInfoRow)}
               </ol>
             </div>
           </div>
