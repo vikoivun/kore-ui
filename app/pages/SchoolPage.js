@@ -5,6 +5,7 @@ import DocumentTitle from 'react-document-title';
 import Loader from 'react-loader';
 
 import SchoolActionCreators from '../actions/SchoolActionCreators';
+import UIActionCreators from '../actions/UIActionCreators';
 import SchoolDetails from '../components/SchoolDetails';
 import SchoolImage from '../components/SchoolImage';
 import SchoolMap from '../components/SchoolMap';
@@ -17,8 +18,12 @@ function parseSchoolId(props) {
   return parseInt(props.params.schoolId);
 }
 
+function parseYear(props) {
+  return parseInt(props.params.year);
+}
+
 function getStateFromStores(schoolId) {
-  const selectedYear = UIStore.getSchoolTimelineYear();
+  let selectedYear = UIStore.getSchoolTimelineYear();
   return {
     fetchingData: SchoolStore.getFetchingData(),
     nameInSelectedYear: SchoolStore.getNameInSelectedYear(schoolId, selectedYear),
@@ -49,7 +54,7 @@ class SchoolPage extends React.Component {
   }
 
   componentDidMount() {
-    this.schoolDidChange(this.props.params.schoolId);
+    this.schoolDidChange(parseSchoolId(this.props), parseYear(this.props));
   }
 
   componentWillUnmount() {
@@ -59,11 +64,14 @@ class SchoolPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (parseSchoolId(nextProps) !== parseSchoolId(this.props)) {
-      this.schoolDidChange(parseSchoolId(nextProps));
+      this.schoolDidChange(parseSchoolId(nextProps), parseYear(nextProps));
     }
   }
 
-  schoolDidChange(schoolId) {
+  schoolDidChange(schoolId, year) {
+    if (year) {
+      UIActionCreators.updateYear(year);
+    }
     SchoolActionCreators.requestSchool(schoolId);
   }
 
@@ -111,7 +119,8 @@ class SchoolPage extends React.Component {
 
 SchoolPage.propTypes = {
   params: React.PropTypes.shape({
-    schoolId: React.PropTypes.string.isRequired
+    schoolId: React.PropTypes.string.isRequired,
+    year: React.PropTypes.string
   }).isRequired
 };
 
