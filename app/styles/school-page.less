@@ -21,11 +21,21 @@
     .school-timeline-info {
       .row();
 
-      .timeline {
+      .school-timeline-container {
         .make-column(7, 7);
         margin-top: 140px;
         margin-bottom: 100px;
         padding-bottom: 50px;
+
+        .loader {
+          margin-top: 100px;
+        }
+      }
+
+      .timeline {
+        .horizontal-slider {
+          margin-left: (@anchor-width-percentage / 2);
+        }
         .help-text {
           position: absolute;
           top: 120px;

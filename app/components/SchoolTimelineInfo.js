@@ -1,8 +1,11 @@
 'use strict';
 
+import _ from 'lodash';
 import React from 'react';
-import Timeline from './Timeline';
+import Loader from 'react-loader';
+
 import InfoRow from './InfoRow';
+import Timeline from './Timeline';
 import {processBasicInfoRow} from '../core/utils';
 
 function getInfoRow(row) {
@@ -12,14 +15,19 @@ function getInfoRow(row) {
 class SchoolTimelineInfo extends React.Component {
 
   render() {
+    const loadingTimeline = _.isEmpty(this.props.yearsActive);
     return (
       <div className='school-timeline-info-wrapper'>
         <div className='container'>
           <div className='school-timeline-info'>
-            <Timeline
-              selectedYear={this.props.selectedYear}
-              yearsActive={this.props.yearsActive}
-            />
+            <div className='school-timeline-container'>
+              <Loader color='#FFF' loaded={!loadingTimeline}>
+                <Timeline
+                  selectedYear={this.props.selectedYear}
+                  yearsActive={this.props.yearsActive}
+                />
+              </Loader>
+            </div>
             <div className='school-year-info'>
               <ol className='school-year-details-list'>
                 {processBasicInfoRow(this.props.schoolYearDetails, true).map(getInfoRow)}

@@ -13,6 +13,7 @@ export default (
     <Route handler={SearchPage} name='search' path='/etsi-koulua' />
     <Route handler={AboutPage} name='about' path='/tietoa-palvelusta' />
     <Route handler={SchoolPage} name='school' path='/koulut/:schoolId' />
+    <Route handler={SchoolPage} name='school-with-year' path='/koulut/:schoolId/vuosi/:year' />
     <Redirect from='/' to='search' />
     <NotFoundRoute handler={NotFoundPage} />
   </Route>
