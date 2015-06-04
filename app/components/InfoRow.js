@@ -63,7 +63,10 @@ class InfoRow extends React.Component {
   }
 
   getInfoName() {
-    const infoNameClassName = this.props.boxContent ? 'info-name with-infobox' : 'info-name';
+    let infoNameClassName = this.props.boxContent ? 'info-name with-infobox' : 'info-name';
+    if (this.props.selected) {
+      infoNameClassName += ' selected';
+    }
     const element = <div className={infoNameClassName}>{this.props.name}</div>;
     return element;
   }
@@ -103,7 +106,8 @@ InfoRow.propTypes = {
   name: React.PropTypes.oneOfType([
     React.PropTypes.string.isRequired,
     React.PropTypes.array.isRequired
-  ])
+  ]),
+  selected: React.PropTypes.bool
 };
 
 InfoRow.defaultProps = {
