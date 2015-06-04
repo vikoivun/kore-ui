@@ -6,7 +6,7 @@ import React from 'react';
 
 import router from '../router';
 import BaseMap from './BaseMap';
-import {HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
+import {HELSINKI_COORDINATES, MAP_MAX_ZOOM, MAP_ZOOM} from '../constants/MapConstants';
 import {getMarkerIcon, getPosition} from '../core/mapUtils';
 
 class SearchMap extends BaseMap {
@@ -51,7 +51,7 @@ class SearchMap extends BaseMap {
       }
     }, this);
     const bounds = this.markerGroup.getBounds();
-    this.map.fitBounds(bounds, {maxZoom: 15, padding: [50, 50]});
+    this.map.fitBounds(bounds, {maxZoom: MAP_MAX_ZOOM, padding: [50, 50]});
   }
 
   getMarker(school) {
