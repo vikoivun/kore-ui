@@ -3,26 +3,25 @@
 import _ from 'lodash';
 import React from 'react';
 import InfoTable from './InfoTable';
-import {getAddressArrayFromBuilding, getBoxContent} from '../core/utils';
+import {getAddressArrayFromBuilding, getBoxContent, inBetween} from '../core/utils';
 
 const itemGenerator = {
-  archives: function(archives) {
+  archives: function(archives, selectedYear) {
     return _.map(archives, function(archive, index) {
       return {
-        key: 'school-archive-' + index,
+        boxContent: getBoxContent(archive),
         className: 'details-archive',
+        key: 'school-archive-' + index,
         name: archive.location,
-        boxContent: getBoxContent(archive)
+        selected: inBetween(selectedYear, archive.beginYear, archive.endYear)
       };
     }).reverse();
   },
-  buildings: function(buildings) {
+  buildings: function(buildings, selectedYear) {
     return _.map(buildings, function(building) {
       return {
-        key: 'building-' + building.id,
-        className: 'details-building',
-        name: getAddressArrayFromBuilding(building),
         boxContent: getBoxContent(building),
+        className: 'details-building',
         items: [
           {
             key: 'neighborhood-of-building-' + building.id,
@@ -34,67 +33,76 @@ const itemGenerator = {
             name: building.architect,
             boxContent: 'arkkitehti'
           }
-        ]
+        ],
+        key: 'building-' + building.id,
+        name: getAddressArrayFromBuilding(building),
+        selected: inBetween(selectedYear, building.beginYear, building.endYear)
       };
     }).reverse();
   },
-  fields: function(fields) {
+  fields: function(fields, selectedYear) {
     return _.map(fields, function(field, index) {
       return {
-        key: 'school-field-' + index,
+        boxContent: getBoxContent(field),
         className: 'details-field',
+        key: 'school-field-' + index,
         name: field.field.description,
-        boxContent: getBoxContent(field)
+        selected: inBetween(selectedYear, field.beginYear, field.endYear)
       };
     }).reverse();
   },
-  genders: function(genders) {
+  genders: function(genders, selectedYear) {
     return _.map(genders, function(gender, index) {
       return {
-        key: 'school-gender-' + index,
+        boxContent: getBoxContent(gender),
         className: 'details-gender',
+        key: 'school-gender-' + index,
         name: gender.gender,
-        boxContent: getBoxContent(gender)
+        selected: inBetween(selectedYear, gender.beginYear, gender.endYear)
       };
     }).reverse();
   },
-  languages: function(languages) {
+  languages: function(languages, selectedYear) {
     return _.map(languages, function(language) {
       return {
-        key: 'school-language-' + language.id,
+        boxContent: getBoxContent(language),
         className: 'details-language',
+        key: 'school-language-' + language.id,
         name: language.language,
-        boxContent: getBoxContent(language)
+        selected: inBetween(selectedYear, language.beginYear, language.endYear)
       };
     }).reverse();
   },
-  names: function(names) {
+  names: function(names, selectedYear) {
     return _.map(names, function(name) {
       return {
-        key: 'school-name-' + name.id,
+        boxContent: getBoxContent(name),
         className: 'details-school-name',
+        key: 'school-name-' + name.id,
         name: name.officialName,
-        boxContent: getBoxContent(name)
+        selected: inBetween(selectedYear, name.beginYear, name.endYear)
       };
     }).reverse();
   },
-  principals: function(principals) {
+  principals: function(principals, selectedYear) {
     return _.map(principals, function(principal) {
       return {
-        key: 'principal-' + principal.id,
+        boxContent: getBoxContent(principal),
         className: 'details-principal',
+        key: 'principal-' + principal.id,
         name: principal.name,
-        boxContent: getBoxContent(principal)
+        selected: inBetween(selectedYear, principal.beginYear, principal.endYear)
       };
     }).reverse();
   },
-  types: function(types) {
+  types: function(types, selectedYear) {
     return _.map(types, function(type, index) {
       return {
-        key: 'school-type-' + index,
+        boxContent: getBoxContent(type),
         className: 'details-building',
+        key: 'school-type-' + index,
         name: type.type.name,
-        boxContent: getBoxContent(type)
+        selected: inBetween(selectedYear, type.beginYear, type.endYear)
       };
     }).reverse();
   }
@@ -103,36 +111,37 @@ const itemGenerator = {
 class SchoolDetails extends React.Component {
   render() {
     const details = this.props.details;
-    const schoolTypeGroup = itemGenerator.fields(details.fields).concat(
-      itemGenerator.languages(details.languages),
-      itemGenerator.genders(details.genders)
+    const selectedYear = details.selectedYear;
+    const schoolTypeGroup = itemGenerator.fields(details.fields, selectedYear).concat(
+      itemGenerator.languages(details.languages, selectedYear),
+      itemGenerator.genders(details.genders, selectedYear)
     );
     return (
       <div className='container'>
         <section className='school-details'>
           <InfoTable
             expandable={false}
-            items={itemGenerator.names(details.names)}
+            items={itemGenerator.names(details.names, selectedYear)}
             title={'Koulun nimet'}
           />
           <InfoTable
             expandable={true}
-            items={itemGenerator.buildings(details.buildings)}
+            items={itemGenerator.buildings(details.buildings, selectedYear)}
             title={'Rakennukset ja sijainnit'}
           />
           <InfoTable
             expandable={true}
-            items={itemGenerator.archives(details.archives)}
+            items={itemGenerator.archives(details.archives, selectedYear)}
             title={'Arkistot'}
           />
           <InfoTable
             expandable={true}
-            items={itemGenerator.principals(details.principals)}
+            items={itemGenerator.principals(details.principals, selectedYear)}
             title={'Rehtorit'}
           />
           <InfoTable
             expandable={true}
-            items={itemGenerator.types(details.types)}
+            items={itemGenerator.types(details.types, selectedYear)}
             title={'Koulun tyypit'}
           />
           <InfoTable

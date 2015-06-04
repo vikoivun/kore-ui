@@ -93,7 +93,8 @@ function getNameInSelectedYear(school, year) {
   return getItemForYear(school.names, year) || {};
 }
 
-function getSchoolDetails(school) {
+function getSchoolDetails(school, selectedYear) {
+  selectedYear = selectedYear || _getLatestYear(school);
   return {
     archives: school.archives,
     buildings: _getAssociationData(school.buildings, BuildingStore.getBuilding),
@@ -102,6 +103,7 @@ function getSchoolDetails(school) {
     languages: school.languages,
     names: school.names,
     principals: _getAssociationData(school.principals, PrincipalStore.getPrincipal),
+    selectedYear: selectedYear,
     types: school.types
   };
 }

@@ -24,7 +24,7 @@ function getStateFromStores(schoolId) {
     nameInSelectedYear: SchoolStore.getNameInSelectedYear(schoolId, selectedYear),
     yearsActive: SchoolStore.getBeginAndEndYear(schoolId),
     buildingInSelectedYear: SchoolStore.getBuildingForYear(schoolId, selectedYear),
-    schoolDetails: SchoolStore.getSchoolDetails(schoolId),
+    schoolDetails: SchoolStore.getSchoolDetails(schoolId, selectedYear),
     schoolYearDetails: SchoolStore.getSchoolYearDetails(
       schoolId,
       selectedYear
@@ -102,7 +102,10 @@ class SchoolPage extends React.Component {
             selectedYear={this.state.selectedYear}
             yearsActive={this.state.yearsActive}
           />
-          <SchoolDetails details={this.state.schoolDetails} />
+          <SchoolDetails
+            details={this.state.schoolDetails}
+            selectedYear={this.state.selectedYear}
+          />
         </div>
       </DocumentTitle>
     );
