@@ -5,21 +5,22 @@ import React from 'react';
 
 const defaultImageUrl = require('../images/default-building.jpg');
 
-function getAddressArrayFromBuilding(building) {
+function getAddressStringFromBuilding(building) {
   if (building && building.addresses && building.addresses.length) {
-    return [
-      building.addresses[0].streetNameFi,
-      ', ',
-      building.addresses[0].municipalityFi
-    ];
+    let streets = [];
+    _.each(building.addresses, function(address) {
+      streets.push(getAddressString(address));
+    });
+    return streets.join(', ');
   }
-  return '';
+  return 'Osoite tuntematon';
 }
 
 function getAddressString(address) {
-  const street = address.streetNameFi || '';
-  const municipality = address.municipalityFi || '';
-  return `${street}\, ${municipality}`;
+  if (!address || !address.streetNameFi) {
+    return 'Osoite tuntematon';
+  }
+  return address.streetNameFi;
 }
 
 function getBoxContent(item) {
@@ -93,8 +94,7 @@ function processBasicInfoRow(details, extended) {
     {
       key: 'school-building-' + details.building.id,
       className: 'details-building',
-      // The address should be sorted by time as well.
-      name: getAddressArrayFromBuilding(details.building),
+      name: details.address,
       boxContent: getBoxContent(details.building)
     },
     {
@@ -136,7 +136,7 @@ function sortByYears(list) {
 }
 
 export default {
-  getAddressArrayFromBuilding,
+  getAddressStringFromBuilding,
   getAddressString,
   getBoxContent,
   getFilterPropType,

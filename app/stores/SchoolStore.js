@@ -118,8 +118,9 @@ function getSchoolYearDetails(school, year) {
   const principal = (
     schoolPrincipal ? _getAssociationObject(schoolPrincipal, PrincipalStore.getPrincipal) : {}
   );
+  const address = getItemForYear(building.addresses, year);
   return {
-    address: _getMainAddress(building),
+    address: getAddressString(address),
     archive: getItemForYear(school.archives, year) || {},
     building: building,
     gender: getItemForYear(school.genders, year) || {},
@@ -144,13 +145,6 @@ function hasSchool(schoolId) {
 
 function _getLatestYear(school) {
   return getBeginAndEndYear(school).endYear || new Date().getFullYear();
-}
-
-function _getMainAddress(building) {
-  if (building && building.addresses && building.addresses.length) {
-    return getAddressString(building.addresses[0]);
-  }
-  return '';
 }
 
 function _getAssociationData(associationObjects, getter) {
