@@ -4,6 +4,7 @@ import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
 
+import router from '../router';
 import BaseMap from './BaseMap';
 import {HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
 import {getMarkerIcon, getPosition} from '../core/mapUtils';
@@ -55,10 +56,21 @@ class SearchMap extends BaseMap {
 
   getMarker(school) {
     const position = getPosition(school.location);
-    const popupText = school.name.officialName;
     return L
       .marker(position, {icon: getMarkerIcon()})
-      .bindPopup(this.getPopupContent(popupText));
+      .bindPopup(this.getPopupContent(school));
+  }
+
+  getPopupContent(school) {
+    let link = document.createElement('a');
+    link.innerHTML = `${school.name.officialName}`;
+    link.href = '#';
+    link.className = 'school-popup-link';
+    link.onclick = function(event) {
+      event.preventDefault();
+      router.transitionTo('school', {schoolId: school.id});
+    };
+    return link;
   }
 }
 
