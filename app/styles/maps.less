@@ -25,4 +25,24 @@
   .leaflet-popup-tip {
     background-color: @border-main-color;
   }
+
+  .school-popup-link {
+    padding-left: @info-row-logo-side-size;
+    color: @blue-dark;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 2px;
+      display: inline-block;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: @info-row-logo-side-size;
+      height: @info-row-logo-side-size;
+      background-image: url('../images/pencil.svg');
+      background-size: 15px;
+    }
+  }
 }
