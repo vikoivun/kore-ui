@@ -9,5 +9,5 @@ export default {
     React.PropTypes.number,
     React.PropTypes.string
   ]),
-  SEARCH_TIMELINE_STARTING_YEAR: 1790
+  SEARCH_TIMELINE_STARTING_YEAR: 1550
 };

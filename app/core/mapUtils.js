@@ -47,7 +47,8 @@ function _getGeoserverUrl(layerName, layerFmt) {
 
 function _getLayerForYear(year) {
   const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
-  return _.find(sortedLayers, (layer) => year >= layer.beginYear);
+  const layerForYear = _.find(sortedLayers, (layer) => year >= layer.beginYear);
+  return layerForYear || _.last(sortedLayers);
 }
 
 function _makeCRS() {
