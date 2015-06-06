@@ -37,6 +37,7 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getSchoolsYearDetails,
   getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
   getSearchDetails: getItemByIdWrapper(getSearchDetails, _schools),
+  getSchoolNameSearchDetails,
   getSchoolYearDetailsForNameInPeriod: getItemByIdWrapper(
     getSchoolYearDetailsForNameInPeriod,
     _schools
@@ -182,6 +183,36 @@ function getSearchDetails(school, query) {
   );
   const names = nameSearchIndex.search(query);
   return getSchoolYearDetailsForNameInPeriod(school, names);
+}
+
+function getSchoolNameSearchDetails(schoolIds, query) {
+  let searchDetails = [];
+  _.each(schoolIds, function(schoolId) {
+    const school = _schools[schoolId];
+    if (_.isEmpty(school)) {
+      return;
+    }
+
+    let nameSearchIndex = new Fuse(
+      school.names,
+      {keys: ['officialName']}
+    );
+    const names = nameSearchIndex.search(query);
+
+    _.each(names, function(name) {
+      searchDetails.push(
+        {
+          beginYear: name.beginYear,
+          endYear: name.endYear,
+          id: school.id + '-' + name.id,
+          name: name.officialName,
+          schoolId: school.id,
+          type: 'school-name'
+        }
+      );
+    });
+  });
+  return _.sortBy(searchDetails, 'id');
 }
 
 function getSchoolsYearDetails(schoolIds, year) {

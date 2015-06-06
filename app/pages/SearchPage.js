@@ -18,12 +18,14 @@ import SearchStore from '../stores/SearchStore';
 function getStateFromStores() {
   const searchResults = SearchStore.getSearchResults();
   const searchQuery = SearchStore.getSearchQuery();
+
   return {
     view: SearchStore.getView(),
     fetchingData: SearchStore.getFetchingData(),
     filters: SearchStore.getFilters(),
     filtersOptions: SearchStore.getFiltersOptions(),
     searchQuery: SearchStore.getSearchQuery(),
+    nameResults: SchoolStore.getSchoolNameSearchDetails(searchResults.schools, searchQuery),
     nextPagesUrlDict: SearchStore.getNextPagesUrlDict(),
     selectedMapYear: SearchStore.getSelectedMapYear(),
     selectedSchool: SearchStore.getSelectedSchool(),
@@ -60,6 +62,7 @@ class SearchPage extends React.Component {
   renderSearchResultsView() {
     const commonViewProps = {
       fetchingData: this.state.fetchingData,
+      nameResults: this.state.nameResults,
       nextPagesUrlDict: this.state.nextPagesUrlDict,
       principalList: this.state.principalList,
       schoolBuildingList: this.state.schoolBuildingList,
