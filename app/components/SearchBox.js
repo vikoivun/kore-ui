@@ -42,7 +42,7 @@ class SearchBox extends React.Component {
             className='search-bar'
             defaultValue={this.props.searchQuery}
             onKeyUp={this.handleKeyUp}
-            placeholder='Syötä koulun nimi'
+            placeholder='Etsi koulun nimellä, osoitteella tai rehtorin nimellä'
           />
         </div>
       </div>
