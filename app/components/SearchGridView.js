@@ -39,6 +39,15 @@ function processGridInfoRow(details) {
       name: details.extraInfo
     });
   }
+  items.push({
+    key: 'years-for-' + details.id,
+    className: 'details-years',
+    name: [
+      details.beginYear,
+      <i className='fa fa-lg fa-long-arrow-right'/>,
+      details.endYear
+    ]
+  });
   return items;
 }
 
