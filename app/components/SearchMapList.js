@@ -16,9 +16,9 @@ class SearchMapList extends React.Component {
   getListItem(school) {
     return (
       <SearchMapListItem
-        key={school.id}
+        key={school.location.id}
         school={school}
-        selectedSchool={this.props.selectedSchool}
+        selectedSchoolId={this.props.selectedSchoolId}
       />
     );
   }
@@ -62,7 +62,7 @@ SearchMapList.propTypes = {
   fetchingData: React.PropTypes.bool,
   nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
   schoolList: React.PropTypes.array.isRequired,
-  selectedSchool: React.PropTypes.number,
+  selectedSchoolId: React.PropTypes.string,
   somethingWasSearched: React.PropTypes.bool.isRequired
 };
 

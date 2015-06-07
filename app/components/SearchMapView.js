@@ -9,14 +9,17 @@ import SearchMapYearControl from './SearchMapYearControl';
 import {getFilterPropType} from '../core/utils';
 
 function getSchoolsWithLocation(schools) {
-  return _.filter(schools, function(school) {
+  const schoolsWithLocation = _.filter(schools, function(school) {
     return !_.isEmpty(school.location.coordinates);
   });
+  const sorted = _.sortBy(schoolsWithLocation, 'name');
+  return _.uniq(sorted, (school) => school.location.id);
 }
 
 class SearchMapView extends React.Component {
   render() {
     const schoolsWithLocation = getSchoolsWithLocation(this.props.schoolList);
+
     return (
       <div className='search-map-view'>
         <SearchMapYearControl
@@ -30,7 +33,7 @@ class SearchMapView extends React.Component {
             fetchingData={this.props.fetchingData}
             schoolList={schoolsWithLocation}
             selectedMapYear={this.props.selectedMapYear}
-            selectedSchool={this.props.selectedSchool}
+            selectedSchoolId={this.props.selectedSchoolId}
           />
         </div>
         <div className='search-map-list-container'>
@@ -38,7 +41,7 @@ class SearchMapView extends React.Component {
             fetchingData={this.props.fetchingData}
             nextPagesUrlDict={this.props.nextPagesUrlDict}
             schoolList={schoolsWithLocation}
-            selectedSchool={this.props.selectedSchool}
+            selectedSchoolId={this.props.selectedSchoolId}
             somethingWasSearched={this.props.somethingWasSearched}
           />
         </div>
@@ -60,8 +63,8 @@ SearchMapView.propTypes = {
   nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
   schoolList: React.PropTypes.array.isRequired,
   searchQuery: React.PropTypes.string.isRequired,
-  selectedMapYear: React.PropTypes.number,
-  selectedSchool: React.PropTypes.number,
+  selectedMapYear: React.PropTypes.string,
+  selectedSchoolId: React.PropTypes.string,
   somethingWasSearched: React.PropTypes.bool.isRequired,
   years: React.PropTypes.arrayOf(React.PropTypes.number)
 };

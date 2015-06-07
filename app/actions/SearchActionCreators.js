@@ -27,10 +27,10 @@ export default {
     SearchAPI.searchLoadMore(urls);
   },
 
-  selectSchool(school) {
+  selectSchool(schoolId) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_SEARCH_SCHOOL,
-      school
+      schoolId
     });
   },
 

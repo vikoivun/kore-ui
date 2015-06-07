@@ -29,7 +29,7 @@ function getStateFromStores() {
     principalResults: PrincipalStore.getSearchDetails(searchResults.principals),
     searchQuery: SearchStore.getSearchQuery(),
     selectedMapYear: SearchStore.getSelectedMapYear(),
-    selectedSchool: SearchStore.getSelectedSchool(),
+    selectedSchoolId: SearchStore.getSelectedSchoolId(),
     somethingWasSearched: SearchStore.getSomethingWasSearched(),
     view: SearchStore.getView(),
     years: SearchStore.getYears()
@@ -63,14 +63,6 @@ class SearchPage extends React.Component {
       somethingWasSearched: this.state.somethingWasSearched
     };
 
-    const mapViewProps = _.assign(commonViewProps, {
-      filters: this.state.filters,
-      searchQuery: this.state.searchQuery,
-      selectedMapYear: this.state.selectedMapYear,
-      selectedSchool: this.state.selectedSchool,
-      years: this.state.years
-    });
-
     if (this.state.view === 'grid') {
       return <SearchGridView {...commonViewProps} />;
     }
@@ -78,6 +70,19 @@ class SearchPage extends React.Component {
     if (this.state.view === 'table') {
       return <SearchTableView {...commonViewProps} />;
     }
+
+    const schoolList = this.state.nameResults.concat(
+      this.state.buildingResults, this.state.principalResults
+    );
+
+    const mapViewProps = _.assign(commonViewProps, {
+      filters: this.state.filters,
+      searchQuery: this.state.searchQuery,
+      schoolList: schoolList,
+      selectedMapYear: this.state.selectedMapYear,
+      selectedSchoolId: this.state.selectedSchoolId,
+      years: this.state.years
+    });
 
     if (this.state.view === 'map') {
       return <SearchMapView {...mapViewProps} />;

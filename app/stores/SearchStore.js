@@ -41,7 +41,7 @@ let _filtersOptionsRequested = {
   language: false
 };
 let _searchQuery = '';
-let _selectedMapYear = DEFAULT_LAYER.beginYear;
+let _selectedMapYear = String(DEFAULT_LAYER.beginYear);
 const _searchResultsDefaults = {
   buildings: null,
   principals: null,
@@ -49,7 +49,7 @@ const _searchResultsDefaults = {
 };
 let _searchResults = _resetSearchResults();
 let _nextPagesUrlDict = _.clone(_searchResultsDefaults);
-let _selectedSchool;
+let _selectedSchoolId;
 let _view = 'table';
 let _years = [null, null];
 
@@ -62,7 +62,7 @@ const SearchStore = Object.assign({}, BaseStore, {
   getSearchQuery,
   getSearchResults,
   getSelectedMapYear,
-  getSelectedSchool,
+  getSelectedSchoolId,
   getSomethingWasSearched,
   getView,
   getYears
@@ -78,7 +78,7 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       _nextPagesUrlDict = _.clone(_searchResultsDefaults);
       _searchResults = _resetSearchResults();
       _searchQuery = action.query;
-      _selectedSchool = null;
+      _selectedSchoolId = null;
       SearchStore.emitChange();
       break;
 
@@ -101,12 +101,12 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.SELECT_SEARCH_SCHOOL:
-      _selectedSchool = action.school.id;
+      _selectedSchoolId = action.schoolId;
       SearchStore.emitChange();
       break;
 
     case ActionTypes.SELECT_SEARCH_VIEW:
-      _selectedSchool = null;
+      _selectedSchoolId = null;
       _view = action.view;
       SearchStore.emitChange();
       break;
@@ -167,8 +167,8 @@ function getSelectedMapYear() {
   return _selectedMapYear;
 }
 
-function getSelectedSchool() {
-  return _selectedSchool;
+function getSelectedSchoolId() {
+  return _selectedSchoolId;
 }
 
 function getSomethingWasSearched() {
@@ -222,14 +222,14 @@ function _resetSearchResults() {
 }
 
 function _selectMapYear(year) {
-  _selectedMapYear = year;
+  _selectedMapYear = String(year);
   _years = getMapYears(year);
 }
 
 function _selectYears(years) {
   _years = years;
   if (years[1]) {
-    _selectedMapYear = getMapYears(years[1])[0];
+    _selectedMapYear = String(getMapYears(years[1])[0]);
   }
 }
 

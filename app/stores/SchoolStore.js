@@ -142,15 +142,17 @@ function getSchoolYearDetails(school, year) {
     schoolPrincipal ? getAssociationObject(schoolPrincipal, PrincipalStore.getPrincipal) : {}
   );
   const address = getItemForYear(building.addresses, year);
+  const name = getItemForYear(school.names, year) || {};
+  const id = `${school.id}-${name && name.id}-${building && building.id}-${address && address.id}`;
   return {
     address: getAddressString(address),
     archive: getItemForYear(school.archives, year) || {},
     building: building,
     gender: getItemForYear(school.genders, year) || {},
-    id: school.id,
+    id: id,
     language: getItemForYear(school.languages, year) || {},
     location: _.first(getLocationsForYear(school, year)) || {},
-    name: getItemForYear(school.names, year) || {},
+    name: name,
     principal: principal,
     type: getItemForYear(school.types, year) || {}
   };
