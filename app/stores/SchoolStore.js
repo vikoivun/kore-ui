@@ -38,6 +38,7 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
   getSearchDetails: getItemByIdWrapper(getSearchDetails, _schools),
   getSchoolNameSearchDetails,
+  getSearchResultsForPrincipal,
   getSchoolYearDetailsForNameInPeriod: getItemByIdWrapper(
     getSchoolYearDetailsForNameInPeriod,
     _schools
@@ -215,6 +216,32 @@ function getSchoolNameSearchDetails(schoolIds, query) {
   return _.sortBy(searchDetails, 'id');
 }
 
+function getSearchResultsForPrincipal(schoolId, principal) {
+  let searchDetails = [];
+  const school = _schools[schoolId];
+  if (_.isEmpty(school)) {
+    return [];
+  }
+
+  const names = _getNamesForTimeSpan(school, principal.beginYear, principal.endYear);
+  _.each(_.sortBy(names, 'beginYear'), function(name, index) {
+    const beginYear = index === 0 ? principal.beginYear || name.beginYear : name.beginYear;
+    const endYear = index === name.length - 1 ? principal.endYear || name.endYear : name.endYear;
+    searchDetails.push(
+      {
+        beginYear: beginYear,
+        endYear: endYear,
+        id: school.id + '-' + name.id + '-' + principal.id,
+        name: name.officialName,
+        principalName: principal.name,
+        schoolId: school.id,
+        type: 'principal-result'
+      }
+    );
+  });
+  return searchDetails;
+}
+
 function getSchoolsYearDetails(schoolIds, year) {
   return _.map(schoolIds, function(id) {
     return SchoolStore.getSchoolYearDetails(id, year);
@@ -227,6 +254,12 @@ function hasSchool(schoolId) {
 
 function _getLatestYear(school) {
   return getBeginAndEndYear(school).endYear || new Date().getFullYear();
+}
+
+function _getNamesForTimeSpan(school, beginYear, endYear) {
+  return _.filter(school.names, function(name) {
+    return inBetween(name.beginYear, beginYear, endYear, true);
+  });
 }
 
 function _receiveSchools(entities) {

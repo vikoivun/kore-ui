@@ -27,6 +27,7 @@ function getStateFromStores() {
     searchQuery: SearchStore.getSearchQuery(),
     nameResults: SchoolStore.getSchoolNameSearchDetails(searchResults.schools, searchQuery),
     nextPagesUrlDict: SearchStore.getNextPagesUrlDict(),
+    principalResults: PrincipalStore.getPrincipalSearchDetails(searchResults.principals),
     selectedMapYear: SearchStore.getSelectedMapYear(),
     selectedSchool: SearchStore.getSelectedSchool(),
     schoolList: searchResults.schools.map(function(schoolId) {
@@ -65,6 +66,7 @@ class SearchPage extends React.Component {
       nameResults: this.state.nameResults,
       nextPagesUrlDict: this.state.nextPagesUrlDict,
       principalList: this.state.principalList,
+      principalResults: this.state.principalResults,
       schoolBuildingList: this.state.schoolBuildingList,
       schoolList: this.state.schoolList,
       somethingWasSearched: this.state.somethingWasSearched

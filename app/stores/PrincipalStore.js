@@ -15,6 +15,7 @@ const PrincipalStore = Object.assign({}, BaseStore, {
   getFetchingData,
   getPrincipal: getItemByIdWrapper(getPrincipal, _principals),
   getPrincipalDetails: getItemByIdWrapper(getPrincipalDetails, _principals),
+  getPrincipalSearchDetails,
   getSearchDetails: getItemByIdWrapper(getSearchDetails, _principals)
 });
 
@@ -78,6 +79,28 @@ function getSearchDetails(principal) {
       return SchoolStore.getSchoolYearDetails(employer.id, year);
     });
   });
+}
+
+function getPrincipalSearchDetails(principalIds) {
+  let searchDetails = [];
+  _.each(principalIds, function(principalId) {
+    const principal = _principals[principalId];
+    if (_.isEmpty(principal)) {
+      return;
+    }
+
+    _.each(principal.employers, function(employment) {
+      const schoolPrincipal = {
+        beginYear: employment.beginYear,
+        endYear: employment.endYear,
+        id: principalId,
+        name: principal.name
+      };
+      const results = SchoolStore.getSearchResultsForPrincipal(employment.id, schoolPrincipal);
+      searchDetails = searchDetails.concat(results);
+    });
+  });
+  return _.uniq(_.sortBy(searchDetails, 'id'), true, 'id');
 }
 
 function _receivePrincipals(entities) {

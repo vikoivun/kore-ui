@@ -71,7 +71,7 @@ function getItemsForYear(itemList, year) {
 function inBetween(year, beginYear, endYear, closedEndYear) {
   beginYear = beginYear || 0;
   endYear = endYear || 10000;
-  const delta = closedEndYear ? null : 1;
+  const delta = closedEndYear ? 0 : 1;
   return _.inRange(year, beginYear, endYear + delta);
 }
 

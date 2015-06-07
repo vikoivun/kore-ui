@@ -9,18 +9,26 @@ import SearchLoadMore from './SearchLoadMore';
 
 class SearchTableView extends React.Component {
 
+  getSchoolLink(result) {
+    let linkProps = {
+      params: {schoolId: result.schoolId},
+      to: 'school'
+    };
+    if (result.beginYear) {
+      linkProps.params.year = result.beginYear;
+      linkProps.to = 'school-with-year';
+    }
+    return (
+      <Link {...linkProps}>{result.name}</Link>
+    );
+  }
+
   getTableRow(result) {
     return (
       <tr key={result.id}>
-        <td>
-          <Link
-            params={{schoolId: result.schoolId, year: result.beginYear}}
-            to='school-with-year'
-          >
-            {result.name}
-          </Link>
-        </td>
+        <td>{this.getSchoolLink(result)}</td>
         <td>{result.type}-{result.id}</td>
+        <td>{result.principalName}</td>
         <td>
           {result.beginYear}
           <i className='fa fa-lg fa-long-arrow-right'/>
@@ -32,7 +40,10 @@ class SearchTableView extends React.Component {
 
   getTableRows() {
     const nameResults = _.map(this.props.nameResults, (result) => this.getTableRow(result));
-    return nameResults;
+    const principalResults = _.map(
+      this.props.principalResults, (result) => this.getTableRow(result)
+    );
+    return nameResults.concat(principalResults);
   }
 
   renderSearchResults() {
@@ -42,6 +53,7 @@ class SearchTableView extends React.Component {
           <thead>
             <tr>
               <th>Koulu</th>
+              <th>Id</th>
               <th>Lisätiedot</th>
               <th>Vuodet</th>
             </tr>
@@ -84,6 +96,7 @@ SearchTableView.propTypes = {
   nameResults: React.PropTypes.array.isRequired,
   nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
   principalList: React.PropTypes.array.isRequired,
+  principalResults: React.PropTypes.array.isRequired,
   schoolBuildingList: React.PropTypes.array.isRequired,
   schoolList: React.PropTypes.array.isRequired,
   somethingWasSearched: React.PropTypes.bool.isRequired
