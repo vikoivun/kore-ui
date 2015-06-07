@@ -76,9 +76,11 @@ class SearchMap extends BaseMap {
     link.onclick = function(event) {
       event.preventDefault();
       if (school.beginYear) {
-        router.transitionTo('school-with-year', {schoolId: school.id, year: school.beginYear});
+        router.transitionTo(
+          'school-with-year', {schoolId: school.schoolId, year: school.beginYear}
+        );
       } else {
-        router.transitionTo('school', {schoolId: school.id});
+        router.transitionTo('school', {schoolId: school.schoolId});
       }
     };
     return link;
