@@ -9,6 +9,7 @@ import {getMapYears} from '../core/mapUtils';
 import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 
+let _actualSearchYears = [null, null];
 let _fetchingData = 0;
 let _filters = {
   type: null,
@@ -54,6 +55,7 @@ let _view = 'table';
 let _years = [null, null];
 
 const SearchStore = Object.assign({}, BaseStore, {
+  getActualSearchYears,
   getFetchingData,
   getFilters,
   getFiltersOptions,
@@ -74,6 +76,7 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch (action.type) {
 
     case ActionTypes.REQUEST_SEARCH:
+      _actualSearchYears = _years;
       _fetchingData += 3;
       _nextPagesUrlDict = _.clone(_searchResultsDefaults);
       _searchResults = _resetSearchResults();
@@ -138,6 +141,10 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
       // noop
   }
 });
+
+function getActualSearchYears() {
+  return _actualSearchYears;
+}
 
 function getFetchingData() {
   return Boolean(_fetchingData);

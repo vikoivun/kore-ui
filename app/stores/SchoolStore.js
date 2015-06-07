@@ -23,6 +23,7 @@ import BaseStore from './BaseStore';
 import BuildingStore from './BuildingStore';
 import PrincipalStore from './PrincipalStore';
 import SchoolBuildingStore from './SchoolBuildingStore';
+import SearchStore from './SearchStore';
 
 let _schools = {};
 let _fetchingData = false;
@@ -171,7 +172,8 @@ function getSearchDetails(schoolIds, query) {
       school.names,
       {keys: ['officialName']}
     );
-    const names = nameSearchIndex.search(query);
+    let names = nameSearchIndex.search(query);
+    names = _filterOutNamesOutsideTimelineRange(names);
 
     _.each(names, function(name) {
       const location = _.first(getLocationsForYear(school, name.beginYear)) || {};
@@ -225,6 +227,24 @@ function getSearchDetailsForItem(schoolId, item) {
 
 function hasSchool(schoolId) {
   return typeof _schools[schoolId] !== 'undefined';
+}
+
+function _filterOutNamesOutsideTimelineRange(names) {
+  const searchYears = SearchStore.getActualSearchYears();
+  const start = searchYears[0] || 0;
+  const end = searchYears[1] || new Date().getFullYear();
+
+  return _.filter(names, function(name) {
+    if (name.beginYear && name.endYear) {
+      return inBetween(name.beginYear, start, end) || inBetween(name.endYear, start, end);
+    } else if (name.beginYear) {
+      return name.beginYear <= end;
+    } else if (name.endYear) {
+      return name.endYear >= start;
+    } else {
+      return true;
+    }
+  });
 }
 
 function _getLatestYear(school) {
