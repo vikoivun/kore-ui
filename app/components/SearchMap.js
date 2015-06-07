@@ -16,10 +16,10 @@ class SearchMap extends BaseMap {
       .setView(HELSINKI_COORDINATES, MAP_ZOOM);
     this.updateTileLayer(this.props.selectedMapYear);
     this.markerGroup.addTo(this.map);
-
     if (this.props.schoolList.length) {
       this.addMarkers(this.props.schoolList);
     }
+    this.shouldAddMarkers = false;
   }
 
   componentWillUpdate(nextProps) {
@@ -28,6 +28,10 @@ class SearchMap extends BaseMap {
     const isLoadingData = nextProps.fetchingData && !schools.length;
     const hasNewSchools = schools.length && schools.length !== _.keys(this.markers).length;
 
+    if (hasNewSchools) {
+      this.shouldAddMarkers = true;
+    }
+
     if (nextProps.selectedMapYear) {
       this.updateTileLayer(nextProps.selectedMapYear);
     }
@@ -35,7 +39,9 @@ class SearchMap extends BaseMap {
     if (isLoadingData) {
       this.markerGroup.clearLayers();
       this.markers = {};
-    } else if (hasNewSchools) {
+    }
+
+    if (this.shouldAddMarkers && !nextProps.fetchingData) {
       this.addMarkers(nextProps.schoolList);
     } else if (!nextProps.fetchingData && selectedMarker) {
       this.map.panTo(selectedMarker.getLatLng());
@@ -50,6 +56,7 @@ class SearchMap extends BaseMap {
         this.markerGroup.addLayer(this.markers[school.location.id]);
       }
     }, this);
+    this.shouldAddMarkers = false;
     const bounds = this.markerGroup.getBounds();
     this.map.fitBounds(bounds, {maxZoom: MAP_MAX_ZOOM, padding: [50, 50]});
   }
