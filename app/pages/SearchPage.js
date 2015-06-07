@@ -12,6 +12,7 @@ import SearchTableView from '../components/SearchTableView';
 import SearchTimeline from '../components/SearchTimeline';
 import BuildingStore from '../stores/BuildingStore';
 import PrincipalStore from '../stores/PrincipalStore';
+import SchoolBuildingStore from '../stores/SchoolBuildingStore';
 import SchoolStore from '../stores/SchoolStore';
 import SearchStore from '../stores/SearchStore';
 
@@ -27,6 +28,7 @@ function getStateFromStores() {
     searchQuery: SearchStore.getSearchQuery(),
     nameResults: SchoolStore.getSchoolNameSearchDetails(searchResults.schools, searchQuery),
     nextPagesUrlDict: SearchStore.getNextPagesUrlDict(),
+    buildingResults: SchoolBuildingStore.getSearchDetails(searchResults.buildings),
     principalResults: PrincipalStore.getPrincipalSearchDetails(searchResults.principals),
     selectedMapYear: SearchStore.getSelectedMapYear(),
     selectedSchool: SearchStore.getSelectedSchool(),
@@ -62,6 +64,7 @@ class SearchPage extends React.Component {
 
   renderSearchResultsView() {
     const commonViewProps = {
+      buildingResults: this.state.buildingResults,
       fetchingData: this.state.fetchingData,
       nameResults: this.state.nameResults,
       nextPagesUrlDict: this.state.nextPagesUrlDict,

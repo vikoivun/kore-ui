@@ -38,6 +38,7 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
   getSearchDetails: getItemByIdWrapper(getSearchDetails, _schools),
   getSchoolNameSearchDetails,
+  getSearchResultsForBuilding,
   getSearchResultsForPrincipal,
   getSchoolYearDetailsForNameInPeriod: getItemByIdWrapper(
     getSchoolYearDetailsForNameInPeriod,
@@ -214,6 +215,32 @@ function getSchoolNameSearchDetails(schoolIds, query) {
     });
   });
   return _.sortBy(searchDetails, 'id');
+}
+
+function getSearchResultsForBuilding(schoolId, item) {
+  let searchDetails = [];
+  const school = _schools[schoolId];
+  if (_.isEmpty(school)) {
+    return [];
+  }
+
+  const names = _getNamesForTimeSpan(school, item.beginYear, item.endYear);
+  _.each(_.sortBy(names, 'beginYear'), function(name, index) {
+    const beginYear = index === 0 ? item.beginYear || name.beginYear : name.beginYear;
+    const endYear = index === name.length - 1 ? item.endYear || name.endYear : name.endYear;
+    searchDetails.push(
+      {
+        beginYear: beginYear,
+        endYear: endYear,
+        id: school.id + '-' + name.id + '-' + item.id,
+        name: name.officialName,
+        extraInfo: item.name,
+        schoolId: school.id,
+        type: item.type
+      }
+    );
+  });
+  return searchDetails;
 }
 
 function getSearchResultsForPrincipal(schoolId, principal) {

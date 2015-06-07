@@ -206,7 +206,9 @@ function _hasResults() {
 
 function _receiveSearchResponse(searchResponse, resultsContent) {
   _nextPagesUrlDict[resultsContent] = searchResponse.next;
-  _searchResults[resultsContent] = _searchResults[resultsContent].concat(searchResponse.results);
+  _searchResults[resultsContent] = _searchResults[resultsContent].concat(
+    _.uniq(searchResponse.results)
+  );
 }
 
 function _receiveFilterResponse(responseResults, resource) {

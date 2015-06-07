@@ -28,7 +28,7 @@ class SearchTableView extends React.Component {
       <tr key={result.id}>
         <td>{this.getSchoolLink(result)}</td>
         <td>{result.type}-{result.id}</td>
-        <td>{result.principalName}</td>
+        <td>{result.principalName}{result.extraInfo}</td>
         <td>
           {result.beginYear}
           <i className='fa fa-lg fa-long-arrow-right'/>
@@ -39,15 +39,20 @@ class SearchTableView extends React.Component {
   }
 
   getTableRows() {
-    const nameResults = _.map(this.props.nameResults, (result) => this.getTableRow(result));
+    const buildingResults = _.map(
+      this.props.buildingResults, (result) => this.getTableRow(result)
+    );
+    const nameResults = _.map(
+      this.props.nameResults, (result) => this.getTableRow(result)
+    );
     const principalResults = _.map(
       this.props.principalResults, (result) => this.getTableRow(result)
     );
-    return nameResults.concat(principalResults);
+    return nameResults.concat(principalResults, buildingResults);
   }
 
-  renderSearchResults() {
-    if (this.props.nameResults.length) {
+  renderSearchResults(resultsLength) {
+    if (resultsLength) {
       return (
         <table className='table table-striped'>
           <thead>
@@ -69,7 +74,12 @@ class SearchTableView extends React.Component {
   }
 
   render() {
-    const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
+    const resultsLength = (
+      this.props.buildingResults.length +
+      this.props.nameResults.length +
+      this.props.principalResults
+    );
+    const loading = this.props.fetchingData && resultsLength;
     let loadMore;
     if (!_.isEmpty(this.props.nextPagesUrlDict)) {
       loadMore = (
@@ -82,7 +92,7 @@ class SearchTableView extends React.Component {
     if (this.props.somethingWasSearched) {
       return (
         <Loader loaded={!loading}>
-          {this.renderSearchResults()}
+          {this.renderSearchResults(resultsLength)}
           {loadMore}
         </Loader>
       );
@@ -92,6 +102,7 @@ class SearchTableView extends React.Component {
 }
 
 SearchTableView.propTypes = {
+  buildingResults: React.PropTypes.array.isRequired,
   fetchingData: React.PropTypes.bool,
   nameResults: React.PropTypes.array.isRequired,
   nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
