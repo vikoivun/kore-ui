@@ -59,11 +59,8 @@ class SearchPage extends React.Component {
     );
 
     const commonViewProps = {
-      buildingResults: this.state.buildingResults,
       fetchingData: this.state.fetchingData,
-      nameResults: this.state.nameResults,
       nextPagesUrlDict: this.state.nextPagesUrlDict,
-      principalResults: this.state.principalResults,
       schoolList: schoolList,
       somethingWasSearched: this.state.somethingWasSearched
     };

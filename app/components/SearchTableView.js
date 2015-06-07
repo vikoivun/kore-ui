@@ -35,20 +35,13 @@ class SearchTableView extends React.Component {
   }
 
   getTableRows() {
-    const buildingResults = _.map(
-      this.props.buildingResults, (result) => this.getTableRow(result)
+    return _.map(
+      this.props.schoolList, (result) => this.getTableRow(result)
     );
-    const nameResults = _.map(
-      this.props.nameResults, (result) => this.getTableRow(result)
-    );
-    const principalResults = _.map(
-      this.props.principalResults, (result) => this.getTableRow(result)
-    );
-    return nameResults.concat(principalResults, buildingResults);
   }
 
-  renderSearchResults(resultsLength) {
-    if (resultsLength) {
+  renderSearchResults() {
+    if (this.props.schoolList.length) {
       return (
         <table className='table table-striped search-table'>
           <thead>
@@ -69,12 +62,7 @@ class SearchTableView extends React.Component {
   }
 
   render() {
-    const resultsLength = (
-      this.props.buildingResults.length +
-      this.props.nameResults.length +
-      this.props.principalResults
-    );
-    const loading = this.props.fetchingData && resultsLength;
+    const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
     let loadMore;
     if (!_.isEmpty(this.props.nextPagesUrlDict)) {
       loadMore = (
@@ -87,7 +75,7 @@ class SearchTableView extends React.Component {
     if (this.props.somethingWasSearched) {
       return (
         <Loader loaded={!loading}>
-          {this.renderSearchResults(resultsLength)}
+          {this.renderSearchResults()}
           {loadMore}
         </Loader>
       );
@@ -97,11 +85,9 @@ class SearchTableView extends React.Component {
 }
 
 SearchTableView.propTypes = {
-  buildingResults: React.PropTypes.array.isRequired,
   fetchingData: React.PropTypes.bool,
-  nameResults: React.PropTypes.array.isRequired,
   nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
-  principalResults: React.PropTypes.array.isRequired,
+  schoolList: React.PropTypes.array.isRequired,
   somethingWasSearched: React.PropTypes.bool.isRequired
 };
 
