@@ -62,7 +62,7 @@ const itemGenerator = {
         boxContent: getBoxContent(field),
         className: 'details-field',
         key: 'school-field-' + index,
-        name: field.field.description,
+        name: field.field.name,
         selected: inBetween(selectedYear, field.beginYear, field.endYear)
       };
     }).reverse();
