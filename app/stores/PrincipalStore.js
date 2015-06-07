@@ -31,7 +31,7 @@ PrincipalStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
       _fetchingData = false;
-      _receivePrincipals(action.response.entities.principals);
+      _receivePrincipals(action.response.entities);
       PrincipalStore.emitChange();
       break;
 
