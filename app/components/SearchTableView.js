@@ -106,10 +106,7 @@ SearchTableView.propTypes = {
   fetchingData: React.PropTypes.bool,
   nameResults: React.PropTypes.array.isRequired,
   nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
-  principalList: React.PropTypes.array.isRequired,
   principalResults: React.PropTypes.array.isRequired,
-  schoolBuildingList: React.PropTypes.array.isRequired,
-  schoolList: React.PropTypes.array.isRequired,
   somethingWasSearched: React.PropTypes.bool.isRequired
 };
 

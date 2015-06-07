@@ -3,11 +3,13 @@
 import _ from 'lodash';
 import Fuse from 'fuse.js';
 
-import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
-import BaseStore from './BaseStore';
-import BuildingStore from './BuildingStore';
-import PrincipalStore from './PrincipalStore';
+import AppDispatcher from '../core/AppDispatcher';
+import {
+  getAssociationData,
+  getAssociationObject,
+  parseAssociationData
+} from '../core/storeUtils';
 import {
   getAddressString,
   getItemByIdWrapper,
@@ -16,11 +18,10 @@ import {
   inBetween,
   sortByYears
 } from '../core/utils';
-import {
-  getAssociationData,
-  getAssociationObject,
-  parseAssociationData
-} from '../core/storeUtils';
+import BaseStore from './BaseStore';
+import BuildingStore from './BuildingStore';
+import PrincipalStore from './PrincipalStore';
+import SchoolBuildingStore from './SchoolBuildingStore';
 
 let _schools = {};
 let _fetchingData = false;
@@ -31,26 +32,20 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getFetchingData,
   getLocationsForYear: getItemByIdWrapper(getLocationsForYear, _schools),
   getNameInSelectedYear: getItemByIdWrapper(getNameInSelectedYear, _schools),
-  getNameYearsInPeriod: getItemByIdWrapper(getNameYearsInPeriod, _schools, []),
   getSchool: getItemByIdWrapper(getSchool, _schools),
   getSchoolDetails: getItemByIdWrapper(getSchoolDetails, _schools),
-  getSchoolsYearDetails,
   getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
-  getSearchDetails: getItemByIdWrapper(getSearchDetails, _schools),
-  getSchoolNameSearchDetails,
-  getSearchResultsForBuilding,
-  getSearchResultsForPrincipal,
-  getSchoolYearDetailsForNameInPeriod: getItemByIdWrapper(
-    getSchoolYearDetailsForNameInPeriod,
-    _schools
-  ),
+  getSchoolsYearDetails,
+  getSearchDetails,
+  getSearchDetailsForItem,
   hasSchool
 });
 
 SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
   AppDispatcher.waitFor([
     BuildingStore.dispatchToken,
-    PrincipalStore.dispatchToken
+    PrincipalStore.dispatchToken,
+    SchoolBuildingStore.dispatchToken
   ]);
 
   const action = payload.action;
@@ -96,14 +91,14 @@ function getBuildingForYear(school, year) {
   return getItemForYear(school.buildings, year) || {};
 }
 
+function getFetchingData() {
+  return _fetchingData;
+}
+
 function getLocationsForYear(school, year) {
   year = year || _getLatestYear(school);
   const buildings = getItemsForYear(school.buildings, year);
   return BuildingStore.getLocationsForYear(_.pluck(buildings, 'id'), year);
-}
-
-function getFetchingData() {
-  return _fetchingData;
 }
 
 function getNameInSelectedYear(school, year) {
@@ -128,6 +123,12 @@ function getSchoolDetails(school, selectedYear) {
     selectedYear: selectedYear,
     types: school.types
   };
+}
+
+function getSchoolsYearDetails(schoolIds, year) {
+  return _.map(schoolIds, function(id) {
+    return SchoolStore.getSchoolYearDetails(id, year);
+  }, this);
 }
 
 function getSchoolYearDetails(school, year) {
@@ -155,39 +156,7 @@ function getSchoolYearDetails(school, year) {
   };
 }
 
-function getNameYearsInPeriod(school, beginYear, endYear) {
-  let years = [beginYear];
-  _.each(school.names.reverse(), function(name) {
-    if (inBetween(name.beginYear, beginYear + 1, endYear, true)) {
-      years.push(name.beginYear);
-    }
-  });
-  return _.uniq(years);
-}
-
-function getSchoolYearDetailsForNameInPeriod(school, items) {
-  return _.map(items, function(item) {
-    const years = getNameYearsInPeriod(
-      school,
-      item.beginYear,
-      item.endYear
-    );
-    return _.map(years, function(year) {
-      return getSchoolYearDetails(school, year);
-    });
-  });
-}
-
-function getSearchDetails(school, query) {
-  let nameSearchIndex = new Fuse(
-    school.names,
-    {keys: ['officialName', 'otherNames']}
-  );
-  const names = nameSearchIndex.search(query);
-  return getSchoolYearDetailsForNameInPeriod(school, names);
-}
-
-function getSchoolNameSearchDetails(schoolIds, query) {
+function getSearchDetails(schoolIds, query) {
   let searchDetails = [];
   _.each(schoolIds, function(schoolId) {
     const school = _schools[schoolId];
@@ -217,7 +186,7 @@ function getSchoolNameSearchDetails(schoolIds, query) {
   return _.sortBy(searchDetails, 'id');
 }
 
-function getSearchResultsForBuilding(schoolId, item) {
+function getSearchDetailsForItem(schoolId, item) {
   let searchDetails = [];
   const school = _schools[schoolId];
   if (_.isEmpty(school)) {
@@ -234,45 +203,13 @@ function getSearchResultsForBuilding(schoolId, item) {
         endYear: endYear,
         id: school.id + '-' + name.id + '-' + item.id,
         name: name.officialName,
-        extraInfo: item.name,
+        extraInfo: item.extraInfo,
         schoolId: school.id,
         type: item.type
       }
     );
   });
   return searchDetails;
-}
-
-function getSearchResultsForPrincipal(schoolId, principal) {
-  let searchDetails = [];
-  const school = _schools[schoolId];
-  if (_.isEmpty(school)) {
-    return [];
-  }
-
-  const names = _getNamesForTimeSpan(school, principal.beginYear, principal.endYear);
-  _.each(_.sortBy(names, 'beginYear'), function(name, index) {
-    const beginYear = index === 0 ? principal.beginYear || name.beginYear : name.beginYear;
-    const endYear = index === name.length - 1 ? principal.endYear || name.endYear : name.endYear;
-    searchDetails.push(
-      {
-        beginYear: beginYear,
-        endYear: endYear,
-        id: school.id + '-' + name.id + '-' + principal.id,
-        name: name.officialName,
-        principalName: principal.name,
-        schoolId: school.id,
-        type: 'principal-result'
-      }
-    );
-  });
-  return searchDetails;
-}
-
-function getSchoolsYearDetails(schoolIds, year) {
-  return _.map(schoolIds, function(id) {
-    return SchoolStore.getSchoolYearDetails(id, year);
-  }, this);
 }
 
 function hasSchool(schoolId) {

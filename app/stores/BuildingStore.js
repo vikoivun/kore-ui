@@ -1,29 +1,24 @@
 'use strict';
 
 import _ from 'lodash';
-import Fuse from 'fuse.js';
 
-import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
-import BaseStore from './BaseStore';
-import SchoolStore from './SchoolStore';
-import SchoolBuildingStore from './SchoolBuildingStore';
+import AppDispatcher from '../core/AppDispatcher';
 import {
   getAddressString,
   getItemByIdWrapper,
   inBetween,
   sortByYears
 } from '../core/utils';
+import BaseStore from './BaseStore';
 
 let _fetchingData = false;
 let _buildings = {};
 
-
 const BuildingStore = Object.assign({}, BaseStore, {
   getBuilding: getItemByIdWrapper(getBuilding, _buildings),
   getFetchingData,
-  getLocationsForYear,
-  getSearchDetails: getItemByIdWrapper(getSearchDetails, _buildings)
+  getLocationsForYear
 });
 
 BuildingStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -52,37 +47,12 @@ BuildingStore.dispatchToken = AppDispatcher.register(function(payload) {
   }
 });
 
-function getFetchingData() {
-  return _fetchingData;
-}
-
 function getBuilding(building) {
   return building;
 }
 
-function getSearchDetails(building, schoolId, query) {
-  let addressSearchIndex = new Fuse(
-    building.addresses,
-    {keys: [
-      'municipalityFi',
-      'municipalitySv',
-      'streetNameFi',
-      'streetNameSv'
-    ]}
-  );
-  const schoolBuilding = SchoolBuildingStore.getSchoolBuilding(schoolId + '-' + building.id);
-  const addresses = addressSearchIndex.search(query);
-  const schoolBuildingAdddresses = addresses.map(function(address) {
-    let _address = _.clone(address);
-    if (_address.beginYear < schoolBuilding.beginYear) {
-      _address.beginYear = schoolBuilding.beginYear;
-    }
-    if (_address.endYear > schoolBuilding.endYear) {
-      _address.endYear = schoolBuilding.endYear;
-    }
-    return _address;
-  });
-  return SchoolStore.getSchoolYearDetailsForNameInPeriod(schoolId, schoolBuildingAdddresses);
+function getFetchingData() {
+  return _fetchingData;
 }
 
 function getLocationsForYear(buildingIds, year) {

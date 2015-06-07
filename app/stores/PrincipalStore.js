@@ -1,12 +1,13 @@
 'use strict';
 
 import _ from 'lodash';
-import AppDispatcher from '../core/AppDispatcher';
+
 import ActionTypes from '../constants/ActionTypes';
+import AppDispatcher from '../core/AppDispatcher';
+import {getAssociationData, parseAssociationData} from '../core/storeUtils';
+import {getItemByIdWrapper, sortByYears} from '../core/utils';
 import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
-import {getItemByIdWrapper, sortByYears} from '../core/utils';
-import {getAssociationData, parseAssociationData} from '../core/storeUtils';
 
 let _fetchingData = false;
 let _principals = {};
@@ -15,8 +16,7 @@ const PrincipalStore = Object.assign({}, BaseStore, {
   getFetchingData,
   getPrincipal: getItemByIdWrapper(getPrincipal, _principals),
   getPrincipalDetails: getItemByIdWrapper(getPrincipalDetails, _principals),
-  getPrincipalSearchDetails,
-  getSearchDetails: getItemByIdWrapper(getSearchDetails, _principals)
+  getSearchDetails
 });
 
 PrincipalStore.dispatchToken = AppDispatcher.register(function(payload) {
@@ -67,21 +67,7 @@ function getPrincipalDetails(principal) {
   return principal;
 }
 
-
-function getSearchDetails(principal) {
-  return _.map(principal.employers, function(employer) {
-    const years = SchoolStore.getNameYearsInPeriod(
-      employer.id,
-      employer.beginYear,
-      employer.endYear
-    );
-    return _.map(years, function(year) {
-      return SchoolStore.getSchoolYearDetails(employer.id, year);
-    });
-  });
-}
-
-function getPrincipalSearchDetails(principalIds) {
+function getSearchDetails(principalIds) {
   let searchDetails = [];
   _.each(principalIds, function(principalId) {
     const principal = _principals[principalId];
@@ -90,13 +76,14 @@ function getPrincipalSearchDetails(principalIds) {
     }
 
     _.each(principal.employers, function(employment) {
-      const schoolPrincipal = {
+      const item = {
         beginYear: employment.beginYear,
         endYear: employment.endYear,
         id: principalId,
-        name: principal.name
+        extraInfo: principal.name,
+        type: 'principal'
       };
-      const results = SchoolStore.getSearchResultsForPrincipal(employment.id, schoolPrincipal);
+      const results = SchoolStore.getSearchDetailsForItem(employment.id, item);
       searchDetails = searchDetails.concat(results);
     });
   });
