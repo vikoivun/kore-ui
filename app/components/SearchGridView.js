@@ -7,25 +7,53 @@ import {Link} from 'react-router';
 
 import InfoRow from './InfoRow';
 import SearchLoadMore from './SearchLoadMore';
-import {processBasicInfoRow, getImageUrl} from '../core/utils';
-
+import {getLinkProps} from '../core/utils';
 
 function getInfoRow(row) {
   delete row.boxContent;
   return <InfoRow {...row}/>;
 }
 
+function processGridInfoRow(details) {
+  if (_.isEmpty(details.name)) {
+    return [];
+  }
+  let items = [
+    {
+      key: 'school-name-' + details.name.id,
+      className: 'details-school-name',
+      name: details.name
+    }
+  ];
+  if (details.type === 'principal') {
+    items.push({
+      key: 'principal-' + details.id,
+      className: 'details-principal',
+      name: details.extraInfo
+    });
+  }
+  if (details.type === 'building') {
+    items.push({
+      key: 'building-' + details.id,
+      className: 'details-building',
+      name: details.extraInfo
+    });
+  }
+  return items;
+}
+
 function processSchool(school) {
   const schoolImageStyles = {
-    backgroundImage: 'url(' + getImageUrl(school.building) + ')'
+    backgroundImage: 'url(' + school.imageUrl + ')'
   };
+  const linkProps = getLinkProps(school);
   return (
     <div className='school-grid-wrapper'>
-      <Link params={{schoolId: school.id}} to='school'>
+      <Link {...linkProps}>
         <div className='school-grid'>
           <div className='school-image' style={schoolImageStyles}></div>
           <ol className='school-grid-details-list'>
-            {processBasicInfoRow(school).map(getInfoRow)}
+            {processGridInfoRow(school).map(getInfoRow)}
           </ol>
         </div>
       </Link>
@@ -36,7 +64,7 @@ function processSchool(school) {
 function getSchoolRow(schools) {
   return (
     <div className='school-grid-row'>
-        {schools.map(processSchool)}
+      {schools.map(processSchool)}
     </div>
   );
 }

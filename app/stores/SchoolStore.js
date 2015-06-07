@@ -12,6 +12,7 @@ import {
 } from '../core/storeUtils';
 import {
   getAddressString,
+  getImageUrl,
   getItemByIdWrapper,
   getItemForYear,
   getItemsForYear,
@@ -180,6 +181,7 @@ function getSearchDetails(schoolIds, query) {
           beginYear: name.beginYear,
           endYear: name.endYear,
           id: school.id + '-' + name.id,
+          imageUrl: getImageUrl(getBuildingForYear(school, name.beginYear)),
           location: location,
           name: name.officialName,
           schoolId: school.id,
@@ -209,6 +211,7 @@ function getSearchDetailsForItem(schoolId, item) {
         beginYear: beginYear,
         endYear: endYear,
         id: school.id + '-' + name.id + '-' + item.id,
+        imageUrl: getImageUrl(getBuildingForYear(school, beginYear)),
         location: location,
         name: name.officialName,
         extraInfo: item.extraInfo,

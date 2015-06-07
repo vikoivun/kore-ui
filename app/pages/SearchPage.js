@@ -54,12 +54,17 @@ class SearchPage extends React.Component {
   }
 
   renderSearchResultsView() {
+    const schoolList = this.state.nameResults.concat(
+      this.state.buildingResults, this.state.principalResults
+    );
+
     const commonViewProps = {
       buildingResults: this.state.buildingResults,
       fetchingData: this.state.fetchingData,
       nameResults: this.state.nameResults,
       nextPagesUrlDict: this.state.nextPagesUrlDict,
       principalResults: this.state.principalResults,
+      schoolList: schoolList,
       somethingWasSearched: this.state.somethingWasSearched
     };
 
@@ -71,14 +76,9 @@ class SearchPage extends React.Component {
       return <SearchTableView {...commonViewProps} />;
     }
 
-    const schoolList = this.state.nameResults.concat(
-      this.state.buildingResults, this.state.principalResults
-    );
-
     const mapViewProps = _.assign(commonViewProps, {
       filters: this.state.filters,
       searchQuery: this.state.searchQuery,
-      schoolList: schoolList,
       selectedMapYear: this.state.selectedMapYear,
       selectedSchoolId: this.state.selectedSchoolId,
       years: this.state.years

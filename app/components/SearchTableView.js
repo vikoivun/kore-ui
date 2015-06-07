@@ -6,18 +6,12 @@ import Loader from 'react-loader';
 import {Link} from 'react-router';
 
 import SearchLoadMore from './SearchLoadMore';
+import {getLinkProps} from '../core/utils';
 
 class SearchTableView extends React.Component {
 
   getSchoolLink(result) {
-    let linkProps = {
-      params: {schoolId: result.schoolId},
-      to: 'school'
-    };
-    if (result.beginYear) {
-      linkProps.params.year = result.beginYear;
-      linkProps.to = 'school-with-year';
-    }
+    const linkProps = getLinkProps(result);
     return (
       <Link {...linkProps}>{result.name}</Link>
     );

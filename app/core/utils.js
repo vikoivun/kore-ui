@@ -75,6 +75,18 @@ function inBetween(year, beginYear, endYear, closedEndYear) {
   return _.inRange(year, beginYear, endYear + delta);
 }
 
+function getLinkProps(searchResult) {
+  let linkProps = {
+    params: {schoolId: searchResult.schoolId},
+    to: 'school'
+  };
+  if (searchResult.beginYear) {
+    linkProps.params.year = searchResult.beginYear;
+    linkProps.to = 'school-with-year';
+  }
+  return linkProps;
+}
+
 function processBasicInfoRow(details, extended) {
   if (_.isEmpty(details.name)) {
     return [];
@@ -146,6 +158,7 @@ export default {
   getItemForYear,
   getItemsForYear,
   inBetween,
+  getLinkProps,
   processBasicInfoRow,
   sortByYears
 };
