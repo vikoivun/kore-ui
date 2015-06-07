@@ -58,7 +58,11 @@ function getFetchingData() {
 function getLocationsForYear(buildingIds, year) {
   let locations = [];
   _.each(buildingIds, function(buildingId) {
-    const address = _.find(_buildings[buildingId].addresses, function(current) {
+    const building = _buildings[buildingId];
+    if (_.isEmpty(building)) {
+      return;
+    }
+    const address = _.find(building.addresses, function(current) {
       return inBetween(year, current.beginYear, current.endYear) && !_.isEmpty(current.location);
     }) || {};
     const locationId = buildingId + '-' + address.id;
