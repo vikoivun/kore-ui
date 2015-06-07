@@ -1,0 +1,50 @@
+@search-table-row-height: 30px;
+
+table.search-table tbody tr {
+  td {
+    position: relative;
+    line-height: @search-table-row-height;
+
+    &.with-icon {
+      padding-left: @info-row-logo-side-size + 20px;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 10px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: @info-row-logo-side-size;
+        height: @info-row-logo-side-size;
+        line-height: @search-table-row-height;
+      }
+    }
+
+    &.school-name {
+      &:before {
+        background-image: url('../images/pencil.svg');
+        background-size: 15px;
+      }
+    }
+    
+    &.building {
+      &:before {
+        background-image: url('../images/building.svg');
+        background-size: 20px;
+      }
+    }
+
+    &.principal {
+      &:before {
+        background-image: url('../images/principal.svg');
+        background-size: 25px;
+      }
+    }
+
+    i {
+      margin: 0 6px;
+    }
+  }
+
+
+}
