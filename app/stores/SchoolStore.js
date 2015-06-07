@@ -171,11 +171,14 @@ function getSearchDetails(schoolIds, query) {
     const names = nameSearchIndex.search(query);
 
     _.each(names, function(name) {
+      const location = _.first(getLocationsForYear(school, name.beginYear)) || {};
+      location.id = !_.isEmpty(location) ? `${name.id}-${location.id}` : null;
       searchDetails.push(
         {
           beginYear: name.beginYear,
           endYear: name.endYear,
           id: school.id + '-' + name.id,
+          location: location,
           name: name.officialName,
           schoolId: school.id,
           type: 'school-name'
@@ -197,11 +200,14 @@ function getSearchDetailsForItem(schoolId, item) {
   _.each(_.sortBy(names, 'beginYear'), function(name, index) {
     const beginYear = index === 0 ? item.beginYear || name.beginYear : name.beginYear;
     const endYear = index === name.length - 1 ? item.endYear || name.endYear : name.endYear;
+    const location = _.first(getLocationsForYear(school, beginYear)) || {};
+    location.id = !_.isEmpty(location) ? `${name.id}-${location.id}` : null;
     searchDetails.push(
       {
         beginYear: beginYear,
         endYear: endYear,
         id: school.id + '-' + name.id + '-' + item.id,
+        location: location,
         name: name.officialName,
         extraInfo: item.extraInfo,
         schoolId: school.id,
