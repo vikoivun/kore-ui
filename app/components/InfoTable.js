@@ -75,7 +75,7 @@ class InfoTable extends React.Component {
     return (
       <section className='info-table'>
         <header>
-          <h2>{this.props.title}</h2>
+          <h3>{this.props.title}</h3>
         </header>
         <div className='info-table-columns'>
           <ol className='column column-one'>

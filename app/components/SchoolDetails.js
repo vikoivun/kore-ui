@@ -135,6 +135,9 @@ class SchoolDetails extends React.Component {
     return (
       <div className='container'>
         <section className='school-details'>
+          <header>
+            <h2>Koulun historiakehitys</h2>
+          </header>
           <InfoTable
             expandable={false}
             items={itemGenerator.names(details.names, selectedYear)}
