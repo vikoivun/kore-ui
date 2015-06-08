@@ -93,12 +93,6 @@ function processBasicInfoRow(details, extended) {
   }
   let items = [
     {
-      key: 'school-name-' + details.name.id,
-      className: 'details-school-name',
-      name: details.name.officialName,
-      boxContent: getBoxContent(details.name)
-    },
-    {
       key: 'principal-' + details.principal.id,
       className: 'details-principal',
       name: details.principal.name,
