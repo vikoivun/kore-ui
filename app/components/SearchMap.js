@@ -16,10 +16,10 @@ class SearchMap extends BaseMap {
       .setView(HELSINKI_COORDINATES, MAP_ZOOM);
     this.updateTileLayer(this.props.selectedMapYear);
     this.markerGroup.addTo(this.map);
-    if (this.props.schoolList.length) {
-      this.addMarkers(this.props.schoolList);
-    }
     this.shouldAddMarkers = false;
+    if (this.props.schoolList.length) {
+      this.shouldAddMarkers = true;
+    }
   }
 
   componentWillUpdate(nextProps) {
