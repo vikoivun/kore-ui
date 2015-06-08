@@ -128,7 +128,8 @@ class SchoolDetails extends React.Component {
   render() {
     const details = this.props.details;
     const selectedYear = details.selectedYear;
-    const schoolTypeGroup = itemGenerator.fields(details.fields, selectedYear).concat(
+    const schoolTypeGroup = itemGenerator.types(details.types, selectedYear).concat(
+      itemGenerator.fields(details.fields, selectedYear),
       itemGenerator.languages(details.languages, selectedYear),
       itemGenerator.genders(details.genders, selectedYear)
     );
@@ -165,11 +166,6 @@ class SchoolDetails extends React.Component {
             expandable={true}
             items={itemGenerator.principals(details.principals, selectedYear)}
             title={'Rehtorit'}
-          />
-          <InfoTable
-            expandable={true}
-            items={itemGenerator.types(details.types, selectedYear)}
-            title={'Koulun tyypit'}
           />
           <InfoTable
             expandable={true}
