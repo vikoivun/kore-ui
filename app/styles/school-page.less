@@ -81,7 +81,7 @@
 
   }
   .school-map {
-    .make-column(4,4);
+    .make-column(4, 4);
     position: relative;
     height: @school-image-map-height;
     background-color: @background-main-color;
@@ -89,8 +89,13 @@
     overflow: hidden;
 
     .leaflet-container {
-      width: 100%;
+      width: 80%;
+      margin: 0 10%;
       height: 400px;
+      @media (min-width: @screen-sm-min) {
+          width: 100%;
+          margin: 0;
+      }
     }
 
     .location-undefined-overlay {
