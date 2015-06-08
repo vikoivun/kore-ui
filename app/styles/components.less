@@ -17,6 +17,10 @@
     height: @info-row-logo-side-size;
   }
 
+  &.highlighted {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
   .info-name {
     .absolute-vertical-centering();
     padding-left: @info-row-logo-side-size + 10px;
@@ -27,10 +31,6 @@
     font-weight: 500;
     &.with-infobox {
       padding-right: @info-box-width + 10px;
-    }
-    &.selected {
-      font-weight: bold !important;
-      font-size: 1.3em !important;
     }
   }
 

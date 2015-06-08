@@ -19,7 +19,7 @@ const itemGenerator = {
         className: 'details-archive',
         key: 'school-archive-' + index,
         name: archive.location,
-        selected: inBetween(selectedYear, archive.beginYear, archive.endYear)
+        highlight: inBetween(selectedYear, archive.beginYear, archive.endYear)
       };
     }).reverse();
   },
@@ -52,7 +52,7 @@ const itemGenerator = {
         items: items,
         key: 'building-' + building.id,
         name: getAddressStringFromBuilding(building),
-        selected: inBetween(selectedYear, building.beginYear, building.endYear)
+        highlight: inBetween(selectedYear, building.beginYear, building.endYear)
       };
     }).reverse();
   },
@@ -63,7 +63,7 @@ const itemGenerator = {
         className: 'details-field',
         key: 'school-field-' + index,
         name: field.field.name,
-        selected: inBetween(selectedYear, field.beginYear, field.endYear)
+        highlight: inBetween(selectedYear, field.beginYear, field.endYear)
       };
     }).reverse();
   },
@@ -74,7 +74,7 @@ const itemGenerator = {
         className: 'details-gender',
         key: 'school-gender-' + index,
         name: gender.gender,
-        selected: inBetween(selectedYear, gender.beginYear, gender.endYear)
+        highlight: inBetween(selectedYear, gender.beginYear, gender.endYear)
       };
     }).reverse();
   },
@@ -85,7 +85,7 @@ const itemGenerator = {
         className: 'details-language',
         key: 'school-language-' + language.id,
         name: language.language,
-        selected: inBetween(selectedYear, language.beginYear, language.endYear)
+        highlight: inBetween(selectedYear, language.beginYear, language.endYear)
       };
     }).reverse();
   },
@@ -96,7 +96,7 @@ const itemGenerator = {
         className: 'details-school-name',
         key: 'school-name-' + name.id,
         name: name.officialName,
-        selected: inBetween(selectedYear, name.beginYear, name.endYear)
+        highlight: inBetween(selectedYear, name.beginYear, name.endYear)
       };
     }).reverse();
   },
@@ -107,7 +107,7 @@ const itemGenerator = {
         className: 'details-principal',
         key: 'principal-' + principal.id,
         name: principal.name,
-        selected: inBetween(selectedYear, principal.beginYear, principal.endYear)
+        highlight: inBetween(selectedYear, principal.beginYear, principal.endYear)
       };
     }).reverse();
   },
@@ -118,7 +118,7 @@ const itemGenerator = {
         className: 'details-building',
         key: 'school-type-' + index,
         name: type.type.name,
-        selected: inBetween(selectedYear, type.beginYear, type.endYear)
+        highlight: inBetween(selectedYear, type.beginYear, type.endYear)
       };
     }).reverse();
   }

@@ -63,10 +63,7 @@ class InfoRow extends React.Component {
   }
 
   getInfoName() {
-    let infoNameClassName = this.props.boxContent ? 'info-name with-infobox' : 'info-name';
-    if (this.props.selected) {
-      infoNameClassName += ' selected';
-    }
+    const infoNameClassName = this.props.boxContent ? 'info-name with-infobox' : 'info-name';
     const element = <div className={infoNameClassName}>{this.props.name}</div>;
     return element;
   }
@@ -79,6 +76,10 @@ class InfoRow extends React.Component {
     if (this.state.expandable) {
       liClassName += ' expandable';
     }
+    if (this.props.highlight) {
+      liClassName += ' highlighted';
+    }
+
     return (
       <div>
         <li className={liClassName}>
@@ -100,14 +101,14 @@ InfoRow.propTypes = {
     React.PropTypes.array
   ]),
   className: React.PropTypes.string,
+  highlight: React.PropTypes.bool,
   items: React.PropTypes.array,
   linkParams: React.PropTypes.object,
   linkTo: React.PropTypes.string,
   name: React.PropTypes.oneOfType([
     React.PropTypes.string.isRequired,
     React.PropTypes.array.isRequired
-  ]),
-  selected: React.PropTypes.bool
+  ])
 };
 
 InfoRow.defaultProps = {
