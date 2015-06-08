@@ -1,17 +1,23 @@
 'use strict';
 
 import _ from 'lodash';
-import AppDispatcher from '../core/AppDispatcher';
+
 import ActionTypes from '../constants/ActionTypes';
+import AppDispatcher from '../core/AppDispatcher';
+import {
+  getAddressString,
+  getItemByIdWrapper,
+  inBetween,
+  sortByYears
+} from '../core/utils';
 import BaseStore from './BaseStore';
-import {getAddressString, getItemByIdWrapper, inBetween, sortByYears} from '../core/utils';
 
 let _fetchingData = false;
 let _buildings = {};
 
 const BuildingStore = Object.assign({}, BaseStore, {
-  getFetchingData,
   getBuilding: getItemByIdWrapper(getBuilding, _buildings),
+  getFetchingData,
   getLocationsForYear
 });
 
@@ -41,18 +47,22 @@ BuildingStore.dispatchToken = AppDispatcher.register(function(payload) {
   }
 });
 
-function getFetchingData() {
-  return _fetchingData;
-}
-
 function getBuilding(building) {
   return building;
+}
+
+function getFetchingData() {
+  return _fetchingData;
 }
 
 function getLocationsForYear(buildingIds, year) {
   let locations = [];
   _.each(buildingIds, function(buildingId) {
-    const address = _.find(_buildings[buildingId].addresses, function(current) {
+    const building = _buildings[buildingId];
+    if (_.isEmpty(building)) {
+      return;
+    }
+    const address = _.find(building.addresses, function(current) {
       return inBetween(year, current.beginYear, current.endYear) && !_.isEmpty(current.location);
     }) || {};
     const locationId = buildingId + '-' + address.id;

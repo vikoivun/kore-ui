@@ -16,17 +16,21 @@ class SearchMap extends BaseMap {
       .setView(HELSINKI_COORDINATES, MAP_ZOOM);
     this.updateTileLayer(this.props.selectedMapYear);
     this.markerGroup.addTo(this.map);
-
+    this.shouldAddMarkers = false;
     if (this.props.schoolList.length) {
-      this.addMarkers(this.props.schoolList);
+      this.shouldAddMarkers = true;
     }
   }
 
   componentWillUpdate(nextProps) {
     const schools = nextProps.schoolList;
-    const selectedMarker = this.markers[nextProps.selectedSchool];
+    const selectedMarker = this.markers[nextProps.selectedSchoolId];
     const isLoadingData = nextProps.fetchingData && !schools.length;
     const hasNewSchools = schools.length && schools.length !== _.keys(this.markers).length;
+
+    if (hasNewSchools) {
+      this.shouldAddMarkers = true;
+    }
 
     if (nextProps.selectedMapYear) {
       this.updateTileLayer(nextProps.selectedMapYear);
@@ -35,7 +39,9 @@ class SearchMap extends BaseMap {
     if (isLoadingData) {
       this.markerGroup.clearLayers();
       this.markers = {};
-    } else if (hasNewSchools) {
+    }
+
+    if (this.shouldAddMarkers && !nextProps.fetchingData) {
       this.addMarkers(nextProps.schoolList);
     } else if (!nextProps.fetchingData && selectedMarker) {
       this.map.panTo(selectedMarker.getLatLng());
@@ -45,11 +51,12 @@ class SearchMap extends BaseMap {
 
   addMarkers(schools) {
     _.each(schools, function(school) {
-      if (!_.has(this.markers, school.id)) {
-        this.markers[school.id] = this.getMarker(school);
-        this.markerGroup.addLayer(this.markers[school.id]);
+      if (!_.has(this.markers, school.location.id)) {
+        this.markers[school.location.id] = this.getMarker(school);
+        this.markerGroup.addLayer(this.markers[school.location.id]);
       }
     }, this);
+    this.shouldAddMarkers = false;
     const bounds = this.markerGroup.getBounds();
     this.map.fitBounds(bounds, {maxZoom: MAP_MAX_ZOOM, padding: [50, 50]});
   }
@@ -63,12 +70,18 @@ class SearchMap extends BaseMap {
 
   getPopupContent(school) {
     let link = document.createElement('a');
-    link.innerHTML = `${school.name.officialName}`;
+    link.innerHTML = `${school.name}`;
     link.href = '#';
     link.className = 'school-popup-link';
     link.onclick = function(event) {
       event.preventDefault();
-      router.transitionTo('school', {schoolId: school.id});
+      if (school.beginYear) {
+        router.transitionTo(
+          'school-with-year', {schoolId: school.schoolId, year: school.beginYear}
+        );
+      } else {
+        router.transitionTo('school', {schoolId: school.schoolId});
+      }
     };
     return link;
   }
@@ -77,8 +90,8 @@ class SearchMap extends BaseMap {
 SearchMap.propTypes = {
   fetchingData: React.PropTypes.bool,
   schoolList: React.PropTypes.array.isRequired,
-  selectedMapYear: React.PropTypes.number,
-  selectedSchool: React.PropTypes.number
+  selectedMapYear: React.PropTypes.string,
+  selectedSchoolId: React.PropTypes.string
 };
 
 export default SearchMap;

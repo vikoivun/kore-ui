@@ -7,25 +7,62 @@ import {Link} from 'react-router';
 
 import InfoRow from './InfoRow';
 import SearchLoadMore from './SearchLoadMore';
-import {processBasicInfoRow, getImageUrl} from '../core/utils';
-
+import {getLinkProps} from '../core/utils';
 
 function getInfoRow(row) {
   delete row.boxContent;
   return <InfoRow {...row}/>;
 }
 
+function processGridInfoRow(details) {
+  if (_.isEmpty(details.name)) {
+    return [];
+  }
+  let items = [
+    {
+      key: 'school-name-' + details.name.id,
+      className: 'details-school-name',
+      name: details.name
+    }
+  ];
+  if (details.type === 'principal') {
+    items.push({
+      key: 'principal-' + details.id,
+      className: 'details-principal',
+      name: details.extraInfo
+    });
+  }
+  if (details.type === 'building') {
+    items.push({
+      key: 'building-' + details.id,
+      className: 'details-building',
+      name: details.extraInfo
+    });
+  }
+  items.push({
+    key: 'years-for-' + details.id,
+    className: 'details-years',
+    name: [
+      details.beginYear,
+      <i className='fa fa-lg fa-long-arrow-right'/>,
+      details.endYear
+    ]
+  });
+  return items;
+}
+
 function processSchool(school) {
   const schoolImageStyles = {
-    backgroundImage: 'url(' + getImageUrl(school.building) + ')'
+    backgroundImage: 'url(' + school.imageUrl + ')'
   };
+  const linkProps = getLinkProps(school);
   return (
     <div className='school-grid-wrapper'>
-      <Link params={{schoolId: school.id}} to='school'>
+      <Link {...linkProps}>
         <div className='school-grid'>
           <div className='school-image' style={schoolImageStyles}></div>
           <ol className='school-grid-details-list'>
-            {processBasicInfoRow(school).map(getInfoRow)}
+            {processGridInfoRow(school).map(getInfoRow)}
           </ol>
         </div>
       </Link>
@@ -36,7 +73,7 @@ function processSchool(school) {
 function getSchoolRow(schools) {
   return (
     <div className='school-grid-row'>
-        {schools.map(processSchool)}
+      {schools.map(processSchool)}
     </div>
   );
 }
@@ -58,11 +95,11 @@ class SearchGridView extends React.Component {
   render() {
     const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
     let loadMore;
-    if (this.props.nextPageUrl) {
+    if (!_.isEmpty(this.props.nextPagesUrlDict)) {
       loadMore = (
         <SearchLoadMore
           fetchingData={this.props.fetchingData}
-          url={this.props.nextPageUrl}
+          urls={this.props.nextPagesUrlDict}
         />
       );
     }
@@ -80,7 +117,7 @@ class SearchGridView extends React.Component {
 
 SearchGridView.propTypes = {
   fetchingData: React.PropTypes.bool,
-  nextPageUrl: React.PropTypes.string,
+  nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
   schoolList: React.PropTypes.array.isRequired,
   somethingWasSearched: React.PropTypes.bool.isRequired
 };

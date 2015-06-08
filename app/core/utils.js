@@ -68,10 +68,23 @@ function getItemsForYear(itemList, year) {
   });
 }
 
-function inBetween(year, beginYear, endYear) {
+function inBetween(year, beginYear, endYear, closedEndYear) {
   beginYear = beginYear || 0;
   endYear = endYear || 10000;
-  return _.inRange(year, beginYear, endYear + 1);
+  const delta = closedEndYear ? 0 : 1;
+  return _.inRange(year, beginYear, endYear + delta);
+}
+
+function getLinkProps(searchResult) {
+  let linkProps = {
+    params: {schoolId: searchResult.schoolId},
+    to: 'school'
+  };
+  if (searchResult.beginYear) {
+    linkProps.params.year = searchResult.beginYear;
+    linkProps.to = 'school-with-year';
+  }
+  return linkProps;
 }
 
 function processBasicInfoRow(details, extended) {
@@ -145,6 +158,7 @@ export default {
   getItemForYear,
   getItemsForYear,
   inBetween,
+  getLinkProps,
   processBasicInfoRow,
   sortByYears
 };

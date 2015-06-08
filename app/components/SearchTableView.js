@@ -1,34 +1,54 @@
 'use strict';
 
+import _ from 'lodash';
 import React from 'react';
 import Loader from 'react-loader';
 import {Link} from 'react-router';
 
 import SearchLoadMore from './SearchLoadMore';
+import {getLinkProps} from '../core/utils';
 
 class SearchTableView extends React.Component {
 
+  getSchoolLink(result) {
+    const linkProps = getLinkProps(result);
+    return (
+      <Link {...linkProps}>{result.name}</Link>
+    );
+  }
+
+  getTableRow(result) {
+    const extraInfoClassName = result.extraInfo ? 'with-icon ' + result.type : '';
+    return (
+      <tr key={result.id}>
+        <td className='with-icon school-name'>
+          {this.getSchoolLink(result)}
+        </td>
+        <td className={extraInfoClassName}>{result.extraInfo}</td>
+        <td>
+          {result.beginYear}
+          <i className='fa fa-lg fa-long-arrow-right'/>
+          {result.endYear}
+        </td>
+      </tr>
+    );
+  }
+
   getTableRows() {
-    return this.props.schoolList.map(function(school) {
-      return (
-        <tr key={school.id}>
-          <td>
-            <Link params={{schoolId: school.id}} to='school'>{school.name.officialName}</Link>
-          </td>
-          <td>{school.address}</td>
-        </tr>
-      );
-    });
+    return _.map(
+      this.props.schoolList, (result) => this.getTableRow(result)
+    );
   }
 
   renderSearchResults() {
     if (this.props.schoolList.length) {
       return (
-        <table className='table table-striped'>
+        <table className='table table-striped search-table'>
           <thead>
             <tr>
               <th>Koulu</th>
-              <th>Osoite</th>
+              <th>Lisätiedot</th>
+              <th>Vuodet</th>
             </tr>
           </thead>
           <tbody>
@@ -44,11 +64,11 @@ class SearchTableView extends React.Component {
   render() {
     const loading = this.props.fetchingData && (this.props.schoolList.length === 0);
     let loadMore;
-    if (this.props.nextPageUrl) {
+    if (!_.isEmpty(this.props.nextPagesUrlDict)) {
       loadMore = (
         <SearchLoadMore
           fetchingData={this.props.fetchingData}
-          url={this.props.nextPageUrl}
+          urls={this.props.nextPagesUrlDict}
         />
       );
     }
@@ -66,7 +86,7 @@ class SearchTableView extends React.Component {
 
 SearchTableView.propTypes = {
   fetchingData: React.PropTypes.bool,
-  nextPageUrl: React.PropTypes.string,
+  nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
   schoolList: React.PropTypes.array.isRequired,
   somethingWasSearched: React.PropTypes.bool.isRequired
 };

@@ -87,6 +87,26 @@
   }
   .search-results {
     margin-top: 30px;
+    .principalTableResult, .addressTableResult {
+      &:before {
+        content: '';
+        display: inline-block;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: -8px 0;
+        width: 40px;
+        height: 32px;
+      }
+    }
+
+    .principalTableResult {
+      .info-row.details-principal();
+    }
+
+    .addressTableResult {
+      .info-row.details-building();
+    }
 
     .search-grid {
       .school-grid-row {
@@ -98,7 +118,6 @@
 
           .school-grid {
             padding: 10px 2px 0px 2px;
-            border-bottom: 1px solid @border-main-color;
             cursor: pointer;
             transition: background-color 0.3s;
             .school-image {
@@ -108,6 +127,9 @@
             }
             .school-grid-details-list {
               padding: 5px 15px;
+            }
+            .details-years i {
+              margin: 0 6px;
             }
 
             &:hover {
