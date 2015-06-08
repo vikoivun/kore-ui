@@ -132,6 +132,10 @@ class SchoolDetails extends React.Component {
       itemGenerator.languages(details.languages, selectedYear),
       itemGenerator.genders(details.genders, selectedYear)
     );
+    let buildingsLeadText = '';
+    if (details.buildings) {
+      buildingsLeadText = `Koulu on toiminut ${details.buildings.length} rakennuksessa.`;
+    }
     return (
       <div className='container'>
         <section className='school-details'>
@@ -149,6 +153,7 @@ class SchoolDetails extends React.Component {
           <InfoTable
             expandable={true}
             items={itemGenerator.buildings(details.buildings, selectedYear)}
+            lead={buildingsLeadText}
             title={'Rakennukset ja sijainnit'}
           />
           <InfoTable
