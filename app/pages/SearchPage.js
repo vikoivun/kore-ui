@@ -1,13 +1,11 @@
 'use strict';
 
-import _ from 'lodash';
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 
 import SearchBox from '../components/SearchBox';
 import SearchControls from '../components/SearchControls';
 import SearchGridView from '../components/SearchGridView';
-import SearchMapView from '../components/SearchMapView';
 import SearchTableView from '../components/SearchTableView';
 import SearchTimeline from '../components/SearchTimeline';
 import PrincipalStore from '../stores/PrincipalStore';
@@ -58,7 +56,7 @@ class SearchPage extends React.Component {
       this.state.buildingResults, this.state.principalResults
     );
 
-    const commonViewProps = {
+    const searchViewProps = {
       fetchingData: this.state.fetchingData,
       nextPagesUrlDict: this.state.nextPagesUrlDict,
       schoolList: schoolList,
@@ -66,37 +64,14 @@ class SearchPage extends React.Component {
     };
 
     if (this.state.view === 'grid') {
-      return <SearchGridView {...commonViewProps} />;
+      return <SearchGridView {...searchViewProps} />;
     }
 
     if (this.state.view === 'table') {
-      return <SearchTableView {...commonViewProps} />;
-    }
-
-    const mapViewProps = _.assign(commonViewProps, {
-      filters: this.state.filters,
-      searchQuery: this.state.searchQuery,
-      selectedMapYear: this.state.selectedMapYear,
-      selectedSchoolId: this.state.selectedSchoolId,
-      years: this.state.years
-    });
-
-    if (this.state.view === 'map') {
-      return <SearchMapView {...mapViewProps} />;
+      return <SearchTableView {...searchViewProps} />;
     }
 
     return null;
-  }
-
-  renderSearchTimeLine() {
-    if (this.state.view === 'map') {
-      return null;
-    }
-    return (
-      <div className='container'>
-        <SearchTimeline years={this.state.years} />
-      </div>
-    );
   }
 
   render() {
@@ -119,7 +94,9 @@ class SearchPage extends React.Component {
             filtersOptions={this.state.filtersOptions}
             view={this.state.view}
           />
-          {this.renderSearchTimeLine()}
+          <div className='container'>
+            <SearchTimeline years={this.state.years} />
+          </div>
           <div className='container'>
             <div className='search-results'>
               {this.renderSearchResultsView()}

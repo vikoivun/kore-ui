@@ -7,7 +7,6 @@ import SearchViewControl from './SearchViewControl';
 import SearchFilterControl from './SearchFilterControl';
 
 const buttons = {
-  map: <i className='fa fa-lg fa-map-marker'></i>,
   table: <i className='fa fa-lg fa-th-list'></i>,
   grid: <i className='fa fa-lg fa-th-large'></i>
 };
