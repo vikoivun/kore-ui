@@ -64,7 +64,7 @@ class SearchControls extends React.Component {
                 <SearchFilterControl
                   className='filter-type'
                   key='Gender'
-                  name='Sukupuoli'
+                  name='Tyttö/poika'
                   options={this.props.filtersOptions.gender}
                   resource='gender'
                   value={this.props.filters.gender}
