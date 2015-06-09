@@ -9,11 +9,12 @@ const schoolBuilding = new Schema('schoolBuildings');
 const schoolPrincipal = new Schema('schoolPrincipals');
 const school = new Schema('schools');
 const employer = new Schema('employer');
+const employership = new Schema('employerships');
 // We need to define a searchRespone shema so normalizr finds all entities from
 // the search results.
 const schoolSearchResponse = new Schema('schoolSearchResponse');
 const buildingSearchResponse = new Schema('buildingSearchResponse');
-const principalSearchResponse = new Schema('principalSearchResponse');
+const employershipSearchResponse = new Schema('employershipSearchResponse');
 
 schoolBuilding.define({
   building: building,
@@ -28,10 +29,14 @@ employer.define({
   school: school
 });
 
+employership.define({
+  principal: principal,
+  school: school
+});
+
 principal.define({
   employers: arrayOf(employer)
 });
-
 
 school.define({
   buildings: arrayOf(schoolBuilding),
@@ -46,14 +51,14 @@ buildingSearchResponse.define({
   results: arrayOf(schoolBuilding)
 });
 
-principalSearchResponse.define({
-  results: arrayOf(principal)
+employershipSearchResponse.define({
+  results: arrayOf(employership)
 });
 
 const resultsSchemas = {
   schools: [schoolSearchResponse, 'schoolSearchResponse'],
   buildings: [buildingSearchResponse, 'buildingSearchResponse'],
-  principals: [principalSearchResponse, 'principalSearchResponse']
+  employerships: [employershipSearchResponse, 'employershipSearchResponse']
 };
 
 export function normalizeSchoolResponse(response) {

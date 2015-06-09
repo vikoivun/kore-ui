@@ -21,6 +21,7 @@ import {
 } from '../core/utils';
 import BaseStore from './BaseStore';
 import BuildingStore from './BuildingStore';
+import EmployershipStore from './EmployershipStore';
 import PrincipalStore from './PrincipalStore';
 import SchoolBuildingStore from './SchoolBuildingStore';
 import SearchStore from './SearchStore';
@@ -46,6 +47,7 @@ const SchoolStore = Object.assign({}, BaseStore, {
 SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
   AppDispatcher.waitFor([
     BuildingStore.dispatchToken,
+    EmployershipStore.dispatchToken,
     PrincipalStore.dispatchToken,
     SchoolBuildingStore.dispatchToken
   ]);

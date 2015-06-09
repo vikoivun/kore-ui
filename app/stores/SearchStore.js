@@ -45,7 +45,7 @@ let _searchQuery = '';
 let _selectedMapYear = String(DEFAULT_LAYER.beginYear);
 const _searchResultsDefaults = {
   buildings: null,
-  principals: null,
+  employerships: null,
   schools: null
 };
 let _searchResults = _resetSearchResults();

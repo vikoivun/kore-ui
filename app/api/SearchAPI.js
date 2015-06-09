@@ -71,7 +71,7 @@ export default {
   },
 
   searchPrincipal(query, filters) {
-    searchRequest('principal/', query, filters, 'principals');
+    searchRequest('employership/', query, filters, 'employerships');
   },
 
   searchSchool(query, filters) {
