@@ -6,6 +6,10 @@ import NavTab from './NavTab';
 
 class Navbar extends React.Component {
 
+  handleCollapse() {
+    document.getElementById('navbar').classList.toggle('in');
+  }
+
   render() {
     return (
       <nav className='navbar navbar-inverse navbar-static-top'>
@@ -18,6 +22,7 @@ class Navbar extends React.Component {
               data-target='#navbar'
               data-toggle='collapse'
               type='button'
+              onClick={this.handleCollapse}
             >
               <span className='sr-only'>Toggle navigation</span>
               <span className='icon-bar'></span>
