@@ -8,7 +8,7 @@ const defaultImageUrl = require('../images/default-building.jpg');
 function getAddressStringFromBuilding(building) {
   if (building && building.addresses && building.addresses.length) {
     let streets = [];
-    _.each(building.addresses, function(address) {
+    _.each(_.sortBy(building.addresses, 'beginYear'), function(address) {
       streets.push(getAddressString(address));
     });
     return streets.join(', ');
