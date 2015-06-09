@@ -6,10 +6,47 @@ import Loader from 'react-loader';
 
 import InfoRow from './InfoRow';
 import Timeline from './Timeline';
-import {processBasicInfoRow} from '../core/utils';
 
 function getInfoRow(row) {
   return <InfoRow {...row}/>;
+}
+
+function processInfoRow(details) {
+  if (_.isEmpty(details.name)) {
+    return [];
+  }
+  return [
+    {
+      key: 'timeline-principal-info',
+      className: 'details-principal',
+      name: details.principalString
+    },
+    {
+      key: 'timeline-building-info',
+      className: 'details-building',
+      name: details.buildingString
+    },
+    {
+      key: 'timeline-archive-info',
+      className: 'details-archive',
+      name: details.archiveString
+    },
+    {
+      key: 'timeline-type-info',
+      className: 'details-building',
+      name: details.typeString
+    },
+    {
+      key: 'timeline-language-info',
+      className: 'details-language',
+      name: details.languageString
+    },
+    {
+      key: 'timeline-gender-info',
+      className: 'details-gender',
+      name: details.genderString
+    }
+  ];
 }
 
 class SchoolTimelineInfo extends React.Component {
@@ -41,7 +78,7 @@ class SchoolTimelineInfo extends React.Component {
             <div className='school-year-info'>
               {this.renderYearInfoHeader()}
               <ol className='school-year-details-list'>
-                {processBasicInfoRow(this.props.schoolYearDetails, true).map(getInfoRow)}
+                {processInfoRow(this.props.schoolYearDetails).map(getInfoRow)}
               </ol>
             </div>
           </div>
