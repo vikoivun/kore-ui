@@ -1,9 +1,24 @@
 @search-table-row-height: 30px;
 
+table.search-table {
+  td, th {
+    display: block;
+    width: 100%;
+    @media (min-width: @screen-md-min) {
+      display: table-cell;
+      width: auto;
+    }
+  }
+}
+
 table.search-table tbody tr {
   td {
     position: relative;
     line-height: @search-table-row-height;
+    padding-left: @info-row-logo-side-size + 20px;
+    @media (min-width: @screen-md-min) {
+      padding: @table-cell-padding;
+    }
 
     &.with-icon {
       padding-left: @info-row-logo-side-size + 20px;
@@ -26,7 +41,7 @@ table.search-table tbody tr {
         background-size: 15px;
       }
     }
-    
+
     &.building {
       &:before {
         background-image: url('../images/building.svg');
