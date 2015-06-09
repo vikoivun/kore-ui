@@ -75,7 +75,9 @@
 
     .school-image-container {
       .make-column(8, 8);
-      padding-right: 0;
+      @media (min-width: @screen-md-min) {
+        padding-right: 0;
+      }
       .loader {
         background-color: rgba(0, 0, 0, 0.03);
         height: @school-image-map-height;
