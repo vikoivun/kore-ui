@@ -37,7 +37,6 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getSchool: getItemByIdWrapper(getSchool, _schools),
   getSchoolDetails: getItemByIdWrapper(getSchoolDetails, _schools),
   getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
-  getSchoolsYearDetails,
   getSearchDetails,
   getSearchDetailsForItem,
   hasSchool
@@ -125,12 +124,6 @@ function getSchoolDetails(school, selectedYear) {
     selectedYear: selectedYear,
     types: school.types
   };
-}
-
-function getSchoolsYearDetails(schoolIds, year) {
-  return _.map(schoolIds, function(id) {
-    return SchoolStore.getSchoolYearDetails(id, year);
-  }, this);
 }
 
 function getSchoolYearDetails(school, year) {
