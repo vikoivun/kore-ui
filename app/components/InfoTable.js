@@ -65,6 +65,15 @@ class InfoTable extends React.Component {
     return [items.slice(0, halfLength), items.slice(halfLength)];
   }
 
+  renderLeadText() {
+    if (this.props.lead) {
+      return (
+        <p className='lead'>{this.props.lead}</p>
+      );
+    }
+    return null;
+  }
+
   render() {
     if (!this.props.items.length) {
       return null;
@@ -75,8 +84,9 @@ class InfoTable extends React.Component {
     return (
       <section className='info-table'>
         <header>
-          <h2>{this.props.title}</h2>
+          <h3>{this.props.title}</h3>
         </header>
+        {this.renderLeadText()}
         <div className='info-table-columns'>
           <ol className='column column-one'>
             {itemsColumnOne.map(getInfoRow)}
@@ -94,6 +104,7 @@ class InfoTable extends React.Component {
 InfoTable.propTypes = {
   expandable: React.PropTypes.bool.isRequired,
   items: React.PropTypes.array.isRequired,
+  lead: React.PropTypes.string,
   title: React.PropTypes.string.isRequired
 };
 

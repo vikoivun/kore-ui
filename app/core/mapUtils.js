@@ -45,12 +45,6 @@ function _getGeoserverUrl(layerName, layerFmt) {
   /*eslint-enable */
 }
 
-function _getLayerForYear(year) {
-  const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
-  const layerForYear = _.find(sortedLayers, (layer) => year >= layer.beginYear);
-  return layerForYear || _.last(sortedLayers);
-}
-
 function _makeCRS() {
   return new L.Proj.CRS.TMS(CRS_NAME, CRS_PROJ_DEF, CRS_BOUNDS, {resolutions: CRS_RESOLUTIONS});
 }
@@ -78,12 +72,25 @@ function getCrs() {
   return crs;
 }
 
+function getLayerForYear(year) {
+  const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
+  const layerForYear = _.find(sortedLayers, (layer) => year >= layer.beginYear);
+  return layerForYear || _.last(sortedLayers);
+}
+
+function getLayerLabel(layer) {
+  const endYear = layer.endYear ? layer.endYear : new Date().getFullYear();
+  const mapName = layer.title.split(',')[0];
+  return `${layer.beginYear} - ${endYear} ${mapName}`;
+}
+
 function getLayerNameForYear(year) {
-  return _getLayerForYear(year).title;
+  return getLayerForYear(year).title;
 }
 
 function getMapOptions() {
   return {
+    attributionControl: false,
     crs: crs,
     continuusWorld: true,
     worldCopyJump: false,
@@ -94,7 +101,7 @@ function getMapOptions() {
 }
 
 function getMapYears(year) {
-  const layer = _getLayerForYear(year);
+  const layer = getLayerForYear(year);
   return [layer.beginYear, layer.endYear];
 }
 
@@ -116,6 +123,8 @@ function getTileLayers() {
 
 export default {
   getCrs,
+  getLayerForYear,
+  getLayerLabel,
   getLayerNameForYear,
   getMapOptions,
   getMapYears,

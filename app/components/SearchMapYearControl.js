@@ -6,7 +6,7 @@ import ReactSelect from 'react-select';
 
 import SearchActionCreators from '../actions/SearchActionCreators';
 import {TILE_LAYERS} from '../constants/MapConstants';
-import {getMapYears} from '../core/mapUtils';
+import {getLayerLabel, getMapYears} from '../core/mapUtils';
 import {getFilterPropType} from '../core/utils';
 
 class SearchMapYearControl extends React.Component {
@@ -32,9 +32,7 @@ class SearchMapYearControl extends React.Component {
     let options = [];
     const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
     _.each(sortedLayers, function(layer) {
-      const endYear = layer.endYear ? layer.endYear : new Date().getFullYear();
-      const mapName = layer.title.split(',')[0];
-      const label = `${layer.beginYear} - ${endYear}: ${mapName}`;
+      const label = getLayerLabel(layer);
       options.push({
         label: label,
         value: String(layer.beginYear)

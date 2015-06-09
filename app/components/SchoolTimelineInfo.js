@@ -14,6 +14,16 @@ function getInfoRow(row) {
 
 class SchoolTimelineInfo extends React.Component {
 
+  renderYearInfoHeader() {
+    let headerText = '';
+    if (this.props.schoolYearDetails && this.props.schoolYearDetails.name) {
+      headerText = `
+        ${this.props.schoolYearDetails.name.officialName} vuonna ${this.props.selectedYear}
+      `;
+    }
+    return <h2>{headerText}</h2>;
+  }
+
   render() {
     const loadingTimeline = _.isEmpty(this.props.yearsActive);
     return (
@@ -29,6 +39,7 @@ class SchoolTimelineInfo extends React.Component {
               </Loader>
             </div>
             <div className='school-year-info'>
+              {this.renderYearInfoHeader()}
               <ol className='school-year-details-list'>
                 {processBasicInfoRow(this.props.schoolYearDetails, true).map(getInfoRow)}
               </ol>

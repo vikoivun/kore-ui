@@ -53,9 +53,15 @@
         height: @school-timeline-info-height - 4;
         margin-top: 2px;
         margin-bottom: 2px;
+
+        h2 {
+          font-weight: normal;
+          font-size: 20px;
+          color: @base-color;
+        }
+
         ol.school-year-details-list {
           width: 100%;
-          .absolute-vertical-centering();
           padding-left: 0;
           padding-right: 40px;
         }
@@ -69,7 +75,9 @@
 
     .school-image-container {
       .make-column(8, 8);
-      padding-right: 0;
+      @media (min-width: @screen-md-min) {
+        padding-right: 0;
+      }
       .loader {
         background-color: rgba(0, 0, 0, 0.03);
         height: @school-image-map-height;
@@ -123,6 +131,14 @@
   }
 
   .school-details {
+    > header {
+      padding-left: 15px;
+      h2 {
+        font-weight: 200;
+        font-size: 3.5em;
+      }
+    }
+
     section.info-table {
       .container();
       margin-top: 30px;
@@ -130,10 +146,9 @@
       border-bottom: solid 1px @border-main-color;
 
       header {
-        h2{
-          padding-left: 40px;
+        h3 {
           font-weight: 200;
-          font-size: 3em;
+          font-size: 2.5em;
         }
       }
 
