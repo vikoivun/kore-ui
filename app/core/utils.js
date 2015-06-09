@@ -20,6 +20,9 @@ function getAddressString(address) {
   if (!address || !address.streetNameFi) {
     return 'Osoite tuntematon';
   }
+  if (address.municipalityFi && address.municipalityFi !== 'Helsinki') {
+    return address.streetNameFi + ', ' + address.municipalityFi;
+  }
   return address.streetNameFi;
 }
 
