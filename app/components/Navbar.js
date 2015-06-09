@@ -21,8 +21,8 @@ class Navbar extends React.Component {
               className='navbar-toggle collapsed'
               data-target='#navbar'
               data-toggle='collapse'
-              type='button'
               onClick={this.handleCollapse}
+              type='button'
             >
               <span className='sr-only'>Toggle navigation</span>
               <span className='icon-bar'></span>
