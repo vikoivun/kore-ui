@@ -27,7 +27,7 @@
     "react-document-title": "^1.0.2",
     "react-loader": "^1.2.0",
     "react-router": "^0.13.3",
-    "react-select": "~0.4.9",
+    "react-select": "git+https://git@github.com/YoYuUm/react-select.git#build",
     "react-slider": "~0.4.2",
     "style-loader": "^0.10.1",
     "superagent": "~1.2.0",
