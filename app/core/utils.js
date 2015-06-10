@@ -90,57 +90,6 @@ function getLinkProps(searchResult) {
   return linkProps;
 }
 
-function processBasicInfoRow(details, extended) {
-  if (_.isEmpty(details.name)) {
-    return [];
-  }
-  let items = [
-    {
-      key: 'principal-' + details.principal.id,
-      className: 'details-principal',
-      name: details.principal.name,
-      boxContent: getBoxContent(details.principal)
-    },
-    {
-      key: 'school-building-' + details.building.id,
-      className: 'details-building',
-      name: details.address,
-      boxContent: getBoxContent(details.building)
-    },
-    {
-      key: 'school-archive-' + details.archive.id,
-      className: 'details-archive',
-      name: details.archive.location,
-      boxContent: getBoxContent(details.archive)
-    }
-  ];
-
-  if (extended) {
-    items.push(
-      {
-        key: 'school-info-row-type',
-        className: 'details-building',
-        name: details.type.type.name,
-        boxContent: getBoxContent(details.type)
-      },
-      {
-        key: 'school-info-row-language',
-        className: 'details-language',
-        name: details.language.language,
-        boxContent: getBoxContent(details.language)
-      },
-      {
-        key: 'school-info-row-gender',
-        className: 'details-gender',
-        name: details.gender.gender,
-        boxContent: getBoxContent(details.gender)
-      }
-    );
-  }
-
-  return items;
-}
-
 function sortByYears(list) {
   return _.sortByOrder(list, ['endYear', 'beginYear'], [false, false]);
 }
@@ -156,6 +105,5 @@ export default {
   getItemsForYear,
   inBetween,
   getLinkProps,
-  processBasicInfoRow,
   sortByYears
 };

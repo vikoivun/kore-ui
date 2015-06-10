@@ -80,6 +80,12 @@ class SchoolPage extends React.Component {
   }
 
   render() {
+    const selectedYear = (
+      this.state.selectedYear ||
+      this.state.yearsActive.endYear ||
+      new Date().getFullYear()
+    );
+
     return (
       <DocumentTitle title='Koulut - Koulurekisteri'>
         <div className='school-page'>
@@ -95,11 +101,7 @@ class SchoolPage extends React.Component {
                   <SchoolMap
                     fetchingData={this.state.fetchingData}
                     locations={this.state.locationsForSelectedYear}
-                    selectedYear={
-                      this.state.selectedYear ||
-                      this.state.yearsActive.endYear ||
-                      new Date().getFullYear()
-                    }
+                    selectedYear={selectedYear}
                   />
                 </Loader>
               </div>
@@ -107,7 +109,7 @@ class SchoolPage extends React.Component {
           </div>
           <SchoolTimelineInfo
             schoolYearDetails={this.state.schoolYearDetails}
-            selectedYear={this.state.selectedYear}
+            selectedYear={selectedYear}
             yearsActive={this.state.yearsActive}
           />
           <SchoolDetails

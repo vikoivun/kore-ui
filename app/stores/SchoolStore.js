@@ -38,7 +38,6 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getSchool: getItemByIdWrapper(getSchool, _schools),
   getSchoolDetails: getItemByIdWrapper(getSchoolDetails, _schools),
   getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
-  getSchoolsYearDetails,
   getSearchDetails,
   getSearchDetailsForItem,
   hasSchool
@@ -129,36 +128,56 @@ function getSchoolDetails(school, selectedYear) {
   };
 }
 
-function getSchoolsYearDetails(schoolIds, year) {
-  return _.map(schoolIds, function(id) {
-    return SchoolStore.getSchoolYearDetails(id, year);
-  }, this);
-}
-
 function getSchoolYearDetails(school, year) {
   year = year || _getLatestYear(school);
-  const schoolBuilding = getItemForYear(school.buildings, year);
-  const building = (
-    schoolBuilding ? getAssociationObject(schoolBuilding, BuildingStore.getBuilding) : {}
-  );
-  const schoolPrincipal = getItemForYear(school.principals, year);
-  const principal = (
-    schoolPrincipal ? getAssociationObject(schoolPrincipal, PrincipalStore.getPrincipal) : {}
-  );
-  const address = getItemForYear(building.addresses, year);
+
+  let buildingNames = [];
+  const schoolBuildings = getItemsForYear(school.buildings, year);
+  _.each(schoolBuildings, function(schoolBuilding) {
+    const building = (
+      schoolBuilding ? getAssociationObject(schoolBuilding, BuildingStore.getBuilding) : null
+    );
+    if (building) {
+      const address = getItemForYear(building.addresses, year);
+      buildingNames.push(getAddressString(address));
+    }
+  });
+  const buildingString = buildingNames.join(', ');
+
+  const archives = getItemsForYear(school.archives, year);
+  const archiveString = _.pluck(archives, 'location').join(', ');
+
+  const genders = getItemsForYear(school.genders, year);
+  const genderString = _.pluck(genders, 'gender').join(', ');
+
+  const languages = getItemsForYear(school.languages, year);
+  const languageString = _.pluck(languages, 'language').join(', ');
+
   const name = getItemForYear(school.names, year) || {};
-  const id = `${school.id}-${name && name.id}-${building && building.id}-${address && address.id}`;
+
+  let principalNames = [];
+  const schoolPrincipals = getItemsForYear(school.principals, year);
+  _.each(schoolPrincipals, function(schoolPrincipal) {
+    const principal = (
+      schoolPrincipal ? getAssociationObject(schoolPrincipal, PrincipalStore.getPrincipal) : null
+    );
+    if (principal) {
+      principalNames.push(principal.name);
+    }
+  });
+  const principalString = principalNames.reverse().join(', ');
+
+  const types = getItemsForYear(school.types, year);
+  const typeString = _.pluck(types, ['type', 'name']).join(', ');
+
   return {
-    address: getAddressString(address),
-    archive: getItemForYear(school.archives, year) || {},
-    building: building,
-    gender: getItemForYear(school.genders, year) || {},
-    id: id,
-    language: getItemForYear(school.languages, year) || {},
-    location: _.first(getLocationsForYear(school, year)) || {},
+    archiveString: archiveString,
+    buildingString: buildingString,
+    genderString: genderString,
+    languageString: languageString,
     name: name,
-    principal: principal,
-    type: getItemForYear(school.types, year) || {}
+    principalString: principalString,
+    typeString: typeString
   };
 }
 
