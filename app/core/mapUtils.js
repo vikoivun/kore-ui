@@ -80,7 +80,7 @@ function getLayerForYear(year) {
 
 function getLayerLabel(layer) {
   const mapName = layer.title.split(',')[0];
-  return `${layer.beginYear} ${mapName}`;
+  return `${mapName} ${layer.beginYear}`;
 }
 
 function getLayerNameForYear(year) {
