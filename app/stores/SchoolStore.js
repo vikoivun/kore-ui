@@ -188,12 +188,16 @@ function getSearchDetails(schoolIds, query) {
     if (_.isEmpty(school)) {
       return;
     }
-
-    let nameSearchIndex = new Fuse(
-      school.names,
-      {keys: ['officialName']}
-    );
-    let names = nameSearchIndex.search(query);
+    let names;
+    if (query) {
+      let nameSearchIndex = new Fuse(
+        school.names,
+        {keys: ['officialName']}
+      );
+      names = nameSearchIndex.search(query);
+    } else {
+      names = school.names;
+    }
     names = _filterOutNamesOutsideTimelineRange(names);
 
     _.each(names, function(name) {
