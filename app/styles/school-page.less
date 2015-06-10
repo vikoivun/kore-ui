@@ -164,11 +164,21 @@
           vertical-align: top;
 
           &.column-one {
-            padding-right: 15px;
+            padding-left: 0;
+            padding-right: 0;
+            @media (min-width: @screen-md-min) {
+              padding-left: 15px;
+              padding-right: 15px;
+            }
           }
 
           &.column-two {
-            padding-left: 15px;
+            padding-left: 0;
+            padding-right: 0;
+            @media (min-width: @screen-md-min) {
+              padding-left: 15px;
+              padding-right: 15px;
+            }
           }
         }
       }
