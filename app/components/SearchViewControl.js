@@ -6,7 +6,7 @@ import SearchActionCreators from '../actions/SearchActionCreators';
 
 class SearchViewControl extends React.Component {
   handleClick(e) {
-    SearchActionCreators.selectView(e.currentTarget.dataset.view);
+    SearchActionCreators.selectView(e.currentTarget.getAttribute('data-view'));
   }
 
   render() {

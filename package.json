@@ -6,7 +6,6 @@
     "url": "https://github.com/fastmonkeys/kore"
   },
   "dependencies": {
-    "autoprefixer-loader": "^1.2.0",
     "babel-core": "^5.1.10",
     "babel-loader": "^5.0.0",
     "babel-runtime": "^5.1.10",

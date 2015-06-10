@@ -14,7 +14,7 @@ function extractForProduction(loaders) {
 }
 
 module.exports = function(options) {
-  var cssLoaders = 'style!css!autoprefixer?browsers=last 2 versions';
+  var cssLoaders = 'style!css';
   var lessLoaders = cssLoaders + '!less';
 
   if (options.production) {

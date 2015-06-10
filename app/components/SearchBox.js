@@ -32,12 +32,12 @@ class SearchBox extends React.Component {
     return (
       <div className='container'>
         <div className='search-box'>
-          <a
+          <button
             className='search-button'
             onClick={this.handleSubmit}
           >
             <i className='fa fa-lg fa-search'></i>
-          </a>
+          </button>
           <input
             className='search-bar'
             defaultValue={this.props.searchQuery}
