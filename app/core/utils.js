@@ -34,6 +34,21 @@ function getBoxContent(item) {
   ];
 }
 
+function getBuildingAddressForYear(itemList, year) {
+  const addresses = getItemsForYear(itemList, year);
+  if (addresses.length === 0) {
+    return null;
+  } else if (addresses.length === 1) {
+    return addresses[0];
+  } else {
+    const sorted = _.sortBy(addresses, 'id');
+    const withLocation = _.find(sorted, function(address) {
+      return !_.isEmpty(address.location);
+    });
+    return withLocation ? withLocation : addresses[0];
+  }
+}
+
 function getFilterPropType() {
   return React.PropTypes.oneOfType([
     React.PropTypes.number,
@@ -98,6 +113,7 @@ export default {
   getAddressStringFromBuilding,
   getAddressString,
   getBoxContent,
+  getBuildingAddressForYear,
   getFilterPropType,
   getImageUrl,
   getItemByIdWrapper,
