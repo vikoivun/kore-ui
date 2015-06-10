@@ -67,11 +67,19 @@ export default {
   },
 
   searchBuilding(query, filters) {
-    searchRequest('school_building/', query, filters, 'buildings');
+    const schoolFilters = {};
+    _.each(filters, function(value, key) {
+      schoolFilters[`school_${key}`] = value;
+    });
+    searchRequest('school_building/', query, schoolFilters, 'buildings');
   },
 
   searchPrincipal(query, filters) {
-    searchRequest('principal/', query, filters, 'principals');
+    const schoolFilters = {};
+    _.each(filters, function(value, key) {
+      schoolFilters[`school_${key}`] = value;
+    });
+    searchRequest('employership/', query, schoolFilters, 'employerships');
   },
 
   searchSchool(query, filters) {

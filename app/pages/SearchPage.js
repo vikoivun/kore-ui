@@ -8,7 +8,7 @@ import SearchControls from '../components/SearchControls';
 import SearchGridView from '../components/SearchGridView';
 import SearchTableView from '../components/SearchTableView';
 import SearchTimeline from '../components/SearchTimeline';
-import PrincipalStore from '../stores/PrincipalStore';
+import EmployershipStore from '../stores/EmployershipStore';
 import SchoolBuildingStore from '../stores/SchoolBuildingStore';
 import SchoolStore from '../stores/SchoolStore';
 import SearchStore from '../stores/SearchStore';
@@ -24,7 +24,7 @@ function getStateFromStores() {
     filtersOptions: SearchStore.getFiltersOptions(),
     nameResults: SchoolStore.getSearchDetails(searchResults.schools, searchQuery),
     nextPagesUrlDict: SearchStore.getNextPagesUrlDict(),
-    principalResults: PrincipalStore.getSearchDetails(searchResults.principals),
+    principalResults: EmployershipStore.getSearchDetails(searchResults.employerships),
     searchQuery: SearchStore.getSearchQuery(),
     selectedMapYear: SearchStore.getSelectedMapYear(),
     selectedSchoolId: SearchStore.getSelectedSchoolId(),
