@@ -78,7 +78,7 @@ SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch (action.type) {
 
     case ActionTypes.REQUEST_SEARCH:
-      _actualSearchYears = _years;
+      _actualSearchYears = [_years[0], _years[1]];
       _fetchingData += 3;
       _infoText = null;
       _nextPagesUrlDict = _.clone(_searchResultsDefaults);
