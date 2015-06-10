@@ -9,7 +9,7 @@ import {getFilterPropType} from '../core/utils';
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {searchQuery: ''};
+    this.state = {searchQuery: props.searchQuery};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
   }
