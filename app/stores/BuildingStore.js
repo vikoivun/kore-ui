@@ -6,8 +6,8 @@ import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../core/AppDispatcher';
 import {
   getAddressString,
+  getBuildingAddressForYear,
   getItemByIdWrapper,
-  inBetween,
   sortByYears
 } from '../core/utils';
 import BaseStore from './BaseStore';
@@ -62,13 +62,14 @@ function getLocationsForYear(buildingIds, year) {
     if (_.isEmpty(building)) {
       return;
     }
-    const address = _.find(building.addresses, function(current) {
-      return inBetween(year, current.beginYear, current.endYear) && !_.isEmpty(current.location);
-    }) || {};
-    const locationId = buildingId + '-' + address.id;
-    locations.push(
-      _.assign({}, address.location, {address: getAddressString(address), id: locationId})
-    );
+
+    const address = getBuildingAddressForYear(building.addresses, year);
+    if (address && !_.isEmpty(address.location)) {
+      const locationId = buildingId + '-' + address.id;
+      locations.push(
+        _.assign({}, address.location, {address: getAddressString(address), id: locationId})
+      );
+    }
   });
   return locations;
 }

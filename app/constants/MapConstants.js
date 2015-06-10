@@ -5,7 +5,7 @@ const TILE_LAYERS = [
     beginYear: 2010,
     endYear: new Date().getFullYear(),
     name: 'hel:Karttasarja',
-    title: 'Nykyaika'
+    title: 'Opaskartta'
   },
   {
     beginYear: 1999,

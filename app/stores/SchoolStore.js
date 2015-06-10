@@ -12,6 +12,7 @@ import {
 } from '../core/storeUtils';
 import {
   getAddressString,
+  getBuildingAddressForYear,
   getImageUrl,
   getItemByIdWrapper,
   getItemForYear,
@@ -138,7 +139,7 @@ function getSchoolYearDetails(school, year) {
       schoolBuilding ? getAssociationObject(schoolBuilding, BuildingStore.getBuilding) : null
     );
     if (building) {
-      const address = getItemForYear(building.addresses, year);
+      const address = getBuildingAddressForYear(building.addresses, year);
       buildingNames.push(getAddressString(address));
     }
   });

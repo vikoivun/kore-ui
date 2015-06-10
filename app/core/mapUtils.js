@@ -79,9 +79,8 @@ function getLayerForYear(year) {
 }
 
 function getLayerLabel(layer) {
-  const endYear = layer.endYear ? layer.endYear : new Date().getFullYear();
   const mapName = layer.title.split(',')[0];
-  return `${layer.beginYear} - ${endYear} ${mapName}`;
+  return `${layer.beginYear} ${mapName}`;
 }
 
 function getLayerNameForYear(year) {

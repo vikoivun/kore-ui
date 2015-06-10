@@ -66,9 +66,11 @@ class BaseMap extends React.Component {
         this.markers[location.id] = this.getMarker(location);
         this.markerGroup.addLayer(this.markers[location.id]);
       }
+    }, this);
+    if (!_.isEmpty(this.markers)) {
       const bounds = this.markerGroup.getBounds();
       this.map.fitBounds(bounds, {maxZoom: 7, padding: [50, 50]});
-    }, this);
+    }
   }
 
   getPopupContent(text) {
