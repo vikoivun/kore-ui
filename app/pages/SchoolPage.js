@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import Loader from 'react-loader';
@@ -85,6 +86,9 @@ class SchoolPage extends React.Component {
       this.state.yearsActive.endYear ||
       new Date().getFullYear()
     );
+    const locations = _.filter(this.state.locationsForSelectedYear, function(location) {
+      return !_.isEmpty(location.coordinates);
+    });
 
     return (
       <DocumentTitle title='Koulut - Koulurekisteri'>
@@ -100,7 +104,7 @@ class SchoolPage extends React.Component {
                 <Loader color='#FFF' loaded={!this.state.fetchingData}>
                   <SchoolMap
                     fetchingData={this.state.fetchingData}
-                    locations={this.state.locationsForSelectedYear}
+                    locations={locations}
                     selectedYear={selectedYear}
                   />
                 </Loader>
