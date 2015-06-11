@@ -32,6 +32,12 @@ class BaseMap extends React.Component {
     this.map = L
       .map(React.findDOMNode(this.refs.map), this.mapOptions)
       .setView(HELSINKI_COORDINATES, MAP_ZOOM);
+
+    // There is a weird issue in leaflet that sometimes causes the zoom to freeze.
+    // This line should fix that.
+    // For more info see: https://github.com/Leaflet/Leaflet/issues/2693
+    this.map.on('zoomanim', _.debounce(this.map._onZoomTransitionEnd, 250));
+
     this.updateTileLayer(this.props.selectedYear);
     this.markerGroup.addTo(this.map);
     if (!_.isEmpty(this.props.locations)) {
