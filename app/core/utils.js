@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-const defaultImageUrl = require('../images/default-building.jpg');
+const defaultImageUrl = require('../images/default-school.jpg');
 
 function getAddressStringFromBuilding(building) {
   if (building && building.addresses && building.addresses.length) {
