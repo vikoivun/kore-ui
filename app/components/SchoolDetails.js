@@ -141,7 +141,7 @@ class SchoolDetails extends React.Component {
       <div className='container'>
         <section className='school-details'>
           <header>
-            <h2>Koulun historiakehitys</h2>
+            <h2>Koulun kehityshistoria</h2>
             <p className='lead'>
               Historiatiedoista on korostettu aikajanalta valittuna vuotena voimassa olleet tiedot.
             </p>
