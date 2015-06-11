@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import React from 'react';
 
 function getInfoRow(item) {
@@ -9,9 +10,11 @@ function getInfoRow(item) {
 }
 
 function getInitialState(props) {
+  const childInfoRows = _.filter(props.items.map(getInfoRow));
   return {
+    childInfoRows,
     expanded: false,
-    expandable: props.items.length
+    expandable: Boolean(childInfoRows.length)
   };
 }
 
@@ -29,13 +32,10 @@ class InfoRow extends React.Component {
   }
 
   getChildInfoRows() {
-    let items = this.props.items;
-    if (!items.length || !this.state.expanded) {
+    if (!this.state.expanded) {
       return [];
     }
-    return (
-      items.map(getInfoRow)
-    );
+    return this.state.childInfoRows;
   }
 
   getExpandButton() {
