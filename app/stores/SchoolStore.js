@@ -119,6 +119,7 @@ function getSchoolDetails(school, selectedYear) {
   return {
     archives: school.archives,
     buildings: getAssociationData(school.buildings, BuildingStore.getBuilding),
+    continuum: school.continuum,
     fields: school.fields,
     genders: school.genders,
     languages: school.languages,
@@ -273,6 +274,16 @@ function _filterOutNamesOutsideTimelineRange(names) {
   });
 }
 
+function _getContinuumEventData(event, schoolToLinkTo) {
+  const name = getItemForYear(schoolToLinkTo.names, event.year);
+  return {
+    description: event.description,
+    schoolId: schoolToLinkTo.id,
+    schoolName: name ? name.officialName : '',
+    year: event.year
+  };
+}
+
 function _getLatestYear(school) {
   return getBeginAndEndYear(school).endYear || new Date().getFullYear();
 }
@@ -284,6 +295,21 @@ function _getNamesForTimeSpan(school, beginYear, endYear) {
       inBetween(beginYear, name.beginYear, name.endYear, true)
     );
   });
+}
+
+function _parseContinuumEvents(school) {
+  let continuumEvents = [];
+
+  continuumEvents = continuumEvents.concat(
+    _.map(school.continuumTarget, function(event) {
+      return _getContinuumEventData(event, event.activeSchool);
+    }),
+    _.map(school.continuumActive, function(event) {
+      return _getContinuumEventData(event, event.targetSchool);
+    })
+  );
+
+  return continuumEvents;
 }
 
 function _receiveSchools(entities) {
@@ -314,6 +340,7 @@ function _receiveSchools(entities) {
       _school,
       {
         archives: sortByYears(school.archives),
+        continuum: _.sortByOrder(_parseContinuumEvents(school), ['year'], [false]),
         fields: sortByYears(school.fields),
         genders: sortByYears(school.genders),
         id: school.id,

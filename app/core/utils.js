@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React from 'react';
+import {Link} from 'react-router';
 
 const defaultImageUrl = require('../images/default-school.jpg');
 
@@ -47,6 +48,23 @@ function getBuildingAddressForYear(itemList, year) {
     });
     return withLocation ? withLocation : addresses[0];
   }
+}
+
+function getContinuumEventName(event) {
+  const descriptionMapper = {
+    'joins': 'Yhdistyminen',
+    'separates from': 'Eroaminen'
+  };
+
+  return [
+    descriptionMapper[event.description] + ': ',
+    <Link
+      params={{schoolId: event.schoolId, year: event.year}}
+      to='school-with-year'
+    >
+      {event.schoolName}
+    </Link>
+  ];
 }
 
 function getFilterPropType() {
@@ -114,6 +132,7 @@ export default {
   getAddressString,
   getBoxContent,
   getBuildingAddressForYear,
+  getContinuumEventName,
   getFilterPropType,
   getImageUrl,
   getItemByIdWrapper,
