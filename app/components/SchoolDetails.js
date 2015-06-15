@@ -7,6 +7,7 @@ import InfoTable from './InfoTable';
 import {
   getAddressString,
   getAddressStringFromBuilding,
+  getArchiveName,
   getBoxContent,
   inBetween
 } from '../core/utils';
@@ -18,7 +19,7 @@ const itemGenerator = {
         boxContent: getBoxContent(archive),
         className: 'details-archive',
         key: 'school-archive-' + index,
-        name: archive.location,
+        name: getArchiveName(archive),
         highlight: inBetween(selectedYear, archive.beginYear, archive.endYear)
       };
     }).reverse();

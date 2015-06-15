@@ -26,6 +26,14 @@ function getAddressString(address) {
   return address.streetNameFi;
 }
 
+function getArchiveName(archive) {
+  if (archive.url) {
+    return <a href={archive.url} target='_blank'>{archive.location}</a>;
+  } else {
+    return archive.location;
+  }
+}
+
 function getBoxContent(item) {
   return [
     item.beginYear,
@@ -112,6 +120,7 @@ function sortByYears(list) {
 export default {
   getAddressStringFromBuilding,
   getAddressString,
+  getArchiveName,
   getBoxContent,
   getBuildingAddressForYear,
   getFilterPropType,

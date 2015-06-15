@@ -2,7 +2,6 @@
 
 import _ from 'lodash';
 import Fuse from 'fuse.js';
-import React from 'react';
 
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../core/AppDispatcher';
@@ -13,6 +12,7 @@ import {
 } from '../core/storeUtils';
 import {
   getAddressString,
+  getArchiveName,
   getBuildingAddressForYear,
   getImageUrl,
   getItemByIdWrapper,
@@ -135,15 +135,11 @@ function getSchoolYearDetails(school, year) {
 
   const archives = getItemsForYear(school.archives, year);
   let archiveArray = [];
-  _.each(archives, function(archive, index) {
+  _.each(archives.reverse(), function(archive, index) {
     if (index > 0) {
       archiveArray.push(', ');
     }
-    if (archive.url) {
-      archiveArray.push(<a href={archive.url} target='_blank'>{archive.location}</a>);
-    } else {
-      archiveArray.push(archive.location);
-    }
+    archiveArray.push(getArchiveName(archive));
   });
 
   let buildingNames = [];
