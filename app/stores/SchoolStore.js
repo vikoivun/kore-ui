@@ -279,7 +279,10 @@ function _getLatestYear(school) {
 
 function _getNamesForTimeSpan(school, beginYear, endYear) {
   return _.filter(school.names, function(name) {
-    return inBetween(name.beginYear, beginYear, endYear, true);
+    return (
+      inBetween(name.beginYear, beginYear, endYear, true) ||
+      inBetween(beginYear, name.beginYear, name.endYear, true)
+    );
   });
 }
 
