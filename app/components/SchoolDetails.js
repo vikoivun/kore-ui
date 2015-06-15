@@ -159,8 +159,8 @@ class SchoolDetails extends React.Component {
           />
           <InfoTable
             expandable={true}
-            items={itemGenerator.archives(details.archives, selectedYear)}
-            title={'Arkistot'}
+            items={schoolTypeGroup}
+            title={'Koulutyyppi'}
           />
           <InfoTable
             expandable={true}
@@ -169,8 +169,8 @@ class SchoolDetails extends React.Component {
           />
           <InfoTable
             expandable={true}
-            items={schoolTypeGroup}
-            title={'Koulutyyppi'}
+            items={itemGenerator.archives(details.archives, selectedYear)}
+            title={'Arkistot'}
           />
         </section>
       </div>
