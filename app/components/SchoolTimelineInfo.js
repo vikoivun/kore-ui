@@ -29,7 +29,7 @@ function processInfoRow(details) {
     {
       key: 'timeline-archive-info',
       className: 'details-archive',
-      name: details.archiveString
+      name: details.archiveArray
     },
     {
       key: 'timeline-type-info',
