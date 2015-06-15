@@ -47,14 +47,6 @@ class SearchControls extends React.Component {
                 />
                 <SearchFilterControl
                   className='filter-type'
-                  key='Field'
-                  name='Ala'
-                  options={this.props.filtersOptions.schoolField}
-                  resource='schoolField'
-                  value={this.props.filters.field}
-                />
-                <SearchFilterControl
-                  className='filter-type'
                   key='Language'
                   name='Kieli'
                   options={this.props.filtersOptions.language}
