@@ -218,7 +218,7 @@ function getSearchDetails(schoolIds, query) {
       );
     });
   });
-  return _.sortBy(searchDetails, 'id');
+  return _.sortBy(searchDetails, 'name');
 }
 
 function getSearchDetailsForItem(schoolId, item) {

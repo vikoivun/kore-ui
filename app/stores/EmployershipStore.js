@@ -55,7 +55,7 @@ function getSearchDetails(employershipIds) {
     const results = SchoolStore.getSearchDetailsForItem(schoolId, item);
     searchDetails = searchDetails.concat(results);
   });
-  return _.uniq(_.sortBy(searchDetails, 'id'), true, 'id');
+  return _.uniq(_.sortBy(searchDetails, 'extraInfo'), 'id');
 }
 
 function _receiveEmployerships(employerships) {
