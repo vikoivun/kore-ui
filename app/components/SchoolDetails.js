@@ -9,6 +9,7 @@ import {
   getAddressStringFromBuilding,
   getArchiveName,
   getBoxContent,
+  getContinuumEventName,
   inBetween
 } from '../core/utils';
 
@@ -21,6 +22,17 @@ const itemGenerator = {
         key: 'school-archive-' + index,
         name: getArchiveName(archive),
         highlight: inBetween(selectedYear, archive.beginYear, archive.endYear)
+      };
+    }).reverse();
+  },
+  continuum: function(continuum, selectedYear) {
+    return _.map(continuum, function(event, index) {
+      return {
+        boxContent: String(event.year),
+        className: 'details-continuum-event',
+        key: 'school-continuum-event-' + index,
+        name: getContinuumEventName(event),
+        highlight: event.year === selectedYear
       };
     }).reverse();
   },
@@ -151,6 +163,11 @@ class SchoolDetails extends React.Component {
             expandable={false}
             items={itemGenerator.names(details.names, selectedYear)}
             title={'Koulun nimet'}
+          />
+          <InfoTable
+            expandable={true}
+            items={itemGenerator.continuum(details.continuum, selectedYear)}
+            title={'Koulun edeltäjät ja seuraajat'}
           />
           <InfoTable
             expandable={true}
