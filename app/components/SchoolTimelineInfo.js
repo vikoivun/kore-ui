@@ -29,7 +29,7 @@ function processInfoRow(details) {
     {
       key: 'timeline-archive-info',
       className: 'details-archive',
-      name: details.archiveString
+      name: details.archiveArray
     },
     {
       key: 'timeline-type-info',
@@ -90,19 +90,13 @@ class SchoolTimelineInfo extends React.Component {
 
 SchoolTimelineInfo.propTypes = {
   schoolYearDetails: React.PropTypes.shape({
-    building: React.PropTypes.shape({
-      addresses: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-          municipalityFi: React.PropTypes.string,
-          streetNameFi: React.PropTypes.string
-        })
-      )
-    }),
-    name: React.PropTypes.shape({
-      beginYear: React.PropTypes.number,
-      endYear: React.PropTypes.number,
-      officialName: React.PropTypes.string
-    })
+    archiveArray: React.PropTypes.array,
+    buildingString: React.PropTypes.string,
+    genderString: React.PropTypes.string,
+    languageString: React.PropTypes.string,
+    name: React.PropTypes.object,
+    principalString: React.PropTypes.string,
+    typeString: React.PropTypes.string
   }),
   selectedYear: React.PropTypes.number,
   yearsActive: React.PropTypes.shape({

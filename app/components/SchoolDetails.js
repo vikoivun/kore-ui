@@ -7,6 +7,7 @@ import InfoTable from './InfoTable';
 import {
   getAddressString,
   getAddressStringFromBuilding,
+  getArchiveName,
   getBoxContent,
   inBetween
 } from '../core/utils';
@@ -18,7 +19,7 @@ const itemGenerator = {
         boxContent: getBoxContent(archive),
         className: 'details-archive',
         key: 'school-archive-' + index,
-        name: archive.location,
+        name: getArchiveName(archive),
         highlight: inBetween(selectedYear, archive.beginYear, archive.endYear)
       };
     }).reverse();
@@ -141,7 +142,7 @@ class SchoolDetails extends React.Component {
       <div className='container'>
         <section className='school-details'>
           <header>
-            <h2>Koulun kehityshistoria</h2>
+            <h2>Koulun historia</h2>
             <p className='lead'>
               Historiatiedoista on korostettu aikajanalta valittuna vuotena voimassa olleet tiedot.
             </p>
@@ -159,8 +160,8 @@ class SchoolDetails extends React.Component {
           />
           <InfoTable
             expandable={true}
-            items={itemGenerator.archives(details.archives, selectedYear)}
-            title={'Arkistot'}
+            items={schoolTypeGroup}
+            title={'Koulutyyppi'}
           />
           <InfoTable
             expandable={true}
@@ -169,8 +170,8 @@ class SchoolDetails extends React.Component {
           />
           <InfoTable
             expandable={true}
-            items={schoolTypeGroup}
-            title={'Koulutyyppi'}
+            items={itemGenerator.archives(details.archives, selectedYear)}
+            title={'Arkistot'}
           />
         </section>
       </div>

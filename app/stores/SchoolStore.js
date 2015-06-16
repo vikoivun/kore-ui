@@ -12,6 +12,7 @@ import {
 } from '../core/storeUtils';
 import {
   getAddressString,
+  getArchiveName,
   getBuildingAddressForYear,
   getImageUrl,
   getItemByIdWrapper,
@@ -132,6 +133,15 @@ function getSchoolDetails(school, selectedYear) {
 function getSchoolYearDetails(school, year) {
   year = year || _getLatestYear(school);
 
+  const archives = getItemsForYear(school.archives, year);
+  let archiveArray = [];
+  _.each(archives.reverse(), function(archive, index) {
+    if (index > 0) {
+      archiveArray.push(', ');
+    }
+    archiveArray.push(getArchiveName(archive));
+  });
+
   let buildingNames = [];
   const schoolBuildings = getItemsForYear(school.buildings, year);
   _.each(schoolBuildings, function(schoolBuilding) {
@@ -144,9 +154,6 @@ function getSchoolYearDetails(school, year) {
     }
   });
   const buildingString = buildingNames.join(', ');
-
-  const archives = getItemsForYear(school.archives, year);
-  const archiveString = _.pluck(archives, 'location').join(', ');
 
   const genders = getItemsForYear(school.genders, year);
   const genderString = _.pluck(genders, 'gender').join(', ');
@@ -172,7 +179,7 @@ function getSchoolYearDetails(school, year) {
   const typeString = _.pluck(types, ['type', 'name']).join(', ');
 
   return {
-    archiveString: archiveString,
+    archiveArray: archiveArray,
     buildingString: buildingString,
     genderString: genderString,
     languageString: languageString,
@@ -218,7 +225,7 @@ function getSearchDetails(schoolIds, query) {
       );
     });
   });
-  return _.sortBy(searchDetails, 'id');
+  return _.sortBy(searchDetails, 'name');
 }
 
 function getSearchDetailsForItem(schoolId, item) {

@@ -236,7 +236,12 @@ function _receiveSearchResponse(searchResponse, resultsContent) {
 }
 
 function _receiveFilterResponse(responseResults, resource) {
-  _filtersOptions[resource] = responseResults;
+  const sortedResources = ['schoolType', 'schoolField'];
+  if (_.includes(sortedResources, resource)) {
+    _filtersOptions[resource] = _.sortBy(responseResults, 'name');
+  } else {
+    _filtersOptions[resource] = responseResults;
+  }
 }
 
 function _resetSearchResults() {
