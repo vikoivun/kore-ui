@@ -60,7 +60,7 @@ function getSearchDetails(schoolBuildingIds) {
     const results = SchoolStore.getSearchDetailsForItem(schoolId, item);
     searchDetails = searchDetails.concat(results);
   });
-  return _.uniq(_.sortBy(searchDetails, 'extraInfo'), 'id');
+  return _.uniq(_.sortByAll(searchDetails, ['extraInfo', 'name']), 'id');
 }
 
 function _receiveSchoolBuildings(schoolBuildings) {
