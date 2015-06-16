@@ -73,8 +73,8 @@ class SchoolPage extends React.Component {
     if (year) {
       UIActionCreators.updateYear(year);
     }
-    SchoolActionCreators.requestSchool(schoolId);
     this.setState(getStateFromStores(schoolId));
+    SchoolActionCreators.requestSchool(schoolId);
   }
 
   _onChange() {
