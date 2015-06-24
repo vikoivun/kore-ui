@@ -38,20 +38,14 @@ const TILE_LAYERS = [
     title: 'Opaskartta, 1937'
   },
   {
-    beginYear: 1917,
+    beginYear: 1925,
     endYear: 1936,
-    name: 'historical:1917-1918_opaskartta',
-    title: 'Opaskartta, 1917-1918'
-  },
-  {
-    beginYear: 1909,
-    endYear: 1916,
-    name: 'historical:1909_opaskartta',
-    title: 'Opaskartta, 1909'
+    name: 'historical:1925_opaskartta',
+    title: 'Opaskartta, 1925'
   },
   {
     beginYear: 1900,
-    endYear: 1908,
+    endYear: 1924,
     name: 'historical:1900_opaskartta',
     title: 'Opaskartta, 1900'
   },
