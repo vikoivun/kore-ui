@@ -99,7 +99,7 @@ describe('SearchFilterControl', function() {
     };
 
     beforeEach(function() {
-      requestFilterStub.reset()
+      requestFilterStub.reset();
       element = TestUtils.renderIntoDocument(
         <SearchFilterControl {...propsWithOptions} />
       );
