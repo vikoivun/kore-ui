@@ -13,7 +13,11 @@ chai.use(sinonChai);
 
 describe('SearchLoadMore', function() {
   const props = {
-    url: 'http://test.url',
+    urls: {
+      buildings: null,
+      employerships: null,
+      schools: 'http://test.url'
+    },
     fetchingData: false
   };
   let element;
@@ -50,10 +54,10 @@ describe('SearchLoadMore', function() {
       expect(loadMoreActionSpy).to.have.been.called;
     });
 
-    it('should send the url to the action on click', function() {
+    it('should send the urls to the action on click', function() {
       const component = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
       TestUtils.Simulate.click(component);
-      expect(loadMoreActionSpy).to.have.been.calledWith(props.url);
+      expect(loadMoreActionSpy).to.have.been.calledWith(props.urls);
     });
   });
 });
