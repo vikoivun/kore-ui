@@ -14,8 +14,32 @@ const TILE_LAYERS = [
     title: 'Opaskartta, 1999'
   },
   {
-    beginYear: 1962,
+    beginYear: 1991,
     endYear: 1998,
+    name: 'historical:1991_opaskartta',
+    title: 'Opaskartta, 1991'
+  },
+  {
+    beginYear: 1985,
+    endYear: 1990,
+    name: 'historical:1985_opaskartta',
+    title: 'Opaskartta, 1985'
+  },
+  {
+    beginYear: 1977,
+    endYear: 1984,
+    name: 'historical:1977_opaskartta',
+    title: 'Opaskartta, 1977'
+  },
+  {
+    beginYear: 1966,
+    endYear: 1976,
+    name: 'historical:1966_opaskartta',
+    title: 'Opaskartta, 1966'
+  },
+  {
+    beginYear: 1962,
+    endYear: 1965,
     name: 'historical:1962_opaskartta',
     title: 'Opaskartta, 1962'
   },
