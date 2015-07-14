@@ -12,7 +12,7 @@ function getAddressStringFromBuilding(building) {
     _.each(_.sortBy(building.addresses, 'beginYear'), function(address) {
       streets.push(getAddressString(address));
     });
-    return streets.join(', ');
+    return streets.join(' = ');
   }
   return 'Osoite tuntematon';
 }
