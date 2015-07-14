@@ -78,7 +78,6 @@ function _receiveBuildings(buildings) {
   _.each(buildings, function(building) {
     _buildings[building.id] = {
       addresses: sortByYears(building.addresses),
-      architect: building.architect,
       id: building.id,
       neighborhood: building.neighborhood
     };
