@@ -12,30 +12,38 @@ class AboutPage extends React.Component {
           <div className='container'>
             <h1>Tietoa Koulurekisteri.hel.fi –palvelusta</h1>
             <p className='lead'>
-              Koulurekisteri on vuonna 2011 perustettu Helsingin kaupunginarkiston
-              ja opetusviraston yhteinen hanke. Projekti tuottaa Helsingin koulujen
-              menneisyyttä ja nykypäivää tarkastelevan yhtenäisen koulurekisterin,
-              joka kattaa kaikki erilaiset Helsingissä toimineet koulut 1550-luvulta
-              nykypäivään.
+              Koulurekisteristä voit etsiä tietoa Helsingin kouluista kaupungin perustamisesta
+              lähtien.
+              Rekisteriin on koottu koulujen toiminnan kannalta oleellisimmat asiat, kuten
+              nimenmuutokset, sijainnit ja tietoa koulutyypistä eri aikoina. Voit etsiä tietoa
+              yleissivistävästä kansanopetuksesta 1550-luvulta nykypäivään.
             </p>
             <p>
-              Koulurekisterin kautta on mahdollista saada tietoja yksittäisen koulun
-              historiasta, sen nimen muutoksista, koulurakennuksista, rehtoreista,
-              koulujen yhdistymisistä, koulutoiminnan päättymisestä ja koulujen
-              arkistomateriaalien sijainnista. Lisäksi tietokannasta saa myös
-              kattavan kuvan Helsingin kouluverkosta tiettynä ajanjaksona. Esimerkiksi
-              minkä verran oli ruotsinkielisiä kouluja, miten koulut jakautuvat
-              kaupunginosittain jne.
+              Vuosikymmenien aikana yhdistyneet ja toisistaan eronneet koulut on linkitetty
+              rekisterissä. Lisäksi tietoa löytyy koulujen rehtoreista.
             </p>
             <p>
-              Koulurekisteri on tarkoitettu päätöksentekijöille, virastoille,
-              viran- ja toimenhaltijoille, kaupunkilaisille ja tutkijoille.
-              Kouluja koskeva informaatio on hajallaan eikä opetusvirastolla tai
-              kaupunginarkistolla ole aiemmin ollut yhtenäistä tietokantaa kouluista
-              ja niiden historiasta. Erityisesti rekisteri tulee helpottamaan
-              kaupunginarkiston tietopalvelun ja opetusviraston arkiston ja neuvonnan
-              toimintaa, joille tulee paljon kyselyjä liittyen kouluihin. Myös kouluilla
-              on tarvetta tämän tyyppiselle tiedolle.
+              Nykyään toimivien koulujen tiedot päivitetään koulurekisteriin lukuvuosittain ja
+              historiallista tietoa täydennetään tarpeen mukaan.
+            </p>
+            <p>
+              Koulurekisterin tiedot on koottu arkistolähteistä ja kirjallisuudesta. Palvelussa
+              käytetyt historialliset kartat ovat Helsingin kaupunginarkiston ja
+              kaupunkimittausosaston kokoelmista. Valokuvat ovat pääosin
+              Helsingin kaupunginmuseon kuva-arkistosta.
+            </p>
+            <p>
+              Koulurekisteri on Helsingin kaupungin Tietokeskuksen kaupunginarkiston ja
+              opetusviraston yhteinen hanke. Palvelun on
+              toteuttanut <a href='http://www.fastmonkeys.com/'>Fast Monkeys Oy</a> yhteistyössä
+              Helsingin kaupunginkanslian kumppanikoodarien kanssa.
+              Palvelun <a href='https://github.com/City-of-Helsinki/kore'>rajapinta</a>{' '}
+              ja <a href='https://github.com/fastmonkeys/kore'>käyttöliittymä</a> ovat avointa
+              lähdekoodia ja vapaasti kaikkien tutkittavissa ja
+              paranneltavissa. Aineistoon voi tutustua myös osoitteessa http://kore.hel.ninja/v1/
+            </p>
+            <p>
+              Anna palautetta: <a href='mailto:koulurekisteri@hel.fi'>koulurekisteri@hel.fi</a>
             </p>
           </div>
         </div>
