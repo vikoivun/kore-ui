@@ -65,6 +65,9 @@ function getSearchDetails(schoolBuildingIds) {
 
 function _receiveSchoolBuildings(schoolBuildings) {
   _.each(schoolBuildings, function(schoolBuilding) {
+    if (_schoolBuildings[schoolBuilding.id] && _schoolBuildings[schoolBuilding.id].school) {
+      schoolBuilding.school = _schoolBuildings[schoolBuilding.id].school;
+    }
     _schoolBuildings[schoolBuilding.id] = schoolBuilding;
   });
 }
