@@ -42,9 +42,6 @@ class AboutPage extends React.Component {
               lähdekoodia ja vapaasti kaikkien tutkittavissa ja
               paranneltavissa. Aineistoon voi tutustua myös osoitteessa http://kore.hel.ninja/v1/
             </p>
-            <p>
-              Anna palautetta: <a href='mailto:koulurekisteri@hel.fi'>koulurekisteri@hel.fi</a>
-            </p>
           </div>
         </div>
       </DocumentTitle>
