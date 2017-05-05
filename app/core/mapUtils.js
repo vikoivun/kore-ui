@@ -41,7 +41,7 @@ const layers = _makeLayers();
 
 function _getGeoserverUrl(layerName, layerFmt) {
   /*eslint-disable */
-  return `http://geoserver.hel.fi/geoserver/gwc/service/tms/1.0.0/${layerName}@ETRS-GK25@${layerFmt}/{z}/{x}/{y}.${layerFmt}`;
+  return `https://geoserver.hel.fi/geoserver/gwc/service/tms/1.0.0/${layerName}@ETRS-GK25@${layerFmt}/{z}/{x}/{y}.${layerFmt}`;
   /*eslint-enable */
 }
 
