@@ -38,12 +38,9 @@ class AboutPage extends React.Component {
               toteuttanut <a href='http://www.fastmonkeys.com/'>Fast Monkeys Oy</a> yhteistyössä
               Helsingin kaupunginkanslian kumppanikoodarien kanssa.
               Palvelun <a href='https://github.com/City-of-Helsinki/kore'>rajapinta</a>{' '}
-              ja <a href='https://github.com/fastmonkeys/kore'>käyttöliittymä</a> ovat avointa
+              ja <a href='https://github.com/City-of-Helsinki/kore-ui'>käyttöliittymä</a> ovat avointa
               lähdekoodia ja vapaasti kaikkien tutkittavissa ja
-              paranneltavissa. Aineistoon voi tutustua myös osoitteessa http://kore.hel.ninja/v1/
-            </p>
-            <p>
-              Anna palautetta: <a href='mailto:koulurekisteri@hel.fi'>koulurekisteri@hel.fi</a>
+              paranneltavissa. Aineistoon voi tutustua myös osoitteessa https://api.hel.fi/kore/v1/
             </p>
           </div>
         </div>
