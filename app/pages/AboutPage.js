@@ -42,6 +42,9 @@ class AboutPage extends React.Component {
               lähdekoodia ja vapaasti kaikkien tutkittavissa ja
               paranneltavissa. Aineistoon voi tutustua myös osoitteessa https://api.hel.fi/kore/v1/
             </p>
+            <p>
+              Palautetta palvelusta voit antaa kaupungin yhteisellä <a href="http://www.hel.fi/www/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta">palautelomakkeella</a>
+            </p>
           </div>
         </div>
       </DocumentTitle>
