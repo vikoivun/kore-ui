@@ -15,7 +15,7 @@ function buildAPIURL(resource) {
 function searchRequest(endPoint, query, filters, resultContent) {
   request
     .get(buildAPIURL(endPoint))
-    .query('search=' + query)
+    .query({search: query})
     .query(decamelizeKeys(filters))
     .query(API_ARGS)
     .end(function(error, response) {
