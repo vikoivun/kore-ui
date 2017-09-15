@@ -15,65 +15,12 @@
         "react"
     ],
     "extends": [
-        "eslint:recommended", "plugin:react/recommended"
+        "airbnb"
     ],
     "settings": {
         "react": {
             "version": "0.13"
         }
-    },
-    "rules": {
-        "brace-style": ["error", "1tbs", { "allowSingleLine": false }],
-        "camelcase": "error",
-        "comma-spacing": ["error", {"before": false, "after": true}],
-        "comma-style": "error",
-        "eol-last": "error",
-//        "indent": ["error", 2],
-        "max-len": ["error", 100, 2, {"ignoreUrls": true}],
-        "no-floating-decimal": "error",
-        "no-multiple-empty-lines": ["error", {"max": 2}],
-        "func-call-spacing": "error",
-        "no-console": "warn",
-        "no-trailing-spaces": "error",
-        "no-underscore-dangle": "off",
-        "no-undefined": "error",
-        "no-unused-expressions": "off",
-        "no-use-before-define": ["error", { "functions": false }],
-        "no-var": "error",
-        "one-var": ["error", "never"],
-        "operator-linebreak": ["error", "after"],
-        "quotes": ["error", "single", "avoid-escape"],
-        "react/display-name": "off",
-        "react/jsx-boolean-value": "error",
-        "react/jsx-no-undef": "error",
-        "jsx-quotes": ["error", "prefer-single"],
-        "react/sort-prop-types": ["error", {"ignoreCase": true}],
-        "react/jsx-sort-props": ["error", {"ignoreCase": true}],
-        "react/jsx-uses-react": "error",
-        "react/jsx-uses-vars": "error",
-        "react/no-did-mount-set-state": "error",
-        "react/no-did-update-set-state": "error",
-        "react/no-multi-comp": "off",
-        "react/no-unknown-property": "error",
-        "react/prop-types": "error",
-        "react/react-in-jsx-scope": "error",
-        "react/self-closing-comp": "error",
-        "react/jsx-wrap-multilines": "error",
-        "keyword-spacing": "error",
-        "space-before-blocks": "error",
-        "space-before-function-paren": ["error", "never"],
-        "object-curly-spacing": "error",
-        "array-bracket-spacing": "error",
-        "space-in-parens": "error",
-        "spaced-comment": "warn",
-        "strict": "warn",
-        "wrap-regex": "error",
-        "react/no-find-dom-node": "warn",
-        "react/no-string-refs": "warn",
-        "react/self-closing-comp": "warn",
-        "react/jsx-key": "warn",
-        "react/jsx-boolean-value": "warn",
-        "react/prop-types": "warn"
     },
     "overrides": [
         {
