@@ -1,4 +1,4 @@
-'use strict';
+
 
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
@@ -10,7 +10,7 @@ export default {
   requestSearch(query, filters) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.REQUEST_SEARCH,
-      query
+      query,
     });
 
     SearchAPI.searchSchool(query, filters);
@@ -21,7 +21,7 @@ export default {
   requestLoadMore(urls) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.REQUEST_SEARCH_LOAD_MORE,
-      urls
+      urls,
     });
 
     SearchAPI.searchLoadMore(urls);
@@ -30,14 +30,14 @@ export default {
   selectSchool(schoolId) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_SEARCH_SCHOOL,
-      schoolId
+      schoolId,
     });
   },
 
   selectView(view) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_SEARCH_VIEW,
-      view
+      view,
     });
   },
 
@@ -45,7 +45,7 @@ export default {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_SEARCH_FILTER,
       filterKey,
-      optionId
+      optionId,
     });
   },
 
@@ -56,7 +56,7 @@ export default {
 
     AppDispatcher.handleViewAction({
       type: ActionTypes.REQUEST_FILTER_OPTIONS,
-      resource
+      resource,
     });
     SearchAPI.requestFilter(resource);
   },
@@ -64,14 +64,14 @@ export default {
   selectMapYear(year) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_SEARCH_MAP_YEAR,
-      year
+      year,
     });
   },
 
   selectYears(years) {
     AppDispatcher.handleViewAction({
       type: ActionTypes.SELECT_SEARCH_TIMELINE_YEAR,
-      years
+      years,
     });
-  }
+  },
 };

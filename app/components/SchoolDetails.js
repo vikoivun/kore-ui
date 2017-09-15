@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
@@ -10,11 +10,11 @@ import {
   getArchiveName,
   getBoxContent,
   getContinuumEventName,
-  inBetween
+  inBetween,
 } from '../core/utils';
 
 const itemGenerator = {
-  archives: function(archives, selectedYear) {
+  archives(archives, selectedYear) {
     return _.map(archives, function(archive, index) {
       return {
         boxContent: getBoxContent(archive),
@@ -25,7 +25,7 @@ const itemGenerator = {
       };
     }).reverse();
   },
-  continuum: function(continuum, selectedYear) {
+  continuum(continuum, selectedYear) {
     return _.map(continuum, function(event, index) {
       return {
         boxContent: String(event.year),
@@ -36,7 +36,7 @@ const itemGenerator = {
       };
     }).reverse();
   },
-  buildings: function(buildings, selectedYear) {
+  buildings(buildings, selectedYear) {
     return _.map(buildings, function(building) {
       let items = [
         {
@@ -69,7 +69,7 @@ const itemGenerator = {
       };
     }).reverse();
   },
-  fields: function(fields, selectedYear) {
+  fields(fields, selectedYear) {
     return _.map(fields, function(field, index) {
       return {
         boxContent: getBoxContent(field),
@@ -80,7 +80,7 @@ const itemGenerator = {
       };
     }).reverse();
   },
-  genders: function(genders, selectedYear) {
+  genders(genders, selectedYear) {
     return _.map(genders, function(gender, index) {
       return {
         boxContent: getBoxContent(gender),
@@ -91,7 +91,7 @@ const itemGenerator = {
       };
     }).reverse();
   },
-  languages: function(languages, selectedYear) {
+  languages(languages, selectedYear) {
     return _.map(languages, function(language) {
       return {
         boxContent: getBoxContent(language),
@@ -102,7 +102,7 @@ const itemGenerator = {
       };
     }).reverse();
   },
-  names: function(names, selectedYear) {
+  names(names, selectedYear) {
     return _.map(names, function(name) {
       return {
         boxContent: getBoxContent(name),
@@ -113,7 +113,7 @@ const itemGenerator = {
       };
     }).reverse();
   },
-  principals: function(principals, selectedYear) {
+  principals(principals, selectedYear) {
     return _.map(principals, function(principal) {
       return {
         boxContent: getBoxContent(principal),
@@ -124,7 +124,7 @@ const itemGenerator = {
       };
     }).reverse();
   },
-  types: function(types, selectedYear) {
+  types(types, selectedYear) {
     return _.map(types, function(type, index) {
       return {
         boxContent: getBoxContent(type),
@@ -144,18 +144,18 @@ class SchoolDetails extends React.Component {
     const schoolTypeGroup = itemGenerator.types(details.types, selectedYear).concat(
       itemGenerator.fields(details.fields, selectedYear),
       itemGenerator.languages(details.languages, selectedYear),
-      itemGenerator.genders(details.genders, selectedYear)
+      itemGenerator.genders(details.genders, selectedYear),
     );
     let buildingsLeadText = '';
     if (details.buildings) {
       buildingsLeadText = `Koulu on toiminut ${details.buildings.length} rakennuksessa.`;
     }
     return (
-      <div className='container'>
-        <section className='school-details'>
+      <div className="container">
+        <section className="school-details">
           <header>
             <h2>Koulun historia</h2>
-            <p className='lead'>
+            <p className="lead">
               Historiatiedoista on korostettu aikajanalta valittuna vuotena voimassa olleet tiedot.
             </p>
           </header>
@@ -165,28 +165,28 @@ class SchoolDetails extends React.Component {
             title={'Koulun nimet'}
           />
           <InfoTable
-            expandable={true}
+            expandable
             items={itemGenerator.continuum(details.continuum, selectedYear)}
             title={'Koulun edeltäjät ja seuraajat'}
           />
           <InfoTable
-            expandable={true}
+            expandable
             items={itemGenerator.buildings(details.buildings, selectedYear)}
             lead={buildingsLeadText}
             title={'Rakennukset ja sijainnit'}
           />
           <InfoTable
-            expandable={true}
+            expandable
             items={schoolTypeGroup}
             title={'Koulutyyppi'}
           />
           <InfoTable
-            expandable={true}
+            expandable
             items={itemGenerator.principals(details.principals, selectedYear)}
             title={'Rehtorit'}
           />
           <InfoTable
-            expandable={true}
+            expandable
             items={itemGenerator.archives(details.archives, selectedYear)}
             title={'Arkistot'}
           />
@@ -202,8 +202,8 @@ SchoolDetails.propTypes = {
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
-        location: React.PropTypes.string
-      })
+        location: React.PropTypes.string,
+      }),
     ),
     buildings: React.PropTypes.arrayOf(
       React.PropTypes.shape({
@@ -212,62 +212,62 @@ SchoolDetails.propTypes = {
           addresses: React.PropTypes.arrayOf(
             React.PropTypes.shape({
               municipalityFi: React.PropTypes.string,
-              streetNameFi: React.PropTypes.string
-            })
+              streetNameFi: React.PropTypes.string,
+            }),
           ),
           architect: React.PropTypes.string,
-          neighborhood: React.PropTypes.string
+          neighborhood: React.PropTypes.string,
         }),
-        endYear: React.PropTypes.number
-      })
+        endYear: React.PropTypes.number,
+      }),
     ),
     fields: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
         field: React.PropTypes.shape({
-          description: React.PropTypes.string
-        })
-      })
+          description: React.PropTypes.string,
+        }),
+      }),
     ),
     genders: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
-        gender: React.PropTypes.string
-      })
+        gender: React.PropTypes.string,
+      }),
     ),
     languages: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
-        language: React.PropTypes.string
-      })
+        language: React.PropTypes.string,
+      }),
     ),
     names: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
-        officialName: React.PropTypes.string
-      })
+        officialName: React.PropTypes.string,
+      }),
     ),
     principals: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
-        name: React.PropTypes.string
-      })
+        name: React.PropTypes.string,
+      }),
     ),
     types: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
         type: React.PropTypes.shape({
-          name: React.PropTypes.string
-        })
-      })
-    )
-  })
+          name: React.PropTypes.string,
+        }),
+      }),
+    ),
+  }),
 };
 
 export default SchoolDetails;

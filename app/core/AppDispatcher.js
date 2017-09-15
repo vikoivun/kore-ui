@@ -1,6 +1,6 @@
-'use strict';
 
-import {Dispatcher} from 'flux';
+
+import { Dispatcher } from 'flux';
 import PayloadSources from '../constants/PayloadSources';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -17,7 +17,7 @@ class AppDispatcher extends Dispatcher {
 
     this.dispatch({
       source: PayloadSources.SERVER_ACTION,
-      action
+      action,
     });
   }
 
@@ -32,7 +32,7 @@ class AppDispatcher extends Dispatcher {
 
     this.dispatch({
       source: PayloadSources.VIEW_ACTION,
-      action
+      action,
     });
   }
 }

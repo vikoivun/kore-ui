@@ -1,17 +1,16 @@
-'use strict';
+
 
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 
 class AboutPage extends React.Component {
-
   render() {
     return (
-      <DocumentTitle title='Tietoa palvelusta - Koulurekisteri'>
-        <div className='about-page'>
-          <div className='container'>
+      <DocumentTitle title="Tietoa palvelusta - Koulurekisteri">
+        <div className="about-page">
+          <div className="container">
             <h1>Tietoa Koulurekisteri.hel.fi –palvelusta</h1>
-            <p className='lead'>
+            <p className="lead">
               Koulurekisteristä voit etsiä tietoa Helsingin kouluista kaupungin perustamisesta
               lähtien.
               Rekisteriin on koottu koulujen toiminnan kannalta oleellisimmat asiat, kuten
@@ -35,16 +34,16 @@ class AboutPage extends React.Component {
             <p>
               Koulurekisteri on Helsingin kaupungin Tietokeskuksen kaupunginarkiston ja
               opetusviraston yhteinen hanke. Palvelun on
-              toteuttanut <a href='http://www.fastmonkeys.com/'>Fast Monkeys Oy</a> yhteistyössä
+              toteuttanut <a href="http://www.fastmonkeys.com/">Fast Monkeys Oy</a> yhteistyössä
               Helsingin kaupunginkanslian kumppanikoodarien kanssa.
-              Palvelun <a href='https://github.com/City-of-Helsinki/kore'>rajapinta</a>{' '}
-              ja <a href='https://github.com/City-of-Helsinki/kore-ui'>käyttöliittymä</a> ovat
+              Palvelun <a href="https://github.com/City-of-Helsinki/kore">rajapinta</a>{' '}
+              ja <a href="https://github.com/City-of-Helsinki/kore-ui">käyttöliittymä</a> ovat
               avointa lähdekoodia ja vapaasti kaikkien tutkittavissa ja paranneltavissa.
               Aineistoon voi tutustua myös osoitteessa https://api.hel.fi/kore/v1/
             </p>
             <p>
               Palautetta palvelusta voit antaa kaupungin yhteisellä
-              <a href='http://www.hel.fi/www/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta'>palautelomakkeella</a>
+              <a href="http://www.hel.fi/www/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta">palautelomakkeella</a>
             </p>
           </div>
         </div>

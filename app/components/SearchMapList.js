@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
@@ -30,9 +30,8 @@ class SearchMapList extends React.Component {
           {this.props.schoolList.map(this.getListItem)}
         </ul>
       );
-    } else {
-      return <p>Yhtään hakutulosta ei löytynyt.</p>;
     }
+    return <p>Yhtään hakutulosta ei löytynyt.</p>;
   }
 
   render() {
@@ -63,7 +62,7 @@ SearchMapList.propTypes = {
   nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
   schoolList: React.PropTypes.array.isRequired,
   selectedSchoolId: React.PropTypes.string,
-  somethingWasSearched: React.PropTypes.bool.isRequired
+  somethingWasSearched: React.PropTypes.bool.isRequired,
 };
 
 export default SearchMapList;

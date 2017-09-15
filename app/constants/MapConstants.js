@@ -1,102 +1,102 @@
-'use strict';
+
 
 const TILE_LAYERS = [
   {
     beginYear: 2010,
     endYear: new Date().getFullYear(),
     name: 'hel:Karttasarja',
-    title: 'Opaskartta'
+    title: 'Opaskartta',
   },
   {
     beginYear: 1999,
     endYear: 2009,
     name: 'historical:1999_opaskartta',
-    title: 'Opaskartta, 1999'
+    title: 'Opaskartta, 1999',
   },
   {
     beginYear: 1991,
     endYear: 1998,
     name: 'historical:1991_opaskartta',
-    title: 'Opaskartta, 1991'
+    title: 'Opaskartta, 1991',
   },
   {
     beginYear: 1985,
     endYear: 1990,
     name: 'historical:1985_opaskartta',
-    title: 'Opaskartta, 1985'
+    title: 'Opaskartta, 1985',
   },
   {
     beginYear: 1977,
     endYear: 1984,
     name: 'historical:1977_opaskartta',
-    title: 'Opaskartta, 1977'
+    title: 'Opaskartta, 1977',
   },
   {
     beginYear: 1966,
     endYear: 1976,
     name: 'historical:1966_opaskartta',
-    title: 'Opaskartta, 1966'
+    title: 'Opaskartta, 1966',
   },
   {
     beginYear: 1962,
     endYear: 1965,
     name: 'historical:1962_opaskartta',
-    title: 'Opaskartta, 1962'
+    title: 'Opaskartta, 1962',
   },
   {
     beginYear: 1952,
     endYear: 1961,
     name: 'historical:1952_opaskartta',
-    title: 'Opaskartta, 1952'
+    title: 'Opaskartta, 1952',
   },
   {
     beginYear: 1940,
     endYear: 1951,
     name: 'historical:1940_opaskartta',
-    title: 'Opaskartta, 1940'
+    title: 'Opaskartta, 1940',
   },
   {
     beginYear: 1937,
     endYear: 1939,
     name: 'historical:1937_opaskartta',
-    title: 'Opaskartta, 1937'
+    title: 'Opaskartta, 1937',
   },
   {
     beginYear: 1925,
     endYear: 1936,
     name: 'historical:1925_opaskartta',
-    title: 'Opaskartta, 1925'
+    title: 'Opaskartta, 1925',
   },
   {
     beginYear: 1900,
     endYear: 1924,
     name: 'historical:1900_opaskartta',
-    title: 'Opaskartta, 1900'
+    title: 'Opaskartta, 1900',
   },
   {
     beginYear: 1878,
     endYear: 1899,
     name: 'historical:1878_asemakaavakartta',
-    title: 'Asemakaavakartta, 1878'
+    title: 'Asemakaavakartta, 1878',
   },
   {
     beginYear: 1838,
     endYear: 1877,
     name: 'historical:1838_asemakaavakartta',
-    title: 'Asemakaavakartta, 1838'
+    title: 'Asemakaavakartta, 1838',
   },
   {
     beginYear: 1820,
     endYear: 1837,
     name: 'historical:1820_asemakaavakartta',
-    title: 'Asemakaavakartta, 1820'
+    title: 'Asemakaavakartta, 1820',
   },
   {
     beginYear: 1790,
     endYear: 1819,
     name: 'historical:merikartta_1790',
-    title: 'Merikartta, 1790'
-  }
+    title: 'Merikartta, 1790',
+  },
 ];
 
 /*eslint-disable */
@@ -112,5 +112,5 @@ export default {
   HELSINKI_COORDINATES: [60.192059, 24.945831],
   TILE_LAYERS,
   MAP_MAX_ZOOM: 7,
-  MAP_ZOOM: 5
+  MAP_ZOOM: 5,
 };

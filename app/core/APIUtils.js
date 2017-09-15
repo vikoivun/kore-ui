@@ -1,7 +1,7 @@
-'use strict';
 
-import {Schema, arrayOf, normalize} from 'normalizr';
-import {camelizeKeys} from 'humps';
+
+import { Schema, arrayOf, normalize } from 'normalizr';
+import { camelizeKeys } from 'humps';
 
 const building = new Schema('buildings');
 const principal = new Schema('principals');
@@ -17,48 +17,48 @@ const buildingSearchResponse = new Schema('buildingSearchResponse');
 const employershipSearchResponse = new Schema('employershipSearchResponse');
 
 schoolBuilding.define({
-  building: building,
-  school: school
+  building,
+  school,
 });
 
 schoolPrincipal.define({
-  principal: principal
+  principal,
 });
 
 employer.define({
-  school: school
+  school,
 });
 
 employership.define({
-  principal: principal,
-  school: school
+  principal,
+  school,
 });
 
 principal.define({
-  employers: arrayOf(employer)
+  employers: arrayOf(employer),
 });
 
 school.define({
   buildings: arrayOf(schoolBuilding),
-  principals: arrayOf(schoolPrincipal)
+  principals: arrayOf(schoolPrincipal),
 });
 
 schoolSearchResponse.define({
-  results: arrayOf(school)
+  results: arrayOf(school),
 });
 
 buildingSearchResponse.define({
-  results: arrayOf(schoolBuilding)
+  results: arrayOf(schoolBuilding),
 });
 
 employershipSearchResponse.define({
-  results: arrayOf(employership)
+  results: arrayOf(employership),
 });
 
 const resultsSchemas = {
   schools: [schoolSearchResponse, 'schoolSearchResponse'],
   buildings: [buildingSearchResponse, 'buildingSearchResponse'],
-  employerships: [employershipSearchResponse, 'employershipSearchResponse']
+  employerships: [employershipSearchResponse, 'employershipSearchResponse'],
 };
 
 export function normalizeSchoolResponse(response) {
@@ -69,7 +69,7 @@ export function normalizeSchoolResponse(response) {
 export function normalizeSearchResponse(response, resultsContent) {
   const camelized = camelizeKeys(response);
   const resultsSchema = resultsSchemas[resultsContent];
-  let normalized = normalize(camelized, resultsSchema[0]);
+  const normalized = normalize(camelized, resultsSchema[0]);
   // The searchResponse does not have an id so after normalizr the data is behind
   // an undefined property. Let's change that here.
   normalized.entities.searchResponse = normalized.entities[resultsSchema[1]].undefined;

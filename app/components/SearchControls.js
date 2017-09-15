@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
@@ -7,8 +7,8 @@ import SearchViewControl from './SearchViewControl';
 import SearchFilterControl from './SearchFilterControl';
 
 const buttons = {
-  table: <i className='fa fa-lg fa-th-list'></i>,
-  grid: <i className='fa fa-lg fa-th-large'></i>
+  table: <i className="fa fa-lg fa-th-list" />,
+  grid: <i className="fa fa-lg fa-th-large" />,
 };
 
 class SearchControls extends React.Component {
@@ -18,7 +18,7 @@ class SearchControls extends React.Component {
   }
 
   getSearchViewControls(element, name) {
-    let selected = this.props.view === name;
+    const selected = this.props.view === name;
     return (
       <SearchViewControl
         key={name}
@@ -32,39 +32,39 @@ class SearchControls extends React.Component {
 
   render() {
     return (
-      <div className='container'>
-        <div className='controls'>
-          <div className='filters'>
-            <div className='container-fluid'>
-              <div className='filters-wrapper'>
+      <div className="container">
+        <div className="controls">
+          <div className="filters">
+            <div className="container-fluid">
+              <div className="filters-wrapper">
                 <SearchFilterControl
-                  className='filter-type'
-                  key='Type'
-                  name='Tyyppi'
+                  className="filter-type"
+                  key="Type"
+                  name="Tyyppi"
                   options={this.props.filtersOptions.schoolType}
-                  resource='schoolType'
+                  resource="schoolType"
                   value={this.props.filters.type}
                 />
                 <SearchFilterControl
-                  className='filter-type'
-                  key='Language'
-                  name='Kieli'
+                  className="filter-type"
+                  key="Language"
+                  name="Kieli"
                   options={this.props.filtersOptions.language}
-                  resource='language'
+                  resource="language"
                   value={this.props.filters.language}
                 />
                 <SearchFilterControl
-                  className='filter-type'
-                  key='Gender'
-                  name='Tyttö/poika'
+                  className="filter-type"
+                  key="Gender"
+                  name="Tyttö/poika"
                   options={this.props.filtersOptions.gender}
-                  resource='gender'
+                  resource="gender"
                   value={this.props.filters.gender}
                 />
               </div>
             </div>
           </div>
-          <div className='views'>
+          <div className="views">
             {_.map(buttons, this.getSearchViewControls)}
           </div>
         </div>
@@ -75,7 +75,7 @@ class SearchControls extends React.Component {
 
 const filterPropType = React.PropTypes.oneOfType([
   React.PropTypes.number,
-  React.PropTypes.string
+  React.PropTypes.string,
 ]);
 
 SearchControls.propTypes = {
@@ -83,15 +83,15 @@ SearchControls.propTypes = {
     type: filterPropType,
     field: filterPropType,
     language: filterPropType,
-    gender: filterPropType
+    gender: filterPropType,
   }),
   filtersOptions: React.PropTypes.shape({
     schoolType: React.PropTypes.array.isRequired,
     schoolField: React.PropTypes.array.isRequired,
     language: React.PropTypes.array.isRequired,
-    gender: React.PropTypes.array.isRequired
+    gender: React.PropTypes.array.isRequired,
   }),
-  view: React.PropTypes.string.isRequired
+  view: React.PropTypes.string.isRequired,
 };
 
 export default SearchControls;

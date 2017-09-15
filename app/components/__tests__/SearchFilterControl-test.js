@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
@@ -11,101 +11,101 @@ import SearchActionCreators from '../../actions/SearchActionCreators';
 const expect = chai.expect;
 chai.use(sinonChai);
 
-describe('SearchFilterControl', function() {
-  let props = {
+describe('SearchFilterControl', () => {
+  const props = {
     name: 'gender',
     options: [],
     resource: 'gender',
-    value: null
+    value: null,
   };
   let element;
   let requestFilterStub;
 
-  before(function() {
+  before(() => {
     requestFilterStub = sinon.stub(SearchActionCreators, 'requestFilterOptions');
     element = TestUtils.renderIntoDocument(
-      <SearchFilterControl {...props} />
+      <SearchFilterControl {...props} />,
     );
   });
 
-  after(function() {
+  after(() => {
     requestFilterStub.restore();
   });
 
-  it('should render without problems', function() {
+  it('should render without problems', () => {
     expect(element).to.be.ok;
   });
 
-  it('should display the component', function() {
+  it('should display the component', () => {
     const component = TestUtils.findRenderedDOMComponentWithClass(element, 'filter');
     expect(component).to.exist;
   });
 
-  it('should have render a React-Select element', function() {
+  it('should have render a React-Select element', () => {
     const component = TestUtils.findRenderedDOMComponentWithClass(element, 'Select');
     expect(component).to.exist;
   });
 
-  it('should request for options', function() {
+  it('should request for options', () => {
     expect(requestFilterStub).to.have.been.calledWith('gender');
   });
 
-  describe('on handleChange', function() {
+  describe('on handleChange', () => {
     let selectFilterStub;
 
-    before(function() {
+    before(() => {
       selectFilterStub = sinon.stub(SearchActionCreators, 'selectFilter');
     });
 
-    after(function() {
+    after(() => {
       selectFilterStub.restore();
     });
 
-    it('should create an action', function() {
+    it('should create an action', () => {
       element.handleChange(1);
       expect(selectFilterStub).to.have.been.called;
     });
 
-    it('should send the resource and option to the action', function() {
+    it('should send the resource and option to the action', () => {
       element.handleChange(1);
       expect(selectFilterStub).to.have.been.calledWith('gender', 1);
     });
 
-    it('should send null option if it is empty to the action', function() {
+    it('should send null option if it is empty to the action', () => {
       element.handleChange('');
       expect(selectFilterStub).to.have.been.calledWith('gender', null);
     });
   });
 
-  describe('with options', function() {
+  describe('with options', () => {
     const propsWithOptions = {
       name: 'gender',
       options: [
         {
           id: 1,
-          name: 'male'
+          name: 'male',
         },
         {
           id: 2,
-          name: 'female'
+          name: 'female',
         },
         {
           id: 3,
-          name: 'mixed'
-        }
+          name: 'mixed',
+        },
       ],
       resource: 'gender',
-      value: null
+      value: null,
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       requestFilterStub.reset();
       element = TestUtils.renderIntoDocument(
         <SearchFilterControl {...propsWithOptions} />
       );
     });
 
-    it('should not request for options', function() {
+    it('should not request for options', () => {
       expect(requestFilterStub).to.have.not.been.called;
     });
   });

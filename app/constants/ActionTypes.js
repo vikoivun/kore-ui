@@ -1,4 +1,4 @@
-'use strict';
+
 
 import keyMirror from 'react/lib/keyMirror';
 
@@ -19,5 +19,5 @@ export default keyMirror({
   SELECT_SEARCH_SCHOOL: null,
   SELECT_SEARCH_TIMELINE_YEAR: null,
   SELECT_SEARCH_VIEW: null,
-  UPDATE_SCHOOL_TIMELINE_YEAR: null
+  UPDATE_SCHOOL_TIMELINE_YEAR: null,
 });

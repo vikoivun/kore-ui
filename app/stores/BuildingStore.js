@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 
@@ -8,24 +8,23 @@ import {
   getAddressString,
   getBuildingAddressForYear,
   getItemByIdWrapper,
-  sortByYears
+  sortByYears,
 } from '../core/utils';
 import BaseStore from './BaseStore';
 
 let _fetchingData = false;
-let _buildings = {};
+const _buildings = {};
 
 const BuildingStore = Object.assign({}, BaseStore, {
   getBuilding: getItemByIdWrapper(getBuilding, _buildings),
   getFetchingData,
-  getLocationsForYear
+  getLocationsForYear,
 });
 
-BuildingStore.dispatchToken = AppDispatcher.register(function(payload) {
+BuildingStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
-
     case ActionTypes.REQUEST_SCHOOL:
       _fetchingData = true;
       BuildingStore.emitChange();
@@ -56,8 +55,8 @@ function getFetchingData() {
 }
 
 function getLocationsForYear(buildingIds, year) {
-  let locations = [];
-  _.each(buildingIds, function(buildingId) {
+  const locations = [];
+  _.each(buildingIds, (buildingId) => {
     const building = _buildings[buildingId];
     if (_.isEmpty(building)) {
       return;
@@ -65,9 +64,9 @@ function getLocationsForYear(buildingIds, year) {
 
     const address = getBuildingAddressForYear(building.addresses, year);
     if (address && !_.isEmpty(address.location)) {
-      const locationId = buildingId + '-' + address.id;
+      const locationId = `${buildingId  }-${  address.id}`;
       locations.push(
-        _.assign({}, address.location, {address: getAddressString(address), id: locationId})
+        _.assign({}, address.location, { address: getAddressString(address), id: locationId }),
       );
     }
   });
@@ -75,11 +74,11 @@ function getLocationsForYear(buildingIds, year) {
 }
 
 function _receiveBuildings(buildings) {
-  _.each(buildings, function(building) {
+  _.each(buildings, (building) => {
     _buildings[building.id] = {
       addresses: sortByYears(building.addresses),
       id: building.id,
-      neighborhood: building.neighborhood
+      neighborhood: building.neighborhood,
     };
   });
 }

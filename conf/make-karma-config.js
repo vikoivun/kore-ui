@@ -1,9 +1,9 @@
-/*eslint-disable no-var*/
-'use strict';
+/* eslint-disable no-var */
+
 
 var webpackConfig = require('./webpack.config.js');
 
-module.exports = function(options) {
+module.exports = function (options) {
   var karmaConfig = {
     frameworks: ['mocha', 'chai'],
 
@@ -15,15 +15,15 @@ module.exports = function(options) {
     autoWatch: true,
 
     files: [
-      {pattern: '../app/**/__tests__/*.js', watched: false}
+      { pattern: '../app/**/__tests__/*.js', watched: false },
     ],
 
     preprocessors: {
-      '../app/**/__tests__/*.js': ['webpack']
+      '../app/**/__tests__/*.js': ['webpack'],
     },
 
     webpackMiddleware: {
-        noInfo: true
+      noInfo: true,
     },
 
     reporters: ['mocha'],
@@ -34,8 +34,8 @@ module.exports = function(options) {
       'karma-chrome-launcher',
       'karma-mocha',
       'karma-mocha-reporter',
-      'karma-webpack'
-    ]
+      'karma-webpack',
+    ],
   };
 
   if (options.coverage) {
@@ -44,8 +44,8 @@ module.exports = function(options) {
       {
         test: /\.js$/,
         exclude: /(__tests__|node_modules)/,
-        loader: 'isparta-instrumenter-loader'
-      }
+        loader: 'isparta-instrumenter-loader',
+      },
     ].concat(webpackConfig.module.preLoaders);
 
     karmaConfig.plugins.push('karma-coverage');
@@ -53,9 +53,9 @@ module.exports = function(options) {
     karmaConfig.coverageReporter = {
       dir: '../coverage',
       reporters: options.coverageReporters || [
-        {type: 'text'},
-        {type: 'html'}
-      ]
+        { type: 'text' },
+        { type: 'html' },
+      ],
     };
 
     karmaConfig.reporters.push('coverage');

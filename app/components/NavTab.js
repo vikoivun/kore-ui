@@ -1,14 +1,14 @@
-'use strict';
+
 
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 class NavTab extends React.Component {
   render() {
     const isActive = this.context.router.isActive(
       this.props.to,
       this.props.params,
-      this.props.query
+      this.props.query,
     );
     const className = isActive ? 'active' : '';
     const link = (
@@ -19,15 +19,15 @@ class NavTab extends React.Component {
 }
 
 NavTab.contextTypes = {
-  router: React.PropTypes.func.isRequired
+  router: React.PropTypes.func.isRequired,
 };
 
 NavTab.propTypes = {
   params: React.PropTypes.object,
   query: React.PropTypes.object,
   to: React.PropTypes.oneOfType(
-    [React.PropTypes.string, React.PropTypes.route]
-  ).isRequired
+    [React.PropTypes.string, React.PropTypes.route],
+  ).isRequired,
 };
 
 export default NavTab;

@@ -1,16 +1,16 @@
-'use strict';
+
 
 import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
 
-import {DEFAULT_LAYER, HELSINKI_COORDINATES, MAP_ZOOM} from '../constants/MapConstants';
+import { DEFAULT_LAYER, HELSINKI_COORDINATES, MAP_ZOOM } from '../constants/MapConstants';
 import {
   getLayerNameForYear,
   getMapOptions,
   getMarkerIcon,
   getPosition,
-  getTileLayers
+  getTileLayers,
 } from '../core/mapUtils';
 
 class BaseMap extends React.Component {
@@ -64,7 +64,7 @@ class BaseMap extends React.Component {
   }
 
   addMarkers(locations) {
-    _.each(locations, function(location) {
+    _.each(locations, function (location) {
       if (_.isEmpty(location.coordinates)) {
         return;
       }
@@ -75,7 +75,7 @@ class BaseMap extends React.Component {
     }, this);
     if (!_.isEmpty(this.markers)) {
       const bounds = this.markerGroup.getBounds();
-      this.map.fitBounds(bounds, {maxZoom: 7, padding: [50, 50]});
+      this.map.fitBounds(bounds, { maxZoom: 7, padding: [50, 50] });
     }
   }
 
@@ -86,7 +86,7 @@ class BaseMap extends React.Component {
   getMarker(location) {
     const position = getPosition(location);
     return L
-      .marker(position, {icon: getMarkerIcon()})
+      .marker(position, { icon: getMarkerIcon() })
       .bindPopup(this.getPopupContent(location.address));
   }
 
@@ -101,7 +101,7 @@ class BaseMap extends React.Component {
 
   render() {
     return (
-      <div ref='map' />
+      <div ref="map" />
     );
   }
 }
@@ -111,10 +111,10 @@ BaseMap.propTypes = {
     React.PropTypes.shape({
       address: React.PropTypes.string,
       coordinates: React.PropTypes.array,
-      type: React.PropTypes.string
-    })
+      type: React.PropTypes.string,
+    }),
   ).isRequired,
-  selectedYear: React.PropTypes.number
+  selectedYear: React.PropTypes.number,
 };
 
 export default BaseMap;

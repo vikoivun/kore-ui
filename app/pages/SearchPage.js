@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 import DocumentTitle from 'react-document-title';
@@ -31,7 +31,7 @@ function getStateFromStores() {
     selectedSchoolId: SearchStore.getSelectedSchoolId(),
     somethingWasSearched: SearchStore.getSomethingWasSearched(),
     view: SearchStore.getView(),
-    years: SearchStore.getYears()
+    years: SearchStore.getYears(),
   };
 }
 
@@ -54,15 +54,15 @@ class SearchPage extends React.Component {
 
   renderSearchResultsView() {
     const schoolList = this.state.nameResults.concat(
-      this.state.buildingResults, this.state.principalResults
+      this.state.buildingResults, this.state.principalResults,
     );
 
     const searchViewProps = {
       fetchingData: this.state.fetchingData,
       infoText: this.state.infoText,
       nextPagesUrlDict: this.state.nextPagesUrlDict,
-      schoolList: schoolList,
-      somethingWasSearched: this.state.somethingWasSearched
+      schoolList,
+      somethingWasSearched: this.state.somethingWasSearched,
     };
 
     if (this.state.view === 'grid') {
@@ -78,11 +78,11 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <DocumentTitle title='Etsi koulua - Koulurekisteri'>
-        <div className='search-page'>
-          <header className='container'>
-            <h1 className='search-title' >
-              <img alt='Helsingin vaakuna' src={require('../images/Helsinki.vaakuna.svg')} />
+      <DocumentTitle title="Etsi koulua - Koulurekisteri">
+        <div className="search-page">
+          <header className="container">
+            <h1 className="search-title" >
+              <img alt="Helsingin vaakuna" src={require('../images/Helsinki.vaakuna.svg')} />
               Haku
             </h1>
           </header>
@@ -96,11 +96,11 @@ class SearchPage extends React.Component {
             filtersOptions={this.state.filtersOptions}
             view={this.state.view}
           />
-          <div className='container'>
+          <div className="container">
             <SearchTimeline years={this.state.years} />
           </div>
-          <div className='container'>
-            <div className='search-results'>
+          <div className="container">
+            <div className="search-results">
               {this.renderSearchResultsView()}
             </div>
           </div>

@@ -1,22 +1,21 @@
-'use strict';
+
 
 import React from 'react';
 import InfoRow from './InfoRow';
 
 function getInfoRow(item) {
-  return <InfoRow {...item}/>;
+  return <InfoRow {...item} />;
 }
 
 function getInitialState() {
   return {
-    expanded: false
+    expanded: false,
   };
 }
 
 const unexpandedListSize = 20;
 
 class InfoTable extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = getInitialState();
@@ -25,7 +24,7 @@ class InfoTable extends React.Component {
 
   handleExpandClick() {
     this.setState({
-      expanded: !this.state.expanded
+      expanded: !this.state.expanded,
     });
   }
 
@@ -33,12 +32,12 @@ class InfoTable extends React.Component {
     if ((this.props.items.length > unexpandedListSize) && this.props.expandable) {
       let content;
       if (this.state.expanded) {
-        content = ['Näytä vähemmän ', <i className='fa fa-lg fa-chevron-up'/>];
+        content = ['Näytä vähemmän ', <i className="fa fa-lg fa-chevron-up" />];
       } else {
-        content = ['Näytä enemmän ', <i className='fa fa-lg fa-chevron-down'/>];
+        content = ['Näytä enemmän ', <i className="fa fa-lg fa-chevron-down" />];
       }
       return (
-        <button className='button-expand' onClick={this.handleExpandClick}>
+        <button className="button-expand" onClick={this.handleExpandClick}>
           {content}
         </button>
       );
@@ -61,14 +60,14 @@ class InfoTable extends React.Component {
 
   getItemsByColumn() {
     const items = this.getFilteredItems(this.props.items);
-    let halfLength = Math.ceil(items.length / 2);
+    const halfLength = Math.ceil(items.length / 2);
     return [items.slice(0, halfLength), items.slice(halfLength)];
   }
 
   renderLeadText() {
     if (this.props.lead) {
       return (
-        <p className='lead'>{this.props.lead}</p>
+        <p className="lead">{this.props.lead}</p>
       );
     }
     return null;
@@ -82,16 +81,16 @@ class InfoTable extends React.Component {
     let itemsColumnTwo;
     [itemsColumnOne, itemsColumnTwo] = this.getItemsByColumn();
     return (
-      <section className='info-table'>
+      <section className="info-table">
         <header>
           <h3>{this.props.title}</h3>
         </header>
         {this.renderLeadText()}
-        <div className='info-table-columns'>
-          <ol className='column column-one'>
+        <div className="info-table-columns">
+          <ol className="column column-one">
             {itemsColumnOne.map(getInfoRow)}
           </ol>
-          <ol className='column column-two'>
+          <ol className="column column-two">
             {itemsColumnTwo.map(getInfoRow)}
           </ol>
         </div>
@@ -105,7 +104,7 @@ InfoTable.propTypes = {
   expandable: React.PropTypes.bool.isRequired,
   items: React.PropTypes.array.isRequired,
   lead: React.PropTypes.string,
-  title: React.PropTypes.string.isRequired
+  title: React.PropTypes.string.isRequired,
 };
 
 export default InfoTable;

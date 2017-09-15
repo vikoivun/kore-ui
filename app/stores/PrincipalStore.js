@@ -1,25 +1,25 @@
-'use strict';
+
 
 import _ from 'lodash';
 
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../core/AppDispatcher';
-import {getAssociationData, parseAssociationData} from '../core/storeUtils';
-import {getItemByIdWrapper, sortByYears} from '../core/utils';
+import { getAssociationData, parseAssociationData } from '../core/storeUtils';
+import { getItemByIdWrapper, sortByYears } from '../core/utils';
 import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 
 let _fetchingData = false;
-let _principals = {};
+const _principals = {};
 
 const PrincipalStore = Object.assign({}, BaseStore, {
   getFetchingData,
   getPrincipal: getItemByIdWrapper(getPrincipal, _principals),
   getPrincipalDetails: getItemByIdWrapper(getPrincipalDetails, _principals),
-  getSearchDetails
+  getSearchDetails,
 });
 
-PrincipalStore.dispatchToken = AppDispatcher.register(function(payload) {
+PrincipalStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
@@ -58,10 +58,10 @@ function getPrincipalDetails(principal) {
     return _.assign(
       {},
       principal,
-      {schools: getAssociationData(
+      { schools: getAssociationData(
         principal.employers,
-        SchoolStore.getSchoolDetails
-      )}
+        SchoolStore.getSchoolDetails,
+      ) },
     );
   }
   return principal;
@@ -69,7 +69,7 @@ function getPrincipalDetails(principal) {
 
 function getSearchDetails(principalIds) {
   let searchDetails = [];
-  _.each(principalIds, function(principalId) {
+  _.each(principalIds, (principalId) => {
     const principal = _principals[principalId];
     if (_.isEmpty(principal)) {
       return;
@@ -91,7 +91,7 @@ function getSearchDetails(principalIds) {
 }
 
 function _receivePrincipals(entities) {
-  _.each(entities.principals, function(principal) {
+  _.each(entities.principals, (principal) => {
     let _principal = _principals[principal.id];
     if (!_principal) {
       _principal = {

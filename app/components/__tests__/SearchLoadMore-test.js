@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
@@ -11,50 +11,50 @@ import SearchActionCreators from '../../actions/SearchActionCreators';
 const expect = chai.expect;
 chai.use(sinonChai);
 
-describe('SearchLoadMore', function() {
+describe('SearchLoadMore', () => {
   const props = {
     urls: {
       buildings: null,
       employerships: null,
-      schools: 'http://test.url'
+      schools: 'http://test.url',
     },
-    fetchingData: false
+    fetchingData: false,
   };
   let element;
 
-  before(function() {
+  before(() => {
     element = TestUtils.renderIntoDocument(
-      <SearchLoadMore {...props} />
+      <SearchLoadMore {...props} />,
     );
   });
 
-  it('should render without problems', function() {
+  it('should render without problems', () => {
     expect(element).to.be.ok;
   });
 
-  it('should display the component', function() {
+  it('should display the component', () => {
     const component = TestUtils.findRenderedDOMComponentWithClass(element, 'search-load-more');
     expect(component).to.exist;
   });
 
-  describe('on click', function() {
+  describe('on click', () => {
     let loadMoreActionSpy;
 
-    before(function() {
+    before(() => {
       loadMoreActionSpy = sinon.stub(SearchActionCreators, 'requestLoadMore');
     });
 
-    after(function() {
+    after(() => {
       loadMoreActionSpy.restore();
     });
 
-    it('should create an action on click', function() {
+    it('should create an action on click', () => {
       const component = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
       TestUtils.Simulate.click(component);
       expect(loadMoreActionSpy).to.have.been.called;
     });
 
-    it('should send the urls to the action on click', function() {
+    it('should send the urls to the action on click', () => {
       const component = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
       TestUtils.Simulate.click(component);
       expect(loadMoreActionSpy).to.have.been.calledWith(props.urls);

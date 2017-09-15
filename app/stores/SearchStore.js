@@ -1,45 +1,45 @@
-'use strict';
+
 
 import _ from 'lodash';
 
 import ActionTypes from '../constants/ActionTypes';
-import {DEFAULT_LAYER} from '../constants/MapConstants';
+import { DEFAULT_LAYER } from '../constants/MapConstants';
 import AppDispatcher from '../core/AppDispatcher';
-import {getMapYears} from '../core/mapUtils';
+import { getMapYears } from '../core/mapUtils';
 import BaseStore from './BaseStore';
 import SchoolStore from './SchoolStore';
 
 let _actualSearchYears = [null, null];
 let _fetchingData = 0;
-let _filters = {
+const _filters = {
   type: null,
   field: null,
   language: null,
-  gender: null
+  gender: null,
 };
-let _filtersOptions = {
+const _filtersOptions = {
   schoolType: [],
   schoolField: [],
   language: [],
   gender: [
     {
       id: 'tyttökoulu',
-      name: 'tyttökoulu'
+      name: 'tyttökoulu',
     },
     {
       id: 'poikakoulu',
-      name: 'poikakoulu'
+      name: 'poikakoulu',
     },
     {
       id: 'tyttö- ja poikakoulu',
-      name: 'tyttö- ja poikakoulu'
-    }
-  ]
+      name: 'tyttö- ja poikakoulu',
+    },
+  ],
 };
-let _filtersOptionsRequested = {
+const _filtersOptionsRequested = {
   schoolType: false,
   schoolField: false,
-  language: false
+  language: false,
 };
 let _infoText = null;
 let _searchQuery = '';
@@ -47,7 +47,7 @@ let _selectedMapYear = String(DEFAULT_LAYER.beginYear);
 const _searchResultsDefaults = {
   buildings: null,
   employerships: null,
-  schools: null
+  schools: null,
 };
 let _searchResults = _resetSearchResults();
 let _nextPagesUrlDict = _.clone(_searchResultsDefaults);
@@ -69,10 +69,10 @@ const SearchStore = Object.assign({}, BaseStore, {
   getSelectedSchoolId,
   getSomethingWasSearched,
   getView,
-  getYears
+  getYears,
 });
 
-SearchStore.dispatchToken = AppDispatcher.register(function(payload) {
+SearchStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
@@ -204,10 +204,10 @@ function getYears() {
 
 function _applyFilter(filterKey, optionId) {
   const optionsToFilter = {
-    'schoolField': 'field',
-    'schoolType': 'type',
-    'language': 'language',
-    'gender': 'gender'
+    schoolField: 'field',
+    schoolType: 'type',
+    language: 'language',
+    gender: 'gender',
   };
   _filters[optionsToFilter[filterKey]] = optionId;
 }
@@ -222,7 +222,7 @@ function _handleErrorMessage(message) {
 }
 
 function _hasResults() {
-  const resultsLength = _.reduce(_searchResults, function(memo, resultsArray) {
+  const resultsLength = _.reduce(_searchResults, (memo, resultsArray) => {
     return memo + resultsArray.length;
   }, 0);
   return Boolean(resultsLength);
@@ -231,7 +231,7 @@ function _hasResults() {
 function _receiveSearchResponse(searchResponse, resultsContent) {
   _nextPagesUrlDict[resultsContent] = searchResponse.next;
   _searchResults[resultsContent] = _searchResults[resultsContent].concat(
-    _.uniq(searchResponse.results)
+    _.uniq(searchResponse.results),
   );
 }
 
@@ -245,7 +245,7 @@ function _receiveFilterResponse(responseResults, resource) {
 }
 
 function _resetSearchResults() {
-  return _.mapValues(_searchResultsDefaults, function() {
+  return _.mapValues(_searchResultsDefaults, () => {
     return [];
   });
 }

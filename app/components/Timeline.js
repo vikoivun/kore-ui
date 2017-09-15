@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 import ReactSlider from 'react-slider';
@@ -36,28 +36,28 @@ class Timeline extends React.Component {
       selectedYear = endYear;
     }
     return (
-      <div className='timeline inversed'>
-        <div className='anchor anchor-left'>
+      <div className="timeline inversed">
+        <div className="anchor anchor-left">
           <span>{this.props.yearsActive.beginYear}</span>
-          <div className='separator'>|</div>
+          <div className="separator">|</div>
         </div>
-        <div className='anchor anchor-right'>
+        <div className="anchor anchor-right">
           <span>{endYear}</span>
-          <div className='separator'>|</div>
+          <div className="separator">|</div>
         </div>
         <ReactSlider
-          className='horizontal-slider'
+          className="horizontal-slider"
           defaultValue={selectedYear}
           max={endYear}
           min={this.props.yearsActive.beginYear}
           onChange={this.handleChange}
-          ref='reactSlider'
+          ref="reactSlider"
         >
-          <div className='selected-year'>
+          <div className="selected-year">
             {selectedYear}
           </div>
         </ReactSlider>
-        <div className='help-text'>
+        <div className="help-text">
           Tarkastele koulun vaiheita liikuttamalla aikajanan palloa.
         </div>
       </div>
@@ -69,8 +69,8 @@ Timeline.propTypes = {
   selectedYear: React.PropTypes.number,
   yearsActive: React.PropTypes.shape({
     beginYear: React.PropTypes.number,
-    endYear: React.PropTypes.number
-  })
+    endYear: React.PropTypes.number,
+  }),
 };
 
 export default Timeline;

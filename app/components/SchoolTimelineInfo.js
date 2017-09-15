@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
@@ -8,7 +8,7 @@ import InfoRow from './InfoRow';
 import Timeline from './Timeline';
 
 function getInfoRow(row) {
-  return <InfoRow {...row}/>;
+  return <InfoRow {...row} />;
 }
 
 function processInfoRow(details) {
@@ -19,38 +19,37 @@ function processInfoRow(details) {
     {
       key: 'timeline-principal-info',
       className: 'details-principal',
-      name: details.principalString
+      name: details.principalString,
     },
     {
       key: 'timeline-building-info',
       className: 'details-building',
-      name: details.buildingString
+      name: details.buildingString,
     },
     {
       key: 'timeline-archive-info',
       className: 'details-archive',
-      name: details.archiveArray
+      name: details.archiveArray,
     },
     {
       key: 'timeline-type-info',
       className: 'details-building',
-      name: details.typeString
+      name: details.typeString,
     },
     {
       key: 'timeline-language-info',
       className: 'details-language',
-      name: details.languageString
+      name: details.languageString,
     },
     {
       key: 'timeline-gender-info',
       className: 'details-gender',
-      name: details.genderString
-    }
+      name: details.genderString,
+    },
   ];
 }
 
 class SchoolTimelineInfo extends React.Component {
-
   renderYearInfoHeader() {
     let headerText = '';
     if (this.props.schoolYearDetails && this.props.schoolYearDetails.name) {
@@ -64,20 +63,20 @@ class SchoolTimelineInfo extends React.Component {
   render() {
     const loadingTimeline = _.isEmpty(this.props.yearsActive);
     return (
-      <div className='school-timeline-info-wrapper'>
-        <div className='container'>
-          <div className='school-timeline-info'>
-            <div className='school-timeline-container'>
-              <Loader color='#FFF' loaded={!loadingTimeline}>
+      <div className="school-timeline-info-wrapper">
+        <div className="container">
+          <div className="school-timeline-info">
+            <div className="school-timeline-container">
+              <Loader color="#FFF" loaded={!loadingTimeline}>
                 <Timeline
                   selectedYear={this.props.selectedYear}
                   yearsActive={this.props.yearsActive}
                 />
               </Loader>
             </div>
-            <div className='school-year-info'>
+            <div className="school-year-info">
               {this.renderYearInfoHeader()}
-              <ol className='school-year-details-list'>
+              <ol className="school-year-details-list">
                 {processInfoRow(this.props.schoolYearDetails).map(getInfoRow)}
               </ol>
             </div>
@@ -96,13 +95,13 @@ SchoolTimelineInfo.propTypes = {
     languageString: React.PropTypes.string,
     name: React.PropTypes.object,
     principalString: React.PropTypes.string,
-    typeString: React.PropTypes.string
+    typeString: React.PropTypes.string,
   }),
   selectedYear: React.PropTypes.number,
   yearsActive: React.PropTypes.shape({
     beginYear: React.PropTypes.number,
-    endYear: React.PropTypes.number
-  })
+    endYear: React.PropTypes.number,
+  }),
 };
 
 export default SchoolTimelineInfo;

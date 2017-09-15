@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 
@@ -23,7 +23,7 @@ class SearchMapListItem extends React.Component {
         className={className}
         onClick={this.selectSchool}
       >
-        <div className='info-name'>{this.props.school.name}</div>
+        <div className="info-name">{this.props.school.name}</div>
       </li>
     );
   }
@@ -32,9 +32,9 @@ class SearchMapListItem extends React.Component {
 SearchMapListItem.propTypes = {
   school: React.PropTypes.shape({
     id: React.PropTypes.string,
-    name: React.PropTypes.string
+    name: React.PropTypes.string,
   }),
-  selectedSchoolId: React.PropTypes.string
+  selectedSchoolId: React.PropTypes.string,
 };
 
 export default SearchMapListItem;

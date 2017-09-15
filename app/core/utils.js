@@ -1,15 +1,15 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 const defaultImageUrl = require('../images/default-school.jpg');
 
 function getAddressStringFromBuilding(building) {
   if (building && building.addresses && building.addresses.length) {
-    let streets = [];
-    _.each(_.sortBy(building.addresses, 'beginYear'), function(address) {
+    const streets = [];
+    _.each(_.sortBy(building.addresses, 'beginYear'), (address) => {
       streets.push(getAddressString(address));
     });
     return streets.join(' = ');
@@ -22,24 +22,23 @@ function getAddressString(address) {
     return 'Osoite tuntematon';
   }
   if (address.municipalityFi && address.municipalityFi !== 'Helsinki') {
-    return address.streetNameFi + ', ' + address.municipalityFi;
+    return `${address.streetNameFi}, ${address.municipalityFi}`;
   }
   return address.streetNameFi;
 }
 
 function getArchiveName(archive) {
   if (archive.url) {
-    return <a href={archive.url} target='_blank'>{archive.location}</a>;
-  } else {
-    return archive.location;
+    return <a href={archive.url} target="_blank">{archive.location}</a>;
   }
+  return archive.location;
 }
 
 function getBoxContent(item) {
   return [
     item.beginYear,
-    <i className='fa fa-lg fa-long-arrow-right'/>,
-    item.endYear
+    <i className="fa fa-lg fa-long-arrow-right" />,
+    item.endYear,
   ];
 }
 
@@ -49,36 +48,33 @@ function getBuildingAddressForYear(itemList, year) {
     return null;
   } else if (addresses.length === 1) {
     return addresses[0];
-  } else {
-    const sorted = _.sortBy(addresses, 'id');
-    const withLocation = _.find(sorted, function(address) {
-      return !_.isEmpty(address.location);
-    });
-    return withLocation ? withLocation : addresses[0];
   }
+  const sorted = _.sortBy(addresses, 'id');
+  const withLocation = _.find(sorted, address => !_.isEmpty(address.location));
+  return withLocation || addresses[0];
 }
 
 function getContinuumEventName(event) {
   const descriptionMapper = {
-    'joins': 'Yhdistyminen',
-    'separates from': 'Eroaminen'
+    joins: 'Yhdistyminen',
+    'separates from': 'Eroaminen',
   };
 
   return [
-    descriptionMapper[event.description] + ': ',
+    `${descriptionMapper[event.description]}: `,
     <Link
-      params={{schoolId: event.schoolId, year: event.year}}
-      to='school-with-year'
+      params={{ schoolId: event.schoolId, year: event.year }}
+      to="school-with-year"
     >
       {event.schoolName}
-    </Link>
+    </Link>,
   ];
 }
 
 function getFilterPropType() {
   return React.PropTypes.oneOfType([
     React.PropTypes.number,
-    React.PropTypes.string
+    React.PropTypes.string,
   ]);
 }
 
@@ -91,25 +87,21 @@ function getImageUrl(building) {
 }
 
 function getItemByIdWrapper(func, items, defaultValue) {
-  return function(itemId) {
-    defaultValue = defaultValue ? defaultValue : {};
+  return function (itemId) {
+    defaultValue = defaultValue || {};
     const item = items[itemId];
-    let newArgs = Array.prototype.slice.call(arguments, 1);
+    const newArgs = Array.prototype.slice.call(arguments, 1);
     newArgs.unshift(item);
-    return _.isEmpty(item) ? defaultValue : func.apply(null, newArgs);
+    return _.isEmpty(item) ? defaultValue : func(...newArgs);
   };
 }
 
 function getItemForYear(itemList, year) {
-  return _.find(itemList, function(item) {
-    return inBetween(year, item.beginYear, item.endYear);
-  });
+  return _.find(itemList, item => inBetween(year, item.beginYear, item.endYear));
 }
 
 function getItemsForYear(itemList, year) {
-  return _.filter(itemList, function(item) {
-    return inBetween(year, item.beginYear, item.endYear);
-  });
+  return _.filter(itemList, item => inBetween(year, item.beginYear, item.endYear));
 }
 
 function inBetween(year, beginYear, endYear, closedEndYear) {
@@ -120,9 +112,9 @@ function inBetween(year, beginYear, endYear, closedEndYear) {
 }
 
 function getLinkProps(searchResult) {
-  let linkProps = {
-    params: {schoolId: searchResult.schoolId},
-    to: 'school'
+  const linkProps = {
+    params: { schoolId: searchResult.schoolId },
+    to: 'school',
   };
   if (searchResult.beginYear) {
     linkProps.params.year = searchResult.beginYear;
@@ -149,5 +141,5 @@ export default {
   getItemsForYear,
   inBetween,
   getLinkProps,
-  sortByYears
+  sortByYears,
 };

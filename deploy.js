@@ -1,4 +1,5 @@
-/*eslint-disable no-var*/
+/* eslint-disable no-var */
+
 'use strict';
 
 // Postinstall will also run when npm install is run locally
@@ -8,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
   console.log('Deploying...');
   return childProcess.exec(
     './node_modules/.bin/webpack --config conf/webpack.production.js',
-    function(error, stdout, stderr) {
+    (error, stdout, stderr) => {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
       if (error !== null) {

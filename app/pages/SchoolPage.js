@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
@@ -24,7 +24,7 @@ function parseYear(props) {
 }
 
 function getStateFromStores(schoolId) {
-  let selectedYear = UIStore.getSchoolTimelineYear();
+  const selectedYear = UIStore.getSchoolTimelineYear();
   return {
     fetchingData: SchoolStore.getFetchingData(),
     nameInSelectedYear: SchoolStore.getNameInSelectedYear(schoolId, selectedYear),
@@ -33,15 +33,14 @@ function getStateFromStores(schoolId) {
     schoolDetails: SchoolStore.getSchoolDetails(schoolId, selectedYear),
     schoolYearDetails: SchoolStore.getSchoolYearDetails(
       schoolId,
-      selectedYear
+      selectedYear,
     ),
     locationsForSelectedYear: SchoolStore.getLocationsForYear(schoolId, selectedYear),
-    selectedYear: selectedYear
+    selectedYear
   };
 }
 
 class SchoolPage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = getStateFromStores(parseSchoolId(props));
@@ -87,22 +86,22 @@ class SchoolPage extends React.Component {
       this.state.yearsActive.endYear ||
       new Date().getFullYear()
     );
-    const locations = _.filter(this.state.locationsForSelectedYear, function(location) {
+    const locations = _.filter(this.state.locationsForSelectedYear, (location) => {
       return !_.isEmpty(location.coordinates);
     });
 
     return (
-      <DocumentTitle title='Koulut - Koulurekisteri'>
-        <div className='school-page'>
+      <DocumentTitle title="Koulut - Koulurekisteri">
+        <div className="school-page">
           <SchoolTitle name={this.state.nameInSelectedYear} />
-          <div className='container'>
-            <div className='school-image-map'>
+          <div className="container">
+            <div className="school-image-map">
               <SchoolImage
                 building={this.state.buildingInSelectedYear}
                 fetchingData={this.state.fetchingData}
               />
-              <div className='school-map'>
-                <Loader color='#FFF' loaded={!this.state.fetchingData}>
+              <div className="school-map">
+                <Loader color="#FFF" loaded={!this.state.fetchingData}>
                   <SchoolMap
                     fetchingData={this.state.fetchingData}
                     locations={locations}
@@ -130,8 +129,8 @@ class SchoolPage extends React.Component {
 SchoolPage.propTypes = {
   params: React.PropTypes.shape({
     schoolId: React.PropTypes.string.isRequired,
-    year: React.PropTypes.string
-  }).isRequired
+    year: React.PropTypes.string,
+  }).isRequired,
 };
 
 export default SchoolPage;

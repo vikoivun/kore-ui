@@ -1,4 +1,4 @@
-'use strict';
+
 
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
@@ -13,9 +13,9 @@ export default {
     }
 
     AppDispatcher.handleViewAction({
-      type: ActionTypes.REQUEST_SCHOOL
+      type: ActionTypes.REQUEST_SCHOOL,
     });
 
     SchoolAPI.requestSchool(schoolId);
-  }
+  },
 };

@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import L from 'leaflet';
@@ -6,8 +6,8 @@ import React from 'react';
 
 import router from '../router';
 import BaseMap from './BaseMap';
-import {HELSINKI_COORDINATES, MAP_MAX_ZOOM, MAP_ZOOM} from '../constants/MapConstants';
-import {getMarkerIcon, getPosition} from '../core/mapUtils';
+import { HELSINKI_COORDINATES, MAP_MAX_ZOOM, MAP_ZOOM } from '../constants/MapConstants';
+import { getMarkerIcon, getPosition } from '../core/mapUtils';
 
 class SearchMap extends BaseMap {
   componentDidMount() {
@@ -50,7 +50,7 @@ class SearchMap extends BaseMap {
   }
 
   addMarkers(schools) {
-    _.each(schools, function(school) {
+    _.each(schools, function (school) {
       if (!_.has(this.markers, school.location.id)) {
         this.markers[school.location.id] = this.getMarker(school);
         this.markerGroup.addLayer(this.markers[school.location.id]);
@@ -58,29 +58,29 @@ class SearchMap extends BaseMap {
     }, this);
     this.shouldAddMarkers = false;
     const bounds = this.markerGroup.getBounds();
-    this.map.fitBounds(bounds, {maxZoom: MAP_MAX_ZOOM, padding: [50, 50]});
+    this.map.fitBounds(bounds, { maxZoom: MAP_MAX_ZOOM, padding: [50, 50] });
   }
 
   getMarker(school) {
     const position = getPosition(school.location);
     return L
-      .marker(position, {icon: getMarkerIcon()})
+      .marker(position, { icon: getMarkerIcon() })
       .bindPopup(this.getPopupContent(school));
   }
 
   getPopupContent(school) {
-    let link = document.createElement('a');
+    const link = document.createElement('a');
     link.innerHTML = `${school.name}`;
     link.href = '#';
     link.className = 'school-popup-link';
-    link.onclick = function(event) {
+    link.onclick = function (event) {
       event.preventDefault();
       if (school.beginYear) {
         router.transitionTo(
-          'school-with-year', {schoolId: school.schoolId, year: school.beginYear}
+          'school-with-year', { schoolId: school.schoolId, year: school.beginYear },
         );
       } else {
-        router.transitionTo('school', {schoolId: school.schoolId});
+        router.transitionTo('school', { schoolId: school.schoolId });
       }
     };
     return link;
@@ -91,7 +91,7 @@ SearchMap.propTypes = {
   fetchingData: React.PropTypes.bool,
   schoolList: React.PropTypes.array.isRequired,
   selectedMapYear: React.PropTypes.string,
-  selectedSchoolId: React.PropTypes.string
+  selectedSchoolId: React.PropTypes.string,
 };
 
 export default SearchMap;

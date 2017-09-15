@@ -1,14 +1,13 @@
-'use strict';
+
 
 import React from 'react';
 
 class SchoolTitle extends React.Component {
-
   render() {
     return (
-      <div className='container'>
-        <header className='school-title'>
-          <div className='school-title-box'>
+      <div className="container">
+        <header className="school-title">
+          <div className="school-title-box">
             <h1>{this.props.name.officialName}</h1>
           </div>
         </header>
@@ -19,8 +18,8 @@ class SchoolTitle extends React.Component {
 
 SchoolTitle.propTypes = {
   name: React.PropTypes.shape({
-    officialName: React.PropTypes.string
-  })
+    officialName: React.PropTypes.string,
+  }),
 };
 
 export default SchoolTitle;

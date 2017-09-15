@@ -1,13 +1,13 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
 import ReactSelect from 'react-select';
 
 import SearchActionCreators from '../actions/SearchActionCreators';
-import {TILE_LAYERS} from '../constants/MapConstants';
-import {getLayerLabel, getMapYears} from '../core/mapUtils';
-import {getFilterPropType} from '../core/utils';
+import { TILE_LAYERS } from '../constants/MapConstants';
+import { getLayerLabel, getMapYears } from '../core/mapUtils';
+import { getFilterPropType } from '../core/utils';
 
 class SearchMapYearControl extends React.Component {
   constructor(props) {
@@ -29,13 +29,13 @@ class SearchMapYearControl extends React.Component {
   }
 
   getOptions() {
-    let options = [];
+    const options = [];
     const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
-    _.each(sortedLayers, function(layer) {
+    _.each(sortedLayers, (layer) => {
       const label = getLayerLabel(layer);
       options.push({
-        label: label,
-        value: String(layer.beginYear)
+        label,
+        value: String(layer.beginYear),
       });
     });
     return options;
@@ -43,7 +43,7 @@ class SearchMapYearControl extends React.Component {
 
   requestSearch(year) {
     if (this.props.searchQuery) {
-      let filters = _.clone(this.props.filters);
+      const filters = _.clone(this.props.filters);
       const years = getMapYears(year);
       filters.fromYear = years[0];
       filters.untilYear = years[1];
@@ -54,10 +54,10 @@ class SearchMapYearControl extends React.Component {
   render() {
     const options = this.getOptions();
     return (
-      <div className='search-map-year-controls'>
+      <div className="search-map-year-controls">
         <ReactSelect
           clearable={false}
-          name='search-map-year-select'
+          name="search-map-year-select"
           onChange={this.handleChange}
           options={options}
           searchable={false}
@@ -75,11 +75,11 @@ SearchMapYearControl.propTypes = {
     type: filterPropType,
     field: filterPropType,
     language: filterPropType,
-    gender: filterPropType
+    gender: filterPropType,
   }),
   searchQuery: React.PropTypes.string.isRequired,
   selectedMapYear: React.PropTypes.string,
-  years: React.PropTypes.arrayOf(React.PropTypes.number)
+  years: React.PropTypes.arrayOf(React.PropTypes.number),
 };
 
 export default SearchMapYearControl;

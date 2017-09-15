@@ -1,26 +1,25 @@
-'use strict';
+
 
 import _ from 'lodash';
 
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../core/AppDispatcher';
-import {getItemByIdWrapper} from '../core/utils';
+import { getItemByIdWrapper } from '../core/utils';
 import BaseStore from './BaseStore';
 import PrincipalStore from './PrincipalStore';
 import SchoolStore from './SchoolStore';
 
-let _employerships = {};
+const _employerships = {};
 
 const EmployershipStore = Object.assign({}, BaseStore, {
   getEmployership: getItemByIdWrapper(getEmployership, _employerships),
-  getSearchDetails
+  getSearchDetails,
 });
 
-EmployershipStore.dispatchToken = AppDispatcher.register(function(payload) {
+EmployershipStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
-
     case ActionTypes.REQUEST_SEARCH_SUCCESS:
       _receiveEmployerships(action.response.entities.employerships);
       EmployershipStore.emitChange();
@@ -37,7 +36,7 @@ function getEmployership(employership) {
 
 function getSearchDetails(employershipIds) {
   let searchDetails = [];
-  _.each(employershipIds, function(employershipId) {
+  _.each(employershipIds, (employershipId) => {
     const employership = EmployershipStore.getEmployership(employershipId);
     if (_.isEmpty(employership)) {
       return;
@@ -50,7 +49,7 @@ function getSearchDetails(employershipIds) {
     }
     const item = _.assign({}, employership, {
       extraInfo: principal.name,
-      type: 'principal'
+      type: 'principal',
     });
     const results = SchoolStore.getSearchDetailsForItem(schoolId, item);
     searchDetails = searchDetails.concat(results);
@@ -59,7 +58,7 @@ function getSearchDetails(employershipIds) {
 }
 
 function _receiveEmployerships(employerships) {
-  _.each(employerships, function(employership) {
+  _.each(employerships, (employership) => {
     _employerships[employership.id] = employership;
   });
 }

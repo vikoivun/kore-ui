@@ -1,11 +1,11 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
 
 function getInfoRow(item) {
   if (item.name) {
-    return <InfoRow {...item}/>;
+    return <InfoRow {...item} />;
   }
 }
 
@@ -14,7 +14,7 @@ function getInitialState(props) {
   return {
     childInfoRows,
     expanded: false,
-    expandable: Boolean(childInfoRows.length)
+    expandable: Boolean(childInfoRows.length),
   };
 }
 
@@ -27,7 +27,7 @@ class InfoRow extends React.Component {
 
   handleExpandClick() {
     this.setState({
-      expanded: !this.state.expanded
+      expanded: !this.state.expanded,
     });
   }
 
@@ -42,12 +42,12 @@ class InfoRow extends React.Component {
     if (this.state.expandable) {
       let content;
       if (this.state.expanded) {
-        content = <i className='fa fa-lg fa-chevron-up'/>;
+        content = <i className="fa fa-lg fa-chevron-up" />;
       } else {
-        content = <i className='fa fa-lg fa-chevron-down'/>;
+        content = <i className="fa fa-lg fa-chevron-down" />;
       }
       return (
-        <a className='button-expand' onClick={this.handleExpandClick}>
+        <a className="button-expand" onClick={this.handleExpandClick}>
           {content}
         </a>
       );
@@ -57,7 +57,7 @@ class InfoRow extends React.Component {
 
   getInfoBox() {
     if (this.props.boxContent) {
-      return <div className='info-box'>{this.props.boxContent}</div>;
+      return <div className="info-box">{this.props.boxContent}</div>;
     }
     return [];
   }
@@ -98,7 +98,7 @@ class InfoRow extends React.Component {
 InfoRow.propTypes = {
   boxContent: React.PropTypes.oneOfType([
     React.PropTypes.string,
-    React.PropTypes.array
+    React.PropTypes.array,
   ]),
   className: React.PropTypes.string,
   highlight: React.PropTypes.bool,
@@ -107,12 +107,12 @@ InfoRow.propTypes = {
   linkTo: React.PropTypes.string,
   name: React.PropTypes.oneOfType([
     React.PropTypes.string.isRequired,
-    React.PropTypes.array.isRequired
-  ])
+    React.PropTypes.array.isRequired,
+  ]),
 };
 
 InfoRow.defaultProps = {
-  items: []
+  items: [],
 };
 
 export default InfoRow;

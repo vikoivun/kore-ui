@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
@@ -11,63 +11,62 @@ import SearchActionCreators from '../../actions/SearchActionCreators';
 const expect = chai.expect;
 chai.use(sinonChai);
 
-describe('SearchViewControl', function() {
-  let props = {
-    children: <i className='fa fa-lg fa-th-large'></i>,
+describe('SearchViewControl', () => {
+  const props = {
+    children: <i className="fa fa-lg fa-th-large" />,
     selected: false,
     view: 'grid',
-    key: 'grid'
+    key: 'grid',
   };
   let element;
 
-  before(function() {
+  before(() => {
     element = TestUtils.renderIntoDocument(
-      <SearchViewControl {...props} />
+      <SearchViewControl {...props} />,
     );
   });
 
-  it('should render without problems', function() {
+  it('should render without problems', () => {
     expect(element).to.be.ok;
   });
 
-  it('should display the component', function() {
+  it('should display the component', () => {
     const component = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
     expect(component).to.exist;
   });
 
-  it('should have the class view-selector', function() {
+  it('should have the class view-selector', () => {
     const component = TestUtils.findRenderedDOMComponentWithClass(element, 'view-selector');
     expect(component).to.exist;
   });
 
-  describe('which is selected', function() {
+  describe('which is selected', () => {
     props.selected = true;
 
-    it('should render the class selected', function() {
+    it('should render the class selected', () => {
       const component = TestUtils.findRenderedDOMComponentWithClass(element, 'selected');
       expect(component).to.exist;
     });
-
   });
 
-  describe('on click', function() {
+  describe('on click', () => {
     let selectViewStub;
 
-    before(function() {
+    before(() => {
       selectViewStub = sinon.stub(SearchActionCreators, 'selectView');
     });
 
-    after(function() {
+    after(() => {
       selectViewStub.restore();
     });
 
-    it('should create an action', function() {
+    it('should create an action', () => {
       const component = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
       TestUtils.Simulate.click(component);
       expect(selectViewStub).to.have.been.called;
     });
 
-    it('should send the view name to the action', function() {
+    it('should send the view name to the action', () => {
       const component = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
       TestUtils.Simulate.click(component);
       expect(selectViewStub).to.have.been.calledWith(props.view);

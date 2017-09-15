@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
@@ -21,7 +21,7 @@ class SearchFilterControl extends React.Component {
   processOptions() {
     return _.map(
       _.filter(this.props.options, 'name'),
-      function(option) {
+      (option) => {
         return {
           label: option.name,
           value: String(option.id)
@@ -40,10 +40,10 @@ class SearchFilterControl extends React.Component {
   render() {
     this.checkAndRequestOptions();
     return (
-      <div className='filter'>
+      <div className="filter">
         <ReactSelect
           name={this.props.name}
-          noResultsText=''
+          noResultsText=""
           onChange={this.handleChange}
           options={this.processOptions()}
           placeholder={this.props.name}
@@ -61,14 +61,14 @@ SearchFilterControl.propTypes = {
     React.PropTypes.shape({
       id: React.PropTypes.oneOfType([
         React.PropTypes.number,
-        React.PropTypes.string
+        React.PropTypes.string,
       ]),
       description: React.PropTypes.string,
-      name: React.PropTypes.string
-    })
+      name: React.PropTypes.string,
+    }),
   ),
   resource: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string
+  value: React.PropTypes.string,
 };
 
 export default SearchFilterControl;

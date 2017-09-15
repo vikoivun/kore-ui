@@ -1,4 +1,4 @@
-'use strict';
+
 
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
@@ -7,14 +7,13 @@ import BaseStore from './BaseStore';
 let _schoolTimelineYear = null;
 
 const UIStore = Object.assign({}, BaseStore, {
-  getSchoolTimelineYear
+  getSchoolTimelineYear,
 });
 
-UIStore.dispatchToken = AppDispatcher.register(function(payload) {
+UIStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
-
     case ActionTypes.UPDATE_SCHOOL_TIMELINE_YEAR:
       _updateYear(action.year);
       UIStore.emitChange();

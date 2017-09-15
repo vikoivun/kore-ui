@@ -1,10 +1,10 @@
-'use strict';
+
 
 import React from 'react';
 import ReactSlider from 'react-slider';
 
 import SearchActionCreators from '../actions/SearchActionCreators';
-import {SEARCH_TIMELINE_STARTING_YEAR} from '../constants/AppConstants';
+import { SEARCH_TIMELINE_STARTING_YEAR } from '../constants/AppConstants';
 
 const years = [SEARCH_TIMELINE_STARTING_YEAR, new Date().getFullYear()];
 
@@ -27,38 +27,38 @@ class SearchTimeline extends React.Component {
   }
 
   render() {
-    let filteredYears = [
+    const filteredYears = [
       this.props.years[0] || years[0],
-      this.props.years[1] || years[1]
+      this.props.years[1] || years[1],
     ];
 
     return (
-      <div className='container'>
-        <div className='search-timeline'>
-          <div className='timeline'>
-            <div className='anchor anchor-left'>
+      <div className="container">
+        <div className="search-timeline">
+          <div className="timeline">
+            <div className="anchor anchor-left">
               <span>{years[0]}</span>
-              <div className='separator'>|</div>
+              <div className="separator">|</div>
             </div>
-            <div className='anchor anchor-right'>
+            <div className="anchor anchor-right">
               <span>{years[1]}</span>
-              <div className='separator'>|</div>
+              <div className="separator">|</div>
             </div>
             <ReactSlider
-              className='horizontal-slider'
+              className="horizontal-slider"
               defaultValue={filteredYears}
               max={years[1]}
               min={years[0]}
               minDistance={0}
               onChange={this.handleChange}
-              pearling={true}
-              ref='reactSlider'
-              withBars={true}
+              pearling
+              ref="reactSlider"
+              withBars
             >
-              <div className='selected-year begin-year'>
+              <div className="selected-year begin-year">
                 {filteredYears[0]}
               </div>
-              <div className='selected-year end-year'>
+              <div className="selected-year end-year">
                 {filteredYears[1]}
               </div>
             </ReactSlider>
@@ -70,7 +70,7 @@ class SearchTimeline extends React.Component {
 }
 
 SearchTimeline.propTypes = {
-  years: React.PropTypes.arrayOf(React.PropTypes.number)
+  years: React.PropTypes.arrayOf(React.PropTypes.number),
 };
 
 export default SearchTimeline;

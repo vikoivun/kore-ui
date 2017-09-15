@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 import Loader from 'react-loader';
@@ -17,9 +17,9 @@ class SearchLoadMore extends React.Component {
 
   render() {
     return (
-      <div className='search-load-more'>
+      <div className="search-load-more">
         <button onClick={this.handleClick}>
-          <Loader color='#FFF' loaded={!this.props.fetchingData}>
+          <Loader color="#FFF" loaded={!this.props.fetchingData}>
             Näytä lisää kouluja
           </Loader>
         </button>
@@ -30,7 +30,7 @@ class SearchLoadMore extends React.Component {
 
 SearchLoadMore.propTypes = {
   fetchingData: React.PropTypes.bool,
-  urls: React.PropTypes.objectOf(React.PropTypes.string).isRequired
+  urls: React.PropTypes.objectOf(React.PropTypes.string).isRequired,
 };
 
 export default SearchLoadMore;

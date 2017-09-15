@@ -1,15 +1,14 @@
-'use strict';
+
 
 import _ from 'lodash';
 import React from 'react';
 import Loader from 'react-loader';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 import SearchLoadMore from './SearchLoadMore';
-import {getLinkProps} from '../core/utils';
+import { getLinkProps } from '../core/utils';
 
 class SearchTableView extends React.Component {
-
   getSchoolLink(result) {
     const linkProps = getLinkProps(result);
     return (
@@ -18,16 +17,16 @@ class SearchTableView extends React.Component {
   }
 
   getTableRow(result) {
-    const extraInfoClassName = result.extraInfo ? 'with-icon ' + result.type : '';
+    const extraInfoClassName = result.extraInfo ? `with-icon ${  result.type}` : '';
     return (
       <tr key={result.id}>
-        <td className='with-icon school-name'>
+        <td className="with-icon school-name">
           {this.getSchoolLink(result)}
         </td>
         <td className={extraInfoClassName}>{result.extraInfo}</td>
         <td>
           {result.beginYear}
-          <i className='fa fa-lg fa-long-arrow-right'/>
+          <i className="fa fa-lg fa-long-arrow-right"/>
           {result.endYear}
         </td>
       </tr>
@@ -36,7 +35,7 @@ class SearchTableView extends React.Component {
 
   getTableRows() {
     return _.map(
-      this.props.schoolList, (result) => this.getTableRow(result)
+      this.props.schoolList, result => this.getTableRow(result),
     );
   }
 
@@ -56,9 +55,9 @@ class SearchTableView extends React.Component {
           </tbody>
         </table>
       );
-    } else {
+    } 
       return <p>Yhtään hakutulosta ei löytynyt.</p>;
-    }
+    
   }
 
   render() {
@@ -94,7 +93,7 @@ SearchTableView.propTypes = {
   infoText: React.PropTypes.string,
   nextPagesUrlDict: React.PropTypes.objectOf(React.PropTypes.string),
   schoolList: React.PropTypes.array.isRequired,
-  somethingWasSearched: React.PropTypes.bool.isRequired
+  somethingWasSearched: React.PropTypes.bool.isRequired,
 };
 
 export default SearchTableView;

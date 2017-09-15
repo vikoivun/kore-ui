@@ -1,4 +1,4 @@
-'use strict';
+
 
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
@@ -8,7 +8,7 @@ export default {
     AppDispatcher.handleServerAction({
       type: ActionTypes.REQUEST_SEARCH_SUCCESS,
       response,
-      resultsContent
+      resultsContent,
     });
   },
 
@@ -17,7 +17,7 @@ export default {
 
     AppDispatcher.handleServerAction({
       type: ActionTypes.REQUEST_SEARCH_ERROR,
-      error: error
+      error,
     });
   },
 
@@ -25,7 +25,7 @@ export default {
     AppDispatcher.handleServerAction({
       type: ActionTypes.REQUEST_SEARCH_FILTER_SUCCESS,
       response,
-      resource
+      resource,
     });
   },
 
@@ -33,7 +33,7 @@ export default {
     console.log(error);
 
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_SEARCH_FILTER_ERROR
+      type: ActionTypes.REQUEST_SEARCH_FILTER_ERROR,
     });
-  }
+  },
 };

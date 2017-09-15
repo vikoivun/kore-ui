@@ -1,5 +1,5 @@
-/*eslint-disable no-var*/
-'use strict';
+/* eslint-disable no-var */
+
 
 var express = require('express');
 var path = require('path');
@@ -9,8 +9,8 @@ var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? 8080 : 3000;
 var publicPath = (
   isProduction ?
-  path.resolve(__dirname, './dist') :
-  path.resolve(__dirname, './build')
+    path.resolve(__dirname, './dist') :
+    path.resolve(__dirname, './build')
 );
 
 app.use(express.static(publicPath));
@@ -19,21 +19,21 @@ app.use(express.static(publicPath));
 if (!isProduction) {
   var httpProxy = require('http-proxy');
   var proxy = httpProxy.createProxyServer({
-    changeOrigin: true
+    changeOrigin: true,
   });
   var bundle = require('./dev-bundler.js');
   bundle();
-  app.all('/*', function(req, res) {
+  app.all('/*', (req, res) => {
     proxy.web(req, res, {
-      target: 'http://localhost:8080'
+      target: 'http://localhost:8080',
     });
   });
-  proxy.on('error', function() {
+  proxy.on('error', () => {
     console.log('Could not connect to proxy, please try again...');
   });
 }
 
 // Run the server
-app.listen(port, function() {
-  console.log('Server running on port ' + port);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

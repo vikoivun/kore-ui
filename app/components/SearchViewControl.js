@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React from 'react';
 
@@ -29,7 +29,7 @@ class SearchViewControl extends React.Component {
 SearchViewControl.propTypes = {
   children: React.PropTypes.element.isRequired,
   selected: React.PropTypes.bool,
-  view: React.PropTypes.string.isRequired
+  view: React.PropTypes.string.isRequired,
 };
 
 export default SearchViewControl;

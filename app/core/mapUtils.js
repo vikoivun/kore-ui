@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import path from 'path';
@@ -13,13 +13,13 @@ import {
   CRS_NAME,
   CRS_PROJ_DEF,
   CRS_RESOLUTIONS,
-  TILE_LAYERS
+  TILE_LAYERS,
 } from '../constants/MapConstants';
 
 const markerIconUrl = require('../images/leaflet/marker-icon.svg');
 const markerShadowUrl = require('../images/leaflet/marker-shadow.svg');
 
-L.Map.prototype.setCrs = function(newCrs) {
+L.Map.prototype.setCrs = function (newCrs) {
   this.options.crs = newCrs;
 };
 const leafletImageFolder = path.resolve(__dirname, '../images/leaflet');
@@ -31,8 +31,8 @@ const MarkerIcon = L.Icon.Default.extend({
     iconRetinaUrl: markerIconUrl,
     shadowAnchor: [28, 35],
     shadowSize: [58, 58],
-    shadowUrl: markerShadowUrl
-  }
+    shadowUrl: markerShadowUrl,
+  },
 });
 const markerIcon = new MarkerIcon();
 
@@ -46,7 +46,7 @@ function _getGeoserverUrl(layerName, layerFmt) {
 }
 
 function _makeCRS() {
-  return new L.Proj.CRS.TMS(CRS_NAME, CRS_PROJ_DEF, CRS_BOUNDS, {resolutions: CRS_RESOLUTIONS});
+  return new L.Proj.CRS.TMS(CRS_NAME, CRS_PROJ_DEF, CRS_BOUNDS, { resolutions: CRS_RESOLUTIONS });
 }
 
 function _makeTileLayer(layerName) {
@@ -55,14 +55,14 @@ function _makeTileLayer(layerName) {
     continuousWorld: true,
     maxZoom: 12,
     minZoom: 2,
-    tms: false
+    tms: false,
   };
   return new L.Proj.TileLayer.TMS(geoserverUrl, crs, options);
 }
 
 function _makeLayers() {
-  let _layers = {};
-  _.each(TILE_LAYERS, function(layer) {
+  const _layers = {};
+  _.each(TILE_LAYERS, (layer) => {
     _layers[layer.title] = _makeTileLayer(layer.name);
   });
   return _layers;
@@ -74,7 +74,7 @@ function getCrs() {
 
 function getLayerForYear(year) {
   const sortedLayers = _.sortByOrder(TILE_LAYERS, ['beginYear'], [false]);
-  const layerForYear = _.find(sortedLayers, (layer) => year >= layer.beginYear);
+  const layerForYear = _.find(sortedLayers, layer => year >= layer.beginYear);
   return layerForYear || _.last(sortedLayers);
 }
 
@@ -90,12 +90,12 @@ function getLayerNameForYear(year) {
 function getMapOptions() {
   return {
     attributionControl: false,
-    crs: crs,
+    crs,
     continuusWorld: true,
     worldCopyJump: false,
     zoomControl: true,
     closePopupOnClick: true,
-    layers: [layers[TILE_LAYERS[0].title]]
+    layers: [layers[TILE_LAYERS[0].title]],
   };
 }
 
@@ -129,5 +129,5 @@ export default {
   getMapYears,
   getMarkerIcon,
   getPosition,
-  getTileLayers
+  getTileLayers,
 };

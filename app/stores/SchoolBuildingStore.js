@@ -1,26 +1,25 @@
-'use strict';
+
 
 import _ from 'lodash';
 
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../core/AppDispatcher';
-import {getAddressStringFromBuilding, getItemByIdWrapper} from '../core/utils';
+import { getAddressStringFromBuilding, getItemByIdWrapper } from '../core/utils';
 import BaseStore from './BaseStore';
 import BuildingStore from './BuildingStore';
 import SchoolStore from './SchoolStore';
 
-let _schoolBuildings = {};
+const _schoolBuildings = {};
 
 const SchoolBuildingStore = Object.assign({}, BaseStore, {
   getSchoolBuilding: getItemByIdWrapper(getSchoolBuilding, _schoolBuildings),
-  getSearchDetails
+  getSearchDetails,
 });
 
-SchoolBuildingStore.dispatchToken = AppDispatcher.register(function(payload) {
+SchoolBuildingStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
-
     case ActionTypes.REQUEST_SCHOOL_SUCCESS:
       _receiveSchoolBuildings(action.response.entities.schoolBuildings);
       SchoolBuildingStore.emitChange();
@@ -42,7 +41,7 @@ function getSchoolBuilding(schoolBuilding) {
 
 function getSearchDetails(schoolBuildingIds) {
   let searchDetails = [];
-  _.each(schoolBuildingIds, function(schoolBuildingId) {
+  _.each(schoolBuildingIds, (schoolBuildingId) => {
     const schoolBuilding = _schoolBuildings[schoolBuildingId];
     if (_.isEmpty(schoolBuilding)) {
       return;
@@ -55,7 +54,7 @@ function getSearchDetails(schoolBuildingIds) {
     }
     const item = _.assign({}, schoolBuilding, {
       extraInfo: getAddressStringFromBuilding(building),
-      type: 'building'
+      type: 'building',
     });
     const results = SchoolStore.getSearchDetailsForItem(schoolId, item);
     searchDetails = searchDetails.concat(results);
@@ -64,7 +63,7 @@ function getSearchDetails(schoolBuildingIds) {
 }
 
 function _receiveSchoolBuildings(schoolBuildings) {
-  _.each(schoolBuildings, function(schoolBuilding) {
+  _.each(schoolBuildings, (schoolBuilding) => {
     if (_schoolBuildings[schoolBuilding.id] && _schoolBuildings[schoolBuilding.id].school) {
       schoolBuilding.school = _schoolBuildings[schoolBuilding.id].school;
     }

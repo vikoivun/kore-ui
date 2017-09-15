@@ -1,20 +1,19 @@
-/*eslint-disable no-var*/
-'use strict';
+/* eslint-disable no-var */
+
 
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./conf/webpack.config.js');
 
-module.exports = function() {
-
+module.exports = function () {
   var bundleStart = null;
   var compiler = webpack(config);
-  compiler.plugin('compile', function() {
+  compiler.plugin('compile', () => {
     console.log('Bundling...');
     bundleStart = Date.now();
   });
-  compiler.plugin('done', function() {
-    console.log('Bundled in ' + (Date.now() - bundleStart) + 'ms!');
+  compiler.plugin('done', () => {
+    console.log(`Bundled in ${Date.now() - bundleStart}ms!`);
   });
 
   var bundler = new WebpackDevServer(compiler, {
@@ -32,12 +31,11 @@ module.exports = function() {
       hash: false,
       progress: false,
       timings: false,
-      version: false
-    }
+      version: false,
+    },
   });
 
-  bundler.listen(8080, 'localhost', function() {
+  bundler.listen(8080, 'localhost', () => {
     console.log('Bundling project, please wait...');
   });
-
 };

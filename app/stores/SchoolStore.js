@@ -1,4 +1,4 @@
-'use strict';
+
 
 import _ from 'lodash';
 import Fuse from 'fuse.js';
@@ -8,7 +8,7 @@ import AppDispatcher from '../core/AppDispatcher';
 import {
   getAssociationData,
   getAssociationObject,
-  parseAssociationData
+  parseAssociationData,
 } from '../core/storeUtils';
 import {
   getAddressString,
@@ -19,7 +19,7 @@ import {
   getItemForYear,
   getItemsForYear,
   inBetween,
-  sortByYears
+  sortByYears,
 } from '../core/utils';
 import BaseStore from './BaseStore';
 import BuildingStore from './BuildingStore';
@@ -28,7 +28,7 @@ import PrincipalStore from './PrincipalStore';
 import SchoolBuildingStore from './SchoolBuildingStore';
 import SearchStore from './SearchStore';
 
-let _schools = {};
+const _schools = {};
 let _fetchingData = false;
 
 const SchoolStore = Object.assign({}, BaseStore, {
@@ -42,10 +42,10 @@ const SchoolStore = Object.assign({}, BaseStore, {
   getSchoolYearDetails: getItemByIdWrapper(getSchoolYearDetails, _schools),
   getSearchDetails,
   getSearchDetailsForItem,
-  hasSchool
+  hasSchool,
 });
 
-SchoolStore.dispatchToken = AppDispatcher.register(function(payload) {
+SchoolStore.dispatchToken = AppDispatcher.register((payload) => {
   AppDispatcher.waitFor([
     BuildingStore.dispatchToken,
     EmployershipStore.dispatchToken,
@@ -87,7 +87,7 @@ function getBeginAndEndYear(school) {
   const oldestName = _.last(school.names);
   return {
     beginYear: oldestName ? oldestName.beginYear : null,
-    endYear: currentName ? currentName.endYear : null
+    endYear: currentName ? currentName.endYear : null,
   };
 }
 
@@ -126,8 +126,8 @@ function getSchoolDetails(school, selectedYear) {
     languages: school.languages,
     names: school.names,
     principals: getAssociationData(school.principals, PrincipalStore.getPrincipal),
-    selectedYear: selectedYear,
-    types: school.types
+    selectedYear,
+    types: school.types,
   };
 }
 
@@ -135,17 +135,17 @@ function getSchoolYearDetails(school, year) {
   year = year || _getLatestYear(school);
 
   const archives = getItemsForYear(school.archives, year);
-  let archiveArray = [];
-  _.each(archives.reverse(), function(archive, index) {
+  const archiveArray = [];
+  _.each(archives.reverse(), (archive, index) => {
     if (index > 0) {
       archiveArray.push(', ');
     }
     archiveArray.push(getArchiveName(archive));
   });
 
-  let buildingNames = [];
+  const buildingNames = [];
   const schoolBuildings = getItemsForYear(school.buildings, year);
-  _.each(schoolBuildings, function(schoolBuilding) {
+  _.each(schoolBuildings, (schoolBuilding) => {
     const building = (
       schoolBuilding ? getAssociationObject(schoolBuilding, BuildingStore.getBuilding) : null
     );
@@ -164,9 +164,9 @@ function getSchoolYearDetails(school, year) {
 
   const name = getItemForYear(school.names, year) || {};
 
-  let principalNames = [];
+  const principalNames = [];
   const schoolPrincipals = getItemsForYear(school.principals, year);
-  _.each(schoolPrincipals, function(schoolPrincipal) {
+  _.each(schoolPrincipals, (schoolPrincipal) => {
     const principal = (
       schoolPrincipal ? getAssociationObject(schoolPrincipal, PrincipalStore.getPrincipal) : null
     );
@@ -180,19 +180,19 @@ function getSchoolYearDetails(school, year) {
   const typeString = _.pluck(types, ['type', 'name']).join(', ');
 
   return {
-    archiveArray: archiveArray,
-    buildingString: buildingString,
-    genderString: genderString,
-    languageString: languageString,
-    name: name,
-    principalString: principalString,
-    typeString: typeString
+    archiveArray,
+    buildingString,
+    genderString,
+    languageString,
+    name,
+    principalString,
+    typeString
   };
 }
 
 function getSearchDetails(schoolIds, query) {
-  let searchDetails = [];
-  _.each(schoolIds, function(schoolId) {
+  const searchDetails = [];
+  _.each(schoolIds, (schoolId) => {
     const school = _schools[schoolId];
     if (_.isEmpty(school)) {
       return;
@@ -230,14 +230,14 @@ function getSearchDetails(schoolIds, query) {
 }
 
 function getSearchDetailsForItem(schoolId, item) {
-  let searchDetails = [];
+  const searchDetails = [];
   const school = _schools[schoolId];
   if (_.isEmpty(school)) {
     return [];
   }
 
   const names = _getNamesForTimeSpan(school, item.beginYear, item.endYear);
-  _.each(_.sortBy(names, 'beginYear'), function(name, index) {
+  _.each(_.sortBy(names, 'beginYear'), (name, index) => {
     const beginYear = index === 0 ? item.beginYear || name.beginYear : name.beginYear;
     const endYear = index === name.length - 1 ? item.endYear || name.endYear : name.endYear;
     const location = _.first(getLocationsForYear(school, beginYear)) || {};
@@ -268,7 +268,7 @@ function _filterOutNamesOutsideTimelineRange(names) {
   const start = searchYears[0] || 0;
   const end = searchYears[1] || new Date().getFullYear();
 
-  return _.filter(names, function(name) {
+  return _.filter(names, (name) => {
     if (name.beginYear && name.endYear) {
       return inBetween(name.beginYear, start, end) || inBetween(name.endYear, start, end);
     } else if (name.beginYear) {
@@ -287,7 +287,7 @@ function _getContinuumEventData(event, schoolToLinkTo) {
     description: event.description,
     schoolId: schoolToLinkTo.id,
     schoolName: name ? name.officialName : '',
-    year: event.year
+    year: event.year,
   };
 }
 
@@ -296,7 +296,7 @@ function _getLatestYear(school) {
 }
 
 function _getNamesForTimeSpan(school, beginYear, endYear) {
-  return _.filter(school.names, function(name) {
+  return _.filter(school.names, (name) => {
     return (
       inBetween(name.beginYear, beginYear, endYear, true) ||
       inBetween(beginYear, name.beginYear, name.endYear, true)
@@ -308,19 +308,19 @@ function _parseContinuumEvents(school) {
   let continuumEvents = [];
 
   continuumEvents = continuumEvents.concat(
-    _.map(school.continuumTarget, function(event) {
+    _.map(school.continuumTarget, (event) => {
       return _getContinuumEventData(event, event.activeSchool);
     }),
-    _.map(school.continuumActive, function(event) {
+    _.map(school.continuumActive, (event) => {
       return _getContinuumEventData(event, event.targetSchool);
-    })
+    }),
   );
 
   return continuumEvents;
 }
 
 function _receiveSchools(entities) {
-  _.each(entities.schools, function(school) {
+  _.each(entities.schools, (school) => {
     let _school = _schools[school.id];
     if (!_school) {
       _school = {

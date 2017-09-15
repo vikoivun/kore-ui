@@ -1,4 +1,4 @@
-'use strict';
+
 
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
@@ -7,7 +7,7 @@ export default {
   handleSchoolSuccess(response) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.REQUEST_SCHOOL_SUCCESS,
-      response
+      response,
     });
   },
 
@@ -15,7 +15,7 @@ export default {
     console.log(error);
 
     AppDispatcher.handleServerAction({
-      type: ActionTypes.REQUEST_SCHOOL_ERROR
+      type: ActionTypes.REQUEST_SCHOOL_ERROR,
     });
-  }
+  },
 };
