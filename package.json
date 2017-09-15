@@ -10,6 +10,7 @@
     "babel-loader": "^5.0.0",
     "babel-runtime": "^5.1.10",
     "css-loader": "^0.10.1",
+    "eslint-loader": "^1.9.0",
     "express": "^4.12.3",
     "extract-text-webpack-plugin": "^0.3.8",
     "file-loader": "^0.8.1",
@@ -35,11 +36,9 @@
     "webpack": "^1.8.5"
   },
   "devDependencies": {
-    "babel-eslint": "^3.1.2",
     "chai": "^2.3.0",
-    "eslint": "^0.21.0",
-    "eslint-loader": "^0.11.2",
-    "eslint-plugin-react": "^2.3.0",
+    "eslint": "^4.6.1",
+    "eslint-plugin-react": "^7.3.0",
     "http-proxy": "^1.10.1",
     "isparta": "^3.0.2",
     "isparta-instrumenter-loader": "^0.2.1",
@@ -67,6 +66,6 @@
     "test:watch": "./node_modules/karma/bin/karma start conf/karma.conf.js",
     "test:coverage": "./node_modules/karma/bin/karma start conf/karma.coverage.conf.js --single-run",
     "test:ci": "./node_modules/karma/bin/karma start conf/karma.ci.conf.js --single-run",
-    "lint": "./node_modules/.bin/eslint ."
+    "lint": "eslint ."
   }
 }
