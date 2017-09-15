@@ -55,8 +55,8 @@
     "protractor": "^2.0.0",
     "react-hot-loader": "^1.2.5",
     "react-tools": "^0.13.3",
-    "sinon": "git://github.com/cjohansen/Sinon.JS#sinon-2.0",
-    "sinon-chai": "~2.7.0",
+    "sinon": "^2.1.0",
+    "sinon-chai": "^2.9.0",
     "webpack-dev-server": "^1.8.0"
   },
   "scripts": {
