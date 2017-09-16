@@ -1,6 +1,7 @@
 {
+    "root": true,
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 7,
         "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true
@@ -17,6 +18,19 @@
     "extends": [
         "airbnb"
     ],
+    // Local overrides from Airbnb
+    "rules": {
+        "comma-dangle": ["error", {
+            "exports": "always-multiline",
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "always-multiline",
+            // Dangling commas for functions would require ES8
+            "functions": "never"
+        }],
+        // Empty lines at beginning of file look horrible
+        "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1, "maxBOF": 0 }]
+    },
     "settings": {
         "react": {
             "version": "0.13"
@@ -27,7 +41,7 @@
             // Deployment file seems to follow its own rules
             "files": [ "deploy.js" ],
 	    "parserOptions": {
-                "ecmaVersion": 5,
+                "ecmaVersion": 7,
                 "sourceType": "script",
                 "ecmaFeatures": {
                     "jsx": false,
