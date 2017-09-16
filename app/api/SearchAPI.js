@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import request from 'superagent';
+import { decamelize, decamelizeKeys } from 'humps';
 
 import SearchServerActionCreators from '../actions/SearchServerActionCreators';
 import { API_ROOT, API_ARGS } from '../constants/AppConstants';
-import { decamelize, decamelizeKeys } from 'humps';
 import { normalizeSearchResponse } from '../core/APIUtils';
 
 function buildAPIURL(resource) {
