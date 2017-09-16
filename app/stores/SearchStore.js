@@ -74,7 +74,6 @@ SearchStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
-
     case ActionTypes.REQUEST_SEARCH:
       _actualSearchYears = [_years[0], _years[1]];
       _fetchingData += 3;
@@ -220,9 +219,7 @@ function _handleErrorMessage(message) {
 }
 
 function _hasResults() {
-  const resultsLength = _.reduce(_searchResults, (memo, resultsArray) => {
-    return memo + resultsArray.length;
-  }, 0);
+  const resultsLength = _.reduce(_searchResults, (memo, resultsArray) => memo + resultsArray.length, 0);
   return Boolean(resultsLength);
 }
 
@@ -243,9 +240,7 @@ function _receiveFilterResponse(responseResults, resource) {
 }
 
 function _resetSearchResults() {
-  return _.mapValues(_searchResultsDefaults, () => {
-    return [];
-  });
+  return _.mapValues(_searchResultsDefaults, () => []);
 }
 
 function _selectMapYear(year) {

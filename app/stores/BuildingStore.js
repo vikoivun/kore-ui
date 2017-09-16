@@ -62,7 +62,7 @@ function getLocationsForYear(buildingIds, year) {
 
     const address = getBuildingAddressForYear(building.addresses, year);
     if (address && !_.isEmpty(address.location)) {
-      const locationId = `${buildingId  }-${  address.id}`;
+      const locationId = `${buildingId}-${address.id}`;
       locations.push(
         _.assign({}, address.location, { address: getAddressString(address), id: locationId })
       );

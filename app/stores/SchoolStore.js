@@ -54,7 +54,6 @@ SchoolStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
-
     case ActionTypes.REQUEST_SCHOOL:
       _fetchingData = true;
       SchoolStore.emitChange();
@@ -197,9 +196,9 @@ function getSearchDetails(schoolIds, query) {
     }
     let names;
     if (query) {
-      let nameSearchIndex = new Fuse(
+      const nameSearchIndex = new Fuse(
         school.names,
-        {keys: ['officialName']}
+        { keys: ['officialName'] }
       );
       names = nameSearchIndex.search(query);
     } else {
@@ -207,16 +206,16 @@ function getSearchDetails(schoolIds, query) {
     }
     names = _filterOutNamesOutsideTimelineRange(names);
 
-    _.each(names, function(name) {
+    _.each(names, (name) => {
       const location = _.first(getLocationsForYear(school, name.beginYear)) || {};
       location.id = !_.isEmpty(location) ? `${name.id}-${location.id}` : null;
       searchDetails.push(
         {
           beginYear: name.beginYear,
           endYear: name.endYear,
-          id: school.id + '-' + name.id,
+          id: `${school.id}-${name.id}`,
           imageUrl: getImageUrl(getBuildingForYear(school, name.beginYear)),
-          location: location,
+          location,
           name: name.officialName,
           schoolId: school.id,
           type: 'school-name',
@@ -242,11 +241,11 @@ function getSearchDetailsForItem(schoolId, item) {
     location.id = !_.isEmpty(location) ? `${name.id}-${location.id}` : null;
     searchDetails.push(
       {
-        beginYear: beginYear,
-        endYear: endYear,
-        id: school.id + '-' + name.id + '-' + item.id,
+        beginYear,
+        endYear,
+        id: `${school.id}-${name.id}-${item.id}`,
         imageUrl: getImageUrl(getBuildingForYear(school, beginYear)),
-        location: location,
+        location,
         name: name.officialName,
         extraInfo: item.extraInfo,
         schoolId: school.id,
@@ -273,9 +272,8 @@ function _filterOutNamesOutsideTimelineRange(names) {
       return name.beginYear <= end;
     } else if (name.endYear) {
       return name.endYear >= start;
-    } else {
-      return true;
     }
+    return true;
   });
 }
 
@@ -294,24 +292,18 @@ function _getLatestYear(school) {
 }
 
 function _getNamesForTimeSpan(school, beginYear, endYear) {
-  return _.filter(school.names, (name) => {
-    return (
-      inBetween(name.beginYear, beginYear, endYear, true) ||
+  return _.filter(school.names, name => (
+    inBetween(name.beginYear, beginYear, endYear, true) ||
       inBetween(beginYear, name.beginYear, name.endYear, true)
-    );
-  });
+  ));
 }
 
 function _parseContinuumEvents(school) {
   let continuumEvents = [];
 
   continuumEvents = continuumEvents.concat(
-    _.map(school.continuumTarget, (event) => {
-      return _getContinuumEventData(event, event.activeSchool);
-    }),
-    _.map(school.continuumActive, (event) => {
-      return _getContinuumEventData(event, event.targetSchool);
-    })
+    _.map(school.continuumTarget, event => _getContinuumEventData(event, event.activeSchool)),
+    _.map(school.continuumActive, event => _getContinuumEventData(event, event.targetSchool))
   );
 
   return continuumEvents;
@@ -326,7 +318,7 @@ function _receiveSchools(entities) {
         principals: [],
       };
     }
-    let associatedData = {};
+    const associatedData = {};
     if (school.buildings && school.buildings.length) {
       associatedData.buildings = sortByYears(parseAssociationData(
         entities.schoolBuildings,

@@ -84,9 +84,7 @@ class SchoolPage extends React.Component {
       this.state.yearsActive.endYear ||
       new Date().getFullYear()
     );
-    const locations = _.filter(this.state.locationsForSelectedYear, (location) => {
-      return !_.isEmpty(location.coordinates);
-    });
+    const locations = _.filter(this.state.locationsForSelectedYear, location => !_.isEmpty(location.coordinates));
 
     return (
       <DocumentTitle title="Koulut - Koulurekisteri">

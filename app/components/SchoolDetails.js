@@ -13,45 +13,41 @@ import {
 
 const itemGenerator = {
   archives(archives, selectedYear) {
-    return _.map(archives, function(archive, index) {
-      return {
-        boxContent: getBoxContent(archive),
-        className: 'details-archive',
-        key: 'school-archive-' + index,
-        name: getArchiveName(archive),
-        highlight: inBetween(selectedYear, archive.beginYear, archive.endYear),
-      };
-    }).reverse();
+    return _.map(archives, (archive, index) => ({
+      boxContent: getBoxContent(archive),
+      className: 'details-archive',
+      key: `school-archive-${index}`,
+      name: getArchiveName(archive),
+      highlight: inBetween(selectedYear, archive.beginYear, archive.endYear),
+    })).reverse();
   },
   continuum(continuum, selectedYear) {
-    return _.map(continuum, function(event, index) {
-      return {
-        boxContent: String(event.year),
-        className: 'details-continuum-event',
-        key: 'school-continuum-event-' + index,
-        name: getContinuumEventName(event),
-        highlight: event.year === selectedYear,
-      };
-    }).reverse();
+    return _.map(continuum, (event, index) => ({
+      boxContent: String(event.year),
+      className: 'details-continuum-event',
+      key: `school-continuum-event-${index}`,
+      name: getContinuumEventName(event),
+      highlight: event.year === selectedYear,
+    })).reverse();
   },
   buildings(buildings, selectedYear) {
-    return _.map(buildings, function(building) {
-      let items = [
+    return _.map(buildings, (building) => {
+      const items = [
         {
-          key: 'architect-of-building-' + building.id,
+          key: `architect-of-building-${building.id}`,
           name: building.architect,
           boxContent: 'arkkitehti',
         },
         {
-          key: 'neighborhood-of-building-' + building.id,
+          key: `neighborhood-of-building-${building.id}`,
           name: building.neighborhood,
           boxContent: 'alue',
         },
       ];
       if (building.addresses && building.addresses.length > 1) {
-        _.each(building.addresses.reverse(), function(address) {
+        _.each(building.addresses.reverse(), (address) => {
           items.push({
-            key: 'building-details-address-' + address.id,
+            key: `building-details-address-${address.id}`,
             name: getAddressString(address),
             boxContent: getBoxContent(address),
           });
@@ -60,78 +56,66 @@ const itemGenerator = {
       return {
         boxContent: getBoxContent(building),
         className: 'details-building',
-        items: items,
-        key: 'building-' + building.id,
+        items,
+        key: `building-${building.id}`,
         name: getAddressStringFromBuilding(building),
         highlight: inBetween(selectedYear, building.beginYear, building.endYear),
       };
     }).reverse();
   },
   fields(fields, selectedYear) {
-    return _.map(fields, function(field, index) {
-      return {
-        boxContent: getBoxContent(field),
-        className: 'details-field',
-        key: 'school-field-' + index,
-        name: field.field.name,
-        highlight: inBetween(selectedYear, field.beginYear, field.endYear),
-      };
-    }).reverse();
+    return _.map(fields, (field, index) => ({
+      boxContent: getBoxContent(field),
+      className: 'details-field',
+      key: `school-field-${index}`,
+      name: field.field.name,
+      highlight: inBetween(selectedYear, field.beginYear, field.endYear),
+    })).reverse();
   },
   genders(genders, selectedYear) {
-    return _.map(genders, function(gender, index) {
-      return {
-        boxContent: getBoxContent(gender),
-        className: 'details-gender',
-        key: 'school-gender-' + index,
-        name: gender.gender,
-        highlight: inBetween(selectedYear, gender.beginYear, gender.endYear),
-      };
-    }).reverse();
+    return _.map(genders, (gender, index) => ({
+      boxContent: getBoxContent(gender),
+      className: 'details-gender',
+      key: `school-gender-${index}`,
+      name: gender.gender,
+      highlight: inBetween(selectedYear, gender.beginYear, gender.endYear),
+    })).reverse();
   },
   languages(languages, selectedYear) {
-    return _.map(languages, function(language) {
-      return {
-        boxContent: getBoxContent(language),
-        className: 'details-language',
-        key: 'school-language-' + language.id,
-        name: language.language,
-        highlight: inBetween(selectedYear, language.beginYear, language.endYear),
-      };
-    }).reverse();
+    return _.map(languages, language => ({
+      boxContent: getBoxContent(language),
+      className: 'details-language',
+      key: `school-language-${language.id}`,
+      name: language.language,
+      highlight: inBetween(selectedYear, language.beginYear, language.endYear),
+    })).reverse();
   },
   names(names, selectedYear) {
-    return _.map(names, function(name) {
-      return {
-        boxContent: getBoxContent(name),
-        className: 'details-school-name',
-        key: 'school-name-' + name.id,
-        name: name.officialName,
-        highlight: inBetween(selectedYear, name.beginYear, name.endYear),
-      };
-    }).reverse();
+    return _.map(names, name => ({
+      boxContent: getBoxContent(name),
+      className: 'details-school-name',
+      key: `school-name-${name.id}`,
+      name: name.officialName,
+      highlight: inBetween(selectedYear, name.beginYear, name.endYear),
+    })).reverse();
   },
   principals(principals, selectedYear) {
-    return _.map(principals, function(principal) {
-      return {
-        boxContent: getBoxContent(principal),
-        className: 'details-principal',
-        key: 'principal-' + principal.id,
-        name: principal.name,
-        highlight: inBetween(selectedYear, principal.beginYear, principal.endYear),
-      };
-    }).reverse();
+    return _.map(principals, principal => ({
+      boxContent: getBoxContent(principal),
+      className: 'details-principal',
+      key: `principal-${principal.id}`,
+      name: principal.name,
+      highlight: inBetween(selectedYear, principal.beginYear, principal.endYear),
+    })).reverse();
   },
   types(types, selectedYear) {
-    return _.map(types, function(type, index) {
-      return {
-        boxContent: getBoxContent(type),
-        className: 'details-building',
-        key: 'school-type-' + index,
-        name: type.type.name,
-        highlight: inBetween(selectedYear, type.beginYear, type.endYear),
-      };
-    }).reverse();
+    return _.map(types, (type, index) => ({
+      boxContent: getBoxContent(type),
+      className: 'details-building',
+      key: `school-type-${index}`,
+      name: type.type.name,
+      highlight: inBetween(selectedYear, type.beginYear, type.endYear),
+    })).reverse();
   },
 };
 

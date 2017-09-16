@@ -19,12 +19,10 @@ class SearchFilterControl extends React.Component {
   processOptions() {
     return _.map(
       _.filter(this.props.options, 'name'),
-      (option) => {
-        return {
-          label: option.name,
-          value: String(option.id),
-        };
-      }
+      option => ({
+        label: option.name,
+        value: String(option.id),
+      })
     );
   }
 

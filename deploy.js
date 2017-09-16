@@ -10,10 +10,10 @@ if (process.env.NODE_ENV === 'production') {
   return childProcess.exec(
     './node_modules/.bin/webpack --config conf/webpack.production.js',
     (error, stdout, stderr) => {
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
       if (error !== null) {
-        console.log('exec error: ' + error);
+        console.log(`exec error: ${error}`);
       }
     }
   );

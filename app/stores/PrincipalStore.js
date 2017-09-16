@@ -21,7 +21,6 @@ PrincipalStore.dispatchToken = AppDispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.type) {
-
     case ActionTypes.REQUEST_SCHOOL:
       _fetchingData = true;
       PrincipalStore.emitChange();
@@ -73,7 +72,7 @@ function getSearchDetails(principalIds) {
       return;
     }
 
-    _.each(principal.employers, function(employment) {
+    _.each(principal.employers, (employment) => {
       const item = {
         beginYear: employment.beginYear,
         endYear: employment.endYear,
@@ -96,12 +95,12 @@ function _receivePrincipals(entities) {
         employers: [],
       };
     }
-    let associatedData = {};
+    const associatedData = {};
     if (principal.employers && principal.employers.length) {
       associatedData.employers = sortByYears(parseAssociationData(
-          entities.employer,
-          principal.employers,
-          'school'
+        entities.employer,
+        principal.employers,
+        'school'
       ));
     }
     _.assign(
@@ -109,7 +108,7 @@ function _receivePrincipals(entities) {
       {
         firstName: principal.firstName,
         id: principal.id,
-        name: principal.firstName + ' ' + principal.surname,
+        name: `${principal.firstName} ${principal.surname}`,
         surname: principal.surname,
       },
       associatedData

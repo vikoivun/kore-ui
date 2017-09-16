@@ -15,7 +15,7 @@ class SearchTableView extends React.Component {
   }
 
   getTableRow(result) {
-    const extraInfoClassName = result.extraInfo ? `with-icon ${  result.type}` : '';
+    const extraInfoClassName = result.extraInfo ? `with-icon ${result.type}` : '';
     return (
       <tr key={result.id}>
         <td className="with-icon school-name">
@@ -24,7 +24,7 @@ class SearchTableView extends React.Component {
         <td className={extraInfoClassName}>{result.extraInfo}</td>
         <td>
           {result.beginYear}
-          <i className="fa fa-lg fa-long-arrow-right"/>
+          <i className="fa fa-lg fa-long-arrow-right" />
           {result.endYear}
         </td>
       </tr>
@@ -40,7 +40,7 @@ class SearchTableView extends React.Component {
   renderSearchResults() {
     if (this.props.schoolList.length) {
       return (
-        <table className='table table-striped search-table'>
+        <table className="table table-striped search-table">
           <thead>
             <tr>
               <th>Koulu</th>
@@ -53,9 +53,8 @@ class SearchTableView extends React.Component {
           </tbody>
         </table>
       );
-    } 
-      return <p>Yhtään hakutulosta ei löytynyt.</p>;
-    
+    }
+    return <p>Yhtään hakutulosta ei löytynyt.</p>;
   }
 
   render() {

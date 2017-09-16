@@ -17,7 +17,7 @@ class SchoolMap extends BaseMap {
         <div ref="map" />
         <div className={overlayClassname}>
           <div className="location-undefined-message">
-            <i className="fa fa-map-marker"></i>
+            <i className="fa fa-map-marker" />
             Sijaintia tälle vuodelle ei ole määritelty.
           </div>
         </div>
