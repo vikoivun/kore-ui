@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 
@@ -54,7 +52,7 @@ class SearchPage extends React.Component {
 
   renderSearchResultsView() {
     const schoolList = this.state.nameResults.concat(
-      this.state.buildingResults, this.state.principalResults,
+      this.state.buildingResults, this.state.principalResults
     );
 
     const searchViewProps = {

@@ -1,5 +1,3 @@
-
-
 import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';

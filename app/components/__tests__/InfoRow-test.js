@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { expect } from 'chai';
@@ -17,7 +15,7 @@ describe('InfoRow', () => {
   describe('without items', () => {
     before(() => {
       element = TestUtils.renderIntoDocument(
-        <InfoRow {...props} />,
+        <InfoRow {...props} />
       );
     });
 
@@ -61,7 +59,7 @@ describe('InfoRow', () => {
         { name: 'Alvar Aalto', boxContent: 'architect' },
       ];
       element = TestUtils.renderIntoDocument(
-        <InfoRow {...props} />,
+        <InfoRow {...props} />
       );
     });
 

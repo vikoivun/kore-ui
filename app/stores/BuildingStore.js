@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 
 import ActionTypes from '../constants/ActionTypes';
@@ -66,7 +64,7 @@ function getLocationsForYear(buildingIds, year) {
     if (address && !_.isEmpty(address.location)) {
       const locationId = `${buildingId  }-${  address.id}`;
       locations.push(
-        _.assign({}, address.location, { address: getAddressString(address), id: locationId }),
+        _.assign({}, address.location, { address: getAddressString(address), id: locationId })
       );
     }
   });

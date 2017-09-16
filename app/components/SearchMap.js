@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
@@ -77,7 +75,7 @@ class SearchMap extends BaseMap {
       event.preventDefault();
       if (school.beginYear) {
         router.transitionTo(
-          'school-with-year', { schoolId: school.schoolId, year: school.beginYear },
+          'school-with-year', { schoolId: school.schoolId, year: school.beginYear }
         );
       } else {
         router.transitionTo('school', { schoolId: school.schoolId });

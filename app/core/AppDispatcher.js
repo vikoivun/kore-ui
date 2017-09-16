@@ -1,5 +1,3 @@
-
-
 import { Dispatcher } from 'flux';
 import PayloadSources from '../constants/PayloadSources';
 

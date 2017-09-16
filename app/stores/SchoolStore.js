@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import Fuse from 'fuse.js';
 
@@ -50,7 +48,7 @@ SchoolStore.dispatchToken = AppDispatcher.register((payload) => {
     BuildingStore.dispatchToken,
     EmployershipStore.dispatchToken,
     PrincipalStore.dispatchToken,
-    SchoolBuildingStore.dispatchToken
+    SchoolBuildingStore.dispatchToken,
   ]);
 
   const action = payload.action;
@@ -186,7 +184,7 @@ function getSchoolYearDetails(school, year) {
     languageString,
     name,
     principalString,
-    typeString
+    typeString,
   };
 }
 
@@ -221,7 +219,7 @@ function getSearchDetails(schoolIds, query) {
           location: location,
           name: name.officialName,
           schoolId: school.id,
-          type: 'school-name'
+          type: 'school-name',
         }
       );
     });
@@ -252,7 +250,7 @@ function getSearchDetailsForItem(schoolId, item) {
         name: name.officialName,
         extraInfo: item.extraInfo,
         schoolId: school.id,
-        type: item.type
+        type: item.type,
       }
     );
   });
@@ -313,7 +311,7 @@ function _parseContinuumEvents(school) {
     }),
     _.map(school.continuumActive, (event) => {
       return _getContinuumEventData(event, event.targetSchool);
-    }),
+    })
   );
 
   return continuumEvents;
@@ -325,7 +323,7 @@ function _receiveSchools(entities) {
     if (!_school) {
       _school = {
         buildings: [],
-        principals: []
+        principals: [],
       };
     }
     let associatedData = {};
@@ -353,7 +351,7 @@ function _receiveSchools(entities) {
         id: school.id,
         languages: sortByYears(school.languages),
         names: sortByYears(school.names),
-        types: sortByYears(school.types)
+        types: sortByYears(school.types),
       },
       associatedData
     );

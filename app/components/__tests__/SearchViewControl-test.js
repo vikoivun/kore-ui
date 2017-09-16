@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import chai from 'chai';
@@ -22,7 +20,7 @@ describe('SearchViewControl', () => {
 
   before(() => {
     element = TestUtils.renderIntoDocument(
-      <SearchViewControl {...props} />,
+      <SearchViewControl {...props} />
     );
   });
 

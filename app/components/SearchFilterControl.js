@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import React from 'react';
 import ReactSelect from 'react-select';
@@ -24,7 +22,7 @@ class SearchFilterControl extends React.Component {
       (option) => {
         return {
           label: option.name,
-          value: String(option.id)
+          value: String(option.id),
         };
       }
     );
@@ -65,7 +63,7 @@ SearchFilterControl.propTypes = {
       ]),
       description: React.PropTypes.string,
       name: React.PropTypes.string,
-    }),
+    })
   ),
   resource: React.PropTypes.string.isRequired,
   value: React.PropTypes.string,

@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import L from 'leaflet';
 import React from 'react';
@@ -112,7 +110,7 @@ BaseMap.propTypes = {
       address: React.PropTypes.string,
       coordinates: React.PropTypes.array,
       type: React.PropTypes.string,
-    }),
+    })
   ).isRequired,
   selectedYear: React.PropTypes.number,
 };

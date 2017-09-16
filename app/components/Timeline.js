@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import ReactSlider from 'react-slider';
 import UIActionCreators from '../actions/UIActionCreators';

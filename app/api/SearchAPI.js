@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import request from 'superagent';
 
@@ -22,7 +20,7 @@ function searchRequest(endPoint, query, filters, resultContent) {
       if (response.ok) {
         SearchServerActionCreators.handleSearchSuccess(
           normalizeSearchResponse(response.body, resultContent),
-          resultContent,
+          resultContent
         );
       } else {
         SearchServerActionCreators.handleSearchError(response.text);
@@ -37,7 +35,7 @@ function searchLoadMore(url, resultContent) {
       if (response.ok) {
         SearchServerActionCreators.handleSearchSuccess(
           normalizeSearchResponse(response.body, resultContent),
-          resultContent,
+          resultContent
         );
       } else {
         SearchServerActionCreators.handleSearchError(response.text);
@@ -54,7 +52,7 @@ export default {
         if (response.ok) {
           SearchServerActionCreators.handleFilterSuccess(
             response.body,
-            resource,
+            resource
           );
         } else {
           SearchServerActionCreators.handleFilterError(response.text);

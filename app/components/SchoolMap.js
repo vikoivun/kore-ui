@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import React from 'react';
 
@@ -37,7 +35,7 @@ SchoolMap.propTypes = {
       address: React.PropTypes.string,
       coordinates: React.PropTypes.array,
       type: React.PropTypes.string,
-    }),
+    })
   ).isRequired,
   selectedYear: React.PropTypes.number,
 };

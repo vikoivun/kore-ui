@@ -1,5 +1,3 @@
-
-
 import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import SearchAPI from '../api/SearchAPI';

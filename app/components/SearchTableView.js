@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import React from 'react';
 import Loader from 'react-loader';
@@ -35,7 +33,7 @@ class SearchTableView extends React.Component {
 
   getTableRows() {
     return _.map(
-      this.props.schoolList, result => this.getTableRow(result),
+      this.props.schoolList, result => this.getTableRow(result)
     );
   }
 

@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import { expect } from 'chai';
@@ -11,7 +9,7 @@ describe('SchoolTitle', () => {
 
   before(() => {
     element = TestUtils.renderIntoDocument(
-      <SchoolTitle name={name} />,
+      <SchoolTitle name={name} />
     );
   });
 

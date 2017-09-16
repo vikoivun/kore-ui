@@ -1,5 +1,3 @@
-
-
 const TILE_LAYERS = [
   {
     beginYear: 2010,

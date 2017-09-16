@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 
 import ActionTypes from '../constants/ActionTypes';
@@ -60,8 +58,8 @@ function getPrincipalDetails(principal) {
       principal,
       { schools: getAssociationData(
         principal.employers,
-        SchoolStore.getSchoolDetails,
-      ) },
+        SchoolStore.getSchoolDetails
+      ) }
     );
   }
   return principal;
@@ -81,7 +79,7 @@ function getSearchDetails(principalIds) {
         endYear: employment.endYear,
         id: principalId,
         extraInfo: principal.name,
-        type: 'principal'
+        type: 'principal',
       };
       const results = SchoolStore.getSearchDetailsForItem(employment.id, item);
       searchDetails = searchDetails.concat(results);
@@ -95,7 +93,7 @@ function _receivePrincipals(entities) {
     let _principal = _principals[principal.id];
     if (!_principal) {
       _principal = {
-        employers: []
+        employers: [],
       };
     }
     let associatedData = {};
@@ -112,7 +110,7 @@ function _receivePrincipals(entities) {
         firstName: principal.firstName,
         id: principal.id,
         name: principal.firstName + ' ' + principal.surname,
-        surname: principal.surname
+        surname: principal.surname,
       },
       associatedData
     );

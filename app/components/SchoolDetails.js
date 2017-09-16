@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import React from 'react';
 
@@ -21,7 +19,7 @@ const itemGenerator = {
         className: 'details-archive',
         key: 'school-archive-' + index,
         name: getArchiveName(archive),
-        highlight: inBetween(selectedYear, archive.beginYear, archive.endYear)
+        highlight: inBetween(selectedYear, archive.beginYear, archive.endYear),
       };
     }).reverse();
   },
@@ -32,7 +30,7 @@ const itemGenerator = {
         className: 'details-continuum-event',
         key: 'school-continuum-event-' + index,
         name: getContinuumEventName(event),
-        highlight: event.year === selectedYear
+        highlight: event.year === selectedYear,
       };
     }).reverse();
   },
@@ -42,20 +40,20 @@ const itemGenerator = {
         {
           key: 'architect-of-building-' + building.id,
           name: building.architect,
-          boxContent: 'arkkitehti'
+          boxContent: 'arkkitehti',
         },
         {
           key: 'neighborhood-of-building-' + building.id,
           name: building.neighborhood,
-          boxContent: 'alue'
-        }
+          boxContent: 'alue',
+        },
       ];
       if (building.addresses && building.addresses.length > 1) {
         _.each(building.addresses.reverse(), function(address) {
           items.push({
             key: 'building-details-address-' + address.id,
             name: getAddressString(address),
-            boxContent: getBoxContent(address)
+            boxContent: getBoxContent(address),
           });
         });
       }
@@ -65,7 +63,7 @@ const itemGenerator = {
         items: items,
         key: 'building-' + building.id,
         name: getAddressStringFromBuilding(building),
-        highlight: inBetween(selectedYear, building.beginYear, building.endYear)
+        highlight: inBetween(selectedYear, building.beginYear, building.endYear),
       };
     }).reverse();
   },
@@ -76,7 +74,7 @@ const itemGenerator = {
         className: 'details-field',
         key: 'school-field-' + index,
         name: field.field.name,
-        highlight: inBetween(selectedYear, field.beginYear, field.endYear)
+        highlight: inBetween(selectedYear, field.beginYear, field.endYear),
       };
     }).reverse();
   },
@@ -87,7 +85,7 @@ const itemGenerator = {
         className: 'details-gender',
         key: 'school-gender-' + index,
         name: gender.gender,
-        highlight: inBetween(selectedYear, gender.beginYear, gender.endYear)
+        highlight: inBetween(selectedYear, gender.beginYear, gender.endYear),
       };
     }).reverse();
   },
@@ -98,7 +96,7 @@ const itemGenerator = {
         className: 'details-language',
         key: 'school-language-' + language.id,
         name: language.language,
-        highlight: inBetween(selectedYear, language.beginYear, language.endYear)
+        highlight: inBetween(selectedYear, language.beginYear, language.endYear),
       };
     }).reverse();
   },
@@ -109,7 +107,7 @@ const itemGenerator = {
         className: 'details-school-name',
         key: 'school-name-' + name.id,
         name: name.officialName,
-        highlight: inBetween(selectedYear, name.beginYear, name.endYear)
+        highlight: inBetween(selectedYear, name.beginYear, name.endYear),
       };
     }).reverse();
   },
@@ -120,7 +118,7 @@ const itemGenerator = {
         className: 'details-principal',
         key: 'principal-' + principal.id,
         name: principal.name,
-        highlight: inBetween(selectedYear, principal.beginYear, principal.endYear)
+        highlight: inBetween(selectedYear, principal.beginYear, principal.endYear),
       };
     }).reverse();
   },
@@ -131,10 +129,10 @@ const itemGenerator = {
         className: 'details-building',
         key: 'school-type-' + index,
         name: type.type.name,
-        highlight: inBetween(selectedYear, type.beginYear, type.endYear)
+        highlight: inBetween(selectedYear, type.beginYear, type.endYear),
       };
     }).reverse();
-  }
+  },
 };
 
 class SchoolDetails extends React.Component {
@@ -144,7 +142,7 @@ class SchoolDetails extends React.Component {
     const schoolTypeGroup = itemGenerator.types(details.types, selectedYear).concat(
       itemGenerator.fields(details.fields, selectedYear),
       itemGenerator.languages(details.languages, selectedYear),
-      itemGenerator.genders(details.genders, selectedYear),
+      itemGenerator.genders(details.genders, selectedYear)
     );
     let buildingsLeadText = '';
     if (details.buildings) {
@@ -203,7 +201,7 @@ SchoolDetails.propTypes = {
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
         location: React.PropTypes.string,
-      }),
+      })
     ),
     buildings: React.PropTypes.arrayOf(
       React.PropTypes.shape({
@@ -213,13 +211,13 @@ SchoolDetails.propTypes = {
             React.PropTypes.shape({
               municipalityFi: React.PropTypes.string,
               streetNameFi: React.PropTypes.string,
-            }),
+            })
           ),
           architect: React.PropTypes.string,
           neighborhood: React.PropTypes.string,
         }),
         endYear: React.PropTypes.number,
-      }),
+      })
     ),
     fields: React.PropTypes.arrayOf(
       React.PropTypes.shape({
@@ -228,35 +226,35 @@ SchoolDetails.propTypes = {
         field: React.PropTypes.shape({
           description: React.PropTypes.string,
         }),
-      }),
+      })
     ),
     genders: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
         gender: React.PropTypes.string,
-      }),
+      })
     ),
     languages: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
         language: React.PropTypes.string,
-      }),
+      })
     ),
     names: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
         officialName: React.PropTypes.string,
-      }),
+      })
     ),
     principals: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         beginYear: React.PropTypes.number,
         endYear: React.PropTypes.number,
         name: React.PropTypes.string,
-      }),
+      })
     ),
     types: React.PropTypes.arrayOf(
       React.PropTypes.shape({
@@ -265,7 +263,7 @@ SchoolDetails.propTypes = {
         type: React.PropTypes.shape({
           name: React.PropTypes.string,
         }),
-      }),
+      })
     ),
   }),
 };

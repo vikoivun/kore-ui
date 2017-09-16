@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 
 import ActionTypes from '../constants/ActionTypes';
@@ -231,7 +229,7 @@ function _hasResults() {
 function _receiveSearchResponse(searchResponse, resultsContent) {
   _nextPagesUrlDict[resultsContent] = searchResponse.next;
   _searchResults[resultsContent] = _searchResults[resultsContent].concat(
-    _.uniq(searchResponse.results),
+    _.uniq(searchResponse.results)
   );
 }
 

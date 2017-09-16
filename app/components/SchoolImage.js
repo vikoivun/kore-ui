@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Loader from 'react-loader';
 import { getImageUrl } from '../core/utils';

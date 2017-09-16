@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 import React from 'react';
 import DocumentTitle from 'react-document-title';
@@ -33,10 +31,10 @@ function getStateFromStores(schoolId) {
     schoolDetails: SchoolStore.getSchoolDetails(schoolId, selectedYear),
     schoolYearDetails: SchoolStore.getSchoolYearDetails(
       schoolId,
-      selectedYear,
+      selectedYear
     ),
     locationsForSelectedYear: SchoolStore.getLocationsForYear(schoolId, selectedYear),
-    selectedYear
+    selectedYear,
   };
 }
 

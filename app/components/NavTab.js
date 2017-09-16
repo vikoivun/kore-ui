@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -8,7 +6,7 @@ class NavTab extends React.Component {
     const isActive = this.context.router.isActive(
       this.props.to,
       this.props.params,
-      this.props.query,
+      this.props.query
     );
     const className = isActive ? 'active' : '';
     const link = (
@@ -26,7 +24,7 @@ NavTab.propTypes = {
   params: React.PropTypes.object,
   query: React.PropTypes.object,
   to: React.PropTypes.oneOfType(
-    [React.PropTypes.string, React.PropTypes.route],
+    [React.PropTypes.string, React.PropTypes.route]
   ).isRequired,
 };
 

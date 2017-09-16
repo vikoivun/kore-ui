@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Route, Redirect, NotFoundRoute } from 'react-router';
 import App from './App';

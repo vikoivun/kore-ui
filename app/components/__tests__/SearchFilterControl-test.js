@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
 import chai from 'chai';
@@ -24,7 +22,7 @@ describe('SearchFilterControl', () => {
   before(() => {
     requestFilterStub = sinon.stub(SearchActionCreators, 'requestFilterOptions');
     element = TestUtils.renderIntoDocument(
-      <SearchFilterControl {...props} />,
+      <SearchFilterControl {...props} />
     );
   });
 

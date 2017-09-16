@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 
 function getAssociationData(associationObjects, getter) {

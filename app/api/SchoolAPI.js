@@ -1,5 +1,3 @@
-
-
 import request from 'superagent';
 
 import SchoolServerActionCreators from '../actions/SchoolServerActionCreators';
@@ -18,7 +16,7 @@ export default {
       .end((error, response) => {
         if (response.ok) {
           SchoolServerActionCreators.handleSchoolSuccess(
-            normalizeSchoolResponse(response.body),
+            normalizeSchoolResponse(response.body)
           );
         } else {
           SchoolServerActionCreators.handleSchoolError(response.text);
