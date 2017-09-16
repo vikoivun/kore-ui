@@ -29,7 +29,11 @@
             "functions": "never"
         }],
         // Empty lines at beginning of file look horrible
-        "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1, "maxBOF": 0 }]
+        "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1, "maxBOF": 0 }],
+        // React 0.13 does not support functional components
+        "react/prefer-stateless-function": "off",
+        // replace console with something or remove entirely
+        "no-console": "warn"
     },
     "settings": {
         "react": {
@@ -47,6 +51,16 @@
                     "jsx": false,
                     "globalReturn": true
                 }
+            }
+        },
+        {
+            // Tests use chai, which does side-effects using getters,
+            // which look like no-ops to eslint
+            "files": [ "app/*/__tests__/*.js" ],
+            "plugins": [ "chai-friendly"],
+            "rules": {
+                "no-unused-expressions": "off",
+                "chai-friendly/no-unused-expressions": "error"
             }
         }
     ]
